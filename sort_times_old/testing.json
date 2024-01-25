@@ -1,0 +1,1604 @@
+{
+    "radix_sort": [
+        {
+            "data_type": "Random",
+            "data_size": "tiny",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.05482602119445801
+                ],
+                "msd_counting_sort_base8": [
+                    0.054337263107299805
+                ],
+                "msd_counting_sort_base10": [
+                    0.06026577949523926
+                ],
+                "msd_counting_sort_base12": [
+                    0.054114580154418945
+                ],
+                "msd_counting_sort_base14": [
+                    0.05373740196228027
+                ],
+                "msd_counting_sort_base16": [
+                    0.05437445640563965
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.05438041687011719
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.054788827896118164
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.07858037948608398
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.05476236343383789
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.05603528022766113
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.05534958839416504
+                ],
+                "lsd_counting_sort_base6": [
+                    0.05562090873718262
+                ],
+                "lsd_counting_sort_base8": [
+                    0.05370306968688965
+                ],
+                "lsd_counting_sort_base10": [
+                    0.05589628219604492
+                ],
+                "lsd_counting_sort_base12": [
+                    0.05388379096984863
+                ],
+                "lsd_counting_sort_base14": [
+                    0.05578446388244629
+                ],
+                "lsd_counting_sort_base16": [
+                    0.0551910400390625
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.058837890625
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.06009697914123535
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.06938910484313965
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.05522966384887695
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.05583930015563965
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.056603431701660156
+                ]
+            }
+        },
+        {
+            "data_type": "Few Unique",
+            "data_size": "tiny",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.07506752014160156
+                ],
+                "msd_counting_sort_base8": [
+                    0.05421280860900879
+                ],
+                "msd_counting_sort_base10": [
+                    0.054801225662231445
+                ],
+                "msd_counting_sort_base12": [
+                    0.07226347923278809
+                ],
+                "msd_counting_sort_base14": [
+                    0.05360841751098633
+                ],
+                "msd_counting_sort_base16": [
+                    0.05883431434631348
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.05561566352844238
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.05821990966796875
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.06212162971496582
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.05710911750793457
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.053441524505615234
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.05556035041809082
+                ],
+                "lsd_counting_sort_base6": [
+                    0.05578732490539551
+                ],
+                "lsd_counting_sort_base8": [
+                    0.05313515663146973
+                ],
+                "lsd_counting_sort_base10": [
+                    0.05841708183288574
+                ],
+                "lsd_counting_sort_base12": [
+                    0.05418825149536133
+                ],
+                "lsd_counting_sort_base14": [
+                    0.05660653114318848
+                ],
+                "lsd_counting_sort_base16": [
+                    0.0585477352142334
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.057585954666137695
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.0589749813079834
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.05729174613952637
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.05466437339782715
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.06669259071350098
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.0543975830078125
+                ]
+            }
+        },
+        {
+            "data_type": "Sorted",
+            "data_size": "tiny",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.00012135505676269531
+                ],
+                "msd_counting_sort_base8": [
+                    0.00012683868408203125
+                ],
+                "msd_counting_sort_base10": [
+                    0.00011682510375976562
+                ],
+                "msd_counting_sort_base12": [
+                    0.00011706352233886719
+                ],
+                "msd_counting_sort_base14": [
+                    0.00011730194091796875
+                ],
+                "msd_counting_sort_base16": [
+                    0.0001246929168701172
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.00011229515075683594
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.00010752677917480469
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    9.822845458984375e-05
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.00011873245239257812
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    9.894371032714844e-05
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.00010013580322265625
+                ],
+                "lsd_counting_sort_base6": [
+                    0.00010538101196289062
+                ],
+                "lsd_counting_sort_base8": [
+                    0.00010633468627929688
+                ],
+                "lsd_counting_sort_base10": [
+                    0.00010800361633300781
+                ],
+                "lsd_counting_sort_base12": [
+                    9.870529174804688e-05
+                ],
+                "lsd_counting_sort_base14": [
+                    0.00010418891906738281
+                ],
+                "lsd_counting_sort_base16": [
+                    0.00044465065002441406
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    9.942054748535156e-05
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.00010609626770019531
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.0001347064971923828
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.00010538101196289062
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.00024700164794921875
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.00013685226440429688
+                ]
+            }
+        },
+        {
+            "data_type": "Reverse Sorted",
+            "data_size": "tiny",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.00030803680419921875
+                ],
+                "msd_counting_sort_base8": [
+                    0.00014066696166992188
+                ],
+                "msd_counting_sort_base10": [
+                    0.000133514404296875
+                ],
+                "msd_counting_sort_base12": [
+                    0.0001480579376220703
+                ],
+                "msd_counting_sort_base14": [
+                    0.0001728534698486328
+                ],
+                "msd_counting_sort_base16": [
+                    0.00014328956604003906
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.0001289844512939453
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.00011682510375976562
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.00013780593872070312
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.00012063980102539062
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.00011944770812988281
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.00012493133544921875
+                ],
+                "lsd_counting_sort_base6": [
+                    0.0001380443572998047
+                ],
+                "lsd_counting_sort_base8": [
+                    0.00012874603271484375
+                ],
+                "lsd_counting_sort_base10": [
+                    0.00012159347534179688
+                ],
+                "lsd_counting_sort_base12": [
+                    0.0002474784851074219
+                ],
+                "lsd_counting_sort_base14": [
+                    0.00011920928955078125
+                ],
+                "lsd_counting_sort_base16": [
+                    0.0001266002655029297
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.00011849403381347656
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.00012040138244628906
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.00012612342834472656
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.00012230873107910156
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.00015997886657714844
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.0001232624053955078
+                ]
+            }
+        },
+        {
+            "data_type": "Nearly Sorted",
+            "data_size": "tiny",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.03539085388183594
+                ],
+                "msd_counting_sort_base8": [
+                    0.0044896602630615234
+                ],
+                "msd_counting_sort_base10": [
+                    0.005707502365112305
+                ],
+                "msd_counting_sort_base12": [
+                    0.004198789596557617
+                ],
+                "msd_counting_sort_base14": [
+                    0.035669565200805664
+                ],
+                "msd_counting_sort_base16": [
+                    0.013994693756103516
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.0032486915588378906
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.0028536319732666016
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.002974987030029297
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.0029175281524658203
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.009137868881225586
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.010370492935180664
+                ],
+                "lsd_counting_sort_base6": [
+                    0.0025954246520996094
+                ],
+                "lsd_counting_sort_base8": [
+                    0.0021903514862060547
+                ],
+                "lsd_counting_sort_base10": [
+                    0.0017952919006347656
+                ],
+                "lsd_counting_sort_base12": [
+                    0.002380847930908203
+                ],
+                "lsd_counting_sort_base14": [
+                    0.00240325927734375
+                ],
+                "lsd_counting_sort_base16": [
+                    0.0020809173583984375
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.008258819580078125
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.007168292999267578
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.005593299865722656
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.006556510925292969
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.03640866279602051
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.10666537284851074
+                ]
+            }
+        },
+        {
+            "data_type": "Random",
+            "data_size": "small",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.05410146713256836
+                ],
+                "msd_counting_sort_base8": [
+                    0.05460047721862793
+                ],
+                "msd_counting_sort_base10": [
+                    0.08806681632995605
+                ],
+                "msd_counting_sort_base12": [
+                    0.0820472240447998
+                ],
+                "msd_counting_sort_base14": [
+                    0.0585782527923584
+                ],
+                "msd_counting_sort_base16": [
+                    0.05416703224182129
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.0841517448425293
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.12328553199768066
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.053270578384399414
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.05645585060119629
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.05521512031555176
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.05540037155151367
+                ],
+                "lsd_counting_sort_base6": [
+                    0.08229923248291016
+                ],
+                "lsd_counting_sort_base8": [
+                    0.05378150939941406
+                ],
+                "lsd_counting_sort_base10": [
+                    0.05716586112976074
+                ],
+                "lsd_counting_sort_base12": [
+                    0.05222678184509277
+                ],
+                "lsd_counting_sort_base14": [
+                    0.055371999740600586
+                ],
+                "lsd_counting_sort_base16": [
+                    0.056562185287475586
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.05507469177246094
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.05820631980895996
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.05362534523010254
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.10500121116638184
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.05605483055114746
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.04940605163574219
+                ]
+            }
+        },
+        {
+            "data_type": "Few Unique",
+            "data_size": "small",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.07300448417663574
+                ],
+                "msd_counting_sort_base8": [
+                    0.053934574127197266
+                ],
+                "msd_counting_sort_base10": [
+                    0.05633544921875
+                ],
+                "msd_counting_sort_base12": [
+                    0.05428028106689453
+                ],
+                "msd_counting_sort_base14": [
+                    0.05381655693054199
+                ],
+                "msd_counting_sort_base16": [
+                    0.054708242416381836
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.06012749671936035
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.06459856033325195
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.053708791732788086
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.05729818344116211
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.05593538284301758
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.06359219551086426
+                ],
+                "lsd_counting_sort_base6": [
+                    0.05603981018066406
+                ],
+                "lsd_counting_sort_base8": [
+                    0.05399584770202637
+                ],
+                "lsd_counting_sort_base10": [
+                    0.06141352653503418
+                ],
+                "lsd_counting_sort_base12": [
+                    0.05373668670654297
+                ],
+                "lsd_counting_sort_base14": [
+                    0.05590677261352539
+                ],
+                "lsd_counting_sort_base16": [
+                    0.05582833290100098
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.054886817932128906
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.0571749210357666
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.053286075592041016
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.054998159408569336
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.06357049942016602
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.05106973648071289
+                ]
+            }
+        },
+        {
+            "data_type": "Sorted",
+            "data_size": "small",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.00014257431030273438
+                ],
+                "msd_counting_sort_base8": [
+                    0.00011444091796875
+                ],
+                "msd_counting_sort_base10": [
+                    0.0001232624053955078
+                ],
+                "msd_counting_sort_base12": [
+                    0.00012612342834472656
+                ],
+                "msd_counting_sort_base14": [
+                    0.00011682510375976562
+                ],
+                "msd_counting_sort_base16": [
+                    0.00011682510375976562
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.00010156631469726562
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.00010538101196289062
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.00010132789611816406
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.00010633468627929688
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.00010991096496582031
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    9.942054748535156e-05
+                ],
+                "lsd_counting_sort_base6": [
+                    0.00011134147644042969
+                ],
+                "lsd_counting_sort_base8": [
+                    9.965896606445312e-05
+                ],
+                "lsd_counting_sort_base10": [
+                    0.00011181831359863281
+                ],
+                "lsd_counting_sort_base12": [
+                    9.918212890625e-05
+                ],
+                "lsd_counting_sort_base14": [
+                    0.00010061264038085938
+                ],
+                "lsd_counting_sort_base16": [
+                    0.00010824203491210938
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.0001304149627685547
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.000102996826171875
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.0001239776611328125
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.00010251998901367188
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.00010848045349121094
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    8.845329284667969e-05
+                ]
+            }
+        },
+        {
+            "data_type": "Reverse Sorted",
+            "data_size": "small",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.0001704692840576172
+                ],
+                "msd_counting_sort_base8": [
+                    0.00013637542724609375
+                ],
+                "msd_counting_sort_base10": [
+                    0.0002110004425048828
+                ],
+                "msd_counting_sort_base12": [
+                    0.0001354217529296875
+                ],
+                "msd_counting_sort_base14": [
+                    0.0001342296600341797
+                ],
+                "msd_counting_sort_base16": [
+                    0.0001366138458251953
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.00012636184692382812
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.000171661376953125
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.00012350082397460938
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.00012087821960449219
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.00014019012451171875
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.00012922286987304688
+                ],
+                "lsd_counting_sort_base6": [
+                    0.00044417381286621094
+                ],
+                "lsd_counting_sort_base8": [
+                    0.00013017654418945312
+                ],
+                "lsd_counting_sort_base10": [
+                    0.00012183189392089844
+                ],
+                "lsd_counting_sort_base12": [
+                    0.00013303756713867188
+                ],
+                "lsd_counting_sort_base14": [
+                    0.00011944770812988281
+                ],
+                "lsd_counting_sort_base16": [
+                    0.0001266002655029297
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.00013303756713867188
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.00011730194091796875
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.00012040138244628906
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.00013208389282226562
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.00011920928955078125
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.00011348724365234375
+                ]
+            }
+        },
+        {
+            "data_type": "Nearly Sorted",
+            "data_size": "small",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.012844324111938477
+                ],
+                "msd_counting_sort_base8": [
+                    0.008759021759033203
+                ],
+                "msd_counting_sort_base10": [
+                    0.004186868667602539
+                ],
+                "msd_counting_sort_base12": [
+                    0.004277467727661133
+                ],
+                "msd_counting_sort_base14": [
+                    0.004751443862915039
+                ],
+                "msd_counting_sort_base16": [
+                    0.005145549774169922
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.0036144256591796875
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.005239963531494141
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.0029761791229248047
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.005223989486694336
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.0034224987030029297
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.00635981559753418
+                ],
+                "lsd_counting_sort_base6": [
+                    0.0031647682189941406
+                ],
+                "lsd_counting_sort_base8": [
+                    0.0024902820587158203
+                ],
+                "lsd_counting_sort_base10": [
+                    0.002956867218017578
+                ],
+                "lsd_counting_sort_base12": [
+                    0.005028963088989258
+                ],
+                "lsd_counting_sort_base14": [
+                    0.008358240127563477
+                ],
+                "lsd_counting_sort_base16": [
+                    0.0033495426177978516
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.012717008590698242
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.007348775863647461
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.005936861038208008
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.01992058753967285
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.013652324676513672
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.015595436096191406
+                ]
+            }
+        },
+        {
+            "data_type": "Random",
+            "data_size": "med",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.05455493927001953
+                ],
+                "msd_counting_sort_base8": [
+                    0.05388283729553223
+                ],
+                "msd_counting_sort_base10": [
+                    0.07175326347351074
+                ],
+                "msd_counting_sort_base12": [
+                    0.0785210132598877
+                ],
+                "msd_counting_sort_base14": [
+                    0.054004669189453125
+                ],
+                "msd_counting_sort_base16": [
+                    0.05390286445617676
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.05466413497924805
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.05498242378234863
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.05499005317687988
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.05511903762817383
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.05570793151855469
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.0818021297454834
+                ],
+                "lsd_counting_sort_base6": [
+                    0.0558924674987793
+                ],
+                "lsd_counting_sort_base8": [
+                    0.05352163314819336
+                ],
+                "lsd_counting_sort_base10": [
+                    0.0568699836730957
+                ],
+                "lsd_counting_sort_base12": [
+                    0.0666952133178711
+                ],
+                "lsd_counting_sort_base14": [
+                    0.05685091018676758
+                ],
+                "lsd_counting_sort_base16": [
+                    0.05676984786987305
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.06127190589904785
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.05852985382080078
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.052996158599853516
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.050626516342163086
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.0659341812133789
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.06180739402770996
+                ]
+            }
+        },
+        {
+            "data_type": "Few Unique",
+            "data_size": "med",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.06003713607788086
+                ],
+                "msd_counting_sort_base8": [
+                    0.06102561950683594
+                ],
+                "msd_counting_sort_base10": [
+                    0.05689668655395508
+                ],
+                "msd_counting_sort_base12": [
+                    0.05575156211853027
+                ],
+                "msd_counting_sort_base14": [
+                    0.055228233337402344
+                ],
+                "msd_counting_sort_base16": [
+                    0.055176496505737305
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.053966522216796875
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.052915096282958984
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.055277347564697266
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.055017709732055664
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.054544925689697266
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.05700111389160156
+                ],
+                "lsd_counting_sort_base6": [
+                    0.05564093589782715
+                ],
+                "lsd_counting_sort_base8": [
+                    0.05470681190490723
+                ],
+                "lsd_counting_sort_base10": [
+                    0.05478358268737793
+                ],
+                "lsd_counting_sort_base12": [
+                    0.059671640396118164
+                ],
+                "lsd_counting_sort_base14": [
+                    0.057356834411621094
+                ],
+                "lsd_counting_sort_base16": [
+                    0.05666851997375488
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.054453134536743164
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.06344199180603027
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.05354642868041992
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.05518007278442383
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.05884051322937012
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.055771827697753906
+                ]
+            }
+        },
+        {
+            "data_type": "Sorted",
+            "data_size": "med",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.00012636184692382812
+                ],
+                "msd_counting_sort_base8": [
+                    0.00011777877807617188
+                ],
+                "msd_counting_sort_base10": [
+                    0.00011682510375976562
+                ],
+                "msd_counting_sort_base12": [
+                    0.000164031982421875
+                ],
+                "msd_counting_sort_base14": [
+                    0.00013947486877441406
+                ],
+                "msd_counting_sort_base16": [
+                    0.0001289844512939453
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.00010633468627929688
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.00012183189392089844
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.00010228157043457031
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    9.918212890625e-05
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    9.751319885253906e-05
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.00010967254638671875
+                ],
+                "lsd_counting_sort_base6": [
+                    0.00014090538024902344
+                ],
+                "lsd_counting_sort_base8": [
+                    0.00010895729064941406
+                ],
+                "lsd_counting_sort_base10": [
+                    0.00010013580322265625
+                ],
+                "lsd_counting_sort_base12": [
+                    0.00027823448181152344
+                ],
+                "lsd_counting_sort_base14": [
+                    0.00010538101196289062
+                ],
+                "lsd_counting_sort_base16": [
+                    0.00010418891906738281
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.00011420249938964844
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.00010442733764648438
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    9.918212890625e-05
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.00011610984802246094
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.00010323524475097656
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.0001068115234375
+                ]
+            }
+        },
+        {
+            "data_type": "Reverse Sorted",
+            "data_size": "med",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.00013971328735351562
+                ],
+                "msd_counting_sort_base8": [
+                    0.00013709068298339844
+                ],
+                "msd_counting_sort_base10": [
+                    0.00014066696166992188
+                ],
+                "msd_counting_sort_base12": [
+                    0.00016045570373535156
+                ],
+                "msd_counting_sort_base14": [
+                    0.00013518333435058594
+                ],
+                "msd_counting_sort_base16": [
+                    0.0001342296600341797
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.00012826919555664062
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.00012493133544921875
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.0001285076141357422
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.00011801719665527344
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.00012254714965820312
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.0001270771026611328
+                ],
+                "lsd_counting_sort_base6": [
+                    0.00016808509826660156
+                ],
+                "lsd_counting_sort_base8": [
+                    0.00011873245239257812
+                ],
+                "lsd_counting_sort_base10": [
+                    0.00011777877807617188
+                ],
+                "lsd_counting_sort_base12": [
+                    0.00029754638671875
+                ],
+                "lsd_counting_sort_base14": [
+                    0.00012946128845214844
+                ],
+                "lsd_counting_sort_base16": [
+                    0.00012135505676269531
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.0001239776611328125
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.00012230873107910156
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.00012254714965820312
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.000152587890625
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.0001277923583984375
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.00012421607971191406
+                ]
+            }
+        },
+        {
+            "data_type": "Nearly Sorted",
+            "data_size": "med",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.04387950897216797
+                ],
+                "msd_counting_sort_base8": [
+                    0.004701375961303711
+                ],
+                "msd_counting_sort_base10": [
+                    0.007078409194946289
+                ],
+                "msd_counting_sort_base12": [
+                    0.004911184310913086
+                ],
+                "msd_counting_sort_base14": [
+                    0.03418898582458496
+                ],
+                "msd_counting_sort_base16": [
+                    0.0355989933013916
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.0032317638397216797
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.0026674270629882812
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.004559993743896484
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.0028214454650878906
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.0030634403228759766
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.04544329643249512
+                ],
+                "lsd_counting_sort_base6": [
+                    0.004761934280395508
+                ],
+                "lsd_counting_sort_base8": [
+                    0.0034444332122802734
+                ],
+                "lsd_counting_sort_base10": [
+                    0.0051021575927734375
+                ],
+                "lsd_counting_sort_base12": [
+                    0.0034284591674804688
+                ],
+                "lsd_counting_sort_base14": [
+                    0.0034482479095458984
+                ],
+                "lsd_counting_sort_base16": [
+                    0.0038459300994873047
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.04963421821594238
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.03944849967956543
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.05872941017150879
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.05171060562133789
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.04783272743225098
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.019922494888305664
+                ]
+            }
+        },
+        {
+            "data_type": "Random",
+            "data_size": "large",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.055171966552734375
+                ],
+                "msd_counting_sort_base8": [
+                    0.0533597469329834
+                ],
+                "msd_counting_sort_base10": [
+                    0.06312417984008789
+                ],
+                "msd_counting_sort_base12": [
+                    0.06838536262512207
+                ],
+                "msd_counting_sort_base14": [
+                    0.05442404747009277
+                ],
+                "msd_counting_sort_base16": [
+                    0.05388331413269043
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.08616113662719727
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.08290696144104004
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.0836036205291748
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.0550687313079834
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.05475759506225586
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.05784869194030762
+                ],
+                "lsd_counting_sort_base6": [
+                    0.05980563163757324
+                ],
+                "lsd_counting_sort_base8": [
+                    0.05451345443725586
+                ],
+                "lsd_counting_sort_base10": [
+                    0.05737900733947754
+                ],
+                "lsd_counting_sort_base12": [
+                    0.05461478233337402
+                ],
+                "lsd_counting_sort_base14": [
+                    0.057994842529296875
+                ],
+                "lsd_counting_sort_base16": [
+                    0.05507946014404297
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.06065821647644043
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.05750274658203125
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.0539548397064209
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.06010150909423828
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.060048580169677734
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.05513572692871094
+                ]
+            }
+        },
+        {
+            "data_type": "Few Unique",
+            "data_size": "large",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.0675504207611084
+                ],
+                "msd_counting_sort_base8": [
+                    0.056414127349853516
+                ],
+                "msd_counting_sort_base10": [
+                    0.05498170852661133
+                ],
+                "msd_counting_sort_base12": [
+                    0.05420684814453125
+                ],
+                "msd_counting_sort_base14": [
+                    0.053961753845214844
+                ],
+                "msd_counting_sort_base16": [
+                    0.05466914176940918
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.05589032173156738
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.05523276329040527
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.055303335189819336
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.056090354919433594
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.054060935974121094
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.055649757385253906
+                ],
+                "lsd_counting_sort_base6": [
+                    0.06659293174743652
+                ],
+                "lsd_counting_sort_base8": [
+                    0.057477712631225586
+                ],
+                "lsd_counting_sort_base10": [
+                    0.056356191635131836
+                ],
+                "lsd_counting_sort_base12": [
+                    0.0541994571685791
+                ],
+                "lsd_counting_sort_base14": [
+                    0.05656719207763672
+                ],
+                "lsd_counting_sort_base16": [
+                    0.054945945739746094
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.05490303039550781
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.06988716125488281
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.05417513847351074
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.062175750732421875
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.05580282211303711
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.054859161376953125
+                ]
+            }
+        },
+        {
+            "data_type": "Sorted",
+            "data_size": "large",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.00011467933654785156
+                ],
+                "msd_counting_sort_base8": [
+                    0.00011849403381347656
+                ],
+                "msd_counting_sort_base10": [
+                    0.00011324882507324219
+                ],
+                "msd_counting_sort_base12": [
+                    0.00012493133544921875
+                ],
+                "msd_counting_sort_base14": [
+                    0.00011515617370605469
+                ],
+                "msd_counting_sort_base16": [
+                    0.00011682510375976562
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.00010561943054199219
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.00011038780212402344
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.00010704994201660156
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.00010251998901367188
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    9.989738464355469e-05
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.00010967254638671875
+                ],
+                "lsd_counting_sort_base6": [
+                    0.00011301040649414062
+                ],
+                "lsd_counting_sort_base8": [
+                    0.00010585784912109375
+                ],
+                "lsd_counting_sort_base10": [
+                    0.00011086463928222656
+                ],
+                "lsd_counting_sort_base12": [
+                    0.00010013580322265625
+                ],
+                "lsd_counting_sort_base14": [
+                    0.00011181831359863281
+                ],
+                "lsd_counting_sort_base16": [
+                    0.00010824203491210938
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.00010609626770019531
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.00010132789611816406
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.00010824203491210938
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.00046944618225097656
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.00010728836059570312
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.00010824203491210938
+                ]
+            }
+        },
+        {
+            "data_type": "Reverse Sorted",
+            "data_size": "large",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.00013256072998046875
+                ],
+                "msd_counting_sort_base8": [
+                    0.0001556873321533203
+                ],
+                "msd_counting_sort_base10": [
+                    0.00013518333435058594
+                ],
+                "msd_counting_sort_base12": [
+                    0.000133514404296875
+                ],
+                "msd_counting_sort_base14": [
+                    0.00014281272888183594
+                ],
+                "msd_counting_sort_base16": [
+                    0.0001380443572998047
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.00012135505676269531
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.00011754035949707031
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.0001316070556640625
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.00011873245239257812
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.000118255615234375
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.00011873245239257812
+                ],
+                "lsd_counting_sort_base6": [
+                    0.00013566017150878906
+                ],
+                "lsd_counting_sort_base8": [
+                    0.0001220703125
+                ],
+                "lsd_counting_sort_base10": [
+                    0.0001347064971923828
+                ],
+                "lsd_counting_sort_base12": [
+                    0.00011968612670898438
+                ],
+                "lsd_counting_sort_base14": [
+                    0.0001163482666015625
+                ],
+                "lsd_counting_sort_base16": [
+                    0.00011777877807617188
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.00011754035949707031
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.00011706352233886719
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.0001266002655029297
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.0001552104949951172
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.00012636184692382812
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.00011920928955078125
+                ]
+            }
+        },
+        {
+            "data_type": "Nearly Sorted",
+            "data_size": "large",
+            "rows": 1,
+            "cols": 100000,
+            "times": {
+                "msd_counting_sort_base6": [
+                    0.012188911437988281
+                ],
+                "msd_counting_sort_base8": [
+                    0.015317201614379883
+                ],
+                "msd_counting_sort_base10": [
+                    0.011463642120361328
+                ],
+                "msd_counting_sort_base12": [
+                    0.15512824058532715
+                ],
+                "msd_counting_sort_base14": [
+                    0.013693571090698242
+                ],
+                "msd_counting_sort_base16": [
+                    0.003030061721801758
+                ],
+                "msd_pigeonhole_sort_base6": [
+                    0.0032472610473632812
+                ],
+                "msd_pigeonhole_sort_base8": [
+                    0.0022759437561035156
+                ],
+                "msd_pigeonhole_sort_base10": [
+                    0.00388336181640625
+                ],
+                "msd_pigeonhole_sort_base12": [
+                    0.005212545394897461
+                ],
+                "msd_pigeonhole_sort_base14": [
+                    0.0024366378784179688
+                ],
+                "msd_pigeonhole_sort_base16": [
+                    0.006006002426147461
+                ],
+                "lsd_counting_sort_base6": [
+                    0.006039619445800781
+                ],
+                "lsd_counting_sort_base8": [
+                    0.005252361297607422
+                ],
+                "lsd_counting_sort_base10": [
+                    0.0062465667724609375
+                ],
+                "lsd_counting_sort_base12": [
+                    0.0065958499908447266
+                ],
+                "lsd_counting_sort_base14": [
+                    0.0332646369934082
+                ],
+                "lsd_counting_sort_base16": [
+                    0.007349252700805664
+                ],
+                "lsd_pigeonhole_sort_base6": [
+                    0.05640912055969238
+                ],
+                "lsd_pigeonhole_sort_base8": [
+                    0.04972505569458008
+                ],
+                "lsd_pigeonhole_sort_base10": [
+                    0.057477474212646484
+                ],
+                "lsd_pigeonhole_sort_base12": [
+                    0.022846698760986328
+                ],
+                "lsd_pigeonhole_sort_base14": [
+                    0.04833579063415527
+                ],
+                "lsd_pigeonhole_sort_base16": [
+                    0.07161426544189453
+                ]
+            }
+        }
+    ]
+}
