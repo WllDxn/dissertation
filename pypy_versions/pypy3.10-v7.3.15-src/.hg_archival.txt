@@ -1,3 +1,0 @@
-node: fc59e61cfbff
-branch: release-pypy3.10-v7.x
-tag: release-pypy3.10-v7.3.15
