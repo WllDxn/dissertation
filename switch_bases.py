@@ -43,4 +43,4 @@ def get_files(path):
 
 
 if __name__ == "__main__":
-    base_switch("old")
+    base_switch("isolate_byte")

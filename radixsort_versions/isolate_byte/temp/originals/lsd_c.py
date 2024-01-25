@@ -22,8 +22,8 @@ def absolute(num):
     :param num: Number to find absolute value of
     :return: absolute value of num
     """
-    if num == (-sys.maxint) - 1:
-        return sys.maxint
+    if num == (-sys.maxsize) - 1:
+        return sys.maxsize
     return -num if num < 0 else num
 
 
@@ -42,7 +42,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, listlength=None):
             self.list = list
-            self.base = 6
+            self.base = 8
             self.listlength = len(self.list)
             self.radix = int(pow(2, self.base))
 
@@ -65,7 +65,7 @@ def make_radixsort_class(
             n = self.list[0]
             prev = self.list[0]
             (ordered, reverseordered) = (True, True)
-            for i in xrange(1, len(self.list)):
+            for i in range(1, len(self.list)):
                 if self.list[i] > m:
                     m = self.list[i]
                 if self.list[i] < n:
@@ -80,7 +80,7 @@ def make_radixsort_class(
             return m if absolute(m) > absolute(n) else n
 
         def insertion_sort(self, start, end):
-            for step in xrange(start, end):
+            for step in range(start, end):
                 key = self.list[step]
                 j = step - 1
                 while j >= 0 and key < self.list[j]:
@@ -110,18 +110,18 @@ def make_radixsort_class(
                 self.reverseSlice()
                 return
 
-            if min_bytes == int_bytes((-sys.maxint) - 1, self.radix):
+            if min_bytes == int_bytes((-sys.maxsize) - 1, self.radix):
                 uint_63 = uint_63 = ~((1 << int_bytes(listmax, 2) - 1) - 1)
                 min_bytes -= 1
                 ovf = True
             else:
                 uint_63 = ~((1 << int_bytes(listmax, 2)) - 1)
                 ovf = True
-            counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes + 1)]
+            counts = [[0 for _ in range(self.radix)] for _ in range(min_bytes + 1)]
 
             for num in self.list:
                 disc = 0
-                for i in xrange(min_bytes + 1):
+                for i in range(min_bytes + 1):
                     shift = (self.base) * i
                     sortkey = (num & ~disc) ^ uint_63
                     val = (sortkey >> shift) & self.radix - 1
@@ -133,18 +133,18 @@ def make_radixsort_class(
                     )
 
             skip = []
-            for i in xrange(min_bytes + 1):
-                for j in xrange(1, self.radix):
+            for i in range(min_bytes + 1):
+                for j in range(1, self.radix):
                     if counts[i][j] == self.listlength:
                         skip.append(i)
                     counts[i][j] += counts[i][j - 1]
             disc = 0
-            temp_list = [0 for _ in xrange(self.listlength)]
-            for i in xrange(min_bytes + 1):
+            temp_list = [0 for _ in range(self.listlength)]
+            for i in range(min_bytes + 1):
                 if i in skip:
                     continue
                 shift = (self.base) * i
-                for j in xrange(self.listlength - 1, -1, -1):
+                for j in range(self.listlength - 1, -1, -1):
                     num = self.list[j]
                     sortkey = (num & ~disc) ^ uint_63
                     val = (sortkey >> shift) & self.radix - 1

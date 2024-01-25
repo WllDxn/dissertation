@@ -12,6 +12,7 @@ def compile(version):
     cg = "\/tmp([^']*)"
     rg = "[/.+?\./]"
     for name in filenames:
+        if name=='lsd_p_0.py':continue
         packagename = f"{re.split(rg, name)[0]}_{version}"
         cmd_str = f"cp {radixsort_location}/{version}/{name} {pypy_src_location}/rpython/rlib/radixsort.py"
         subprocess.run(cmd_str, shell=True)
@@ -42,3 +43,4 @@ def get_files(path):
 
 if __name__ == "__main__":
     compile("switchbase")
+    compile("isolate_byte")

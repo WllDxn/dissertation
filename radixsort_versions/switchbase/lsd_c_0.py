@@ -42,7 +42,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, listlength=None):
             self.list = list
-            self.base = 6
+            self.base = 8
             self.listlength = len(self.list)
             self.radix = int(pow(2, self.base))
 
@@ -103,6 +103,7 @@ def make_radixsort_class(
             if self.listlength < 2:
                 return
             listmax = self.list_abs_max(checkorder=True)
+            self.setbase(listmax)
             min_bytes = int_bytes(listmax, self.radix)
             if self.ordered == True:
                 return

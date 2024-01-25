@@ -13,7 +13,7 @@ def int_bytes(i, radix):
     :return: Number of bytes used to identify integer
     """
 
-    return int(ceil(log(absolute(i))/  log(radix))) + 1
+    return int(ceil(log(absolute(i)) / log(radix))) + 1
 
 
 def absolute(num):
@@ -35,19 +35,23 @@ def make_radixsort_class(
 
         def setitem(list, item, value):
             list[item] = value
-        def setslice(self, slice, index):
-            setslice(self.list,slice,index)
+
+        def setslice(list, slice, index):
+            list[index : index + len(slice)] = slice
+
     class Radixsort(object):
         def __init__(self, list, listlength=None):
             self.list = list
-            self.base = 0
+            self.base = 8
             self.listlength = len(self.list)
-            self.radix = 0
+            self.radix = int(pow(2, self.base))
 
         def setitem(self, item, value):
             setitem(self.list, item, value)
-        def setslice(self, slice, index):
-            setslice(self.list,slice,index)
+
+        def setslice(self, slice, index=0):
+            setslice(self.list, slice, index)
+
         def list_abs_max(self, checkorder=False):
             """
             Returns the list item that will require the most bits to express. (the smallest or the largest value)
@@ -94,7 +98,8 @@ def make_radixsort_class(
                 self.setitem(stop, i)
                 start += 1
                 stop -= 1
-        @profile
+
+
         def setbase(self, listmax):
             prev = 4
             select = 0
@@ -108,53 +113,74 @@ def make_radixsort_class(
             self.base = select
             self.radix = int(pow(2, select))
             return
-        @profile
+
+
         def sort(self):
             if self.listlength < 2:
                 return
             listmax = self.list_abs_max(checkorder=True)
-            self.setbase(listmax)
             min_bytes = int_bytes(listmax, self.radix)
             if self.ordered == True:
                 return
             if self.reverseOrdered == True:
                 self.reverseSlice()
                 return
+
             if min_bytes == int_bytes((-sys.maxsize) - 1, self.radix):
                 uint_63 = uint_63 = ~((1 << int_bytes(listmax, 2) - 1) - 1)
                 min_bytes -= 1
                 ovf = True
             else:
                 uint_63 = ~((1 << int_bytes(listmax, 2)) - 1)
-                ovf = False
-            disc = 0
-            bucket = [[] for _ in range(self.radix)]
-            for i in range(min_bytes + 1):
-                shift = (self.base) * i
-                for num in self.list:
+                ovf = True
+            counts = [[0 for _ in range(self.radix)] for _ in range(min_bytes + 1)]
+
+            for num in self.list:
+                disc = 0
+                for i in range(min_bytes + 1):
+                    shift = (self.base) * i
                     sortkey = (num & ~disc) ^ uint_63
                     val = (sortkey >> shift) & self.radix - 1
-                    bucket[val].append(num)
-                if (bucket.count([])) == len(bucket)-1:
-                    continue
-                index = 0
-                for bdx, b in enumerate(bucket):
-                    self.setslice(b, index)
-                    index+=len(b)
-                    bucket[bdx] = []
-                disc = (
-                        ((1 << shift) - 1)
-                        if (not ovf) or i < min_bytes 
-                        else ((1 << (shift - self.base)) - 1)
+                    counts[i][val] += 1
+                    disc = (
+                        ((1 << shift + self.base) - 1)
+                        if (not ovf) and i < min_bytes
+                        else ((1 << (shift)) - 1)
                     )
+
+            skip = []
+            for i in range(min_bytes + 1):
+                for j in range(1, self.radix):
+                    if counts[i][j] == self.listlength:
+                        skip.append(i)
+                    counts[i][j] += counts[i][j - 1]
+            disc = 0
+            temp_list = [0 for _ in range(self.listlength)]
+            for i in range(min_bytes + 1):
+                if i in skip:
+                    continue
+                shift = (self.base) * i
+                for j in range(self.listlength - 1, -1, -1):
+                    num = self.list[j]
+                    sortkey = (num & ~disc) ^ uint_63
+                    val = (sortkey >> shift) & self.radix - 1
+                    temp_list[counts[i][val] - 1] = self.list[j]
+                    counts[i][val] -= 1
+                self.setslice(temp_list)
+                disc = (
+                    ((1 << shift + self.base) - 1)
+                    if (not ovf) and i < min_bytes
+                    else ((1 << (shift)) - 1)
+                )
 
     return Radixsort
 
+
 import copy
 
-for i in range(7,64,8):  
-    # print(str(i), end='  ')  
-    max_value = int(pow(2,i))
+for i in range(7, 64, 8):
+    # print(str(i), end='  ')
+    max_value = int(pow(2, i))
     cols = 100000
     lis = np.random.randint(0, max_value, cols, dtype=np.int64).tolist()
     # lisf = copy.deepcopy(lis)
@@ -162,5 +188,9 @@ for i in range(7,64,8):
     # rf = make_radixsort_class_f()
     r(lis).sort()
     # rf(lisf).sortf()
-    print('shifting sorted: ' + str(all(lis[i] <= lis[i+1] for i in range(len(lis) - 1))))
+    print(
+        "shifting sorted: "
+        + str(all(lis[i] <= lis[i + 1] for i in range(len(lis) - 1)))
+    )
+
     # print('fixed    sorted: ' + str(all(lisf[i] <= lisf[i+1] for i in range(len(lisf) - 1))))
