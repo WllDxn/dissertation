@@ -40,7 +40,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, listlength=None):
             self.list = list
-            self.base = 12
+            self.base = 8
             self.listlength = len(self.list)
             self.radix = int(pow(2, self.base))
             self.threshold = self.list[0]
@@ -100,6 +100,7 @@ def make_radixsort_class(
 
 
         def sort(self):
+            print('len: %d  thresh: %d' % (self.listlength, self.threshold))
             if self.listlength < 2:
                 return
             listmax = self.list_abs_max(checkorder=True)
@@ -123,6 +124,8 @@ def make_radixsort_class(
             disc = 0
             shift = min_bytes * self.base
             disc = ((1 << shift + self.base) - 1) if (not ovf) else ((1 << (shift)) - 1)
+            buckout = []
+            inscount = 0
             for k in range(min_bytes - 1, -1, -1):
                 shift = k * self.base
                 temp_bucket_indexes = []
@@ -131,6 +134,7 @@ def make_radixsort_class(
                         continue
                     if (end - start) < self.threshold:
                         self.insertion_sort(temp_list, start, end)
+                        inscount+=1
                         continue
                     for idx in range(start, end):
                         sortkey = (self.list[idx] & ~disc) ^ uint_63
@@ -156,7 +160,11 @@ def make_radixsort_class(
                     count = [0 for _ in count]
                     disc = ((1 << shift - self.base) - 1) if k > 0 else 0
                 bucket_indexes = temp_bucket_indexes
+                buckout.append(temp_bucket_indexes)
                 self.setslice(temp_list)
                 if not bucket_indexes:
+                    print(buckout)
                     return
+            print(buckout)
+            print('insertion count: %d'%inscount)
     return Radixsort

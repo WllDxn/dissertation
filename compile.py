@@ -3,7 +3,7 @@ import re
 import subprocess
 
 radixsort_location = "/home/will/dissertation/radixsort_versions"
-pypy_src_location = "/home/will/dissertation/pypy_versions/pypy3.10-v7.3.15-src"
+pypy_src_location = "/home/will/dissertation/pypy_misc/pypy3.10-v7.3.15-src"
 pypy_versions = "/home/will/dissertation/pypy_versions"
 
 
@@ -13,6 +13,7 @@ def compile(version):
     cg = "\/tmp([^']*)"
     rg = "[/.+?\./]"
     for name in filenames:
+        if '8'not in name:continue
         packagename = f"{re.split(rg, name)[0]}_{version}"
         if packagename in existingnames:
             print(f'skipping: {str(name)}')
@@ -49,6 +50,4 @@ def get_files(path):
 
 
 if __name__ == "__main__":
-    compile("insertion_tests")
-    compile("switchbase")
-    compile("isolate_byte")
+    compile("insertion_tests_2")

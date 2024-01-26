@@ -1,10 +1,5 @@
-import json
-
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-import seaborn as sns
-
+import matplotlib.pyplot as plt
 
 def reject_outliers_2(data, m=2):
     data = np.array(data)
@@ -13,33 +8,20 @@ def reject_outliers_2(data, m=2):
     s = d / (mdev or 1.)
     return data[s < m]
 
-def plot_regplot(df, x, y, color, label, scatter=True):
-    try:
-        sns.regplot(x=x, y=y, data=df[[x, y]].dropna(), order=2, ci=None, scatter_kws={"s": 80}, color=color, label=label, scatter=scatter)
-        return True
-    except Exception:
-        return False
-
 def graph():
-    with open('sort_times_msdp_1.json', 'r') as f:
-        dataset = json.load(f)
-    df = pd.json_normalize(dataset['radix_sort'])
+    df = pd.read_json('sort_times/insertion_tests_24.json')
+    df = df['radix_sort'].apply(pd.Series)
     df = df.reindex(sorted(df.columns), axis=1)
-    df = df.drop(['files', 'read', 'key', 'cols'], axis=1)
+    df.update(df.filter(like='times').applymap(reject_outliers_2))
     df.update(df.filter(like='times').applymap(np.mean))
+    df = df.loc[df['data_size'] == 'small'].drop(['cols', 'rows', 'data_type', 'data_size'], axis=1)
+    df.columns = df.columns.str.replace('times.', '')
+    df = df.reset_index(drop=True)
 
-    for i in range(6, 18, 2):
-        plt.cla()
-        plot_names = [(f"insertion_{i}", 'r'), (f"radix_{i}", 'b'), (f"ranges{i}", 'g'), (f"ranges_doubled{i}", 'y')]
-        fails = [
-            name.split('_')[0]
-            for name, color in plot_names
-            if not plot_regplot(df, "rows", name, color, name)
-        ]
-        if fails:
-            print(f'fails: {fails} base: {i}')
-        if len(fails) < 4:
-            plt.legend(fontsize=10)
-            plt.savefig(f'a_msdpgraphs/msd_pig_{i}.jpg')
+    for method in df.columns.drop('threshold'):
+        df.plot(x='threshold', y=method, kind='scatter', figsize=(15, 8), grid=True)
+        plt.xlabel("Threshold")
+        plt.ylabel("Times")
+        plt.savefig(f'graphs/insertion2024/{method}.jpg')
 
 graph()

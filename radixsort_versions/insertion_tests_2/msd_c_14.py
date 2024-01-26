@@ -20,8 +20,8 @@ def absolute(num):
     :param num: Number to find absolute value of
     :return: absolute value of num
     """
-    if num == (-sys.maxint) - 1:
-        return sys.maxint
+    if num == (-sys.maxsize) - 1:
+        return sys.maxsize
     return -num if num < 0 else num
 
 
@@ -40,7 +40,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, listlength=None):
             self.list = list
-            self.base = 12
+            self.base = 14
             self.listlength = len(self.list)
             self.radix = int(pow(2, self.base))
             self.threshold = self.list[0]
@@ -52,51 +52,29 @@ def make_radixsort_class(
             setslice(self.list, slice, index)
 
         def list_abs_max(self, checkorder=False):
-            """
-            Returns the list item that will require the most bits to express. (the smallest or the largest value)
-            Also optinoally returns booleans stating whether the list is ordered or reverse ordered
-            :param checkorder: Flag that determines whether to check whether the list is ordered
-            :return: the maximum absolute value in the list
-            """
-
             assert len(self.list) != 0
-            m = self.list[0]
-            n = self.list[0]
-            prev = self.list[0]
-            (ordered, reverseordered) = (True, True)
-            for i in range(1, len(self.list)):
-                if self.list[i] > m:
-                    m = self.list[i]
-                if self.list[i] < n:
-                    n = self.list[i]
-                if checkorder:
-                    ordered &= self.list[i] >= prev
-                    reverseordered &= self.list[i] <= prev
-                    prev = self.list[i]
+            m = max(self.list, key=absolute)
             if checkorder:
-                self.ordered = ordered
-                self.reverseOrdered = reverseordered
-            return m if absolute(m) > absolute(n) else n
+                self.ordered = all(self.list[i] >= self.list[i - 1] for i in range(1, len(self.list)))
+                self.reverseOrdered = all(self.list[i] <= self.list[i - 1] for i in range(1, len(self.list)))
+            return m
 
-        def insertion_sort(self, templist, start, end):
+
+        def insertion_sort(self, start, end):
             for step in range(start, end):
-                key = templist[step]
+                key = self.list[step]
                 j = step - 1
-                while j >= 0 and key < templist[j]:
-                    templist[j + 1] =  templist[j]
+                while j >= 0 and key < self.list[j]:
+                    self.setitem(j + 1, self.list[j])
                     j = j - 1
-                templist[j + 1] = key
+                self.setitem(j + 1, key)
 
-        def reverseSlice(self, start=0, stop=0):
-            if stop == 0:
-                stop = self.listlength - 1
-            while start < stop:
-                i = self.list[start]
-                j = self.list[stop]
-                self.setitem(start, j)
-                self.setitem(stop, i)
-                start += 1
-                stop -= 1
+
+        def reverseSlice(self, start=0, stop=None):
+            if stop is None:
+                stop = self.listlength
+            self.list[start:stop] = self.list[start:stop][::-1]
+
 
 
         def sort(self):
@@ -110,7 +88,7 @@ def make_radixsort_class(
                 self.reverseSlice()
                 return
     
-            if min_bytes == int_bytes((-sys.maxint) - 1, self.radix):
+            if min_bytes == int_bytes((-sys.maxsize) - 1, self.radix):
                 uint_63 = uint_63 = ~((1 << int_bytes(listmax, 2) - 1) - 1)
                 min_bytes -= 1
                 ovf = True
@@ -130,7 +108,9 @@ def make_radixsort_class(
                     if start + 1 == end:
                         continue
                     if (end - start) < self.threshold:
-                        self.insertion_sort(temp_list, start, end)
+                        self.insertion_sort(start, end)
+                        for i in range(start, end):
+                            temp_list[i] = self.list[i]
                         continue
                     for idx in range(start, end):
                         sortkey = (self.list[idx] & ~disc) ^ uint_63

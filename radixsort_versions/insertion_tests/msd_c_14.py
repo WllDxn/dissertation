@@ -2,7 +2,6 @@ import sys
 from math import ceil, log, pow
 
 
-
 def int_bytes(i, radix):
     """
     Retrieves the minimum number of bytes required to identify an integer.
@@ -24,20 +23,6 @@ def absolute(num):
     if num == (-sys.maxint) - 1:
         return sys.maxint
     return -num if num < 0 else num
-
-
-def make_radixsort_class(
-    setitem=None,
-    setslice=None,
-):
-    if setitem is None:
-
-        def setitem(list, item, value):
-            list[item] = value
-
-        def setslice(list, slice, index):
-            list[index : index + len(slice)] = slice
-
 
 
 def make_radixsort_class(
@@ -93,14 +78,14 @@ def make_radixsort_class(
                 self.reverseOrdered = reverseordered
             return m if absolute(m) > absolute(n) else n
 
-        def insertion_sort(self, start, end):
+        def insertion_sort(self, templist, start, end):
             for step in range(start, end):
-                key = self.list[step]
+                key = templist[step]
                 j = step - 1
-                while j >= 0 and key < self.list[j]:
-                    self.setitem(j + 1, self.list[j])
+                while j >= 0 and key < templist[j]:
+                    templist[j + 1] =  templist[j]
                     j = j - 1
-                self.setitem(j + 1, key)
+                templist[j + 1] = key
 
         def reverseSlice(self, start=0, stop=0):
             if stop == 0:
@@ -134,7 +119,7 @@ def make_radixsort_class(
                 ovf = False
             count = [0 for _ in range(self.radix)]
             bucket_indexes = [(0, self.listlength)]
-            temp_list = [0 for _ in range(self.listlength)]
+            temp_list = self.list[:]
             disc = 0
             shift = min_bytes * self.base
             disc = ((1 << shift + self.base) - 1) if (not ovf) else ((1 << (shift)) - 1)
@@ -145,7 +130,7 @@ def make_radixsort_class(
                     if start + 1 == end:
                         continue
                     if (end - start) < self.threshold:
-                        self.insertion_sort(start, end)
+                        self.insertion_sort(temp_list, start, end)
                         continue
                     for idx in range(start, end):
                         sortkey = (self.list[idx] & ~disc) ^ uint_63
@@ -174,5 +159,4 @@ def make_radixsort_class(
                 self.setslice(temp_list)
                 if not bucket_indexes:
                     return
-
     return Radixsort

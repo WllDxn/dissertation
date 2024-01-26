@@ -2,46 +2,36 @@ import os
 import re
 
 radixsort_location = "/home/will/dissertation/radixsort_versions"
-pypy_src_location = "/home/will/dissertation/pypy_versions/pypy3.10-v7.3.15-src"
-pypy_versions = "/home/will/dissertation/pypy_versions"
 
-# Precompile the regular expression
-rg = re.compile(r"[/.+?\./]")
-
+# Simplified regular expression
+rg = re.compile(r"[_/.]")
 
 def base_switch(version):
     filenames = get_files(os.path.join(radixsort_location, version, "originals"))
     cutoffs = [2000, 2000, 2500, 6400, 12000, 12000]
     for name in filenames:
-        radix, integer = rg.split(name)[0].split("_")
-        fn = os.path.join(radixsort_location, version, "originals", name)
-        with open(fn, "r") as file:
-            data = file.readlines()
-        k = 0
-        while "self.base =" not in data[k]:
-            k += 1
-        mk = 0
+        radix, integer = rg.split(name)[:2]
+        data = read_file(os.path.join(radixsort_location, version, "originals", name))
+        base_line = next(i for i, line in enumerate(data) if "self.base =" in line)
         if radix == "msd":
-            while "if (end - start) <" not in data[mk]:
-                mk += 1
+            cutoff_line = next(i for i, line in enumerate(data) if "(end - start) <" in line)
         for base in range(6, 18, 2):
-            base_str = str(base)
-            data[k] = f"            self.base = {base_str}\n"
+            data[base_line] = f"            self.base = {base}\n"
             if radix == "msd":
-                cutoff_str = str(cutoffs[(base // 2) - 3])
-                data[mk] = f"                    if (end - start) < self.threshold:\n"
-            output_filename = f"{radix}_{integer}_{base_str}.py"
-            output_path = os.path.join(radixsort_location, version, output_filename)
-            with open(output_path, "w") as file:
-                file.writelines(data)
+                data[cutoff_line] = f"                    if (end - start) < {cutoffs[(base // 2) - 3]}:\n"
+            output_filename = f"{radix}_{integer}_{base}.py"
+            write_file(os.path.join(radixsort_location, version, output_filename), data)
 
+def read_file(path):
+    with open(path, "r") as file:
+        return file.readlines()
+
+def write_file(path, data):
+    with open(path, "w") as file:
+        file.writelines(data)
 
 def get_files(path):
-    for file in os.listdir(path):
-        if os.path.isfile(os.path.join(path, file)):
-            yield file
-
+    return [file for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))]
 
 if __name__ == "__main__":
-    base_switch("isolate_byte")
-    base_switch("insertion_tests")
+    base_switch("insertion_tests_2")
