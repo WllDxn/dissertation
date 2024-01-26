@@ -29,7 +29,7 @@ def base_switch(version):
             data[k] = f"            self.base = {base_str}\n"
             if radix == "msd":
                 cutoff_str = str(cutoffs[(base // 2) - 3])
-                data[mk] = f"                    if (end - start) < {cutoff_str}:\n"
+                data[mk] = f"                    if (end - start) < self.threshold:\n"
             output_filename = f"{radix}_{integer}_{base_str}.py"
             output_path = os.path.join(radixsort_location, version, output_filename)
             with open(output_path, "w") as file:
@@ -44,3 +44,4 @@ def get_files(path):
 
 if __name__ == "__main__":
     base_switch("isolate_byte")
+    base_switch("insertion_tests")

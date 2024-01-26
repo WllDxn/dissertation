@@ -9,11 +9,14 @@ pypy_versions = "/home/will/dissertation/pypy_versions"
 
 def compile(version):
     filenames = get_files(f"{radixsort_location}/{version}")
+    existingnames = list(get_directories(f"{pypy_versions}"))
     cg = "\/tmp([^']*)"
     rg = "[/.+?\./]"
     for name in filenames:
-        if name=='lsd_p_0.py':continue
         packagename = f"{re.split(rg, name)[0]}_{version}"
+        if packagename in existingnames:
+            print(f'skipping: {str(name)}')
+            continue
         cmd_str = f"cp {radixsort_location}/{version}/{name} {pypy_src_location}/rpython/rlib/radixsort.py"
         subprocess.run(cmd_str, shell=True)
         print(
@@ -35,6 +38,10 @@ def compile(version):
         subprocess.run(exc, shell=True)
 
 
+def get_directories(path):
+    for file in os.listdir(path):
+        if not os.path.isfile(os.path.join(path, file)):
+            yield file
 def get_files(path):
     for file in os.listdir(path):
         if os.path.isfile(os.path.join(path, file)):
@@ -42,5 +49,6 @@ def get_files(path):
 
 
 if __name__ == "__main__":
+    compile("insertion_tests")
     compile("switchbase")
     compile("isolate_byte")

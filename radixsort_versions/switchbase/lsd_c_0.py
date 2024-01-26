@@ -1,8 +1,6 @@
 import sys
 from math import ceil, log, pow
 
-import numpy as np
-
 
 def int_bytes(i, radix):
     """
@@ -44,7 +42,7 @@ def make_radixsort_class(
             self.list = list
             self.base = 8
             self.listlength = len(self.list)
-            self.radix = int(pow(2, self.base))
+            self.radix = 0
 
         def setitem(self, item, value):
             setitem(self.list, item, value)
@@ -87,7 +85,20 @@ def make_radixsort_class(
                     self.setitem(j + 1, self.list[j])
                     j = j - 1
                 self.setitem(j + 1, key)
-
+        def setbase(self, listmax):
+            prev = 4
+            select = 0
+            for i in range(16, 4, -2):
+                val = ceil(int_bytes(listmax, 2) / i)
+                if val <= prev:
+                    prev = val
+                    select = i
+                else:
+                    break
+            self.base = select
+            self.radix = int(pow(2, select))
+            return
+        
         def reverseSlice(self, start=0, stop=0):
             if stop == 0:
                 stop = self.listlength - 1
@@ -117,7 +128,7 @@ def make_radixsort_class(
                 ovf = True
             else:
                 uint_63 = ~((1 << int_bytes(listmax, 2)) - 1)
-                ovf = True
+                ovf = False
             counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes + 1)]
 
             for num in self.list:

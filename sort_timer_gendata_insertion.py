@@ -12,10 +12,9 @@ methodchoices = ["lsdcount", "lsdpigeonhole", "msdcount", "msdpigeonhole"]
 datasizechoices = ["tiny", "small", "med", "large" ]
 datachoices = ["Nearly Sorted", "Random", "Few Unique", "Sorted", "Reverse Sorted"]
 
-def gen_list(cols, data_size, type='Random', threshold=None):
+def gen_list(cols, data_size, type='random'):
     max_value = {'large':9223372036854775807, 'med':4294967296, 'small': 1048576, 'tiny': 65536}[data_size]
     lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
-    lis[0]=threshold if threshold is not None else lis[0]
     #---Random List---
     if type=='Random':
         return lis
@@ -48,7 +47,6 @@ class Sorter:
         self.time_start = time.time()
         self.max_list_count = config["list_count"][0]
         self.max_list_length = config["list_length"]
-        self.threshold = config["threshold"][0]
         self.total_count = 0
         self.method = config["method"][0]
         self.datasizes = [item for item in datasizechoices if item not in config["exclude_data_sizes"]]
@@ -70,10 +68,10 @@ class Sorter:
                 f.write("{}")
         return path
 
-    def set_data(self, data, list_length, data_size, data_type, time, threshold=None):
-        entries = data['radix_sort']
-        for idx, i in enumerate(entries):
-            if i['data_type'] == data_type and i['data_size'] == data_size and i['rows'] == self.max_list_count and i['cols'] == list_length and (threshold is None or threshold == i['threshold']):
+    def set_data(self, data, list_length, data_size, data_type, time):
+        dict = data['radix_sort']
+        for idx, i in enumerate(dict):
+            if i['data_type'] == data_type and i['data_size'] == data_size and i['rows'] == self.max_list_count and i['cols'] == list_length:
                 data['radix_sort'][idx]['times'].setdefault(self.method,[])
                 data['radix_sort'][idx]['times'][self.method].append(time)
                 return data
@@ -82,14 +80,12 @@ class Sorter:
         newData.setdefault("data_size", data_size)
         newData.setdefault("rows", self.max_list_count)
         newData.setdefault("cols", list_length)
-        if threshold is not None:
-            newData.setdefault("threshold", threshold)
         newData.setdefault("times", {})
         newData['times'].setdefault(self.method,[])
         newData['times'][self.method].append(time)
         data['radix_sort'].append(newData)
         return data
-    
+            
   
         
     def begin_sorting(self):
@@ -97,23 +93,21 @@ class Sorter:
         with open(self.outputpath, "r+") as f:
             data = json.load(f)
             data.setdefault("radix_sort", [])
-        if self.threshold is None:
-            items = list(itertools.product(self.max_list_length, self.datasizes, self.datatypes, [None], list(range(self.max_list_count))))
-        else:
-            items =list(itertools.product(self.max_list_length, self.datasizes, self.datatypes, list(range(self.threshold//100, self.threshold+1, self.threshold//100)), list(range(self.max_list_count))))
+
+        items = list(itertools.product(self.max_list_length, self.datasizes, self.datatypes, list(range(self.max_list_count))))
         interval = time.time()
-        for list_length, data_size, data_type, threshold, count in items:
+        for list_length, data_size, data_type, count in items:
             # data.setdefault("data_type", data_type)
             # data.setdefault("data_size", data_size)
             # data.setdefault("times", {})
             # data["times"].setdefault(self.method, [])
             self.print_sortmethod_count(data_size, data_type, count, len(items),interval)           
-            curr_list = gen_list(list_length, data_size, data_type, threshold)
+            curr_list = gen_list(list_length, data_size, data_type)
             t1_start = time.perf_counter() 
             curr_list.sort()
             t1_stop = time.perf_counter()
             newtime = t1_stop-t1_start
-            data = self.set_data(data, list_length, data_size, data_type, newtime, threshold)
+            data = self.set_data(data, list_length, data_size, data_type, newtime)
             if count+1 == self.max_list_count:
                 self.print_sortmethod_evaluation(interval, data_type, data_size, list_length)
                 interval = time.time()
@@ -191,7 +185,7 @@ if __name__ == "__main__":
         "-l",
         "--list-length",
         type=int,
-        default=[10000,100000,1000000],
+        default=25000,
         nargs="*",
         help="Maximum number of ints to be read into each list",
     )
@@ -230,13 +224,6 @@ if __name__ == "__main__":
         choices=datachoices,
         help="Exclude Data types while sorting, choose from: " + ", ".join(datachoices),
         metavar=" ",
-    )
-    parser.add_argument(
-        "-t",
-        "--threshold",
-        type=int,
-        nargs = "*",
-        help="Maximum threshold",
     )
     args = parser.parse_args()
     sorter = Sorter(vars(args))

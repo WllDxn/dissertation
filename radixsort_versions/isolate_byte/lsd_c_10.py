@@ -1,7 +1,6 @@
 import sys
 from math import ceil, log, pow
 
-import numpy as np
 
 
 def int_bytes(i, radix):
@@ -116,7 +115,7 @@ def make_radixsort_class(
                 ovf = True
             else:
                 uint_63 = ~((1 << int_bytes(listmax, 2)) - 1)
-                ovf = True
+                ovf = False
             counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes + 1)]
 
             for num in self.list:
@@ -152,7 +151,7 @@ def make_radixsort_class(
                     counts[i][val] -= 1
                 self.setslice(temp_list)
                 disc = (
-                    ((1 << shift + self.base) - 1)
+                    ((1 << shift - self.base) - 1)
                     if (not ovf) and i < min_bytes
                     else ((1 << (shift)) - 1)
                 )
