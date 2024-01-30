@@ -37,6 +37,8 @@ def compile(version):
         subprocess.run(exc, shell=True)
         exc = f"{pypy_versions}/{packagename}/bin/pypy -mpip install numpy"
         subprocess.run(exc, shell=True)
+        cmd_str = f"cp {pypy_src_location}/rpython/rlib/radixsort.py {pypy_versions}/{packagename}/{name}"
+        subprocess.run(cmd_str, shell=True)
 
 
 def get_directories(path):
@@ -50,4 +52,4 @@ def get_files(path):
 
 
 if __name__ == "__main__":
-    compile("insertion_tests_2")
+    compile("insertion_tests_3")

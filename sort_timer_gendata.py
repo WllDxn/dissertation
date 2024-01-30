@@ -6,7 +6,8 @@ import argparse
 import numpy as np
 import random
 import tempfile
-
+import os
+import copy
 methodchoices = ["lsdcount", "lsdpigeonhole", "msdcount", "msdpigeonhole"]
 datasizechoices = ["tiny", "small", "med", "large"]
 datachoices = ["Nearly Sorted", "Random", "Few Unique", "Sorted", "Reverse Sorted"]
@@ -50,7 +51,7 @@ class Sorter:
     def __init__(self, config):
         self.outputpath = self.create_output_dictionary(config["output"])
         self.time_start = time.time()
-        self.max_list_count = config["list_count"][0]
+        self.max_list_count = config["list_count"]
         self.max_list_length = config["list_length"]
         self.threshold = config["threshold"][0]
         self.threshold_divisions = config["thresholddivs"][0]
@@ -64,14 +65,18 @@ class Sorter:
         ]
         self.begin_sorting()
 
-    def create_output_dictionary(self):
-        with tempfile.NamedTemporaryFile(
-            delete=False,
-            dir=Path.cwd(),
-            prefix=f"{__file__}.sort_times_",
-            suffix=".json",
-        ) as tf:
-            return tf.name
+    def create_output_dictionary(self, output):
+        # sourcery skip: replace-interpolation-with-fstring
+        if output:
+            path = output[0]
+        else:
+            dir_path = os.path.dirname(os.path.realpath(__file__).join('sort_times'))
+            with tempfile.NamedTemporaryFile(dir=dir_path, prefix="sort_times_", suffix=".json", delete=False) as tmp_file:
+                path = tmp_file.name
+        if not os.path.exists(path):
+            with open(path, "w") as f:
+                f.write("{}")
+        return path
 
     def set_data(self, data, list_length, data_size, data_type, time, threshold=None):
         for entry in data["radix_sort"]:
@@ -83,7 +88,7 @@ class Sorter:
                 and (threshold is None or threshold == entry["threshold"])
             ):
                 entry["times"].setdefault(self.method, []).append(time)
-                return
+                return data
         new_entry = {
             "data_type": data_type,
             "data_size": data_size,
@@ -94,10 +99,11 @@ class Sorter:
         if threshold is not None:
             new_entry["threshold"] = threshold
         data["radix_sort"].append(new_entry)
+        return data
 
     def begin_sorting(self):
         for i in range(100):
-            curr_list = gen_list(10000, "med", "Random", None)
+            curr_list = gen_list(1000000, "med", "Random", None)
             myp("\033[1;36m\r\033[KWarming up: %d/100" % (i + 1))
         print("")
         with open(self.outputpath, "r+") as f:
@@ -116,12 +122,15 @@ class Sorter:
         items = generate_items()
         if self.threshold is not None:
             items = list(items)
-            random.shuffle(items)
+            randlists = [gen_list(self.max_list_length[0], self.datasizes[0], self.datatypes[0], 0) for _ in range(self.max_list_count)]
+            # random.shuffle(items)
         
         interval = time.time()
         for list_length, data_size, data_type, threshold, count in items:
             self.print_sortmethod_count(data_size, data_type, count, len(items), interval)
-            curr_list = gen_list(list_length, data_size, data_type, threshold)
+            curr_list = list(randlists[count])
+            curr_list[0]=threshold
+            # curr_list = gen_list(list_length, data_size, data_type, threshold)#
             t1_start = time.perf_counter()
             curr_list.sort()
             t1_stop = time.perf_counter()
@@ -140,7 +149,7 @@ class Sorter:
         self, data_size, data_type, count, total_items, interval
     ):
         myp(
-            f"\033[K\033[1;31m\r{data_type} {data_size}\tCurrent: {count}/{self.max_list_count}\t{self.total_count}/{total_items}\ttime: {time.time()-interval} s"
+            f"\033[2K\033[1;31m\r{data_type} {data_size}\t\tCurrent: {count}/{self.max_list_count}\t{self.total_count}/{total_items}\ttime: {time.time()-interval} s"
         )
 
     def print_sortmethod_evaluation(
