@@ -52,13 +52,31 @@ def make_radixsort_class(
             setslice(self.list, slice, index)
 
         def list_abs_max(self, checkorder=False):
-            assert len(self.list) != 0
-            m = max(self.list, key=absolute)
-            if checkorder:
-                self.ordered = all(self.list[i] >= self.list[i - 1] for i in range(1, len(self.list)))
-                self.reverseOrdered = all(self.list[i] <= self.list[i - 1] for i in range(1, len(self.list)))
-            return m
+            """
+            Returns the list item that will require the most bits to express. (the smallest or the largest value)
+            Also optinoally returns booleans stating whether the list is ordered or reverse ordered
+            :param checkorder: Flag that determines whether to check whether the list is ordered
+            :return: the maximum absolute value in the list
+            """
 
+            assert len(self.list) != 0
+            m = self.list[0]
+            n = self.list[0]
+            prev = self.list[0]
+            (ordered, reverseordered) = (True, True)
+            for i in range(1, len(self.list)):
+                if self.list[i] > m:
+                    m = self.list[i]
+                if self.list[i] < n:
+                    n = self.list[i]
+                if checkorder:
+                    ordered &= self.list[i] >= prev
+                    reverseordered &= self.list[i] <= prev
+                    prev = self.list[i]
+            if checkorder:
+                self.ordered = ordered
+                self.reverseOrdered = reverseordered
+            return m if absolute(m) > absolute(n) else n
 
         def insertion_sort(self, start, end):
             for step in range(start, end):

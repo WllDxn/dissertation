@@ -4,7 +4,7 @@ from compile import *
 
 sort_times = "/home/will/dissertation/sort_times"
 # methods = ["isolate_byte", "timsort"]
-methods=['insertion_tests']
+methods=['insertion_tests_3']
 
 def n(methodName, output, num=100):
     """
@@ -61,7 +61,7 @@ def get_filename(name):
     print(path)
     return path
 
-def ins(methodName, output, thresh=101000, threshdivs =100, num=20):
+def ins(methodName, output, thresh=100, threshdivs=100, num=10):
     """
     Generates and runs a series of commands for sorting data based on the given method name.
 
@@ -84,20 +84,20 @@ def ins(methodName, output, thresh=101000, threshdivs =100, num=20):
     rg = "[/.+?\./]"
     count=0
     for name in fames:
-        if 'msd_p_8' not in name: continue
+        
         # if ('8' not in name and '12'not in name and '16'not in name): continue
         packagename = re.split(rg, name)[0] if methodName != "timsort" else "timsort"
         exepath = f'{pypy_versions}/{packagename}_{methodName}/bin/pypy'
         if not os.path.exists(exepath):continue
-        for l in [100000]:
-            exc = f'{exepath} sort_timer_gendata.py -m {packagename} -o {output} -n {num} -l {str(l)} -t {thresh} -d {threshdivs} -et "Few Unique" "Sorted" "Reverse Sorted" "Nearly Sorted" -es tiny med large'
+        for l in [1000000]:
+            exc = f'{exepath} sort_timer_gendata.py -m {packagename} -o {output} -n {num} -l {str(l)} -t {thresh} -d {threshdivs} -et "Few Unique" "Sorted" "Reverse Sorted" "Nearly Sorted" -es tiny small large'
             print("\033[1;35m")
             print(exc)
             print("")
             subprocess.run(exc, shell=True)
             print("--complete--")
         count+=1
-        break
+        # break
 
 #  def ins(methodName, output, num=10):
 #     fames = (

@@ -42,7 +42,7 @@ def make_radixsort_class(
 
 
     class Radixsort(object):
-        def __init__(self, list):
+        def __init__(self, list, listlength=None):
             self.list = list
             self.base = 6
             self.listlength = len(self.list)
@@ -50,12 +50,31 @@ def make_radixsort_class(
             self.threshold = self.list[0]
 
         def list_abs_max(self, checkorder=False):
+            """
+            Returns the list item that will require the most bits to express. (the smallest or the largest value)
+            Also optinoally returns booleans stating whether the list is ordered or reverse ordered
+            :param checkorder: Flag that determines whether to check whether the list is ordered
+            :return: the maximum absolute value in the list
+            """
+
             assert len(self.list) != 0
-            m = max(self.list, key=absolute)
+            m = self.list[0]
+            n = self.list[0]
+            prev = self.list[0]
+            (ordered, reverseordered) = (True, True)
+            for i in range(1, len(self.list)):
+                if self.list[i] > m:
+                    m = self.list[i]
+                if self.list[i] < n:
+                    n = self.list[i]
+                if checkorder:
+                    ordered &= self.list[i] >= prev
+                    reverseordered &= self.list[i] <= prev
+                    prev = self.list[i]
             if checkorder:
-                self.ordered = all(self.list[i] >= self.list[i - 1] for i in range(1, len(self.list)))
-                self.reverseOrdered = all(self.list[i] <= self.list[i - 1] for i in range(1, len(self.list)))
-            return m
+                self.ordered = ordered
+                self.reverseOrdered = reverseordered
+            return m if absolute(m) > absolute(n) else n
         def setitem(self, item, value):
             setitem(self.list, item, value)
 
