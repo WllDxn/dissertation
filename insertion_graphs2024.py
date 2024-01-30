@@ -22,12 +22,11 @@ def graph():
     meta = [['times', x] for x in methodnames]
     df = pd.json_normalize(data['radix_sort'],meta=meta)
     df = df.reindex(sorted(df.columns), axis=1)
-    
     #Prepare Data
-    df.update(df.filter(like='times').applymap(reject_outliers_2))
-    df.update(df.filter(like='times').applymap(np.mean))
     df.columns = df.columns.str.replace('times.', '')
     for method in methodnames:
+        df.update(df[method].apply(np.mean))
+        df.update(df[method].apply(reject_outliers_2))
         df[method] = df[method].astype(np.float32)
         df = df[np.abs(stats.zscore(df[method])) < 2]
         
