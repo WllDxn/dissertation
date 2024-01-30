@@ -191,7 +191,7 @@
 	\subsection{Introduction}
 	Radix sort utilises repeated rounds of integer sorting across each digit of the input array, therefore, it is necessary to make a clear definition of a digit so that an effective method of separating an integer into its component digits can be implemented. When expressing a number a base must first be decided, this is the number of unique digits that can be displayed at any position and when a value exceeds the maximum value within this base another digit must be added; i.e. in standard decimal or base 10 numbers 0 through 9 can be expressed in a single digit but increasing beyond this range requires adding a second digit to create the number 10. Though we typically think of numbers in the context of arabic numerals in the decimal system, this is a social convention which this algorithm is not beholden to and as Radix sort fundamentally relies on the processing of the component digits of an integer it is of great importance that an appropriate base is selected as well as an efficient method for processing each digit.
 	\subsection{Explanation}
-	Bases that are of the order 2n where n is some integer are the most suitable for a typical radix sort algorithm, this is because bases that fit this specification allow for easy conversion from binary which is how the computer on which the algorithm runs stores numbers. Any base of 2n will utilise all possible combinations of n digits of binary to express a single digit, meaning, to sort integers across a given digit it is possible to extract a known quantity of binary values at a known position within the binary representation of the integer. Provided it is possible and efficient to extract the binary value of an integer within a programming language, this approach is significantly superior to working in base 10 as it requires no mathematical calculations to be performed on each input item whereas working with base 10 would require some kind of use of the modulo or remainder functions or a type conversion to a string; both of these options are significantly more resource intensive.
+	Bases that are of the order $2^n$ where n is some integer are the most suitable for a typical radix sort algorithm, this is because bases that fit this specification allow for easy conversion from binary which is how the computer on which the algorithm runs stores numbers. Any base of 2n will utilise all possible combinations of n digits of binary to express a single digit, meaning, to sort integers across a given digit it is possible to extract a known quantity of binary values at a known position within the binary representation of the integer. Provided it is possible and efficient to extract the binary value of an integer within a programming language, this approach is significantly superior to working in base 10 as it requires no mathematical calculations to be performed on each input item whereas working with base 10 would require some kind of use of the modulo or remainder functions or a type conversion to a string; both of these options are significantly more resource intensive.
 	\subsection{Implementation}
   \label{ssec:digits}
 	Python stores integers in “two’s complement” binary and allocates 64 bits, this means that by utilising the in-built python bitwise operations it is possible to quickly manipulate integers and acquire the digit in any position so long as the base is an exponent of 2.
@@ -252,7 +252,7 @@
 
 \section{Implementation}
 \subsection{Extra Methods and Class}
-Explanation of all functions and classes that exist outside of the  radixsort algorithms. Each function is documented in isolation in the order they appear in the source files, for a full view of each of the files refer to \color{red} reference \color{black}
+Explanation of all functions and classes that exist outside of the  radixsort algorithms. Each function is documented in isolation in the order they appear in the source files, for a full view of each of the files refer to {\color{red}reference}
 \subsubsection{Function absolute}
 The purpose of this helper method was to allow for the calculation of absolute values without overflow issues specifically caused by using the minimum possible value. This value's positive counterpart lies outside of the range of the 64 bits assigned for each integer in RPython, this causes unpredictable errors and even though there is only one specific case that necessitates the use of this method over the regular abs() inbuilt function, the runtime impacts are low so it's a worthwhile helper method to include.
 \begin{lstlisting}
@@ -276,7 +276,7 @@ The function calculates  $ \log_{radix}(i)$, i.e. to what power $i$ must be rais
       \end{lstlisting}
 \pagebreak
 \subsubsection{Function make\textunderscore radixsort\textunderscore class}
-The container function that instantiates all other funtions, this is modelled on the existing function in listsort.py \color{red} reference \color{black} to minimize compatability issues when including this project in the pypy library.
+The container function that instantiates all other funtions, this is modelled on the existing function in listsort.py {\color{red}reference} to minimize compatability issues when including this project in the pypy library.
 \newline
 Almost all functions have been removed or altered in a major way, particularly any functions that pertain to comparative sorting, it is the general structure that has been emulated.
 \begin{lstlisting}
@@ -285,7 +285,7 @@ Almost all functions have been removed or altered in a major way, particularly a
     ):
   \end{lstlisting}
 \subsubsection{Function setitem}
-This function has been imported from the existing listsort.py file within rlib \color{red} Reference? I'm not actually 100\% on why this is necessary\color{black}. It exists outside of the Radixsort class and is then is imported by the class and used to alter the input list outside of the scope of the class.
+This function has been imported from the existing listsort.py file within rlib {\color{red} Reference? I'm not actually 100\% on why this is necessary}. It exists outside of the Radixsort class and is then is imported by the class and used to alter the input list outside of the scope of the class.
 \newline
 This is the only existing constructor of the original listsort.py that was not removed.
 \begin{lstlisting}
@@ -312,7 +312,7 @@ The function $setitem$ is imported here as mentioned above so that the list can 
       \end{lstlisting}
 
 \subsubsection{Function list\textunderscore abs\textunderscore max}
-This function is an implementation of a combination of min() and max() functions (neither of which are implemented in RPython \color{red} Make reference! \color{black}) as well as an optional module to identify whether the list is sorted in asscending or descending order. The function also compares the maximum and minimum values and returns the value that is farthest away from $0$.
+This function is an implementation of a combination of min() and max() functions (neither of which are implemented in RPython {\color{red}reference}) as well as an optional module to identify whether the list is sorted in asscending or descending order. The function also compares the maximum and minimum values and returns the value that is farthest away from $0$.
 \newline
 The primary purpose of this function is to return the value that is used to identify the number of passes over the input necessary for sorting, this is why it is necessary to identify the farthest value form 0 as this is the value that will contain the most digits.
 \newline
@@ -342,7 +342,7 @@ The reason that these actions are performed at the same time is because iteratin
       \end{lstlisting}
 \pagebreak
 \subsubsection{Function insertion\textunderscore sort}
-This is an implementation of insertion sort, it is used in MSD sorts when the length of a sublist falls below the critical value. \color{red}REFERENCE\color{black}
+This is an implementation of insertion sort, it is used in MSD sorts when the length of a sublist falls below the critical value. {\color{red}reference}
 \begin{lstlisting}
         def insertion_sort(self, start, end):
             for step in xrange(start, end):
@@ -355,7 +355,7 @@ This is an implementation of insertion sort, it is used in MSD sorts when the le
       \end{lstlisting}
 
 \subsubsection{function reverse\textunderscore slice}
-This reverses the items of the input inbetween the provided start and stop indexes. By default is reverses te entire list, but includes provisions to reverse a smaller slice of the list (this was from an earlier version of the algorithm, this feature is currently unused). \color{red}I should probably just remove that at this point\color{black}
+This reverses the items of the input inbetween the provided start and stop indexes. By default is reverses te entire list, but includes provisions to reverse a smaller slice of the list (this was from an earlier version of the algorithm, this feature is currently unused). {\color{red}I should probably just remove that at this point}
 \begin{lstlisting}
         def reverseSlice(self, start=0, stop=0):
             if stop == 0:
@@ -371,9 +371,23 @@ This reverses the items of the input inbetween the provided start and stop index
 \pagebreak
 \subsection{Radix sort preamble}
 In this section I will explain the four different implementations of Radix sort, but as they all operate with the same general principal I will first explore the features and tools they have in common with particular attention to how these tools are applied within RPython.
-\subsection{Bitwise operations}
+\subsubsection{Bitwise operations}
 Bitwise operations are the heart of this project, I have already covered in general terms how they are implemented in this project to identify the value of each digit in \ref{ssec:digits} and handle negative integers in \ref{ssec:negatives} but in this section I will cover specifically which bitshift operations are used and their exact effects in RPython
 \newline
-\subsubsection{Leftshift}
-A left shift refers to moving each bit of an integer one digit to the left,
+\paragraph{Leftshift}\
+\newline
+A left shift refers to moving each bit of an integer a number of digits to the left, in RPython this is performed with the operator $n << s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the left.
+\newline
+RPython utilises Arithmetic Shifting {\color{red}reference}, this causes when a shift is performed and the rightmost bit is no longer in the rightmost position, all digits in the range $[0 .. s]$ are overwritten with the value 0 and an equal quantity of digits in the leftmost positions are discarded.
+\newline
+\newline
+In this project, left shifting is used to create integer masks {\color{red}reference} used to manipulate the sign of integers and discard irrelevant data when sorting inputs across a specific digit (explained further in {\color{red}reference}). 
+\newline
+For example
+\paragraph{Rightshift}\
+A Right shift is thenverse of left shift, it refers to moving each bit of integer digits to the right, using the operator $n << s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the right.
+\newline
+Like leftshift, rightshift utilises Arithmetic shifting, meaning the rightmost $s$ digits are discarded. Rightshift differs from leftshift however as the digits in the the leftmost positions are overwritten with a value equal to the sign bit, i.e. $1$ or $0$ if the number is negative or positive respectively.
+\newline\newline
+Rightshifting is used in this project to manipulate integers from the input list by moving discarding a number of digits. The bases selected for this project are of the order $2^n$ where $n$ is some integer, meaning a single digit of the integer occupies $n$ bits and therefore; rightshifting $n*d$ positions places the digit $d$ from the right in the rightmost position, occupying the rightmost $n$ bits. 
 \end{document}

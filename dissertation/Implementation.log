@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  24 JAN 2024 13:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  26 JAN 2024 13:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/will/pypy2023/2024/Implementation
-(/home/will/pypy2023/2024/Implementation.tex
+**/home/will/dissertation/dissertation/Implementation
+(/home/will/dissertation/dissertation/Implementation.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/article.cls
@@ -392,27 +392,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 375--377
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 377--387
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--393
+
+ []
+
 [13] (./Implementation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `Implementation.out' has not changed.
-(rerunfilecheck)             Checksum: BAFA41CED20E65202053BD24B7C5BC42;4586.
+(rerunfilecheck)             Checksum: 5C6F1B5ECC73D06F4A94E3BEFFAD1B3C;4483.
  ) 
 Here is how much of TeX's memory you used:
- 12200 strings out of 474166
- 185280 string characters out of 5745489
+ 12203 strings out of 474166
+ 185370 string characters out of 5745489
  1967539 words of memory out of 5000000
- 34200 multiletter control sequences out of 15000+600000
+ 34202 multiletter control sequences out of 15000+600000
  562533 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,14n,79p,1307b,1245s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,14n,79p,1319b,1245s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Implementation.pdf (13 pages, 163714 bytes).
+Output written on Implementation.pdf (13 pages, 165169 bytes).
 PDF statistics:
- 404 PDF objects out of 1000 (max. 8388607)
- 365 compressed objects within 4 object streams
- 171 named destinations out of 1000 (max. 500000)
- 249 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 402 PDF objects out of 1000 (max. 8388607)
+ 363 compressed objects within 4 object streams
+ 172 named destinations out of 1000 (max. 500000)
+ 241 words of extra memory for PDF output out of 10000 (max. 10000000)
 
