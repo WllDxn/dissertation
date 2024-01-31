@@ -66,7 +66,7 @@
   }
 \begin{document}
 \section{Design}
-
+\label{sec:design}
 
 	This is an implementation in pseudocode of all 4 components of the radix sort variations included in this project: Radix sort starting from the most significant and least significant digit and then the integer sorting methods Counting sort and Pigeonhole sort. Each permutation of Radix sort takes the input array \textit{A} of integers and treats each item \textit{A[i]} as a series of digits d within the range 0 \textit{$\leq$ d $<$ k} where \textit{k} is the radix or the number of unique digits. 
 	\subsection{Integer Sorting}
@@ -99,6 +99,7 @@
 
 	\pagebreak
 	\subsubsection{Counting Sort}
+	\label{ssec:counting}
 	Counting sort instantiates 2 arrays; \textit{B}, the output array equal in length to the input array \textit{A} (1), and \textit{C}, a count array to store the frequency of each digit which is of length \textit{k} and is instantiated to contain only integers of value 0 (2, 4). The input array is iterated over and the integer in C at the position equal to the current digit of the current item is incremented (7), producing a histogram of the frequency of each digit. This count list is then accumulated such that each item is added to the sum of the previous values (10). Finally the input array is iterated over in reverse and each item is moved to the output array in the position that is referred to by the value expressed in the count array at the position of the current digit of the current item(13), to ensure that values to not overwrite one another in the output array each item in the count array is decremented when a position in the output array is taken from it (14).
 	\begin{algorithm}[H] % enter the algorithm environment
 		\caption{Counting Sort({A})} % give the algorithm a caption
@@ -128,7 +129,7 @@
 	\subsection{Radix Sort}
 	Radix sort is the method of applying the integer sorting method to each digit of the input, there are two approaches to this: Least significant digit first (LSD) or Most significant digit first (MSD).
 	\subsubsection{Least Significant Digit}
-
+	\label{ssec:lsd}
 	Least Significant Digit Radix sort (LSD) takes an input array \textit{A} and sorting function \textit{f()} which can be either of the previous integer sorting methods. The input array is sorted via the chosen method once for each of digits in the chosen radix of the largest value (3) This sorting process is applied first at the least significant or rightmost digit and moves incrementally to the most significant or leftmost digit. Values can have an unequal number of digits provided any digits farther left than their most significant are taken as 0 and the chosen integer sorting method is stable as this means they maintain their relative position with respect to values that have an equal or lesser number of digits.
 	
 	\begin{algorithm} % enter the algorithm environment
@@ -193,13 +194,14 @@
 	\subsection{Explanation}
 	Bases that are of the order $2^n$ where n is some integer are the most suitable for a typical radix sort algorithm, this is because bases that fit this specification allow for easy conversion from binary which is how the computer on which the algorithm runs stores numbers. Any base of 2n will utilise all possible combinations of n digits of binary to express a single digit, meaning, to sort integers across a given digit it is possible to extract a known quantity of binary values at a known position within the binary representation of the integer. Provided it is possible and efficient to extract the binary value of an integer within a programming language, this approach is significantly superior to working in base 10 as it requires no mathematical calculations to be performed on each input item whereas working with base 10 would require some kind of use of the modulo or remainder functions or a type conversion to a string; both of these options are significantly more resource intensive.
 	\subsection{Implementation}
-  \label{ssec:digits}
+  	\label{ssec:digits}
 	Python stores integers in “two’s complement” binary and allocates 64 bits, this means that by utilising the in-built python bitwise operations it is possible to quickly manipulate integers and acquire the digit in any position so long as the base is an exponent of 2.
 	\newline
 	As an example, selecting a base of $2^{4}$ (16) and Radix sort from the least significant digit, utilising the bitwise “and” operation on a chosen integer with 15 (the largest integer that can be expressed in 4 bits (1 1 1 1 in binary) and find the digit in the rightmost position and use that for integer sorting. Then to move on to the next most significant digit we can perform a “right shift” of 4 bits, discarding the bits representing the already sorted digit and moving the bits representing the next digit into the rightmost position and allowing the same “and” operation as used previously to identify the digit.
 	\pagebreak
 	\section{Negative Integers}
 	\subsection{Two's Complement}
+	\label{ssec:negativestwos}
 	When handling integers in two’s complement, positives are represented in binary, but with a leading 0 in the leftmost position to indicate the positive sign of the integer. Negative integers are represented with a leading 1 which represents that the binary value of this digit is to be subtracted i.e. negative and all other binary digits are positive such that the sum of all the digits equals the integer being represented. table reference has been included to illustrate this, as you can see the value $+3$ has a leading $0$ at index $2$, representing $2^{2}$ is not subtracted, this is followed by 1 in all remaining digits representing the addition of $2^{1}$ and $2^{0}$ or $2+1=3$. $\minus3$ is represented by a leading 1 to represent $\minus2^{2}$ followed by 0 1 to represent no addition of $2^{1}$ and the addition of $2^{0}$ or $\minus4 + 1 = \minus3$.
 	\newline
 	The effect of performing Radix sorting without any accommodation for negativity is that due to the leading 1, negative values will be incorrectly sorted ahead of positive values as though they were larger. They will also be sorted into the correct order relative to other negative values (increasing from most negative to least negative), as among values that can be represented in the same number of bits the more negative numbers have fewer additional bits in positions to the right, for example $\minus4$ is 100 and $\minus 3$ is 101.
@@ -235,7 +237,7 @@
 
 	\pagebreak
 	\subsection{Implementation}
-  \label{ssec:negatives}
+  \label{ssec:negativesImplementation}
 	The purpose of this project was to incorporate this sorting algorithm into the standard library for Pypy, meaning it had to be written in RPython, the language used for Pypy. RPython is a restricted form of python, specifically it is a form of Python 2, which is relevant to the handling of integers as RPython inherits Python2’s method of allocation of a quantity of bits for each integer equal to the word size of the machine it is being run on (typically this is 32 or 64 bits), even if the integer can be expressed in fewer bits. The leftmost bit represents whether the integer is positive or negative and the remaining bits represent the magnitude of the integer, all digits between the sign bit and the most significant bit needed to represent the integer are copies of the sign bit. To put this in the context of two’s complement , this representation can be understood as the first bit representing $\minus2^{m}$ where m is the machine word length and all following digits are additions of $2^{n}$ where n is $[m-1..0]$.
 	\newline
 	\newline
@@ -262,7 +264,7 @@ The purpose of this helper method was to allow for the calculation of absolute v
         if num == (-sys.maxint) - 1:
         return sys.maxint
         return -num if num < 0 else num
-      \end{lstlisting}
+\end{lstlisting}
 \subsubsection{Function int\textunderscore bytes}
 Returns the minimum quantity of bytes in a given radix necessary to express an integer, including a sign bit. This function is used to calculate the number of iterations that the sorting algorithm must make in order to sort all values up to and including the given input $i$.
 \newline
@@ -372,9 +374,10 @@ This reverses the items of the input inbetween the provided start and stop index
 \subsection{Radix sort preamble}
 In this section I will explain the four different implementations of Radix sort, but as they all operate with the same general principal I will first explore the features and tools they have in common with particular attention to how these tools are applied within RPython.
 \subsubsection{Bitwise operations}
-Bitwise operations are the heart of this project, I have already covered in general terms how they are implemented in this project to identify the value of each digit in \ref{ssec:digits} and handle negative integers in \ref{ssec:negatives} but in this section I will cover specifically which bitshift operations are used and their exact effects in RPython
+Bitwise operations are the heart of this project, I have already covered in general terms how they are implemented in this project to identify the value of each digit in \ref{ssec:digits} and handle negative integers in \ref{ssec:negativesImplementation} but in this section I will cover specifically which bitshift operations are used and their exact effects in RPython
 \newline
 \paragraph{Leftshift}\
+\label{sssec:leftshift}
 \newline
 A left shift refers to moving each bit of an integer a number of digits to the left, in RPython this is performed with the operator $n << s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the left.
 \newline
@@ -385,9 +388,60 @@ In this project, left shifting is used to create integer masks {\color{red}refer
 \newline
 For example
 \paragraph{Rightshift}\
-A Right shift is thenverse of left shift, it refers to moving each bit of integer digits to the right, using the operator $n << s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the right.
+\label{sssec:rightshift}
+\newline
+A Right shift is the inverse of left shift, it refers to moving each bit of integer digits to the right, using the operator $n << s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the right.
 \newline
 Like leftshift, rightshift utilises Arithmetic shifting, meaning the rightmost $s$ digits are discarded. Rightshift differs from leftshift however as the digits in the the leftmost positions are overwritten with a value equal to the sign bit, i.e. $1$ or $0$ if the number is negative or positive respectively.
 \newline\newline
 Rightshifting is used in this project to manipulate integers from the input list by moving discarding a number of digits. The bases selected for this project are of the order $2^n$ where $n$ is some integer, meaning a single digit of the integer occupies $n$ bits and therefore; rightshifting $n*d$ positions places the digit $d$ from the right in the rightmost position, occupying the rightmost $n$ bits. 
+\pagebreak
+\paragraph{Exclusive OR}\
+\newline
+Exclusive OR compares the bits of two integers and returns a value of 1 for each digit that the two bits are different and 0 if they are the same. This is utilised in this project by performing an Exclusive OR operation on a chosen integer and creating an integer containing '$1$' bits in positions in the chosen integer that need to be inverted (a 1 in the chosen int will result in 0 and a 0 will result in 1 when performing an exlusive or operation with a 1) and filling the remaining digits with 0 (resulting in 0 if the chosen int contains 0 or 1 if it contains 1).
+\newline
+The use case for this in this project occurs when inverting the sign bit, which has been explained in \ref{ssec:negativestwos}, it is performed in pypy using the $\hat{}$ operator.
+\newline
+\paragraph{And}\
+\newline
+The and operator takes two integers and compares the bits at each digit, giving a 1 if both digits are equal to 1 or 0 if either or both are equal to $0$. This is utilised in this project to isolate a certain number of digits in binary of an integer, specifically $n$ digits in binary represent one digit of the integer in base $2^{n}$. This is done by rightshifting $n*d$ positions (as stated in \ref{sssec:rightshift}) and then by performing an And operation with $2^{n}\minus1$, which in binary is represented as a $1$ in all digits in the leftmost $n$ positions, and 0 in all other positions, which will retrieve the rightmost $n$ digits if they are equal to 1 and 0 for all other digits.
+\newline
+In pypy, the And operation is performed using the $\&$ operator.
+\newline
+\paragraph{Not}\
+\newline
+The bitwise not operator produces the inverse of all binary digits in an integer, giving a 1 if an integer contains a 0 and vice versa. It is unique in the sense that it is the only operation that is performed on a solitary input. The use of this in this project is to compensate for any errors caused by the digits overwritten due to the arithmetic shifting observed when  Leftshifting \ref{sssec:leftshift} or Rightshifting \ref{sssec:rightshift}.
+\newline
+Not is used in this way by 
+
+
+\pagebreak
+\subsubsection{Optimizations}
+Some of the code outlined in section {\color{red} Reference code explanation} differ in relatively substantial ways from the pseudocode outlined in section \ref{sec:design}, many of these differences arise from some form of adaptation that was made to enable functionality in PyPy {\color{red} (is this true?)} or from an optimization that increases the performance of the algorithm. In this section I will explain the function and reasoning of these differences.
+
+\pagebreak
+\paragraph{LSD counting sort - creating all count lists in one pass}\
+\newline
+LSD counting sort is a combination of LSD sort (\ref{ssec:lsd}) which calls counting sort (\ref{ssec:counting}) on every digit. Implementing a combination of these two pieces of pseudocode is entirely feasible and results in multiple rounds of counting sort passing over the input list once each whilst counting the occurence of the values at a given digit and a second time when moving the input list items into the output list based on these count lists.
+\newline
+An optimization that has been implemented in this algorithm is to make a single pass over the input list whilst creating the count lists for every digit simultaneously, condensing half of the passes over the input into a single pass. The reason this is possible is that the occurence of the values for each digit do not change based on the order of the input list, items are moved from the input list to their new position based on the value stored in the count list representing the value of the current digit of the item, the order of the input list has no bearing on the order or values of the count list. 
+\newline
+This optimization is possible exclusively in LSD counting sort because the values stored in the count list represent the position of the items relative to one another after being sorted across a given digit; due to MSD sort creating sublists in a specific order and then sorting the sublists' items amongst one another, a count list created for a diffent digit was therefore created for a different list and so does not represent the position of the items relative only to other items in the sublist.
+\newline
+The way that this has been implemented in this project is seen below. It involves creating a 2 dimensional array with an outer list of $d$ sublists each of length $r$ where $d$ is the number of digits and $r$ is the radix. Following this the input list is iterated over and for each item the count list of each digit is incremented i.e. the sublist at position $[0..d]$ represents the count of the digit at the same position. After this, list of count lists is iterated over and each list is incremented, then when moving the input items based on the count lists the relevant count list can be accesed by accessing the outer list at the index equal to the index of the current digit.\newline
+	\begin{lstlisting}
+		#Note: this code has been simplified
+		counts = [[0 for _ in range(radix)] for _ in range(min_bytes + 1)]
+
+		for num in self.list:
+			disc = 0
+			for i in xrange(min_bytes + 1):
+				val = get_digit(num, i)
+				counts[i][val] += 1
+
+		for i in range(min_bytes + 1):
+			for j in xrange(1, self.radix):
+				counts[i][j] += counts[i][j - 1]
+	\end{lstlisting}
+
 \end{document}
