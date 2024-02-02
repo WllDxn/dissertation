@@ -132,7 +132,7 @@ def make_radixsort_class(
                 for start, end in bucket_indexes:
                     if start + 1 == end:
                         continue
-                    if (end - start) < 6400:
+                    if (end - start) < self.threshold:
                         self.insertion_sort(start, end)
                         for i in range(start, end):
                             temp_list[i] = self.list[i]

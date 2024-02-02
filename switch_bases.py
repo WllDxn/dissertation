@@ -9,6 +9,7 @@ rg = re.compile(r"[_/.]")
 def base_switch(version):
     filenames = get_files(os.path.join(radixsort_location, version, "originals"))
     cutoffs = [2000, 2000, 2500, 6400, 12000, 12000]
+    cutoffs = ["self.threshold" for _ in cutoffs]
     for name in filenames:
         radix, integer = rg.split(name)[:2]
         data = read_file(os.path.join(radixsort_location, version, "originals", name))
@@ -34,4 +35,4 @@ def get_files(path):
     return [file for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))]
 
 if __name__ == "__main__":
-    base_switch("insertion_tests_3")
+    base_switch("isolate_byte_nodisc")

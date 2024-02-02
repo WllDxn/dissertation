@@ -23,24 +23,28 @@ def get_max_value(data_size):
 
 def gen_list(cols, data_size, type="Random", threshold=None):
     max_value = get_max_value(data_size)
-    lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
-    lis[0] = threshold if threshold is not None else lis[0]
-
     if type == "Random":
-        return lis
+        lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
     elif type == "Few Unique":
-        return np.random.choice(lis[: len(lis) // 10], cols).tolist()
+        lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
+        lis = np.random.choice(lis[: len(lis) // 10], cols).tolist()
     elif type == "Sorted":
-        lis.sort()
-        return lis
+        lis = [int(x*(max_value/cols)) for x in list(range(-cols//2,(cols//2)+1, 1))]
+        
+        # lis = [int(x) for x in range(-max_value, max_value, int((2*max_value)/cols))]
     elif type == "Reverse Sorted":
-        lis.reverse()
-        return lis
+        lis = [int(x*(max_value/cols)) for x in list(range(cols//2,(-cols//2)-1, -1))]
+        # lis = [int(x) for x in range(max_value, -max_value, int(-(2*max_value)/cols))]
     elif type == "Nearly Sorted":
+        # lis = [int(x) for x in range(-max_value, max_value, int((2*max_value)/cols))]
+        lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
+        lis.sort()
         for idx1 in range(len(lis) - 2):
             if random.random() < 0.1:
                 lis[idx1], lis[idx1 + 1] = lis[idx1 + 1], lis[idx1]
-        return lis
+        # print(lis[:10])
+    lis[0] = threshold if threshold is not None else lis[0]
+    return lis
 
 
 def myp(input):
@@ -103,7 +107,7 @@ class Sorter:
 
     def begin_sorting(self):
         for i in range(100):
-            curr_list = gen_list(1000000, "med", "Random", None)
+            curr_list = gen_list(100000, "med", "Random", None)
             myp("\033[1;36m\r\033[KWarming up: %d/100" % (i + 1))
         print("")
         with open(self.outputpath, "r+") as f:
@@ -120,23 +124,27 @@ class Sorter:
                                 yield list_length, data_size, data_type, threshold, count
         
         items = generate_items()
-        if self.threshold is not None:
-            items = list(items)
-            randlists = [gen_list(self.max_list_length[0], self.datasizes[0], self.datatypes[0], 0) for _ in range(self.max_list_count)]
+        items = list(items)
+        # randlists = [gen_list(self.max_list_length[0], self.datasizes[0], self.datatypes[0], 0) for _ in range(self.max_list_count)]
+        # if self.threshold is not None:
             # random.shuffle(items)
         
         interval = time.time()
+        sortd=True
         for list_length, data_size, data_type, threshold, count in items:
             self.print_sortmethod_count(data_size, data_type, count, len(items), interval)
-            curr_list = list(randlists[count])
-            curr_list[0]=threshold
-            # curr_list = gen_list(list_length, data_size, data_type, threshold)#
+            # curr_list = list(randlists[count])
+            if threshold:
+                curr_list[0]=threshold
+            curr_list = gen_list(list_length, data_size, data_type, threshold)
+            
             t1_start = time.perf_counter()
             curr_list.sort()
             t1_stop = time.perf_counter()
+            sortd &= all(curr_list[i] <= curr_list[i+1] for i in range(len(curr_list) - 1))
             newtime = t1_stop - t1_start
             data = self.set_data(data, list_length, data_size, data_type, newtime, threshold)
-            if count + 1 == self.max_list_count and threshold is not None:
+            if count + 1 == self.max_list_count:
                 self.print_sortmethod_evaluation(interval, data_type, data_size, list_length, True, threshold)
                 interval = time.time()
             self.total_count += 1

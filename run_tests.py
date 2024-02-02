@@ -1,10 +1,10 @@
 import os
 import subprocess
 from compile import *
-
+import random
 sort_times = "/home/will/dissertation/sort_times"
-# methods = ["isolate_byte", "timsort"]
-methods=['insertion_tests_3']
+methods = ["isolate_byte_nodisc"]
+# methods=['insertion_tests_3']
 
 def n(methodName, output, num=100):
     """
@@ -29,8 +29,11 @@ def n(methodName, output, num=100):
     )
     rg = "[/.+?\./]"
     for name in fames:
+        # if 'c' in name:continue
         packagename = re.split(rg, name)[0] if methodName != "timsort" else "timsort"
-        for l in [10000]:
+        exepath = f'{pypy_versions}/{packagename}_{methodName}/bin/pypy'
+        if not os.path.exists(exepath):continue
+        for l in [10000, 100000, 1000000]:
             exc = f"{pypy_versions}/{packagename}_{methodName}/bin/pypy sort_timer_gendata.py -m {packagename} -o {output} -n {num} -l {str(l)}"
             print("\033[1;35m")
             print(exc)
@@ -61,7 +64,7 @@ def get_filename(name):
     print(path)
     return path
 
-def ins(methodName, output, thresh=100, threshdivs=100, num=10):
+def ins(methodName, output, thresh=256, threshdivs=128, num=50):
     """
     Generates and runs a series of commands for sorting data based on the given method name.
 
@@ -89,7 +92,7 @@ def ins(methodName, output, thresh=100, threshdivs=100, num=10):
         packagename = re.split(rg, name)[0] if methodName != "timsort" else "timsort"
         exepath = f'{pypy_versions}/{packagename}_{methodName}/bin/pypy'
         if not os.path.exists(exepath):continue
-        for l in [1000000]:
+        for l in [100000]:
             exc = f'{exepath} sort_timer_gendata.py -m {packagename} -o {output} -n {num} -l {str(l)} -t {thresh} -d {threshdivs} -et "Few Unique" "Sorted" "Reverse Sorted" "Nearly Sorted" -es tiny small large'
             print("\033[1;35m")
             print(exc)
@@ -171,4 +174,4 @@ def ins(methodName, output, thresh=100, threshdivs=100, num=10):
 if __name__ == "__main__":
     output = get_filename("_".join(methods)) if len(methods) > 1 else get_filename(methods[0])
     for i in methods:
-        ins(i, output)
+        n(i, output)
