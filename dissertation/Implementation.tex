@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage{listings}
 \usepackage{color}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -14,6 +15,7 @@
 \usepackage{array}
 \usepackage[hidelinks]{hyperref}
 \usepackage{xcolor}
+\usepackage{hhline}
 \hypersetup{
     colorlinks,
     linkcolor={red!50!black},
@@ -47,7 +49,7 @@
 \titleformat{\subparagraph}[runin]
 {\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
 
-
+\usepackage[font=small,skip=0pt,justification=centering]{caption}
 \lstset{frame=tb,
   language=Python,
   aboveskip=3mm,
@@ -206,7 +208,7 @@
 	\newline
 	The effect of performing Radix sorting without any accommodation for negativity is that due to the leading 1, negative values will be incorrectly sorted ahead of positive values as though they were larger. They will also be sorted into the correct order relative to other negative values (increasing from most negative to least negative), as among values that can be represented in the same number of bits the more negative numbers have fewer additional bits in positions to the right, for example $\minus4$ is 100 and $\minus 3$ is 101.
 	\newline
-	The method of correcting for this problem is to invert the sign bit using a bitwise “exclusive or” operation with a 1 in the position of the sign bit or more accurately performing this operation against $1 +$ the largest integer possible with the current machine word length. This operation gives 1 if the sign bit of the integer is 0 or 0 if the sign bit is 1. Following this it must be ensured the integer sorting method sorts across the sign bit either at the start for MSD or at the end for LSD, this preserves the relative order amongst positive and negative integers but ensures this pass of the data sorts the items such that negatives come before positives.
+	The method of correcting for this problem is to invert the sign bit using a bitwise “`Exclusive Or'” operation with a 1 in the position of the sign bit or more accurately performing this operation against $1 +$ the largest integer possible with the current machine word length. This operation gives 1 if the sign bit of the integer is 0 or 0 if the sign bit is 1. Following this it must be ensured the integer sorting method sorts across the sign bit either at the start for MSD or at the end for LSD, this preserves the relative order amongst positive and negative integers but ensures this pass of the data sorts the items such that negatives come before positives.
 	\subsubsection{Two's complement three bit integers}
 	\begin{table}[!h]
 	\begin{center}
@@ -372,147 +374,163 @@ This reverses the items of the input inbetween the provided start and stop index
                 stop -= 1
       \end{lstlisting}
 \pagebreak
-\subsection{Radix sort preamble}
-In this section I will explain the four different implementations of Radix sort, but as they all operate with the same general principal I will first explore the features and tools they have in common with particular attention to how these tools are applied within RPython.
-\subsubsection{Bitwise operations}
-Bitwise operations are the heart of this project, I have already covered in general terms how they are implemented in this project to identify the value of each digit in \ref{ssec:digits} and handle negative integers in \ref{ssec:negativesImplementation} but in this section I will cover specifically which bitshift operations are used and their exact effects in RPython.
+
+
+
+
+\subsection{Bitwise operations}
+Bitwise operations operate on binary numerals at the level of individual bits, they allow for fast and consistant manipulation that bypasses arithmetic functions. Through the use of bitwise operations, radix sort can be performed using different numeral bases without the constraint of using arithmetic methods such as euclidian division to convert from the standard base 10 to other bases. The use of different bases means a different radix will be used, which can reduce the number of digits that integer sorting must be performed on, it can also affect the memory usage of integer sorting as the number of bins/length of count array increases which may also affect runtime.
+\newline
+In order to properly implement bitwise operations it was necessary to properly explore their implementation in RPython as well as the implementation of the Integer type. In RPython each integer is comprised of exactly 64 bits, where 1 bit of this is assigned to represent the integer's sign, leaving a maximum of 63 bits to express the magnitude of the integer. {\color{red} Continue this introduction}
+\newline
+I have already covered in general terms how these  are used in this project to identify the value of each digit in \ref{ssec:digits} and handle negative integers in \ref{ssec:negativesImplementation} but in this section I will cover the implementation of the bitshift operations used in RPython.
 \newline
 
-\paragraph{Leftshift}\
+\subsubsection{Left shift}\
 \label{sssec:leftshift}
 \newline
-A left shift refers to moving each bit of an integer a number of digits to the left, in RPython this is performed using: $n << s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the left.
+A `Left shift' refers to moving each bit of an integer a number of digits to the left, in RPython this is performed using: $n << s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the left.
 \newline
 RPython utilises Arithmetic Shifting {\color{red}reference}, this means when a shift is performed and the rightmost bit is no longer in the rightmost position, all digits in the range $[0 .. s]$ are overwritten with the value 0 and an equal quantity of digits in the leftmost positions are discarded.
 \newline
 \newline
-In this project, left shifting is used to create integer masks used to manipulate the sign of integers (further explained in \ref{sssec:xor}). 
+In this project, left shifting is used to create integers that occupy a specific number of bits and is used for the accomodations necessary to sort negative integers (further explained in \ref{sssec:xor}). 
 \newline
-\paragraph{Rightshift}\
-\label{sssec:rightshift}
 \newline
-A Right shift is the inverse of left shift, it refers to moving each bit of integer digits to the right, using the operator $n >> s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the right.
-\newline
-Like leftshift, rightshift utilises Arithmetic shifting, meaning the rightmost $s$ digits are discarded. Rightshift differs from leftshift however as the digits in the the leftmost positions that become empty are overwritten with a value equal to the most significant (leftmost) bit, which would typically represent the sign of the integer. This means that a rightshifted integer retains it's original sign.
-\newline\newline
-Rightshifting is used in this project to manipulate integers from the input list in order to move a specified digit into the rightmost position so that the value of this digit can be extracted using Bitwise And (see \ref{sssec:and}). The bases selected for this project are of the order $2^n$ where $n$ is some integer, meaning a single digit of the integer occupies $n$ bits and therefore; rightshifting $n*d$ positions places the digit $d$ from the right in the rightmost position, occupying the rightmost $n$ bits. 
-\pagebreak
-\paragraph{And}\
-\label{sssec:and}
-\newline
-The and operator takes two integers and compares the bits at each digit, giving a 1 if both digits are equal to 1 or 0 if either or both are equal to $0$.
-\newline
- This is utilised in this project to isolate a certain number of digits in binary of an integer, specifically $n$ digits in binary represent one digit of the integer in base $2^{n}$. This is done by rightshifting $n*d$ positions (as stated in \ref{sssec:rightshift}) and then by performing an And operation with $2^{n}\minus1$, which in binary is represented as a $1$ in all digits in the leftmost $n$ positions, and 0 in all other positions, which will retrieve the rightmost $n$ bits and 0 for all other bits.
-\newline
-In pypy, the And operation is performed using the $\&$ operator.
-\newline
-\paragraph{Exclusive OR}\
-\label{sssec:xor}
-\newline
-Exclusive OR compares the bits of two integers and returns a value of 1 for each digit where the two bits are different and 0 if they are the same. It is performed in pypy using $x$ $\hat{}$ $y$ which results in an Exlusive Or performed across all 64 bits of the two integers $x$ and $y$. 
-\newline
-The use case for this in this project occurs when inverting the sign bit to ensure negative and positive values are sorted correctly (see \ref{ssec:negativestwos} for details).This is done by identifying how many digits in binary are needed to express the largest absolute value of the input (including a possible sign bit) using the function int\textunderscore bytes shown in \ref{ssec:intbytes} given as the integer $d$. Leftshifting an intger of value $1$ $d$ times and then subtracting 1 gives a value equal to the maximum integer expressable in the same number of bits as the max input value given as integer $v$. In binary $v$ contains $1$ in all digits up to the most significant digit of the max input value excluding any sign bits and a 0 in all other digits.
-\newline
-This value $v$ is then inverted using bitwise Not (see \ref{ssssec:not}) so that it instead contains $0$ in the bits representing the max input. As explained in \ref{ssec:negativesImplementation}, in two's complement binary all digits to the left of the most significant are equal and represent the sign of an integer, therefore $v$ contains $1$ in all the sign bits of the largest max input. Performing the Bitwise Exclusive Or operation with any value in the list against the value $v$ inverts all values in these sign bits. When sorting the input list in any given base, the leftmost digit has at least a single bit representing the sign in the leftmost position and after performing this exclusive or that bit is now 1 for positives and 0 for negatives and as such they will be sorted into the correct relative order.
-\newline
-
-\paragraph{Not}\
-\label{ssssec:not}
-\newline
-The bitwise not operator produces the inverse of all binary digits in an integer, giving a 1 if an integer contains a 0 and vice versa. It is unique in the sense that it is the only operation that is performed on a solitary input. This is used in the process of inverting the sign of integers detailed in \ref{sssec:xor}
-\pagebreak
-
-
-\subsubsection{Illustratred example of Bitwise operations}
-To provide further clarity on the matter of bitwise operations examples detailing each bitwise operation can be found below:
-
-\paragraph{Leftshift}\
-\newline
-\begin{tabular}{cc}
+\begin{table}[htpb]
+	\centering
 \begin{tabular}{r|rrrrrrrr}
+	
 	\hline
 	 Value   &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
 	\hline
 	 13      &   0 &   0 &   0 &   0 &   1 &   1 &   0 &   1 \\
 	 13 \ensuremath{<}\ensuremath{<} 2 &   0 &   0 &   1 &   1 &   0 &   1 &   0 &   0 \\
 	\hline
-	\end{tabular}
-	& \\
-	\end{tabular}
-\paragraph{Rightshift}\
-\newline
-\begin{tabular}{cc}
-\begin{tabular}{r|rrrrrrrr}
-	\hline
-	 Value   &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
-	\hline
-	 13      &   0 &   0 &   0 &   0 &   1 &   1 &   0 &   1 \\
-	 13 \ensuremath{>}\ensuremath{>} 2 &   0 &   0 &   0 &   0 &   0 &   0 &   1 &   1 \\
-	\hline
-	\end{tabular}
-&
-\begin{tabular}{r|rrrrrrrr}
-	\hline
-	 Value   &   63 &   62 &   61 &   60 &   59 &   58 &   57 &   56 \\
-	\hline
-	 -$2^{61}$      &    1 &    1 &    1 &    0 &    0 &    0 &    0 &    0 \\
-	 -$2^{61}$ \ensuremath{>}\ensuremath{>} 2 &    1 &    1 &    1 &    1 &    1 &    0 &    0 &    0 \\
-	\hline
 \end{tabular}
-\end{tabular}
-\paragraph{And}\
+\caption{Demonstration of shifting 13 left 2 bits \\ only rightmost 8 bits are shown}
+\end{table}
+\pagebreak
+\subsubsection{Right shift}\
+\label{sssec:rightshift}
 \newline
-\begin{tabular}{cc}
-\begin{tabular}{r|rrrrrrrr}
-	\hline
-	 Value   &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
-	\hline
-	 59      &   0 &   0 &   1 &   1 &   1 &   0 &   1 &   1 \\
-	 15      &   0 &   0 &   0 &   0 &   1 &   1 &   1 &   1 \\
-	 \hline
-	 59 \& 15 &   0 &   0 &   0 &   0 &   1 &   0 &   1 &   1 \\
-	\hline
-	\end{tabular}
-	& \\
-\end{tabular}
-
-\paragraph{Exclusive OR}\
+A `Right shift' is the inverse of left shift, referring to moving each bit of an integer to the right, using the operator $n >> s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the right.
 \newline
-\begin{tabular}{cc}
-\begin{tabular}{r|rrrrrrrr}
-	\hline
-	 Value     &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
-	\hline
-	 -13       &   1 &   1 &   1 &   1 &   0 &   0 &   1 &   1 \\
-	 $\sim15$       &   1 &   1 &   1 &   1 &   0 &   0 &   0 &   0 \\
-	 -13  $\hat{}$ $\sim15$ &   0 &   0 &   0 &   0 &   0 &   0 &   1 &   1 \\
-	\hline
-	\end{tabular}
-	& \\
-	\end{tabular}
-\paragraph{Not}\
+Like Left shifting, Right shifting utilises Arithmetic shifting, meaning the rightmost $s$ digits are discarded. Right shift differs from leftshift however as the digits in the the leftmost positions that become empty are overwritten with a value equal to the most significant (leftmost) bit, which would typically represent the sign of the integer. This means that a Right shifted integer retains it's original sign.
+\newline\newline
+Right shifting is used in this project to manipulate integers from the input list in order to move a specific digit into the rightmost position so that the value of this digit can be extracted using Bitwise And (see \ref{sssec:and}). The bases selected for this project are of the order $2^n$ where $n$ is some integer, meaning a single digit of the integer occupies $n$ bits and therefore; Right shifting $n \cdot d$ positions places the digit $d$ from the right in the rightmost position, occupying the rightmost $n$ bits. 
+\begin{table}[!htb]
+	
+\setlength{\tabcolsep}{4.5pt}
+\begin{minipage}{.45\textwidth}
+	\centering
+
+		\begin{tabular}[t]{r|rrrrrrrr}
+			\hline
+			 Value   &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
+			 \hline
+			 13      &   0 &   0 &   0 &   0 &   1 &   1 &   0 &   1 \\
+			 $13 \ensuremath{>}\ensuremath{>} 2$ &   0 &   0 &   0 &   0 &   0 &   0 &   1 &   1 \\
+			 \hline
+		\end{tabular}
+
+	\caption{Shift 13 right 2 bits. Only rightmost 8 bits are shown}
+	
+\end{minipage}\hfill%
+	\begin{minipage}{.55\textwidth}
+		\centering
+
+		\begin{tabular}[t]{r|rrrrrrrr}
+			\hline
+			 Value   &   63 &  62 &   61 &   60 &   59 &   58 &   57 &   56 \\
+			\hline
+			 -$2^{61}$      &   1 &    1 &    1 &    0 &    0 &    0 &    0 &    0 \\
+			 -$2^{61} \ensuremath{>}\ensuremath{>} 2$ &    1 &    1 &    1 &    1 &    1 &    0 &    0 &    0 \\
+			\hline
+		\end{tabular}
+
+
+
+		\caption{Shift $-2^{61}$ right 2 places. Only leftmost 8 bits are shown.}
+		\label{table2}
+	\end{minipage}\hfill%
+
+\end{table}
+\subsubsection{And}\
+\label{sssec:and}
 \newline
-\begin{tabular}{cc}
-\begin{tabular}{r|rrrrrrrr}
-	\hline
-	 Value   &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
-	\hline
-	 102     &   0 &   1 &   1 &   0 &   0 &   1 &   1 &   0 \\
-	 $\sim$102    &   1 &   0 &   0 &   1 &   1 &   0 &   0 &   1 \\
-	\hline
-	\end{tabular}
-	& \\
-	\end{tabular}
+The `And' operator takes two integers and compares each bit across all binary digits, returning $1$ if both bits are equal to $1$ or returning $0$ if either or both are equal to $0$.
+\newline
+ This is utilised in this project to isolate a specified number of bianry digits of an integer, specifically $n$ digits in binary represent one digit of the integer in base $2^{n}$. This is done by `Right shifting' $n \cdot d$ positions (as stated in \ref{sssec:rightshift}) and then by performing an `And' operation with $2^{n}\minus1$, which in binary is represented as a $1$ in the rightmost $n$ digits, and 0 in all other digits, which will retrieve the rightmost $n$ bits and 0 for all other bits.
+\newline
+In pypy, the And operation is performed using the  $x$ $\&$ $y$ operator resulting in an `And' operation between $x$ and $y$.
+\newline
 
+\begin{table}[htpb]
+	\centering
+	\begin{tabular}{r|rrrrrrrr}
+		\hline
+		 Value   &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
+		\hline
+		 59      &   0 &   0 &   1 &   1 &   1 &   0 &   1 &   1 \\
+		 15      &   0 &   0 &   0 &   0 &   1 &   1 &   1 &   1 \\
+		 \hline
+		 59 \& 15 &   0 &   0 &   0 &   0 &   1 &   0 &   1 &   1 \\
+		\hline
+		\end{tabular}
 
+	\caption{Demonstration of 'And' on 15 and 59 \\ This has isolated the rightmost 4 digits which is one digit in $2^{4}$}
+\end{table}
 
+\subsubsection{Exclusive Or}\
+\label{sssec:xor}
+\newline
+`Exclusive Or' compares the bits of two integers and returns a value of 1 for each digit where the two bits are different and 0 if they are the same. It is performed in pypy using $x$ $\hat{}$ $y$ which results in an `Exclusive Or' performed across all 64 bits of the two integers $x$ and $y$. 
+\newline
+The use case for this in this project occurs when inverting the sign bit to ensure negative and positive values are sorted correctly (see \ref{ssec:negativestwos} for details).This is done by identifying how many binary digits are needed to express the largest absolute value of the input (including a possible sign bit) using the function `int\textunderscore bytes' shown in \ref{ssec:intbytes} given as the integer $d$. Left shifting an integer of value $1$ $d$ times and then subtracting 1 gives a value equal to the maximum integer expressable in the same number of bits as the max input value given as integer $v$. In binary $v$ contains $1$ in all digits up to the most significant digit of the max input value excluding any sign bits and a 0 in all other digits.
+\newline
+This value $v$ is then inverted using bitwise `Not' (see \ref{sssec:not}) so that it instead contains $0$ in the bits representing the max input. As explained in \ref{ssec:negativesImplementation}, in two's complement binary all digits to the left of the most significant are equal and represent the sign of an integer, therefore $v$ contains $1$ in all the sign bits of the largest max input. Performing the Bitwise `Exclusive Or' operation with any value in the list against the value $v$ inverts all values in these sign bits. Depending on the base selected and the number of digits of the largest absolute value, when sorting the input list the leftmost digit has at least a single bit representing the sign in the leftmost position and at most all bits of the leftmost digit will contain sign bits. After performing the `Exclusive Or' against $v$, these bits are now 1 for positives and 0 for negatives and as such they will be sorted into the correct relative order. {\color{red} This sounds pretty complicated, Maybe there is a better way to explain it. Or maybe the use of a diagram would help \newline Consider referencing "Radix sort revisited"}
+\newline
+\begin{table}[htpb]
+	\centering
+	\begin{tabular}{r|rrrrrrrr}
+		\hline
+		 Value     &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
+		\hline
+		 -13       &   1 &   1 &   1 &   1 &   0 &   0 &   1 &   1 \\
+		 $\sim15$       &   1 &   1 &   1 &   1 &   0 &   0 &   0 &   0 \\
+		 -13  $\hat{}$ $\sim15$ &   0 &   0 &   0 &   0 &   0 &   0 &   1 &   1 \\
+		\hline
+		\end{tabular}
+	\caption{Demonstration of shifting 13 left 2 bits \\ only rightmost 8 bits are shown}
+\end{table}
 
 
 \pagebreak
-\subsubsection{Optimizations}
+\subsubsection{Not}\
+\label{sssec:not}
+\newline
+The bitwise not operator produces the inverse of all binary digits in an integer, giving a 1 if an integer contains a 0 and vice versa. It is unique in the sense that it is the only operation that is performed on a solitary input. This is used in the process of inverting the sign of integers detailed in \ref{sssec:xor}
+
+
+\begin{table}[htpb]
+	\centering
+	\begin{tabular}{r|rrrrrrrr}
+		\hline
+		 Value   &   7 &   6 &   5 &   4 &   3 &   2 &   1 &   0 \\
+		\hline
+		 102     &   0 &   1 &   1 &   0 &   0 &   1 &   1 &   0 \\
+		 $\sim$102    &   1 &   0 &   0 &   1 &   1 &   0 &   0 &   1 \\
+		\hline
+		\end{tabular}
+	\caption{Demonstration of shifting 13 left 2 bits \\ only rightmost 8 bits are shown}
+\end{table}
+
+
+\subsubsection{Optimizations {\color{red} Incomplete}}
 Some of the code outlined in section {\color{red} Reference code explanation} differ in relatively substantial ways from the pseudocode outlined in section \ref{sec:design}, many of these differences arise from some form of adaptation that was made to enable functionality in PyPy {\color{red} (is this true?)} or from an optimization that increases the performance of the algorithm. In this section I will explain the function and reasoning of these differences.
 
-\pagebreak
+
 \paragraph{LSD counting sort - creating all count lists in one pass}\
 \newline
 LSD counting sort is a combination of LSD sort (\ref{ssec:lsd}) which calls counting sort (\ref{ssec:counting}) on every digit. Implementing a combination of these two pieces of pseudocode is entirely feasible and results in multiple rounds of counting sort passing over the input list once each whilst counting the occurence of the values at a given digit and a second time when moving the input list items into the output list based on these count lists.

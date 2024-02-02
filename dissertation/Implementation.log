@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  26 JAN 2024 13:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  2 FEB 2024 10:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -269,49 +269,70 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip59
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/hhline.sty
+Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 22.
+Package hyperref Info: Option `colorlinks' set `true' on input line 24.
 \commentindent=\skip60
- (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen166
+\captionmargin=\dimen167
+\caption@leftmargin=\dimen168
+\caption@rightmargin=\dimen169
+\caption@width=\dimen170
+\caption@indent=\dimen171
+\caption@parindent=\dimen172
+\caption@hangindent=\dimen173
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count290
+\c@continuedfloat=\count291
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count290
+\l__color_backend_stack_int=\count292
 \l__pdf_internal_box=\box60
 ) (./Implementation.aux)
 \openout1 = `Implementation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-\c@lstlisting=\count291
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 69.
+LaTeX Font Info:    ... okay on input line 69.
+\c@lstlisting=\count293
  (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count292
-\scratchdimen=\dimen166
+\scratchcounter=\count294
+\scratchdimen=\dimen174
 \scratchbox=\box61
-\nofMPsegments=\count293
-\nofMParguments=\count294
+\nofMPsegments=\count295
+\nofMParguments=\count296
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count295
-\MPscratchDim=\dimen167
-\MPnumerator=\count296
-\makeMPintoPDFobject=\count297
+\MPscratchCnt=\count297
+\MPscratchDim=\dimen175
+\MPnumerator=\count298
+\makeMPintoPDFobject=\count299
 \everyMPtoPDFconversion=\toks27
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -353,76 +374,144 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 67.
+Package hyperref Info: Link coloring ON on input line 69.
 (./Implementation.out) (./Implementation.out)
 \@outlinefile=\write3
 \openout3 = `Implementation.out'.
 
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 71.
+(Font)              <12> on input line 73.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 71.
+(Font)              <8> on input line 73.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 71.
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 77.
+(Font)              <6> on input line 73.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 79.
  [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 180--182
+Underfull \hbox (badness 10000) in paragraph at lines 183--185
 
  []
 
 [5] [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 239--246
+Underfull \hbox (badness 10000) in paragraph at lines 243--250
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 239--246
+Underfull \hbox (badness 10000) in paragraph at lines 243--250
 
  []
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 267--271
+Underfull \hbox (badness 10000) in paragraph at lines 272--276
 
  []
 
 [9] [10] [11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 375--377
+Underfull \hbox (badness 10000) in paragraph at lines 382--388
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 377--387
+Underfull \hbox (badness 10000) in paragraph at lines 389--414
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 387--393
+Underfull \hbox (badness 10000) in paragraph at lines 389--414
 
  []
 
-[13] (./Implementation.aux)
+[13]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 454.
+
+Underfull \hbox (badness 10000) in paragraph at lines 414--459
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 459--468
+
+ []
+
+[14] [15]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 530.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 534--543
+
+ []
+
+[16]
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+
+Package xcolor Warning: Incompatible color definition on input line 544.
+
+[17] (./Implementation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `Implementation.out' has not changed.
-(rerunfilecheck)             Checksum: 5C6F1B5ECC73D06F4A94E3BEFFAD1B3C;4483.
+(rerunfilecheck)             Checksum: 82501E97C2670F333AECBE5943286CCD;5072.
  ) 
 Here is how much of TeX's memory you used:
- 12203 strings out of 474166
- 185370 string characters out of 5745489
+ 13593 strings out of 474166
+ 212216 string characters out of 5745489
  1967539 words of memory out of 5000000
- 34202 multiletter control sequences out of 15000+600000
- 562533 words of font info for 51 fonts, out of 8000000 for 9000
+ 35556 multiletter control sequences out of 15000+600000
+ 563149 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,14n,79p,1319b,1245s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,14n,79p,1319b,1249s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Implementation.pdf (13 pages, 165169 bytes).
+Output written on Implementation.pdf (17 pages, 183093 bytes).
 PDF statistics:
- 402 PDF objects out of 1000 (max. 8388607)
- 363 compressed objects within 4 object streams
- 172 named destinations out of 1000 (max. 500000)
- 241 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 474 PDF objects out of 1000 (max. 8388607)
+ 430 compressed objects within 5 object streams
+ 199 named destinations out of 1000 (max. 500000)
+ 281 words of extra memory for PDF output out of 10000 (max. 10000000)
 
