@@ -66,7 +66,9 @@
   breakatwhitespace=true,
   tabsize=3
   }
+\hfuzz=5.002pt 
 \begin{document}
+
 \section{Design}
 \label{sec:design}
 
@@ -188,7 +190,7 @@
 	This gives a time complexity of	$\mathcal{O}$\textit{((n + b) $\cdot$ d)} or if we select some constant value for \textit{b}; $\mathcal{O}$\textit{(n $\cdot$ d)}
 	\newline However, in the application of this project, radix sort will only be applied to integers represented in 64-bits, meaning there is a defined upper bound to the max value \textit{k}. This is important because it means that that \textit{k} is polynomial in \textit{b} or that \textit{k} is always able to be represented by \textit{b} raised to some exponent \textit{c} where \textit{c} is some constant value. This can be expressed in the form \textit{k $=$ b$^{\mathcal{O}(1)}$} or \textit{$\mathcal{O}(1) = log_b$k}
 	\newline
-	\textit{$\mathcal{O}(1)$} can be substituted in for \textit{d} in the time complexity analysis meaning Radix sort will run in $\mathcal{O}$\textit{(n)} or linear time in the context of this project.
+	$\mathcal{O}(1)$ can be substituted in for \textit{d} in the time complexity analysis meaning Radix sort will run in $\mathcal{O}(n)$ or linear time in the context of this project.
 	\pagebreak
 	\section{Radix Selection}
 	
@@ -314,13 +316,7 @@
 	\newline
 	\newline
 	The approach used in this project was to identify the number of digits needed to express the largest absolute value of the input in the chosen base and then flip the leftmost bit of the digit preceding this digit. So for example the integer 246 when expressed in base 4  (equal to $2^{2}$ or 8 bits) requires 4 digits [3312], so in RPython the preceding bits are all 0 to indicate the sign being positive, this method then identifies the bits that would represent the next digit (the bits 9th and 10th from the right) and flips the leftmost digit giving it the binary value of [10] and a digit value of 2 in base 4. This dynamic approach ensures that the relative correct order within the positive and negative integers is preserved  and is suitable for use with any integers being sorted in any base.
-
-
-	
-	
-
-
-
+\pagebreak
 \section{Implementation}
 \subsection{Extra Methods and Class}
 Explanation of all functions and classes that exist outside of the  radixsort algorithms. Each function is documented in isolation in the order they appear in the source files, for a full view of each of the files refer to {\color{red}reference}
@@ -619,13 +615,106 @@ The way that this has been implemented in this project is seen below. It involve
 
 		for num in self.list:
 			disc = 0
-			for i in xrange(min_bytes + 1):
+			for i in xrange(min_bytes):
 				val = get_digit(num, i)
 				counts[i][val] += 1
 
-		for i in range(min_bytes + 1):
+		for i in range(min_bytes):
 			for j in xrange(1, self.radix):
 				counts[i][j] += counts[i][j - 1]
 	\end{lstlisting}
+\subsubsection{Order checking {\color{red} This needs testing further, it might be incorrect}}
+\par
+Radix sort has no advantage when called on already sorted lists compared to unsorted due to the non-comparative nature of the algorithm. Simple comparative algorithms such as bubble sort will actually out perform radix sort when called on sorted lists and as Timsort is highly efficient at sorting them there is substantial motivation for improvements to be made with regards to handling sorted data.
+\par
+Identifying sorted lists is not computationally expensive, it involves iterating over and comparing the list items in order and ensuring that each value is larger or equal to the previous value, essentially only involving $n\minus1$ comparisons where $n$ is the input list length giving a time complexity of $\mathcal{O}(n)$. As this algorithm already involves iterating over the data, the run time cost of adding a comparison function to check for sortedness is extremely low, thus a check to identify whether a list is sorted as well as whether a list is reverse sorted is included in the first iteration over the data, which is the point at which the absolute maximum value of the list is identified (a necessary step for this algorithm).
+\begin{table}[H]
+	\centering
+	\begin{lstlisting}
+		def list_abs_max(self, checkorder=False):
+	
+		m = self.list[0]
+		n = self.list[0]
+		prev = self.list[0]
+		(ordered, reverseordered) = (True, True)
+		for i in range(1, len(self.list)):
+			ordered &= self.list[i] >= prev
+			reverseordered &= self.list[i] <= prev
+			prev = self.list[i]
+		if checkorder:
+			self.ordered = ordered
+			self.reverseOrdered = reverseordered
+	\end{lstlisting}
+	\caption*{Checking whether the list is ordered or reverse ordered whilst\\ iterating over the list to identify the absolute maximum value}
+\end{table}
+\par
+An extension of this idea is to perform this order checking every time the input list is rearranged (once for each digit). Unlike the initial order checking which has a minor footprint on the run time of the algorithm, checking order on each digit has a moderately significant impact, therefore it should only be implemented on the conditions that it reasonably likely that sorted lists will occur and that when the test does identify a sorted list the time saved from early termination of the algorithm is greater than the time added by performing the test. 
+\par
+Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts can benefit from order checking performed on sublists which trigger positive ordered tests frequently and early termination of the sorting of these sublists improved performance {\color{red} Obviously you have to prove this}. In contrast, LSD sorts rarely trigger positive results with the frequency of these events dropping to 0 when negative integers are included. The lack of occurences of sorted lists in this circumstance is likely because the least significant digits have weaker influence on the size of integers meaning aside from random events and specific circumstances the input list is simply less likely to become sorted earlier than expected; the inclusion of negatives procludes the possibility of a list being sorted because of the leading sign bits causing negatives (and particularly negatives closer to 0) to be sorted as though they are the largest integers i.e. in the wrong order. 
+\par
+\begin{table}[H]
+	\centering
+	\begin{lstlisting}
+        def is_sorted(self, start=0, end=-1):
+            end = end if end > -1 else self.listlength
+            assert start >= 0; assert end >= 0
+            sortd, rsortd = True, True
+            for i, el in enumerate(self.list[start + 1 : end]):
+                if el < self.list[start + i]:
+                    sortd = False
+                    if rsortd == False: return sortd, rsortd
+                if el > self.list[start + i]:
+                    rsortd = False
+                    if sortd == False: return sortd, rsortd
+            return sortd, rsortd
+	\end{lstlisting}
+	\caption*{Checking whether a slice of the list is ordered or reverse ordered \\after integer sorting has been applied to each digit}
+\end{table}
+\par
 
+\pagebreak
+\subsubsection{skipping iterations}
+The time complexity of radix sort is $\mathcal{O}${($N \cdot k$)} where k is the number of digits that must be sorted, therefore it is possible (and effective) to have a meaningful effect on the runtime of the algothim by reducing k, this is why the use of different bases has been focussed on as this also reduces k (the number of iterations over the input list that needs to be made).
+\par
+Skipping iterations over the data can be made by identifying digits on which no sorting is necessary, the specific method of identification differs based on the implementation of radix sort.
+\par
+For counting sort, if every single list item contain an identical value for a digit there will be no change in the order of the list when sorting across that digit. This circumstance is identified by a single count list item being equal to the list length and can be identified by iterating over the count list, a positive result means the process of moving the list items can be skipped. As the count list is already iterated over to accumulate the values, this test is computationally inexpensive.
+\begin{table}[H]
+	\centering
+	\begin{lstlisting}
+		skip = []
+		for i in xrange(min_bytes):
+			for j in xrange(self.radix):
+				if counts[i][j] == self.listlength:
+					skip.append(i)
+					break
+				if j==1: continue
+				counts[i][j] += counts[i][j - 1]
+	\end{lstlisting}
+	\caption*{Identifying if all items have an identical value for each digit in LSD counting sort. \\ The same process is used for MSD counting sort but the sublist length is used instead of total list length}
+\end{table}
+\par
+In pigeonhole sort a similar opportunity arises in the form of identifying whether all items have been placed into any of the buckets which would mean overwriting the input list with the bucket wouldn't change the order. Testing for this condition involves iterating over the buckets list and counting the number of non-empty buckets, if the count increases past 1 bucket it signals the condition has not been met and the test iteration can be terminated. This test takes up no space and at worst $\mathcal{O}${($k$)} time to iterate over the bucket list but negative resulting tests take far less time typically.
+
+\begin{table}[H]
+	\centering
+	\begin{lstlisting}
+		count = 0
+		for b in bucket:
+			if b!=[]:
+				count+=1
+				if count>1:
+					break
+		if count==1:continue
+	\end{lstlisting}
+	\caption*{Identifying if more than 1 bucket has been used}
+\end{table}
+
+
+\subsubsection{Insertion sort}
+Radix sort has a significant overhead cost due to the establishment of the count lists and the list of bins that must be instantiated or cleared on each digit, this cost has little to no relation to the length of the list and so it is oveten highly inefficient when compared to other algorithms to perform radix sort.
+\newline
+This issue beomes exponentially worse when radix sort is implemented in MSD fashion due to the nature of establishing sub-lists and thus performing sorting on an ever increasing n7umber of lists containing progressively fewer and fewer items (sorting $150000$ items in base $2^{16}$ can create over $65000$ lists with an average length of $2$ for which the count list must be established separately).
+\newline
+Using insertion sort in situations where the input list is reasonably small can be much more efficient than performing continuous rounds of radix sort, this effect is compounded on small lists of large items. Identifying the exact point at which it becomes more efficient to use insertion sort was done by {\color{orange} HAHAHAHAHAH GOOD LUCK}
 \end{document}
