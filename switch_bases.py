@@ -36,5 +36,4 @@ def get_files(path):
     return [file for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))]
 
 if __name__ == "__main__":
-    base_switch("always_insert")
-    base_switch("never_insert")
+    base_switch("fewer_iters")
