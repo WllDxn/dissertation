@@ -13,7 +13,6 @@ def compile(version):
     cg = "\/tmp([^']*)"
     rg = "[/.+?\./]"
     for name in filenames:
-        if 'lsd_p_6' in name:continue
         packagename = f"{re.split(rg, name)[0]}_{version}"
         if packagename in existingnames:
             print(f'skipping: {str(name)}')
@@ -52,5 +51,7 @@ def get_files(path):
 
 
 if __name__ == "__main__":
-    compile("isolate_byte_nodisc")
+    compile("only_insert")
+    # compile("always_insert")
+    # compile("never_insert")
     # compile("insertion_tests_3")

@@ -182,14 +182,32 @@
 	\pagebreak
 	\section{Time complexity}
 	\subsection{Integer Sorting}
-	Counting and Pigeonhole sort both have a time complexity of $\mathcal{O}\textit{(n+k)}$ where \textit{n} is the number of items in the input array and \textit{k} is the maximum range of input values, this can be seen as one pass over the input data containing \textit{n} items and one pass over the intermediary buckets array for pigeonhole sort or the count array for counting sort, both of which contain \textit{k} items.
-	\newline
+	Counting and Pigeonhole sort both require one iteration over the input list which contains $n$ items and one pass over the intermediary buckets array for pigeonhole sort or the count array for counting sort, both of these arrays contain $k$ items where $k$ is the maximum range of input values. The combination of these two passes gives both integer sorting methods a time complexity of 
+	\begin{table}[!h]
+		\begin{center}
+			\begin{tabular}{c}
+				$\mathcal{O}\textit{(n+k)}$ 
+			\end{tabular}				
+			\end{center}
+		\end{table}
 	\subsection{Radix Sort}
-	Radix sort repeatedly applies integer sorting to each successive digit of the input array, it differs from counting sort in that it does not sort into \textit{k} buckets but a constant base \textit{b} is chosen. It repeats the integer sorting method \textit{d} times where \textit{d} is the number of passes necessary to sort each digit of the maximum value in the input with respect to the base \textit{b} and can be expressed as \textit{d = $log_b$k}
-	\newline
-	This gives a time complexity of	$\mathcal{O}$\textit{((n + b) $\cdot$ d)} or if we select some constant value for \textit{b}; $\mathcal{O}$\textit{(n $\cdot$ d)}
-	\newline However, in the application of this project, radix sort will only be applied to integers represented in 64-bits, meaning there is a defined upper bound to the max value \textit{k}. This is important because it means that that \textit{k} is polynomial in \textit{b} or that \textit{k} is always able to be represented by \textit{b} raised to some exponent \textit{c} where \textit{c} is some constant value. This can be expressed in the form \textit{k $=$ b$^{\mathcal{O}(1)}$} or \textit{$\mathcal{O}(1) = log_b$k}
-	\newline
+	Radix sort repeatedly applies integer sorting to each successive digit of the input array, it differs from counting sort in that it does not sort into \textit{k} buckets but a constant base \textit{b} is chosen. It repeats the integer sorting method \textit{d} times where \textit{d} is the number of passes necessary to sort each digit of the maximum value in the input with respect to the base \textit{b} and can be expressed as \textit{d = $log_b$k}, giving a time complexity of:
+	\begin{table}[!h]
+		\begin{center}
+			\begin{tabular}{c}
+
+	 $\mathcal{O}$\textit{((n + b) $\cdot$ d)}
+ \\ \\
+	or if \textit{b} is a constant:
+\\	\\
+	$\mathcal{O}$\textit{(n $\cdot$ d)} 
+			\end{tabular}
+				
+			\end{center}
+		\end{table}
+			
+	However, in the application of this project, radix sort will only be applied to integers represented in 64-bits, meaning there is a defined upper bound to the max value \textit{k}. This is important because it means that that \textit{k} is polynomial in \textit{b} or that \textit{k} is always able to be represented by \textit{b} raised to some exponent \textit{c} where \textit{c} is some constant value. This can be expressed in the form \textit{k $=$ b$^{\mathcal{O}(1)}$} or \textit{$\mathcal{O}(1) = log_b$k}
+	\par
 	$\mathcal{O}(1)$ can be substituted in for \textit{d} in the time complexity analysis meaning Radix sort will run in $\mathcal{O}(n)$ or linear time in the context of this project.
 	\pagebreak
 	\section{Radix Selection}
@@ -197,16 +215,16 @@
 	\label{sec:radixselection}
 	\subsection{Introduction}
 	Radix sort utilises repeated rounds of integer sorting across each digit of the input list, therefore, it is necessary to make a clear definition of a digit so that an effective method of separating an integer into its component digits can be implemented. When expressing a number of any kind, it is necessary to establish the numerical base that will be used, this is the number of unique values that can be displayed in each digit and when a value exceeds the maximum value within this base, another digit must be added; i.e. in standard decimal or base 10 numbers 0 through 9 can be expressed in a single digit but increasing beyond this range requires adding a second digit to create the number 10.
-	\newline
+	\par
 	Though numbers in typical day to day use by humans are typically thought of as arabic numerals in the decimal system, this is a social convention which this algorithm is not beholden to, and as Radix sort fundamentally relies on the processing of the component digits of an integer it is of great importance to select an appropriate base as well as identify an efficient method for processing each digit.
 	\subsection{Explanation}
 	\label{ssec:radixexplanation}
 	Python stores integers in the format "two’s complement”, which is a type of binary and therefore uses a base of 2. This means that bases that are of the order $2^n$ where n is some integer are the most suitable for a typical radix sort algorithm, this is because bases that fit this specification allow each digit to be directly accessed from an integer's binary digits.
-	\newline 
+	\par 
 	Any base of $2^n$ will utilise all possible combinations of $n$ digits of binary to express a single digit and so the rightmost $n$ digits represent the first digit in $2^n$, the next $n$ digits represent the next digit etc.
 	\subsection{Implementation}
  	The method of identifying each digit of an integer from the binary representation first involves manipulating the integer such that the desired digit is in the rightmost position, in base $n$ this means discarding the rightmost $n \cdot d$ binary digits where d is the index (from the right) of the required digit in base $2^n$. Following this, isolating the rightmost $n$ binary digits produces the correct digit.  
-		\newline
+		\par
 	In order to complete this task, bitwise operations have been utilised, and are explained fully in section \ref{ssec:bitwise}.
 
 
@@ -273,9 +291,9 @@
 	\subsection{Two's Complement}
 	\label{ssec:negativestwos}
 	When handling integers in two’s complement, positives are represented in binary, but with a leading 0 in the leftmost position to indicate the positive sign of the integer. Negative integers are represented with a leading 1 which represents that the binary value of this digit is to be subtracted i.e. negative and all other binary digits are positive such that the sum of all the digits equals the integer being represented. table reference has been included to illustrate this, as you can see the value $+3$ has a leading $0$ at index $2$, representing $2^{2}$ is not subtracted, this is followed by 1 in all remaining digits representing the addition of $2^{1}$ and $2^{0}$ or $2+1=3$. $\minus3$ is represented by a leading 1 to represent $\minus2^{2}$ followed by 0 1 to represent no addition of $2^{1}$ and the addition of $2^{0}$ or $\minus4 + 1 = \minus3$.
-	\newline
+	\par
 	The effect of performing Radix sorting without any accommodation for negativity is that due to the leading 1, negative values will be incorrectly sorted ahead of positive values as though they were larger. They will also be sorted into the correct order relative to other negative values (increasing from most negative to least negative), as among values that can be represented in the same number of bits the more negative numbers have fewer additional bits in positions to the right, for example $\minus4$ is 100 and $\minus 3$ is 101.
-	\newline
+	\par
 	The method of correcting for this problem is to invert the bits representing the sign of the largest absolute value of the input list (see \ref{sssec:xor} for further explanation). This operation causes the items to retain their relative position amongst elements of the same sign but causes negative values to be sorted to their correct position as less than positive values.
 	\vspace{1cm}
 	\begin{table}[!h]
@@ -310,11 +328,11 @@
 	\subsection{Implementation}
   \label{ssec:negativesImplementation}
 	The purpose of this project was to incorporate this sorting algorithm into the standard library for Pypy, meaning it had to be written in RPython, the language used for Pypy. RPython is a restricted form of python, specifically it is a form of Python 2, which is relevant to the handling of integers as RPython inherits Python2’s method of allocation of a quantity of bits for each integer equal to the word size of the machine it is being run on (typically this is 32 or 64 bits), even if the integer can be expressed in fewer bits. The leftmost bit represents whether the integer is positive or negative and the remaining bits represent the magnitude of the integer, all digits between the sign bit and the most significant bit needed to represent the integer are copies of the sign bit. To put this in the context of two’s complement , this representation can be understood as the first bit representing $\minus2^{m}$ where m is the machine word length and all following digits are additions of $2^{n}$ where n is $[m-1..0]$.
-	\newline
-	\newline
+	\par
+	\par
 	The true sign bit, meaning the bit that always and exclusively represents the sign of the integer, is the one in the leftmost position, however it is not necessarily the most optimal solution to this problem of negatives being sorted into the incorrect position to flip this bit. Firstly, when sorting integers that take up a small number of bits it would require some additional logical test to identify if the algorithm is performing the first (for MSD) or last (for LSD) pass of the data to then instruct the algorithm to jump to the leftmost bit. Additionally, it is necessary to identify the machine word length of the machine on which this code is running as flipping the 64th bit on a 32 bit machine is not possible, this eliminates the possibility of a hardcoded value and essentially forces the use of the “sys.maxint” function from the Python 2 standard library. I decided that using this function was not in the best interest of this project for posterity as it was removed from Python 3 and replaced with “sys.maxsize” which means if RPython ever moved on to Python 3 this function would stop working; whilst this is a minor issue that would likely never cause problems there is an alternative solution without any issues.
-	\newline
-	\newline
+	\par
+	\par
 	The approach used in this project was to identify the number of digits needed to express the largest absolute value of the input in the chosen base and then flip the leftmost bit of the digit preceding this digit. So for example the integer 246 when expressed in base 4  (equal to $2^{2}$ or 8 bits) requires 4 digits [3312], so in RPython the preceding bits are all 0 to indicate the sign being positive, this method then identifies the bits that would represent the next digit (the bits 9th and 10th from the right) and flips the leftmost digit giving it the binary value of [10] and a digit value of 2 in base 4. This dynamic approach ensures that the relative correct order within the positive and negative integers is preserved  and is suitable for use with any integers being sorted in any base.
 \pagebreak
 \section{Implementation}
@@ -333,9 +351,9 @@ The purpose of this helper method was to allow for the calculation of absolute v
 \subsubsection{Function int\textunderscore bytes}
 \label{ssec:intbytes}
 Returns the minimum quantity of bytes in a given radix necessary to express an integer, including a sign bit. This function is used to calculate the number of iterations that the sorting algorithm must make in order to sort all values up to and including the given input $i$.
-\newline
+\par
 The function calculates  $ \log_{radix}(i)$, i.e. to what power $i$ must be raised to get $radix$, uses ceil to get the next highest integer and adds $1$ to the value to allow for the sorting of negatives. It is necessary to return an integer in this case because this value is used to determine the number of bits used to identify each digit and the number of iterations over the list that must be made, both of these are discreet values. $ceil()$ has been used instead of $int()$ or $floor()$ as a value lower than needed would result in incorrect sorting of values the larger values.
-\newline
+\par
 \begin{lstlisting}
         from math import ceil, log
         
@@ -345,7 +363,7 @@ The function calculates  $ \log_{radix}(i)$, i.e. to what power $i$ must be rais
 \pagebreak
 \subsubsection{Function make\textunderscore radixsort\textunderscore class}
 The container function that instantiates all other funtions, this is modelled on the existing function in listsort.py {\color{red}reference} to minimize compatability issues when including this project in the pypy library.
-\newline
+\par
 Almost all functions have been removed or altered in a major way, particularly any functions that pertain to comparative sorting, it is the general structure that has been emulated.
 \begin{lstlisting}
     def make_radixsort_class(
@@ -354,7 +372,7 @@ Almost all functions have been removed or altered in a major way, particularly a
   \end{lstlisting}
 \subsubsection{Function setitem}
 This function has been imported from the existing listsort.py file within rlib {\color{red} Reference? - This whole needs more research, I'm not certain it is correct}. It serves the function of enabling the input list to be edited by functions within the Radixsort class. When the $.sort()$ function is called by PyPy, it initialises the Radixsort class with the list as a constructor, this means that the list attribute is not mutable from within the class. Importing setitem $setitem$ into the class allows the input list to be updated.
-\newline
+\par
 This is the only existing function of the original listsort.py that was not removed.
 \begin{lstlisting}
     if setitem is None:
@@ -364,8 +382,8 @@ This is the only existing function of the original listsort.py that was not remo
 
 
 \subsubsection{Class Radixsort}
-This is the class that contains all other functions of the radixsort algorithm, it creates an object that is used to ease the manipulation of the input list and store attributes that are referenced and edited from multiple different functions.\newline in particular the list attribute contains the input list, which is used by every other funtion of the object.
-\newline
+This is the class that contains all other functions of the radixsort algorithm, it creates an object that is used to ease the manipulation of the input list and store attributes that are referenced and edited from multiple different functions.\par in particular the list attribute contains the input list, which is used by every other funtion of the object.
+\par
 The function $setitem$ is imported here as mentioned above so that the list can be edited outside of the scope of the class.
 \begin{lstlisting}
         class Radixsort(object):
@@ -381,11 +399,11 @@ The function $setitem$ is imported here as mentioned above so that the list can 
 
 \subsubsection{Function list\textunderscore abs\textunderscore max}
 This function is an implementation of a combination of min() and max() functions (neither of which are implemented in RPython {\color{red}reference}) as well as an optional module to identify whether the list is sorted in asscending or descending order. The function also compares the maximum and minimum values and returns the value that is farthest away from $0$.
-\newline
+\par
 The primary purpose of this function is to return the value that is used to identify the number of passes over the input necessary for sorting, this is why it is necessary to identify the farthest value form 0 as this is the value that will contain the most digits.
-\newline
+\par
 The secondary purpose of the funtion is to update the class attributes $ordered$ and $reverseOrdered$, which are used to identify whether the sort function has been called on an already sorted list in which case there is no purpose in running the algorithm.
-\newline
+\par
 The reason that these actions are performed at the same time is because iterating over the list is necessary for both purposes, and both must be performed before sorting can take place (or not take place if the list is sorted), therefore it is more efficient to perform both tasks simultaneously.
 \begin{lstlisting}
         self.ordered = True
@@ -444,25 +462,24 @@ This reverses the items of the input inbetween the provided start and stop index
 \subsection{Bitwise operations}
 \label{ssec:bitwise}
 Bitwise operations operate on binary numerals at the level of individual bits, they allow for fast and consistant manipulation that bypasses arithmetic functions. Through the use of bitwise operations, radix sort can be performed using different numeral bases, meaning a diffent maximum value at each digit and a different total number of digits. By reducing the number of digits the amount of iterations over the data is reduced thereby improving run time, however this comes at the cost of an increase in the amount of time each round of integer sorting takes and an increase in the memory consumption due to the larger count list or quantity of bins. 
-\newline
+\par
 Bitwise operations are particular useful in this regard as it makes processing integers in bases of the order $2^n$ where $n$ is some integer very easy (see section \ref{ssec:radixexplanation}) whereas changing base from the standard base 10 requires time consuming arithmetic methods such as euclidian division.
-\newline
+\par
 In order to properly implement bitwise operations it was necessary to properly explore their implementation in RPython as well as the implementation of the Integer type. In RPython each integer is comprised of exactly 64 bits, where 1 bit is assigned to represent the integer's sign, leaving a maximum of 63 bits to express the magnitude of the integer, this gives integers in RPython a range of $[\minus2^{63}$ $..$ $2^{63}\minus1]$. The PyPy interpreter considers any integer outside of this range to instead be of the `Long' type, and as such a list containing even a single value outside of this range does not have the Integer specific sorting method applied to it, thus values outside of this range are not within the scope of this project.
-\newline
+\par
 I have already covered in general terms how these  are used in this project to identify the value of each digit in section \ref{sec:radixselection} and handle negative integers in \ref{ssec:negativesImplementation} but in this section I will cover the implementation of the bitshift operations used in RPython.
-\newline
+\par
 
 \pagebreak
 \subsubsection{Left shift}\
 \label{sssec:leftshift}
-\newline
+\par
 A `Left shift' refers to moving each bit of an integer a number of digits to the left, in RPython this is performed using: $n << s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the left.
-\newline
+\par
 RPython utilises Arithmetic Shifting, this means when a shift is performed and the rightmost bit is no longer in the rightmost position, all digits in the range $[0 .. s]$ are overwritten with the value 0 and an equal quantity of digits in the leftmost positions are discarded.
-\newline
-\newline
+\par
 In this project, left shifting is used to create integers that occupy a specific number of bits and is used for the accomodations necessary to sort negative integers (further explained in \ref{sssec:xor}). 
-\newline
+\par
 
 \begin{table}[htpb]
 	\centering
@@ -480,11 +497,11 @@ In this project, left shifting is used to create integers that occupy a specific
 
 \subsubsection{Right shift}\
 \label{sssec:rightshift}
-\newline
+\par
 A `Right shift' is the inverse of left shift, referring to moving each bit of an integer to the right, using the operator $n >> s$ where $n$ is the integer to be shifted and $s$ is the number of digits the integer should be shifted to the right.
-\newline
+\par
 Like Left shifting, Right shifting utilises Arithmetic shifting, meaning the rightmost $s$ digits are discarded. Right shift differs from leftshift however as the digits in the the leftmost positions that become empty are overwritten with a value equal to the most significant (leftmost) bit, which would typically represent the sign of the integer. This means that a Right shifted integer retains it's original sign.
-\newline\newline
+\par
 Right shifting is used in this project to manipulate integers from the input list in order to move a specific digit into the rightmost position so that the value of this digit can be extracted using Bitwise And (see \ref{sssec:and}). The bases selected for this project are of the order $2^n$ where $n$ is some integer, meaning a single digit of the integer occupies $n$ bits and therefore; Right shifting $n \cdot d$ positions places the digit $d$ from the right in the rightmost position, occupying the rightmost $n$ bits. 
 \begin{table}[!htb]
 	
@@ -526,13 +543,13 @@ Right shifting is used in this project to manipulate integers from the input lis
 \pagebreak
 \subsubsection{And}\
 \label{sssec:and}
-\newline
+\par
 The `And' operator takes two integers and compares each bit across all binary digits, returning $1$ if both bits are equal to $1$ or returning $0$ if either or both are equal to $0$.
-\newline
+\par
  This is utilised in this project to isolate a specified number of bianry digits of an integer, specifically $n$ digits in binary represent one digit of the integer in base $2^{n}$. This is done by `Right shifting' $n \cdot d$ positions (as stated in \ref{sssec:rightshift}) and then by performing an `And' operation with $2^{n}\minus1$, which in binary is represented as a $1$ in the rightmost $n$ digits, and 0 in all other digits, which will retrieve the rightmost $n$ bits and 0 for all other bits.
-\newline
+\par
 In pypy, the And operation is performed using the  $x$ $\&$ $y$ operator resulting in an `And' operation between $x$ and $y$.
-\newline
+\par
 
 \begin{table}[htpb]
 	\centering
@@ -551,7 +568,7 @@ In pypy, the And operation is performed using the  $x$ $\&$ $y$ operator resulti
 \end{table}
 \subsubsection{Not}\
 \label{sssec:not}
-\newline
+\par
 The bitwise not operator produces the inverse of all binary digits in an integer, giving a 1 if an integer contains a 0 and vice versa. It is unique in the sense that it is the only operation that is performed on a solitary input. This is used in the process of inverting the sign of integers detailed in \ref{sssec:xor}
 
 
@@ -570,15 +587,15 @@ The bitwise not operator produces the inverse of all binary digits in an integer
 \pagebreak
 \subsubsection{Exclusive Or}\
 \label{sssec:xor}
-\newline
+\par
 `Exclusive Or' compares the bits of two integers and returns a value of 1 for each digit where the two bits are different and 0 if they are the same. It is performed in pypy using $x$ $\hat{}$ $y$ which results in an `Exclusive Or' performed across all 64 bits of the two integers $x$ and $y$. 
-\newline
+\par
 The use case for this in this project occurs when inverting the sign bit to ensure negative and positive values are sorted correctly (see \ref{ssec:negativestwos} for details).This is done by identifying the quantity of binary digits needed to express the largest absolute value of the input using the function `int\textunderscore bytes' (shown in \ref{ssec:intbytes}) with a radix of 2, this quantity is given as the integer $d$. Left shifting an integer of value $1$ $d$ times and then subtracting 1 produces the maximum integer expressable in the same number of bits as the largest absolute input value, this is given as integer $v$. In binary $v$ contains $1$ in all digits up to the most significant digit of the largest absolute input value excluding any sign bits and a 0 in all other digits.
-\newline
+\par
 This value $v$ is then inverted using bitwise `Not' (see \ref{sssec:not}) so that it instead contains $0$ in the bits representing the max input and 1 in all other bits. As explained in \ref{ssec:negativesImplementation}, in two's complement binary all digits to the left of the most significant are equal and represent the sign of an integer, therefore $v$ contains $1$ in all the sign bits of the largest max input. Performing the Bitwise `Exclusive Or' operation with any value in the list against the value $v$ inverts all values in these sign bits. As shown in \ref{ssec:negativesImplementation}, negative integers are originally stored in the correct order but placed higher than positive values, performing these operations ensures that the relative order is not altered but the negatives are positioned correctly.
-\newline
+\par
 Depending on the base selected and the number of digits of the largest absolute value, multiple sign bits may be contained in the leftmost digit of some integers being sorted, for example $300$ contains 3 digits in base $2^4$, but only 9 digits in binary, therefore the leftmost digit includes three sign bits. Therefore all sign bits must be flipped to ensure that sorting an integer across digits containing sign bits does not alter their position in the sorted list.
-\newline
+\par
 \begin{table}[htpb]
 	\centering
 	\begin{tabular}{r|rrrrrrrr}
@@ -601,14 +618,14 @@ Depending on the base selected and the number of digits of the largest absolute 
 \subsubsection{Optimizations {\color{red} Incomplete}}
 Some of the code outlined in section {\color{red} Reference code explanation} differ in relatively substantial ways from the pseudocode outlined in section \ref{sec:design}, many of these differences arise from increasing the performance of the algorithm. In this section I will explain the function and reasoning of these differences.
 \paragraph{LSD counting sort - creating all count lists in one pass}\
-\newline
+\par
 LSD counting sort is a combination of LSD sort (\ref{ssec:lsd}) which calls counting sort (\ref{ssec:counting}) on every digit. It iterates over the input list for each digit: once whilst counting the occurence of the values at the digit and a second time when moving the input list items into the output list based on these count lists.
-\newline
+\par
 An optimization I have used is to make a single pass over the input list whilst creating the count lists for every digit simultaneously instead of once for each digit. The reason this is possible is that the occurence of the values for each digit do not change based on the order of the input list, items are moved from the input list to their new position based on the value stored in the count list representing the value of the current digit of the item, the order of the input list has no bearing on the order or values of the count list. 
-\newline
+\par
 The values stored in the count list represent the position of the items relative to one another after being sorted across a given digit; due to MSD sort creating sublists in a specific order and then sorting the sublists' items amongst one another, a count list created for a diffent digit was therefore created for a different list and so does not represent the position of the items relative only to other items in the sublist.
-\newline
-The way that this has been implemented in this project is seen below. It involves creating a 2 dimensional array with an outer list of $d$ sublists each of length $r$ where $d$ is the number of digits and $r$ is the radix. Following this the input list is iterated over and for each item the count list of each digit is incremented i.e. the sublist at position $[0..d]$ represents the count of the digit at the same position. After this, list of count lists is iterated over and each list is incremented, then when moving the input items based on the count lists the relevant count list can be accesed by accessing the outer list at the index equal to the index of the current digit.\newline
+\par
+The way that this has been implemented in this project is seen below. It involves creating a 2 dimensional array with an outer list of $d$ sublists each of length $r$ where $d$ is the number of digits and $r$ is the radix. Following this the input list is iterated over and for each item the count list of each digit is incremented i.e. the sublist at position $[0..d]$ represents the count of the digit at the same position. After this, list of count lists is iterated over and each list is incremented, then when moving the input items based on the count lists the relevant count list can be accesed by accessing the outer list at the index equal to the index of the current digit.\par
 	\begin{lstlisting}
 		#Note: this code has been simplified
 		counts = [[0 for _ in range(radix)] for _ in range(min_bytes + 1)]
@@ -713,8 +730,79 @@ In pigeonhole sort a similar opportunity arises in the form of identifying wheth
 
 \subsubsection{Insertion sort}
 Radix sort has a significant overhead cost due to the establishment of the count lists and the list of bins that must be instantiated or cleared on each digit, this cost has little to no relation to the length of the list and so it is oveten highly inefficient when compared to other algorithms to perform radix sort.
-\newline
+\par
 This issue beomes exponentially worse when radix sort is implemented in MSD fashion due to the nature of establishing sub-lists and thus performing sorting on an ever increasing n7umber of lists containing progressively fewer and fewer items (sorting $150000$ items in base $2^{16}$ can create over $65000$ lists with an average length of $2$ for which the count list must be established separately).
-\newline
-Using insertion sort in situations where the input list is reasonably small can be much more efficient than performing continuous rounds of radix sort, this effect is compounded on small lists of large items. Identifying the exact point at which it becomes more efficient to use insertion sort was done by {\color{orange} HAHAHAHAHAH GOOD LUCK}
+\par
+Using insertion sort in situations where the input list is reasonably small can be much more efficient than performing continuous rounds of radix sort, this effect is compounded on small lists of large items. Identifying the exact point at which it becomes more efficient to use insertion sort was done by {\color{orange} Not yet decided}
+
+\pagebreak
+\subsection{Algorithms}
+\label{ssec:algorithms}
+\subsubsection{LSD Counting sort}
+In lines 2-18 the algorithm is instantiating the variables it needs to perform calculations:
+\begin{description}
+	\item[listmax]contains the largest absolute value of the list and is used to calculate the passes over the data needed to complete sorting as well as the integer mask {\color{red}is integer mask the correct term>} used to invert the sign bit.
+	\item[$min\textunderscore bytes$]Uses the listmax variable and the selected radix to calculate the total iterations over the data (rounds of integer sorting) that wil be needed, which is equal to the number of digits required to express $list\textunderscore max$ in the current radix, to account for the sign of the integer,  $min\textunderscore bytes$ includes an extra digit incase . However if $min\textunderscore bytes$ is equal to the maximum possible number of digits, $min\textunderscore bytes$ is reduced by 1, this is a safeguard put in place to prevent the algorithm from using a rightshift value greater than the machine word length as this results in an overflow error. when $min\textunderscore bytes$ is divisible by the radix{\color{red} Can this be done by checking if min bytes is divisible by the radix? }
+	\item[$uint\textunderscore 63$]Integer mask used to invert the sign bit. Line 16 is the default value, but in the case of a listmax occupying the same quantity of digits as the largest possible value line 13 is used. 
+	$(1 << int\textunderscore bytes(listmax, 2))$ is represented in binary by a 1 in the position directly to the left of the leftmost 1 of the list max,.
+	\item[] 
+\end{description}
+\begin{table}[H]
+	\lstset{
+		language=python,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=3,
+    breaklines=true,
+    breakatwhitespace=false,}
+	\centering
+	\begin{lstlisting}[escapeinside={(*}{*)}]
+	def sort(self):
+		if self.listlength < 2:
+			return
+		listmax = self.list_abs_max(checkorder=True)
+		min_bytes = int_bytes(listmax, self.radix)
+		if self.ordered == True:
+			return
+		if self.reverseOrdered == True:
+			self.reverseSlice()
+			return
+
+		if min_bytes == int_bytes((-sys.maxint) - 1, self.radix):
+			uint_63 = (*$\sim$*)((1 << int_bytes(listmax, 2) - 1) - 1)
+			min_bytes -= 1
+		else:
+			uint_63 = (*$\sim$*)((1 << int_bytes(listmax, 2)) - 1)
+
+		counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes)]
+
+		for num in self.list:
+			for i in xrange(min_bytes):
+				shift = (self.base) * i
+				sortkey = (num) ^ uint_63
+				val = (sortkey >> shift) & self.radix - 1
+				counts[i][val] += 1
+
+		skip = []
+		for i in xrange(min_bytes):
+			for j in xrange(1, self.radix):
+				if counts[i][j] == self.listlength:
+					skip.append(i)
+				counts[i][j] += counts[i][j - 1]
+		temp_list = [0 for _ in xrange(self.listlength)]
+		for i in xrange(min_bytes):
+			if i in skip:
+				continue
+			shift = (self.base) * i
+			for j in xrange(self.listlength - 1, -1, -1):
+				num = self.list[j]
+				sortkey = (num) ^ uint_63
+				val = (sortkey >> shift) & self.radix - 1
+				temp_list[counts[i][val] - 1] = self.list[j]
+				counts[i][val] -= 1
+			self.setslice(temp_list, 0)
+	\end{lstlisting}
+	\caption*{LSD counting sort}
+\end{table}
 \end{document}

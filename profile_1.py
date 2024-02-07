@@ -1,11 +1,13 @@
 import sys
 from math import ceil, log, pow
 
+from matplotlib.colors import rgb2hex
+from minor_files.print_bits import print_arr
 import numpy as np
 
 
-from math import ceil, log, pow
 import sys
+from math import ceil, log, pow
 
 
 def int_bytes(i, radix):
@@ -16,6 +18,7 @@ def int_bytes(i, radix):
     :param i: Input integer
     :return: Number of bytes used to identify integer
     """
+
     return int(ceil(log(absolute(i)) / log(radix))) + 1
 
 
@@ -47,15 +50,10 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, listlength=None):
             self.list = list
-            self.base = 6
+            self.base = 8
             self.listlength = len(self.list)
             self.radix = int(pow(2, self.base))
-
-        def setitem(self, item, value):
-            setitem(self.list, item, value)
-
-        def setslice(self, slice, index):
-            setslice(self.list, slice, index)
+            self.threshold = self.list[0]
 
         def list_abs_max(self, checkorder=False):
             """
@@ -84,6 +82,12 @@ def make_radixsort_class(
                 self.reverseOrdered = reverseordered
             return m if absolute(m) > absolute(n) else n
 
+        def setitem(self, item, value):
+            setitem(self.list, item, value)
+
+        def setslice(self, slice, index):
+            setslice(self.list, slice, index)
+        @profile
         def insertion_sort(self, start, end):
             for step in range(start, end):
                 key = self.list[step]
@@ -104,71 +108,78 @@ def make_radixsort_class(
                 start += 1
                 stop -= 1
 
+        def is_sorted(self, start=0, end=-1):
+            end = end if end > -1 else self.listlength
+            assert start >= 0
+            assert end >= 0
+            sortd, rsortd = True, True
+            for i, el in enumerate(self.list[start + 1 : end]):
+                # if i+start==end:break
+                if el < self.list[start + i]:
+                    sortd = False
+                    if rsortd == False:
+                        return sortd, rsortd
+                if el > self.list[start + i]:
+                    rsortd = False
+                    if sortd == False:
+                        return sortd, rsortd
+            return sortd, rsortd
         @profile
         def sort(self):
             if self.listlength < 2:
                 return
-            listmax = self.list_abs_max(checkorder=True)
-            min_bytes = int_bytes(listmax, self.radix)
-            if self.ordered == True:
+            if self.listlength < 2:
                 return
-            if self.reverseOrdered == True:
-                self.reverseSlice()
-                return
-
-            if min_bytes == int_bytes((-sys.maxsize) - 1, self.radix):
-                uint_63 = ~((1 << int_bytes(listmax, 2) - 1) - 1)
-                min_bytes -= 1
-            else:
-                uint_63 = ~((1 << int_bytes(listmax, 2)) - 1)
-
-            counts = [[0 for _ in range(self.radix)] for _ in range(min_bytes)]
-
-            for num in self.list:
-                for i in range(min_bytes):
-                    shift = (self.base) * i
-                    sortkey = (num) ^ uint_63
-                    val = (sortkey >> shift) & self.radix - 1
-                    counts[i][val] += 1
-
-            skip = []
-            for i in range(min_bytes):
-                for j in range(1, self.radix):
-                    if counts[i][j] == self.listlength:
-                        skip.append(i)
-                    counts[i][j] += counts[i][j - 1]
-            temp_list = [0 for _ in range(self.listlength)]
-            for i in range(min_bytes):
-                if i in skip:
-                    continue
-                shift = (self.base) * i
-                for j in range(self.listlength - 1, -1, -1):
-                    num = self.list[j]
-                    sortkey = (num) ^ uint_63
-                    val = (sortkey >> shift) & self.radix - 1
-                    temp_list[counts[i][val] - 1] = self.list[j]
-                    counts[i][val] -= 1
-                self.setslice(temp_list, 0)
+            for step in range(0, self.listlength):
+                key = self.list[step]
+                j = step - 1
+                while j >= 0 and key < self.list[j]:
+                    self.setitem(j + 1, self.list[j])
+                    j = j - 1
+                self.setitem(j + 1, key)
 
     return Radixsort
 
 
 
+
+
 import copy
 
-for i in range(12, 64, 8):
+if True:
+
     # print(str(i), end='  ')
-    max_value = int(pow(2, i))
-    cols = 1000000
-    lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
+    max_value = int(pow(2, 63))
+    cols = 10000
+    lis = np.random.randint(0, max_value, cols, dtype=np.int64).tolist()
+
+    # lis2.append(int(pow(2, 63))-1)
     # lisf = copy.deepcopy(lis)
     r = make_radixsort_class()
+    # r2 = make_radixsort_class_r()
     # rf = make_radixsort_class_o()
     # rf(lisf).sort()
+
     r(lis).sort()
+    # r2(lis2).sort()
+    # print
     print(
         "shifting sorted: "
         + str(all(lis[i] <= lis[i + 1] for i in range(len(lis) - 1)))
     )
+
+    # def is_sorted(arr, key=lambda x: x):
+    #     s = []
+    #     print(str(arr[0]))
+    #     for i, el in enumerate(arr[1:]):
+    #         space = '' if el<0 else ' '
+    #         if key(el) < key(arr[i]): # i is the index of the previous element
+    #             print((space+"\033[1;31m"+str(el) + '\t'+space + hex(el)))
+    #         else:
+    #              print((space+"\033[1;32m"+str(el) + '\t' +space+ hex(el)))
+    # is_sorted(lis)
+    # print(("\033[1;0m"))
+
+
     # print('fixed    sorted: ' + str(all(lisf[i] <= lisf[i+1] for i in range(len(lisf) - 1))))
-    break
+

@@ -3,7 +3,8 @@ import subprocess
 from compile import *
 import random
 sort_times = "/home/will/dissertation/sort_times"
-methods = ["isolate_byte_nodisc"]
+methods = ["never_insert"]
+# methods = ["always_insert"]
 # methods=['insertion_tests_3']
 
 def n(methodName, output, num=100):
@@ -101,6 +102,44 @@ def ins(methodName, output, thresh=256, threshdivs=128, num=50):
             print("--complete--")
         count+=1
         # break
+def ins_ll(methodName, output, num=100):
+    """
+    Generates and runs a series of commands for sorting data based on the given method name.
+
+    Args:
+        methodName (str): The name of the method to use for sorting.
+        output (str): The output location for the sorted data.
+        num (int, optional): The number of data elements to sort. Defaults to 10.
+
+    Raises:
+        None
+
+    Returns:
+        None
+    """
+    fames = (
+        get_files(f"{radixsort_location}/{methodName}")
+        if methodName != "timsort"
+        else ["/home/will/dissertation/pypy_versions/timsort"]
+    )
+    rg = "[/.+?\./]"
+    count=0
+    for name in fames:
+        # if ('6' not in name and '8' not in name and '10' not in name and'12' not in name) or '16' in name: continue
+        if ('msd_p' not in name) or ('12' not in name or '16' in name): continue
+        # if ('msd_p' not in name) or ('6' not in name and '8' not in name and '10' not in name and'12' not in name or '16' in name): continue
+
+        packagename = re.split(rg, name)[0] if methodName != "timsort" else "timsort"
+        exepath = f'{pypy_versions}/{packagename}_{methodName}/bin/pypy'
+        if not os.path.exists(exepath):continue
+        for l in [10000]:
+            exc = f'{exepath} sort_timer_gendata.py -m {packagename} -o {output} -n {num} -l {str(l)} -et "Few Unique" "Sorted" "Reverse Sorted" "Nearly Sorted" -es tiny small large -s'
+            print("\033[1;35m")
+            print(exc)
+            print("")
+            subprocess.run(exc, shell=True)
+            print("--complete--")
+        count+=1
 
 #  def ins(methodName, output, num=10):
 #     fames = (
@@ -174,4 +213,5 @@ def ins(methodName, output, thresh=256, threshdivs=128, num=50):
 if __name__ == "__main__":
     output = get_filename("_".join(methods)) if len(methods) > 1 else get_filename(methods[0])
     for i in methods:
-        n(i, output)
+        # ins_ll(i, output)
+        ins_ll(i, get_filename(i))

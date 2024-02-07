@@ -23,6 +23,7 @@ def get_max_value(data_size):
 
 def gen_list(cols, data_size, type="Random", threshold=None):
     max_value = get_max_value(data_size)
+    lis = []
     if type == "Random":
         lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
     elif type == "Few Unique":
@@ -44,7 +45,7 @@ def gen_list(cols, data_size, type="Random", threshold=None):
                 lis[idx1], lis[idx1 + 1] = lis[idx1 + 1], lis[idx1]
         # print(lis[:10])
     lis[0] = threshold if threshold is not None else lis[0]
-    return lis
+    return [int(x) for x in lis]
 
 
 def myp(input):
@@ -56,7 +57,8 @@ class Sorter:
         self.outputpath = self.create_output_dictionary(config["output"])
         self.time_start = time.time()
         self.max_list_count = config["list_count"]
-        self.max_list_length = config["list_length"]
+        self.max_list_length = config["list_length"] 
+        self.insert = config["insert"]
         self.threshold = config["threshold"][0]
         self.threshold_divisions = config["thresholddivs"][0]
         self.total_count = 0
@@ -77,9 +79,6 @@ class Sorter:
             dir_path = os.path.dirname(os.path.realpath(__file__).join('sort_times'))
             with tempfile.NamedTemporaryFile(dir=dir_path, prefix="sort_times_", suffix=".json", delete=False) as tmp_file:
                 path = tmp_file.name
-        if not os.path.exists(path):
-            with open(path, "w") as f:
-                f.write("{}")
         return path
 
     def set_data(self, data, list_length, data_size, data_type, time, threshold=None):
@@ -110,45 +109,49 @@ class Sorter:
             curr_list = gen_list(100000, "med", "Random", None)
             myp("\033[1;36m\r\033[KWarming up: %d/100" % (i + 1))
         print("")
-        with open(self.outputpath, "r+") as f:
-            data = json.load(f)
-            data.setdefault("radix_sort", [])
+        if not os.path.exists(self.outputpath):
+            data = {"radix_sort": []}
+        else:
+            with open(self.outputpath, "r+") as f:
+                data = json.load(f)
+                data.setdefault("radix_sort", [])
         
         def generate_items():
-            for list_length in self.max_list_length:
+
+            for list_length in self.max_list_length if not self.insert else list(range((self.max_list_length[0]+1)//1000, self.max_list_length[0]+1, (self.max_list_length[0]+1)//1000)):
                 for data_size in self.datasizes:
                     for data_type in self.datatypes:
                         thresholds = [None] if self.threshold is None else range(0, self.threshold + 1, self.threshold // self.threshold_divisions)
                         for threshold in thresholds:
-                            for count in range(self.max_list_count):
-                                yield list_length, data_size, data_type, threshold, count
+                                yield list_length, data_size, data_type, threshold
         
         items = generate_items()
         items = list(items)
         # randlists = [gen_list(self.max_list_length[0], self.datasizes[0], self.datatypes[0], 0) for _ in range(self.max_list_count)]
         # if self.threshold is not None:
-            # random.shuffle(items)
+        random.shuffle(items)
         
         interval = time.time()
         sortd=True
-        for list_length, data_size, data_type, threshold, count in items:
-            self.print_sortmethod_count(data_size, data_type, count, len(items), interval)
+        for (list_length, data_size, data_type, threshold), count in list(itertools.product(items, range(self.max_list_count))):
+            self.print_sortmethod_count(data_size, data_type, count, len(items)*self.max_list_count, interval)
             # curr_list = list(randlists[count])
+            curr_list = gen_list(list_length, data_size, data_type, threshold)
             if threshold:
                 curr_list[0]=threshold
-            curr_list = gen_list(list_length, data_size, data_type, threshold)
             
             t1_start = time.perf_counter()
             curr_list.sort()
             t1_stop = time.perf_counter()
             sortd &= all(curr_list[i] <= curr_list[i+1] for i in range(len(curr_list) - 1))
+            del curr_list
             newtime = t1_stop - t1_start
             data = self.set_data(data, list_length, data_size, data_type, newtime, threshold)
             if count + 1 == self.max_list_count:
                 self.print_sortmethod_evaluation(interval, data_type, data_size, list_length, True, threshold)
                 interval = time.time()
             self.total_count += 1
-        with open(self.outputpath, "w") as f:
+        with open(self.outputpath, "w+") as f:
             json.dump(data, f)
         self.print_conclusion()
 
@@ -156,8 +159,9 @@ class Sorter:
     def print_sortmethod_count(
         self, data_size, data_type, count, total_items, interval
     ):
+        tabs = "\t\t" if len(f'Current: {count}/{self.max_list_count}') < 16 else "\t"
         myp(
-            f"\033[2K\033[1;31m\r{data_type} {data_size}\t\tCurrent: {count}/{self.max_list_count}\t{self.total_count}/{total_items}\ttime: {time.time()-interval} s"
+            f"\033[2K\033[1;31m\r{data_type} {data_size}\t\tCurrent: {count}/{self.max_list_count}{tabs}{self.total_count}/{total_items}\ttime: {time.time()-interval} s"
         )
 
     def print_sortmethod_evaluation(
@@ -268,6 +272,13 @@ if __name__ == "__main__":
         nargs="*",
         default=[None],
         help="Maximum threshold divisions",
+    )
+    parser.add_argument(
+        "-s",
+        "--insert",
+        default=False,
+        action=argparse.BooleanOptionalAction,
+        help="Use insertion test feature"
     )
     args = parser.parse_args()
     sorter = Sorter(vars(args))
