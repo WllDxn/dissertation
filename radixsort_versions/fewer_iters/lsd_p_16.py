@@ -45,7 +45,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, listlength=None):
             self.list = list
-            self.base = 8
+            self.base = 16
             self.listlength = len(self.list)
             self.radix = int(pow(2, self.base))
 
@@ -122,7 +122,7 @@ def make_radixsort_class(
                 min_bytes += 1
 
             bucket = [[] for _ in xrange(self.radix)]
-
+            pp = []
             for i in xrange(min_bytes):
                 shift = (self.base) * i
 

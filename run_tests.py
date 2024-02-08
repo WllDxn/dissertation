@@ -3,7 +3,7 @@ import subprocess
 from compile import *
 import random
 sort_times = "/home/will/dissertation/sort_times"
-methods = ["never_insert"]
+methods = ["fewer_iters"]
 # methods = ["always_insert"]
 # methods=['insertion_tests_3']
 
@@ -214,4 +214,4 @@ if __name__ == "__main__":
     output = get_filename("_".join(methods)) if len(methods) > 1 else get_filename(methods[0])
     for i in methods:
         # ins_ll(i, output)
-        ins_ll(i, get_filename(i))
+        n(i, get_filename(i))
