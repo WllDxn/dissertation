@@ -38,12 +38,12 @@ def get_data(inp, threshold, maxc=None):
     melt = 'cols' if threshold==False else 'threshold'
     df = df.drop(drop +[ 'rows', 'data_type', 'data_size'], axis=1)
     df = df.reset_index(drop=True)
-    if 'always' in inp:
-        df['t'] = df['msd_p_6']
-        for i in range(6,18,2):
-            df[f'msd_p_{str(i)}'] = df['t']
-            df[f'msd_c_{str(i)}'] = df['t']
-        df = df.drop('t', axis=1)
+    # if 'always' in inp:
+    #     df['t'] = df['msd_p_6']
+    #     for i in range(6,18,2):
+    #         df[f'msd_p_{str(i)}'] = df['t']
+    #         df[f'msd_c_{str(i)}'] = df['t']
+    #     df = df.drop('t', axis=1)
     if maxc:
         df = df[df['cols'] <= maxc]
     dfm = df.melt(melt, var_name='method', value_name='time')
@@ -52,12 +52,13 @@ def get_data(inp, threshold, maxc=None):
 def graph(threshold=False):
     dfms = []
     for t in ['always', 'never']:
-        fname = f'{t}_insert_0.json' if t=='always' else f'{t}_insert_13.json'
+        fname = f'{t}_insert_2.json' if t=='always' else f'{t}_insert_6.json'
         dfnew = get_data(fname, threshold)
         dfnew['insert'] = t
         dfms.append(dfnew)
+    
     melt = 'cols' if threshold==False else 'threshold'
-    print
+    print(dfms.loc[dfms['time' == 'always']])
     dfms[0] = dfms[0][dfms[0][melt].isin(list(dfms[1][melt]))]
     dfm = pd.concat(dfms)
     gb = dfm.groupby('method')
@@ -74,6 +75,7 @@ def graph(threshold=False):
         ax.set_ylabels("Time",fontsize=20)
         plt.grid()
         plt.savefig(f'graphs/insertion2024/{group}_insert.jpg')
+        print(f'{group}_insert.jpg')
 
     # for method2 in df.columns.drop('threshold'):
     #     #ax = ax.scatter(df['threshold'], df[method2], marker=".")
