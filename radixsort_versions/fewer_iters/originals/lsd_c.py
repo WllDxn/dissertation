@@ -14,8 +14,7 @@ def int_bytes(i, radix):
     l = 1
     while (absolute(i) >> l) > 0:
         l += 1
-    diff = (((l) - (l % radix)) / radix) + 1
-    return diff
+    return (((l) - (l % radix)) / radix) + 1
 
 
 def absolute(num):

@@ -107,9 +107,9 @@ class Sorter:
         return data
 
     def begin_sorting(self):
-        for i in range(100):
-            curr_list = gen_list(100000, "med", "Random", None)
-            myp("warming,%d,100" % (i + 1))
+        for i in range(50):
+            curr_list = gen_list(10000, "med", "Random", None)
+            # myp("warming,%d,100" % (i + 1))
         if not os.path.exists(self.outputpath):
             data = {"radix_sort": []}
         else:
