@@ -1,4 +1,4 @@
-from math import ceil, log, pow
+from math import pow
 import sys
 
 
@@ -10,8 +10,11 @@ def int_bytes(i, radix):
     :param i: Input integer
     :return: Number of bytes used to identify integer
     """
-    val = int(ceil(log(absolute(i)) / log(radix)))
-    return  val + 1 if val%radix==0 else val
+    l = 1
+    while (absolute(i) >> l) > 0:
+        l += 1
+    diff = (((l) - (l % radix)) / radix) + 1
+    return diff
 
 
 def absolute(num):
@@ -65,7 +68,7 @@ def make_radixsort_class(
             n = self.list[0]
             prev = self.list[0]
             (ordered, reverseordered) = (True, True)
-            for i in range(1, len(self.list)):
+            for i in xrange(1, len(self.list)):
                 if self.list[i] > m:
                     m = self.list[i]
                 if self.list[i] < n:
@@ -103,23 +106,32 @@ def make_radixsort_class(
             if self.listlength < 2:
                 return
             listmax = self.list_abs_max(checkorder=True)
-            min_bytes = int_bytes(listmax, self.radix)
+            min_bytes = int_bytes(listmax, self.base)
             if self.ordered == True:
                 return
             if self.reverseOrdered == True:
                 self.reverseSlice()
                 return
-            if min_bytes == int_bytes((-sys.maxint) - 1, self.radix):
-                uint_63 = uint_63 = ~((1 << int_bytes(listmax, 2) - 1) - 1)
-                min_bytes -= 1
+            bitno = int(int_bytes(listmax, 1))
+            if min_bytes == int_bytes((-sys.maxint) - 1, self.base):
+                uint_63 = ~((1 << bitno - 1) - 1)
             else:
-                uint_63 = ~((1 << int_bytes(listmax, 2)) - 1)
-            bucket = [[] for _ in range(self.radix)]
-            for i in range(min_bytes):
+                uint_63 = ~((1 << bitno) - 1)
+
+            if bitno % self.base == 0 and bitno != int_bytes((-sys.maxint) - 1, 1):
+                min_bytes += 1
+
+            bucket = [[] for _ in xrange(self.radix)]
+            pp = []
+            for i in xrange(min_bytes):
                 shift = (self.base) * i
+
+                out = {}
+
                 for num in self.list:
-                    sortkey = num  ^ uint_63
+                    sortkey = num ^ uint_63
                     val = (sortkey >> shift) & self.radix - 1
+                    out[num] = val
                     bucket[val].append(num)
                 if len([b for b in bucket if b != []]) == 1:
                     continue
@@ -130,3 +142,6 @@ def make_radixsort_class(
                     bucket[bdx] = []
 
     return Radixsort
+
+
+r = make_radixsort_class()

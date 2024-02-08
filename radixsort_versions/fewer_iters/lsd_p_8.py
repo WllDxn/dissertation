@@ -122,7 +122,7 @@ def make_radixsort_class(
                 min_bytes += 1
 
             bucket = [[] for _ in xrange(self.radix)]
-
+            pp = []
             for i in xrange(min_bytes):
                 shift = (self.base) * i
 

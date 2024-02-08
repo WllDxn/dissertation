@@ -51,7 +51,7 @@ def get_files(path):
 
 
 if __name__ == "__main__":
-    compile("only_insert")
+    compile("fewer_iters")
     # compile("always_insert")
     # compile("never_insert")
     # compile("insertion_tests_3")
