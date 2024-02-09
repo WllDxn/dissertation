@@ -30,11 +30,11 @@ def n(methodName, output, num=100):
     )
     rg = "[/.+?\./]"
     for name in fames:
-        # if 'c' in name:continue
+        if ('c' not in name or '8' not in name ) or ('p' not in name or '8' not in name ):continue
         packagename = re.split(rg, name)[0] if methodName != "timsort" else "timsort"
         exepath = f'{pypy_versions}/{packagename}_{methodName}/bin/pypy'
         if not os.path.exists(exepath):continue
-        for l in [10000, 100000, 1000000]:
+        for l in [100000]:
             exc = f"{pypy_versions}/{packagename}_{methodName}/bin/pypy sort_timer_gendata.py -m {packagename} -o {output} -n {num} -l {str(l)}"
             print("\033[1;35m")
             print(exc)

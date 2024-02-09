@@ -35,9 +35,12 @@ def gen_list(cols, data_size, type="Random", threshold=None):
     lis[0] = threshold if threshold is not None else lis[0]
     return [int(x) for x in lis]
 def save_arrs():
-    for i in range(1, 64):
-        with open(f"/home/will/dissertation/minor_files/arrs/arr{i}.txt", "w+") as f:
-            arr = gen_list(10000, int(pow(2,i)-1), "Random")
-            for j in arr:
-                f.write(str(j)+',')
+    for i in range(56, 64):
+        with open(f"/home/will/dissertation/minor_files/arrslong/arr{i}.txt", "w+") as f:
+            f.write('')
+        with open(f"/home/will/dissertation/minor_files/arrslong/arr{i}.txt", "a") as f:
+            for _ in range(5):
+                arr = gen_list(1000000, int(pow(2,i)-1), "Random")
+                for j in arr:
+                    f.write(str(j)+',')
 save_arrs()

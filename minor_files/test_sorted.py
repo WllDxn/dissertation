@@ -1,6 +1,8 @@
 from math import ceil, log, pow
 import sys
 import gen_data
+import os
+import time
 # bigbase = 6
 # def int_bytes(i, radix):
 #     """
@@ -131,7 +133,7 @@ import gen_data
 
 #     return Radixsort
 # r = make_radixsort_class()
-if __name__=='__main__':
+def test_1():
     for i in range(1,64):
         print(f'size: {i}  \t',end='')
         for b in [6]:#,8,10,12,14,16]:
@@ -141,3 +143,15 @@ if __name__=='__main__':
             p = f'\033[32m{b}' if sorted(data) == data else f'\033[31m{b}'
             print(f'{p}', end=' ')
         print('\033[0m')
+
+if __name__=='__main__':
+    d = '/home/will/dissertation/minor_files/arrslong'
+for y in os.listdir(d):
+    with open(d+'/'+y, 'r') as f:
+        data = f.read().split(',')
+        data = ([int(x) for x in data if x != ''])
+        t = time.time()
+        data.sort()
+        p = f'\033[32m{time.time()-t}' if sorted(data) == data else f'\033[31m{time.time()-t}'
+        print(f'{p}', end=' ')
+        print('')
