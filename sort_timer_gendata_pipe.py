@@ -168,7 +168,7 @@ class Sorter:
         self, tdelta, data_type, data_size, list_length, sortd, threshold=None
     ):
         name = "%s,%s" % (data_type, data_size)
-        ll = [self.max_list_length] if not self.insert else list(range((self.max_list_length[0]+1)//1000, self.max_list_length[0]+1, (self.max_list_length[0]+1)//1000))
+        ll = list(range((self.max_list_length[0]+1)//1000, self.max_list_length[0]+1, (self.max_list_length[0]+1)//1000)) if self.insert else [self.max_list_length]
         myp(
             "eval,%s,%f,%d,%s,%s"
             % (name, tdelta, list_length, str(sortd), (str(len(ll))))

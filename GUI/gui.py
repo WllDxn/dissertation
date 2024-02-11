@@ -7,8 +7,8 @@ import hashlib
 import subprocess, sys
 import time
 from datetime import timedelta
-
-
+import psutil
+import signal
 class Config(object):
 
     def __init__(self, data=None):
@@ -59,12 +59,12 @@ class Config(object):
                 setattr(self, key, data.get(key, getattr(self, key)))
 
     def get_methodNames(self):
-        pdir = os.listdir(self.pypydir)
-        if not pdir:
+        if pdir := os.listdir(self.pypydir):
+            return sorted(
+                {re.findall(r"_(.*)$", x[6:])[0] for x in pdir if x != "timsort_timsort"}
+            )
+        else:
             raise FileNotFoundError("PyPy not in directory. Check config")
-        return sorted(
-            {re.findall(r"_(.*)$", x[6:])[0] for x in pdir if x != "timsort_timsort"}
-        )
 
     def get_all_methods(self):
         tempv = os.listdir(self.pypydir)
@@ -140,6 +140,7 @@ class SortingHelperGUI:
         self.startTime = 0
         self.iters = 0
         self.count = 0
+        self.psProcess = None
 
     def run(self):
         self.setup_window()
@@ -225,7 +226,7 @@ class SortingHelperGUI:
         return [
             [sg.InputText(self.q.listlength, key="listlength", enable_events=True)],
             [sg.InputText(self.q.listcount, key="listcount", enable_events=True)],
-            [sg.InputText(key="output_filename", visible=True)],
+            [sg.InputText(os.path.basename(self.q.outputFilePath), key="output_filename", visible=True)],
             [
                 sg.Checkbox(
                     "", default=self.q.insertion, key="insertion", enable_events=True
@@ -436,18 +437,24 @@ class SortingHelperGUI:
             "Nearly Sorted",
             "Random",
         ]
-        sizes = str([f"{str(size)}" for size in data_sizes if not c.data_sizes[size]])[
+        sizes = [f"{str(size)}" for size in data_sizes if not c.data_sizes[size]]     
+        sizesstr = str(sizes)[1:-1].replace(",", "")
+        types = [f"{str(t)}" for t in data_types if not c.data_types[t]]
+        tyesstr = str(types)[
             1:-1
         ].replace(",", "")
-        types = str([f"{str(t)}" for t in data_types if not c.data_types[t]])[
-            1:-1
-        ].replace(",", "")
+        
         internal_lengths = [int(x) for x in c.listlength]
-        self.iters += len(internal_lengths)
+        if c.insertion:
+            self.iters += (len(internal_lengths) * (len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*1000
+        else:
+            self.iters += (len(internal_lengths) * (len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*1
+        # if self.q.insertion == True:
+        #     self.iters *= len(list(range((internal_lengths[0]+1)//1000, internal_lengths[0]+1, (internal_lengths[0]+1)//1000)))
         lengths = str(internal_lengths)[1:-1].replace(",", "")
 
         methodname = re.findall(r"([^\/]+$)", m)[0]
-        yield f' sort_timer_gendata_pipe.py -m {methodname} -o {c.outputFilePath} -n {c.listcount} -l {lengths} -et {types} -es {sizes} {"-s" if c.insertion==True else ""}'
+        yield f' sort_timer_gendata_pipe.py -m {methodname} -o {c.outputFilePath} -n {c.listcount} -l {lengths} -et {tyesstr} -es {sizesstr} {"-s" if c.insertion==True else ""}'
 
     def get_methodCommand(self):
         methodCommand = []
@@ -476,7 +483,7 @@ class SortingHelperGUI:
             ],
             [
                 sg.Multiline(
-                    f"{len(self.methodCommand)} items, Run to start. self.q length: {qlen}",
+                    f"{len(self.methodCommand)} items. self.q length: {qlen}",
                     size=(50, 2),
                     echo_stdout_stderr=False,
                     reroute_stdout=False,
@@ -489,7 +496,7 @@ class SortingHelperGUI:
         ]
         layout2 = [
             [sg.Column(multilinecol)],
-            [sg.Button("Run", bind_return_key=True), sg.Text("", key="iters")],
+            [sg.Button("pause", bind_return_key=True), sg.Column([[sg.Text("", key="iters")], [sg.Text("", key="elapsed")], [sg.Text("", key="remaining")]])],
         ]
         self.window2 = sg.Window(
             "Sorting Helper 2", layout2, location=(500, 500), finalize=True
@@ -505,7 +512,7 @@ class SortingHelperGUI:
         for count, (path, command, method) in enumerate(self.methodCommand, start=1):
             self.runCommand(f"{path} {command}", method, window=self.window2)
 
-    def get_outpout(self, items, method):
+    def get_outpout(self, items, method, count):
         if match := re.match(r"(.*?\d+)+", method):
             method = match[1]
         if items[0] == "count":
@@ -516,10 +523,10 @@ class SortingHelperGUI:
         elif items[0] == "warming":
             return ("Cyan", f"{method}\t Warming up: \t{items[1]}/{items[2]}")
         elif items[0] == "eval":
-            insr = "" if items[6] == "1" else f"/{items[6]}"
+            insr = f"{items[4]}" if items[6] == "1" else f"{count}/{items[6]}"
             return (
                 "Red",
-                f'{method} {items[1]} {items[2]} {items[3]} s\t{items[4]}{insr}\t\t {"" if items[5] else "error"}',
+                f'{method} {items[1]} {items[2]} {items[3]} s\t{insr}\t\t {"" if items[5] else "error"}',
             )
         elif items[0] == "Total":
             return ("Purple", f"{method} Total time: {items[1]}")
@@ -530,8 +537,11 @@ class SortingHelperGUI:
         p = subprocess.Popen(
             cmd, shell=True, cwd="/home/will/dissertation", stdout=subprocess.PIPE
         )
+        psProcess = psutil.Process(p.pid)
         out = ""
         cont = True
+        count=1
+        paused = False
         while cont:
             cont = p.poll() is None
             out += p.stdout.read(1 if cont else -1).decode(
@@ -539,10 +549,11 @@ class SortingHelperGUI:
             )
             if "\n" in out:
                 for o in out.split("\n"):
-                    colour, text = self.get_outpout(o.split(","), method)
+                    colour, text = self.get_outpout(o.split(","), method, count)
                     if colour == "White":
                         continue
                     elif colour in ["Red", "Purple"]:
+                        count+=1
                         window["completed"].print(
                             text,
                             end="\n",
@@ -555,8 +566,25 @@ class SortingHelperGUI:
                             ctime = timedelta(seconds=time.time() - self.startTime)
                             remtime = (ctime / self.count) * (self.iters - self.count)
                             self.window2["iters"].update(
-                                value=f"{self.count}/{self.iters} Time:{self.dhm(ctime)} - {self.dhm(remtime)}"
+                                value=f"{self.count}/{self.iters}"
                             )
+                            self.window2["elapsed"].update(value=f"Elapsed:  {self.dhm(ctime)}")
+                            self.window2["remaining"].update(value=f"Remaining:  {self.dhm(remtime)}")
+                            # event, values = self.window2.read(timeout=1)
+                            # if event == "pause":
+                            #     print('event')
+                            #     if paused:
+                            #         signal.pause(psProcess)
+                            #         # psProcess.resume()
+                            #         window['pause'].update('pause')
+                            #         paused=False
+                            #     elif paused==False:
+                            #         signal.pause(psProcess)
+                            #         # psProcess.suspend()
+                            #         window['pause'].update('resume')
+                            #         paused=True
+                        else:
+                            count=0
                     else:
                         window["-MLINE-"].update(
                             text,
@@ -574,14 +602,14 @@ class SortingHelperGUI:
         seconds = seconds % 60
         return f"{hours}h : {minutes}m : {seconds}s"
 
-
-
     def event_loop2(self):
+        paused = False
         while True:
             event, values = self.window2.read()
             if event in [sg.WIN_CLOSED, "Cancel"]:
                 break
 
+                
 
 
 sorting_helper_gui = SortingHelperGUI()
