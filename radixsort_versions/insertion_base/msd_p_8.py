@@ -36,6 +36,8 @@ def make_radixsort_class(
         def setitem(list, item, value):
             list[item] = value
 
+    if setslice is None:
+
         def setslice(list, slice, index):
             list[index : index + len(slice)] = slice
 
@@ -46,12 +48,6 @@ def make_radixsort_class(
             self.listlength = len(self.list)
             self.radix = int(pow(2, self.base))
             self.threshold = self.list[0]
-
-        def setitem(self, item, value):
-            setitem(self.list, item, value)
-
-        def setslice(self, slice, index=0):
-            setslice(self.list, slice, index)
 
         def list_abs_max(self, checkorder=False):
             """
@@ -79,6 +75,12 @@ def make_radixsort_class(
                 self.ordered = ordered
                 self.reverseOrdered = reverseordered
             return m if absolute(m) > absolute(n) else n
+
+        def setitem(self, item, value):
+            setitem(self.list, item, value)
+
+        def setslice(self, slice, index):
+            setslice(self.list, slice, index)
 
         def insertion_sort(self, start, end):
             for step in xrange(start, end):
@@ -122,10 +124,10 @@ def make_radixsort_class(
                 return
             listmax = self.list_abs_max(checkorder=True)
             min_bytes = int_bytes(listmax, self.radix)
-            if self.ordered == True:
+            if self.ordered:
                 return
-            if self.reverseOrdered == True:
-                self.reverseSlice()
+            if self.reverseOrdered:
+                self.list.reverse()
                 return
             bitno = int(int_bytes(listmax, 1))
             if min_bytes == int_bytes((-sys.maxint) - 1, self.base):
@@ -135,12 +137,12 @@ def make_radixsort_class(
 
             if bitno % self.base == 0 and bitno != int_bytes((-sys.maxint) - 1, 1):
                 min_bytes += 1
-            count = [0 for _ in xrange(self.radix)]
+
             bucket_indexes = [(0, self.listlength)]
-            temp_list = list(self.list)
-            for k in xrange(min_bytes - 1, -1, -1):
+            buckets = [[] for _ in xrange(self.radix)]
+            for k in xrange(min_bytes, -1, -1):
                 shift = k * self.base
-                temp_bucket_indexes = []
+                temp_indexes = []
                 for start, end in bucket_indexes:
                     if start + 1 == end:
                         continue
@@ -148,38 +150,26 @@ def make_radixsort_class(
                     if sortd:continue
                     if rsortd:
                         self.reverseSlice(start, end-1)
-                        for i in range(start, end):
-                            temp_list[i] = self.list[i]
                         continue
                     if (end - start) < 64:
                         self.insertion_sort(start, end)
-                        for i in xrange(start, end):
-                            temp_list[i] = self.list[i]
                         continue
-                    for idx in xrange(start, end):
-                        sortkey = (self.list[idx]) ^ uint_63
-                        val = (sortkey >> shift) & self.radix - 1
-                        count[val] += 1
-                    if count[-1] == end - start:
-                        temp_bucket_indexes.append((start, end))
-                        count = [0 for _ in count]
-                        continue
-                    if count[0] > 1:
-                        temp_bucket_indexes.append((start, start + count[0]))
-                    for i in xrange(1, self.radix):
-                        if count[i] > 1:
-                            temp_bucket_indexes.append(
-                                (start + count[i - 1], start + count[i] + count[i - 1])
-                            )
-                        count[i] += count[i - 1]
                     for i in xrange(start, end):
                         sortkey = (self.list[i]) ^ uint_63
-                        val = (sortkey >> shift) & self.radix - 1
-                        temp_list[count[val] - 1 + start] = self.list[i]
-                        count[val] -= 1
-                    count = [0 for _ in count]
-                bucket_indexes = list(temp_bucket_indexes)
-                self.setslice(temp_list)
+                        val = ((sortkey >> shift)) & self.radix - 1
+                        buckets[val].append(self.list[i])
+                    if len([len(b) for b in buckets if b != []]) == 1:
+                        temp_indexes.append((start, end))
+                        buckets = [[] for _ in buckets]
+                        continue
+                    index = 0
+                    for bdx, b in enumerate(buckets):
+                        if len(b) >= 1:
+                            temp_indexes.append((start + index, start + index + len(b)))
+                            self.setslice(b, start + index)
+                        index += len(b)
+                        buckets[bdx] = []
+                bucket_indexes = temp_indexes
                 if not bucket_indexes:
                     return
 

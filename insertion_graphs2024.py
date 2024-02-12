@@ -39,7 +39,7 @@ def get_data(inp, threshold, maxc=None):
     dfm['time'] = dfm['time'].apply(reject_outliers_2)
     dfm['time'] = dfm['time'].apply(np.mean)
     dfm['time'] = dfm['time'].astype(np.float32)
-    print(dfm)
+    # dfm = dfm[np.abs(stats.zscore(dfm['time'])) < 3]
     # for method in methodnames:
     #     df.update(df[method].apply(reject_outliers_2))
     #     df.update(df[method].apply(np.mean))
@@ -52,27 +52,30 @@ def get_data(inp, threshold, maxc=None):
 
     # df.fillna(-1.0, inplace=True)   
     # df.rename(columns=lambda x: re.match(r'(l|m)(sd_)(c|p)(_\d+)', x).group(0), inplace=True)
-    dfm['insert'] = dfm['method'].apply(lambda x: 'always' if 'always' in x else 'never')
+    # dfm['insert'] = dfm['method'].apply(lambda x: 'always' if 'always' in x else 'never')
     dfm['method'] = dfm['method'].apply(
         lambda x: re.match(r'(l|m)(sd_)(c|p)(_\d+)', x)[0]
     )
-    print(dfm)
+    # a = [f'msd_p_{t}' for t in range(10, 12, 2)]
+    # dfm = dfm[dfm['method'].isin(a)]
+    # print(dfm[dfm['insert'].isin(['always'])])
+    # print(dfm)
     return dfm.astype({'method':str, 'time':np.float32})
 
-def graph(threshold=False):
+def graph(threshold=True):
     dfms = []
     for t in ['always', 'never']:
-        fname = (
-            f'{t}_insert_update_3.json'
-
-        )
+        # fname = (
+        #     f'{t}_insert_update_3.json' if t=='never' else f'always_insert_update_3.json'
+        # )
+        fname = 'thresh_insert_update_9.json'
         dfnew = get_data(fname, threshold)
         # dfnew['insert'] = t
         dfms.append(dfnew)
 
     
     melt = 'cols' if threshold==False else 'threshold'
-    dfms[0] = dfms[0][dfms[0][melt].isin(list(dfms[1][melt]))]
+    # dfms[0] = dfms[0][dfms[0][melt].isin(list(dfms[1][melt]))]
     dfm = pd.concat(dfms)
     # print(dfm)
     gb = dfm.groupby('method')
@@ -84,13 +87,13 @@ def graph(threshold=False):
         palette = itertools.cycle(sns.color_palette())
         r = df
         # r = df.loc[np.logical_and(df[melt] < 5000, df[melt] >=0)]
-        ax = sns.lmplot(data=r, x=melt, y='time', hue='insert', order=2,height=10, aspect=15/10, palette=palette, line_kws={'linewidth': 5.0, 'solid_capstyle': 'round', 'path_effects' :[pe.Stroke(linewidth=7, foreground='black', alpha=0.5), pe.Normal()]})
+        ax = sns.lmplot(data=r, x=melt, y='time',  order=2,height=10, aspect=15/10, palette=palette, line_kws={'linewidth': 5.0, 'solid_capstyle': 'round', 'path_effects' :[pe.Stroke(linewidth=7, foreground='black', alpha=0.5), pe.Normal()]})
         ax.set_xlabels(melt,fontsize=20)
         ax.set_ylabels("Time",fontsize=20)
         plt.grid()
-        if group in [f'msd_p_{t}' for t in range(12,18,2)]:
-            plt.savefig(f'graphs/insertion2024/{group}_insert.jpg')
-            print(f'{group}_insert.jpg')
+        # if group in [f'msd_p_{t}' for t in range(12,18,2)]:
+        plt.savefig(f'graphs/insertion2024/{group}_insert2.jpg')
+        print(f'{group}_insert.jpg')
 
     # for method2 in df.columns.drop('threshold'):
     #     #ax = ax.scatter(df['threshold'], df[method2], marker=".")

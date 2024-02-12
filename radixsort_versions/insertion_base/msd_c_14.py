@@ -42,7 +42,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, listlength=None):
             self.list = list
-            self.base = 8
+            self.base = 14
             self.listlength = len(self.list)
             self.radix = int(pow(2, self.base))
             self.threshold = self.list[0]
@@ -151,7 +151,7 @@ def make_radixsort_class(
                         for i in range(start, end):
                             temp_list[i] = self.list[i]
                         continue
-                    if (end - start) < 64:
+                    if (end - start) < 512:
                         self.insertion_sort(start, end)
                         for i in xrange(start, end):
                             temp_list[i] = self.list[i]

@@ -151,7 +151,7 @@ def make_radixsort_class(
                         for i in range(start, end):
                             temp_list[i] = self.list[i]
                         continue
-                    if (end - start) < 64:
+                    if end - start < self.threshold:
                         self.insertion_sort(start, end)
                         for i in xrange(start, end):
                             temp_list[i] = self.list[i]

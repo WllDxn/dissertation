@@ -152,7 +152,7 @@ class Sorter:
                 interval = 0
             self.total_count += 1
         with open(self.outputpath, "w+") as f:
-            json.dump(data, f)
+            json.dump(data, f, indent=4)
         self.print_conclusion()
 
 

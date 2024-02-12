@@ -100,7 +100,6 @@ class QueueConfig(object):
             self.queue = [Config()]
 
     def saveQueue(self):
-        print(self.filename)
         with open(self.filename, "w") as f:
             outputfile = {"queue": [config.as_json() for config in self.queue]}
             json.dump(outputfile, f)
@@ -184,6 +183,7 @@ class SortingHelperGUI:
                     sg.Button("Queue", key="add_queue"),
                     sg.Button("Clear Queue", key="clear_queue"),
                     sg.Button("View Next", key="next_queue"),
+                    sg.Button("Delete item", key="del_queue"),
                     sg.Text(str(len(self.q.queue)), key="queuelen"),
                 ],
             ],
@@ -247,6 +247,7 @@ class SortingHelperGUI:
             "add_queue": self.add_queue,
             "clear_queue": self.clear_queue,
             "next_queue": self.next_queue,
+            "del_queue": self.del_queue,
         }
         while True:
             event, values = self.window.read()
@@ -254,12 +255,20 @@ class SortingHelperGUI:
                 break
             if handler := event_handlers.get(event):
                 handler()
+    def del_queue(self):
+        if len(self.q.queue) == 1:
+            return
+        del self.q.queue[0]
+        self.saveQueue()
+        self.window.close()
+        self.setup_window()
 
     def next_queue(self):
         self.q.queue.append(copy.deepcopy(self.q.queue[0]))
         del self.q.queue[0]
         self.saveQueue()
-        self.clearitems()
+        self.window.close()
+        self.setup_window()
 
     def saveQueue(self):
         self.get_checkboxes()
@@ -496,7 +505,7 @@ class SortingHelperGUI:
         ]
         layout2 = [
             [sg.Column(multilinecol)],
-            [sg.Button("pause", bind_return_key=True), sg.Column([[sg.Text("", key="iters")], [sg.Text("", key="elapsed")], [sg.Text("", key="remaining")]])],
+            [sg.Column([[sg.Text("", key="iters")], [sg.Text("", key="elapsed")], [sg.Text("", key="remaining")]])],
         ]
         self.window2 = sg.Window(
             "Sorting Helper 2", layout2, location=(500, 500), finalize=True

@@ -1,17 +1,17 @@
 import os
 import re
 import subprocess
+import run_tests
 
 radixsort_location = "/home/will/dissertation/radixsort_versions"
 pypy_src_location = "/home/will/dissertation/pypy_misc/pypy3.10-v7.3.15-src"
 pypy_versions = "/home/will/dissertation/pypy_versions"
-
 def addpypy(packagename):
     exc = f"{pypy_versions}/{packagename}/bin/pypy -m ensurepip"
     subprocess.run(exc, shell=True)
     exc = f"{pypy_versions}/{packagename}/bin/pypy -mpip install numpy"
     subprocess.run(exc, shell=True)
-def compile(version, npadd=False):
+def compile(version, npadd=True):
     filenames = get_files(f"{radixsort_location}/{version}")
     existingnames = list(get_directories(f"{pypy_versions}"))
     cg = "\/tmp([^']*)"
@@ -19,6 +19,7 @@ def compile(version, npadd=False):
     for name in filenames:
         packagename = f"{re.split(rg, name)[0]}_{version}"
         if packagename in existingnames:
+            if 'msd_p_12' not in packagename:continue
             if not npadd:
                 print(f'skipping: {str(name)}')
                 continue
@@ -58,9 +59,14 @@ def get_files(path):
         if os.path.isfile(os.path.join(path, file)):
             yield file
 
-
+import sys
 if __name__ == "__main__":
-    # compile("fewer_iters")
-    compile("always_insert_update", True)
-    compile("never_insert_update", True)
+    compile("insertion_base")
+    # exc = f"python /home/will/dissertation/switch_bases.py"
+
+    # run_tests.handler(["thresh_insert_update"])
+
+
+    
+
     # compile("insertion_tests_3")
