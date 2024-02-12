@@ -21,20 +21,23 @@ def get_max_value(data_size):
         "tiny": 65536,
     }.get(data_size, 65536)
 
-def gen_list(cols, data_size, type="Random", threshold=None):
+def gen_list(cols, data_size, type="Random", threshold=None, insert=False):
     max_value = get_max_value(data_size)
     lis = []
-    if type == "Random":
+    if type == "Random" and not insert:
         lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
+    elif insert:
+        lis = [int(x) for x in range(-cols//2, cols//2+1)][:cols]
+        if insert:
+            random.shuffle(lis)
     elif type == "Few Unique":
         lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
         lis = np.random.choice(lis[: len(lis) // 10], cols).tolist()
-    elif type == "Sorted":
-        lis = [int(x*(max_value/cols)) for x in list(range(-cols//2,(cols//2)+1, 1))]
-        
+    elif type == "Sorted" or insert:
+        lis = [int(x*(max_value/cols)) for x in list(range(-cols//2,(cols//2)+1, 1))][:cols]
         # lis = [int(x) for x in range(-max_value, max_value, int((2*max_value)/cols))]
     elif type == "Reverse Sorted":
-        lis = [int(x*(max_value/cols)) for x in list(range(cols//2,(-cols//2)-1, -1))]
+        lis = [int(x*(max_value/cols)) for x in list(range(cols//2,(-cols//2)-1, -1))][:cols]
         # lis = [int(x) for x in range(max_value, -max_value, int(-(2*max_value)/cols))]
     elif type == "Nearly Sorted":
         # lis = [int(x) for x in range(-max_value, max_value, int((2*max_value)/cols))]
@@ -135,7 +138,7 @@ class Sorter:
         for (list_length, data_size, data_type, threshold), count in list(itertools.product(items, range(self.max_list_count))):
             self.print_sortmethod_count(data_size, data_type, count, len(items)*self.max_list_count)
             # curr_list = list(randlists[count])
-            curr_list = gen_list(list_length, data_size, data_type, threshold)
+            curr_list = gen_list(list_length, data_size, data_type, threshold, self.insert)
             if threshold:
                 curr_list[0]=threshold
             
