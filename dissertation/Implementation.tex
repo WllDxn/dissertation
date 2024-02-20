@@ -1,7 +1,8 @@
 \documentclass[12pt]{article}
 \usepackage{listings}
 \usepackage{color}
-
+\usepackage{biblatex}
+\bibliography{Implementation.bib}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -68,19 +69,7 @@
   }
 \hfuzz=5.002pt 
 \begin{document}
-\begin{tabular}{llllllllll}
-	\hline
-	 [0, 127, 255, 255, 255, 255, 255, 255, 255] & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [255, 229, 61, 200, 170, 180, 41, 81, 222]   & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [0, 124, 43, 77, 92, 75, 71, 29, 154]        & [0, 54, 229, 25, 237, 153, 244, 43, 106]     & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [0, 75, 199, 31, 21, 183, 137, 178, 49]      & [0, 110, 144, 240, 200, 187, 184, 104, 47] \\
-	 [0, 127, 255, 255, 255, 255, 255, 255, 255] & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [0, 75, 199, 31, 21, 183, 137, 178, 49]      & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [0, 110, 144, 240, 200, 187, 184, 104, 47]   & [255, 229, 61, 200, 170, 180, 41, 81, 222]   & [0, 54, 229, 25, 237, 153, 244, 43, 106]     & [0, 124, 43, 77, 92, 75, 71, 29, 154]      \\
-	 [0, 127, 255, 255, 255, 255, 255, 255, 255] & [0, 54, 229, 25, 237, 153, 244, 43, 106]     & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [0, 110, 144, 240, 200, 187, 184, 104, 47]   & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [0, 75, 199, 31, 21, 183, 137, 178, 49]      & [0, 124, 43, 77, 92, 75, 71, 29, 154]        & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [255, 229, 61, 200, 170, 180, 41, 81, 222] \\
-	 [0, 127, 255, 255, 255, 255, 255, 255, 255] & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [0, 110, 144, 240, 200, 187, 184, 104, 47]   & [0, 75, 199, 31, 21, 183, 137, 178, 49]      & [255, 229, 61, 200, 170, 180, 41, 81, 222]   & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [0, 54, 229, 25, 237, 153, 244, 43, 106]     & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [0, 124, 43, 77, 92, 75, 71, 29, 154]      \\
-	 [0, 127, 255, 255, 255, 255, 255, 255, 255] & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [0, 54, 229, 25, 237, 153, 244, 43, 106]     & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [0, 110, 144, 240, 200, 187, 184, 104, 47]   & [255, 229, 61, 200, 170, 180, 41, 81, 222]   & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [0, 124, 43, 77, 92, 75, 71, 29, 154]        & [0, 75, 199, 31, 21, 183, 137, 178, 49]    \\
-	 [0, 127, 255, 255, 255, 255, 255, 255, 255] & [0, 110, 144, 240, 200, 187, 184, 104, 47]   & [255, 229, 61, 200, 170, 180, 41, 81, 222]   & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [0, 124, 43, 77, 92, 75, 71, 29, 154]        & [0, 75, 199, 31, 21, 183, 137, 178, 49]      & [0, 54, 229, 25, 237, 153, 244, 43, 106]   \\
-	 [0, 127, 255, 255, 255, 255, 255, 255, 255] & [0, 54, 229, 25, 237, 153, 244, 43, 106]     & [0, 75, 199, 31, 21, 183, 137, 178, 49]      & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [0, 110, 144, 240, 200, 187, 184, 104, 47]   & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [255, 229, 61, 200, 170, 180, 41, 81, 222]   & [0, 124, 43, 77, 92, 75, 71, 29, 154]      \\
-	 [255, 229, 61, 200, 170, 180, 41, 81, 222]  & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [0, 127, 255, 255, 255, 255, 255, 255, 255]  & [0, 124, 43, 77, 92, 75, 71, 29, 154]        & [0, 110, 144, 240, 200, 187, 184, 104, 47]   & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [0, 75, 199, 31, 21, 183, 137, 178, 49]      & [0, 54, 229, 25, 237, 153, 244, 43, 106]   \\
-	 [0, 127, 255, 255, 255, 255, 255, 255, 255] & [255, 196, 193, 111, 213, 75, 211, 229, 232] & [255, 229, 61, 200, 170, 180, 41, 81, 222]   & [255, 225, 76, 149, 238, 157, 139, 114, 212] & [0, 124, 43, 77, 92, 75, 71, 29, 154]        & [0, 54, 229, 25, 237, 153, 244, 43, 106]     & [0, 80, 186, 108, 164, 231, 45, 186, 99]     & [0, 103, 82, 141, 248, 224, 217, 193, 69]    & [0, 75, 199, 31, 21, 183, 137, 178, 49]      & [0, 110, 144, 240, 200, 187, 184, 104, 47] \\
-	\hline
-	\end{tabular}
+
 	
 \section{Design}
 \label{sec:design}
@@ -350,52 +339,55 @@
 \pagebreak
 \section{Implementation}
 \subsection{Extra Methods and Class}
-Explanation of all functions and classes that exist outside of the  radixsort algorithms. Each function is documented in isolation in the order they appear in the source files, for a full view of each of the files refer to {\color{red}reference}
+Explanation of all functions and classes that exist outside of the  radixsort algorithms. Each function is documented in isolation in the order they appear in the source files, for a full view of each of the files refer to {\color{red}reference section with full code explanation}
 \subsubsection{Function absolute}
 The purpose of this helper method was to allow for the calculation of absolute values without overflow issues specifically caused by using the minimum possible value. This value's positive counterpart lies outside of the range of the 64 bits assigned for each integer in RPython, this causes unpredictable errors and even though there is only one specific case that necessitates the use of this method over the regular abs() inbuilt function, the runtime impacts are low so it's a worthwhile helper method to include.
 \begin{lstlisting}
-        import sys
+	import sys
         
-        def absolute(num):
+	def absolute(num):
         if num == (-sys.maxint) - 1:
         return sys.maxint
         return -num if num < 0 else num
 \end{lstlisting}
 \subsubsection{Function int\textunderscore bytes}
 \label{ssec:intbytes}
-Returns the minimum quantity of bytes in a given radix necessary to express an integer, including a sign bit. This function is used to calculate the number of iterations that the sorting algorithm must make in order to sort all values up to and including the given input $i$.
+Returns the quantity of digits needed to express an integer using a specified numerical base. Each digit requires $n$ binary bits to express an integer in the base $2^n$. The returned value includes the bit needed to express the sign integer, which is sometimes taken as part of the most significant digit and sometimes is not, but this is handled in either case by the sorting algorithm.
 \par
-The function calculates  $ \log_{radix}(i)$, i.e. to what power $i$ must be raised to get $radix$, uses ceil to get the next highest integer and adds $1$ to the value to allow for the sorting of negatives. It is necessary to return an integer in this case because this value is used to determine the number of bits used to identify each digit and the number of iterations over the list that must be made, both of these are discreet values. $ceil()$ has been used instead of $int()$ or $floor()$ as a value lower than needed would result in incorrect sorting of values the larger values.
-\par
+This function uses a loop to rightshift the absolute value of the input an increasing number of times until it equals or falls below 0. The function begins with rightshifting once to ensure that 0 is never returned so as not to produce errors elsewhere in the algorithm. Finally the number of bits has the modulo of the radix subtracted and is divided by the radix, finding the number of times the radix is divisible by $l$ without producing a fraction. 1 is added to the returned value to include the sign bit if $l$ was divisible by the radix and to include the sign bit and all bits expressed in the remainder otherwise.
 \begin{lstlisting}
-        from math import ceil, log
-        
-        def int_bytes(i, radix):
-        return ceil(log(absolute(i) / log(radix))) + 1
+	def int_bytes(i, radix):
+		l = 1
+		while (absolute(i) >> l) > 0:
+			l += 1
+		diff = (((l) - (l % radix)) / radix) + 1
+		return diff
       \end{lstlisting}
 \pagebreak
 \subsubsection{Function make\textunderscore radixsort\textunderscore class}
-The container function that instantiates all other funtions, this is modelled on the existing function in listsort.py {\color{red}reference} to minimize compatability issues when including this project in the pypy library.
-\par
-Almost all functions have been removed or altered in a major way, particularly any functions that pertain to comparative sorting, it is the general structure that has been emulated.
+The container function that instantiates all other funtions, this is modelled on the existing function in listsort.py \cite{listsort} to minimize compatability issues when including this project in the pypy library.
 \begin{lstlisting}
     def make_radixsort_class(
         setitem=None,
     ):
   \end{lstlisting}
-\subsubsection{Function setitem}
-This function has been imported from the existing listsort.py file within rlib {\color{red} Reference? - This whole needs more research, I'm not certain it is correct}. It serves the function of enabling the input list to be edited by functions within the Radixsort class. When the $.sort()$ function is called by PyPy, it initialises the Radixsort class with the list as a constructor, this means that the list attribute is not mutable from within the class. Importing setitem $setitem$ into the class allows the input list to be updated.
+\subsubsection{Functions setitem and setslice}
+These functions have been imported from the existing listsort.py file within rlib. They enable the input list to be edited by functions within the Radixsort class. When the $.sort()$ function is called by PyPy, it initialises the Radixsort class with the list as a constructor, this means that the list attribute is not mutable from within the class unless these functions are imported.
 \par
-This is the only existing function of the original listsort.py that was not removed.
+These are the only existing functions of the original listsort.py that were not removed.
 \begin{lstlisting}
     if setitem is None:
       def setitem(list, item, value):
           list[item] = value
+	
+	if setslice is None:
+		def setslice(list, slice, index):
+			list[index : index + len(slice)] = slice
   \end{lstlisting}
 
 
 \subsubsection{Class Radixsort}
-This is the class that contains all other functions of the radixsort algorithm, it creates an object that is used to ease the manipulation of the input list and store attributes that are referenced and edited from multiple different functions.\par in particular the list attribute contains the input list, which is used by every other funtion of the object.
+This is the class that contains all other functions of the radixsort algorithm. It is initialised with the input list which is stored as an attribute for access by other functions as well as the base and radix.\par
 \par
 The function $setitem$ is imported here as mentioned above so that the list can be edited outside of the scope of the class.
 \begin{lstlisting}
@@ -408,40 +400,38 @@ The function $setitem$ is imported here as mentioned above so that the list can 
     
             def setitem(self, item, value):
                 setitem(self.list, item, value)
+				def setslice(self, slice, index=0):
+					setslice(self.list, slice, index)
       \end{lstlisting}
 
 \subsubsection{Function list\textunderscore abs\textunderscore max}
-This function is an implementation of a combination of min() and max() functions (neither of which are implemented in RPython {\color{red}reference}) as well as an optional module to identify whether the list is sorted in asscending or descending order. The function also compares the maximum and minimum values and returns the value that is farthest away from $0$.
+This function returns the largest absolute value of the input list as well as identifing whether the list is sorted in asscending or descending order. These functions are combined as a time saving measure as they both require a pass over the data.
 \par
-The primary purpose of this function is to return the value that is used to identify the number of passes over the input necessary for sorting, this is why it is necessary to identify the farthest value form 0 as this is the value that will contain the most digits.
+The primary purpose of this function is to return the value that is used to identify the number of passes over the input necessary for sorting, this is why it is necessary to identify the farthest value form 0 as this is the value that will contain the most digits. Note that neither min() or max() are implemented in RPython \cite{rpythonobj}, hence why they have not been used.
 \par
-The secondary purpose of the funtion is to update the class attributes $ordered$ and $reverseOrdered$, which are used to identify whether the sort function has been called on an already sorted list in which case there is no purpose in running the algorithm.
-\par
-The reason that these actions are performed at the same time is because iterating over the list is necessary for both purposes, and both must be performed before sorting can take place (or not take place if the list is sorted), therefore it is more efficient to perform both tasks simultaneously.
+The secondary purpose of the function is to identify on the first pass over the list whether it is sorted, in which case the algorithm terminates, or if it is reverse sorted in which case the list is reversed and then the algorithm terminates.
 \begin{lstlisting}
         self.ordered = True
         self.reverseOrdered = True
 
         def list_abs_max(self, checkorder=False):
-
             assert len(self.list) != 0
             m = self.list[0]
             n = self.list[0]
             prev = self.list[0]
-            for i in range(1, len(self.list)):
+            for i in xrange(1, len(self.list)):
                 if self.list[i] > m:
                     m = self.list[i]
                 if self.list[i] < n:
                     n = self.list[i]
-                if checkorder:
-                    self.ordered &= self.list[i] >= prev
-                    self.reverseordered &= self.list[i] <= prev
-                    prev = self.list[i]
+					self.ordered &= self.list[i] >= prev
+					self.reverseOrdered &= self.list[i] <= prev
+					prev = self.list[i]
             return m if absolute(m) > absolute(n) else n
       \end{lstlisting}
 \pagebreak
 \subsubsection{Function insertion\textunderscore sort}
-This is an implementation of insertion sort, it is used in MSD sorts when the length of a sublist falls below the critical value. {\color{red}reference}
+This is an implementation of insertion sort, it is used in MSD sorts when the length of a sublist falls below the critical value. This value was determined by testing as explored  {\color{red} reference testing}
 \begin{lstlisting}
         def insertion_sort(self, start, end):
             for step in xrange(start, end):
@@ -454,7 +444,7 @@ This is an implementation of insertion sort, it is used in MSD sorts when the le
       \end{lstlisting}
 
 \subsubsection{function reverse\textunderscore slice}
-This reverses the items of the input inbetween the provided start and stop indexes. By default is reverses te entire list, but includes provisions to reverse a smaller slice of the list (this was from an earlier version of the algorithm, this feature is currently unused). {\color{red}I should probably just remove that at this point}
+This reverses the items of the input inbetween the provided start and stop indexes. By default is reverses te entire list, but includes provisions to reverse a smaller slice of the list (this was from an earlier version of the algorithm, this feature is currently unused).
 \begin{lstlisting}
         def reverseSlice(self, start=0, stop=0):
             if stop == 0:
@@ -467,6 +457,26 @@ This reverses the items of the input inbetween the provided start and stop index
                 start += 1
                 stop -= 1
       \end{lstlisting}
+\pagebreak
+\subsubsection{function is\textunderscore sorted}
+This function exists to check whether a subsection of the list is sorted. It is called on subsections of the list during MSD sorts. The assert statements exist to ensure that RPython compiles the code as it does not allow for slicing lists with negative slice indexes \cite{rpythonobj}
+\begin{lstlisting}
+	def is_sorted(self, start=0, end=-1):
+		end = end if end > -1 else self.listlength
+		assert start >= 0
+		assert end >= 0
+		sortd, rsortd = True, True
+		for i, el in enumerate(self.list[start + 1 : end]):
+			if el < self.list[start + i]:
+				sortd = False
+				if rsortd == False:
+					return sortd, rsortd
+			if el > self.list[start + i]:
+				rsortd = False
+				if sortd == False:
+					return sortd, rsortd
+		return sortd, rsortd
+\end{lstlisting}
 \pagebreak
 
 
@@ -680,7 +690,7 @@ Identifying sorted lists is not computationally expensive, it involves iterating
 \par
 An extension of this idea is to perform this order checking every time the input list is rearranged (once for each digit). Unlike the initial order checking which has a minor footprint on the run time of the algorithm, checking order on each digit has a moderately significant impact, therefore it should only be implemented on the conditions that it reasonably likely that sorted lists will occur and that when the test does identify a sorted list the time saved from early termination of the algorithm is greater than the time added by performing the test. 
 \par
-Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts can benefit from order checking performed on sublists which trigger positive ordered tests frequently and early termination of the sorting of these sublists improved performance {\color{red} Obviously you have to prove this}. In contrast, LSD sorts rarely trigger positive results with the frequency of these events dropping to 0 when negative integers are included. The lack of occurences of sorted lists in this circumstance is likely because the least significant digits have weaker influence on the size of integers meaning aside from random events and specific circumstances the input list is simply less likely to become sorted earlier than expected; the inclusion of negatives procludes the possibility of a list being sorted because of the leading sign bits causing negatives (and particularly negatives closer to 0) to be sorted as though they are the largest integers i.e. in the wrong order. 
+Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts can benefit from order checking performed on sublists which trigger positive ordered tests frequently and early termination of the sorting of these sublists improved performance {\color{red} Reference testing that proves this}. In contrast, LSD sorts rarely trigger positive results with the frequency of these events dropping to 0 when negative integers are included. The lack of occurences of sorted lists in this circumstance is likely because the least significant digits have weaker influence on the size of integers meaning aside from random events and specific circumstances the input list is simply less likely to become sorted earlier than expected; the inclusion of negatives procludes the possibility of a list being sorted because of the leading sign bits causing negatives (and particularly negatives closer to 0) to be sorted as though they are the largest integers i.e. in the wrong order. 
 \par
 \begin{table}[H]
 	\centering
@@ -744,78 +754,11 @@ In pigeonhole sort a similar opportunity arises in the form of identifying wheth
 \subsubsection{Insertion sort}
 Radix sort has a significant overhead cost due to the establishment of the count lists and the list of bins that must be instantiated or cleared on each digit, this cost has little to no relation to the length of the list and so it is oveten highly inefficient when compared to other algorithms to perform radix sort.
 \par
-This issue beomes exponentially worse when radix sort is implemented in MSD fashion due to the nature of establishing sub-lists and thus performing sorting on an ever increasing n7umber of lists containing progressively fewer and fewer items (sorting $150000$ items in base $2^{16}$ can create over $65000$ lists with an average length of $2$ for which the count list must be established separately).
+This issue beomes exponentially worse when radix sort is implemented in MSD fashion due to the nature of establishing sub-lists and thus performing sorting on an ever increasing number of lists containing progressively fewer and fewer items (sorting $150000$ items in base $2^{16}$ can create over $65000$ lists with an average length of $2$ for which the count list must be established separately).
 \par
-Using insertion sort in situations where the input list is reasonably small can be much more efficient than performing continuous rounds of radix sort, this effect is compounded on small lists of large items. Identifying the exact point at which it becomes more efficient to use insertion sort was done by {\color{orange} Not yet decided}
+Using insertion sort in situations where the input list is reasonably small can be much more efficient than performing continuous rounds of radix sort, this effect is compounded on small lists of large items. Identifying the exact point at which it becomes more efficient to use insertion sort was done by testing the time taken to sort lists containing an increasing number of items by the MSD radix sort methods compared to insertion sort. Starting at 2 items where insertion sort universally out-performs each sorting method, an increase in the initial list length by 1 item is tested repeatedly and eventually all radix sort methods perform better than insertion sort above a certain list length with is different for pigeonhole sort and counting sort and different for each numerical base used. The value of list length at which each sorting method out-performs insertion sort is taken as the critical value. 
 
 \pagebreak
-\subsection{Algorithms}
-\label{ssec:algorithms}
-\subsubsection{LSD Counting sort}
-In lines 2-18 the algorithm is instantiating the variables it needs to perform calculations:
-\begin{description}
-	\item[listmax]contains the largest absolute value of the list and is used to calculate the passes over the data needed to complete sorting as well as the integer mask {\color{red}is integer mask the correct term>} used to invert the sign bit.
-	\item[$min\textunderscore bytes$]Uses the listmax variable and the selected radix to calculate the total iterations over the data (rounds of integer sorting) that wil be needed, which is equal to the number of digits required to express $list\textunderscore max$ in the current radix, to account for the sign of the integer,  $min\textunderscore bytes$ includes an extra digit incase . However if $min\textunderscore bytes$ is equal to the maximum possible number of digits, $min\textunderscore bytes$ is reduced by 1, this is a safeguard put in place to prevent the algorithm from using a rightshift value greater than the machine word length as this results in an overflow error. when $min\textunderscore bytes$ is divisible by the radix{\color{red} Can this be done by checking if min bytes is divisible by the radix? }
-	\item[$uint\textunderscore 63$]Integer mask used to invert the sign bit. Line 16 is the default value, but in the case of a listmax occupying the same quantity of digits as the largest possible value line 13 is used. 
-	$(1 << int\textunderscore bytes(listmax, 2))$ is represented in binary by a 1 in the position directly to the left of the leftmost 1 of the list max,.
-	\item[] 
-\end{description}
-\begin{table}[H]
-	\lstset{
-		language=python,
-    numbers=left,
-    stepnumber=1,
-    showstringspaces=false,
-    tabsize=3,
-    breaklines=true,
-    breakatwhitespace=false,}
-	\centering
-	\begin{lstlisting}[escapeinside={(*}{*)}]
-	def sort(self):
-		if self.listlength < 2:
-			return
-		listmax = self.list_abs_max(checkorder=True)
-		min_bytes = int_bytes(listmax, self.radix)
-		if self.ordered == True:
-			return
-		if self.reverseOrdered == True:
-			self.reverseSlice()
-			return
 
-		if min_bytes == int_bytes((-sys.maxint) - 1, self.radix):
-			uint_63 = (*$\sim$*)((1 << int_bytes(listmax, 2) - 1) - 1)
-			min_bytes -= 1
-		else:
-			uint_63 = (*$\sim$*)((1 << int_bytes(listmax, 2)) - 1)
-
-		counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes)]
-
-		for num in self.list:
-			for i in xrange(min_bytes):
-				shift = (self.base) * i
-				sortkey = (num) ^ uint_63
-				val = (sortkey >> shift) & self.radix - 1
-				counts[i][val] += 1
-
-		skip = []
-		for i in xrange(min_bytes):
-			for j in xrange(1, self.radix):
-				if counts[i][j] == self.listlength:
-					skip.append(i)
-				counts[i][j] += counts[i][j - 1]
-		temp_list = [0 for _ in xrange(self.listlength)]
-		for i in xrange(min_bytes):
-			if i in skip:
-				continue
-			shift = (self.base) * i
-			for j in xrange(self.listlength - 1, -1, -1):
-				num = self.list[j]
-				sortkey = (num) ^ uint_63
-				val = (sortkey >> shift) & self.radix - 1
-				temp_list[counts[i][val] - 1] = self.list[j]
-				counts[i][val] -= 1
-			self.setslice(temp_list, 0)
-	\end{lstlisting}
-	\caption*{LSD counting sort}
-\end{table}
+\printbibliography 
 \end{document}
