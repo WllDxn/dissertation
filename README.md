@@ -56,7 +56,7 @@
 ```
 ## Graphs example
 ![image](graphs/fewer_iters_insertion_evident_timsort_12/lrg_Random.jpg) 
-Graphs showing my code is faster than timsort
+Graph showing my code is faster than timsort
 ## Code snippet
 This is my LSD Radix sort code:
 ```python
