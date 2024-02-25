@@ -1,3 +1,7 @@
+./old_files
+./__pycache__
+./pypy_versions
+./pypy_misc
 old_files/*
 pypy_versions/*
 pypy_misc/*
