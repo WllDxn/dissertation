@@ -1,11 +1,18 @@
 import os
 import subprocess
-from compile import *
+import re
 import random
 sort_times = "/home/will/dissertation/sort_times"
 # methods = ["fewer_iters"]
-# methods = ["always_insert"]
+methods = ["fewer_iters", "insertion_evident", "timsort"]
+radixsort_location = "/home/will/dissertation/radixsort_versions"
+pypy_versions = "/home/will/dissertation/pypy_versions" 
 # methods=['insertion_tests_3']
+
+def get_files(path):
+    for file in os.listdir(path):
+        if os.path.isfile(os.path.join(path, file)):
+            yield file
 
 def n(methodName, output, num=100):
     """
@@ -22,25 +29,36 @@ def n(methodName, output, num=100):
     Returns:
         None
     """
-
     fames = (
         get_files(f"{radixsort_location}/{methodName}")
         if methodName != "timsort"
-        else ["/home/will/dissertation/pypy_versions/timsort"]
+        else ["/home/will/dissertation/pypy_versions/timsort_n_0_timsort"]
     )
     rg = "[/.+?\./]"
+    count=0
+    do=False
+    # output='fewer_iters_insertion_evident_timsort_10.json'
     for name in fames:
-        if ('c' not in name or '8' not in name ) or ('p' not in name or '8' not in name ):continue
-        packagename = re.split(rg, name)[0] if methodName != "timsort" else "timsort"
+        # if ('6' not in name and '8' not in name and '10' not in name and'12' not in name) or '16' in name: continue
+        # if ('msd_p' not in name) or ('12' not in name or '16' in name): continue
+        # if ('msd_p' not in name) or ('6' not in name and '8' not in name and '10' not in name and'12' not in name or '16' in name): continue
+        packagename = re.split(rg, name)[0] if methodName != "timsort" else "timsort_n_0"
         exepath = f'{pypy_versions}/{packagename}_{methodName}/bin/pypy'
+        if name not in ['msd_c_4.py', 'msd_c_2.py']:do=True
         if not os.path.exists(exepath):continue
-        for l in [100000]:
-            exc = f"{pypy_versions}/{packagename}_{methodName}/bin/pypy sort_timer_gendata.py -m {packagename} -o {output} -n {num} -l {str(l)}"
-            print("\033[1;35m")
-            print(exc)
-            print("")
-            subprocess.run(exc, shell=True)
-            print("--complete--")
+        if not do and methodName != 'timsort':
+            print(f'skipping: {name}')``
+            continue
+        if "msd_p_1" in name: continue
+        else:
+            for l in ["10000 100000 1000000"]:
+                exc = f'{exepath} sort_timer_gendata.py -m {packagename} -o {output} -n {num} -l {str(l)}'
+                print("\033[1;35m")
+                print(exc)
+                print("")
+                subprocess.run(exc, shell=True)
+                print("--complete--")
+            count+=1
 
 
 def get_filename(name):
@@ -142,6 +160,8 @@ def ins_ll(methodName, output, num=100):
         count+=1
 
 def handler(methods):
-    # output = get_filename("_".join(methods)) if len(methods) > 1 else get_filename(methods[0])
+    output = get_filename("_".join(methods)) if len(methods) > 1 else get_filename(methods[0])
     for i in methods:
-        ins(i, get_filename(i))
+        print(i)
+        n(i, output)
+handler(methods)

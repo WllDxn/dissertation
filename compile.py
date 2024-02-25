@@ -1,7 +1,6 @@
 import os
 import re
 import subprocess
-import run_tests
 
 radixsort_location = "/home/will/dissertation/radixsort_versions"
 pypy_src_location = "/home/will/dissertation/pypy_misc/pypy3.10-v7.3.15-src"
@@ -61,7 +60,7 @@ def get_files(path):
 
 import sys
 if __name__ == "__main__":
-    compile("insertion_base")
+    compile("insertion_evident_nosort")
     # exc = f"python /home/will/dissertation/switch_bases.py"
 
     # run_tests.handler(["thresh_insert_update"])

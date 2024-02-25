@@ -757,8 +757,90 @@ Radix sort has a significant overhead cost due to the establishment of the count
 This issue beomes exponentially worse when radix sort is implemented in MSD fashion due to the nature of establishing sub-lists and thus performing sorting on an ever increasing number of lists containing progressively fewer and fewer items (sorting $150000$ items in base $2^{16}$ can create over $65000$ lists with an average length of $2$ for which the count list must be established separately).
 \par
 Using insertion sort in situations where the input list is reasonably small can be much more efficient than performing continuous rounds of radix sort, this effect is compounded on small lists of large items. Identifying the exact point at which it becomes more efficient to use insertion sort was done by testing the time taken to sort lists containing an increasing number of items by the MSD radix sort methods compared to insertion sort. Starting at 2 items where insertion sort universally out-performs each sorting method, an increase in the initial list length by 1 item is tested repeatedly and eventually all radix sort methods perform better than insertion sort above a certain list length with is different for pigeonhole sort and counting sort and different for each numerical base used. The value of list length at which each sorting method out-performs insertion sort is taken as the critical value. 
+\begin{table}[H]
+	\centering
+	\begin{lstlisting}
+        def insertion_sort(self, start, end):
+            for step in xrange(start, end):
+                key = self.list[step]
+                j = step - 1
+                while j >= 0 and key < self.list[j]:
+                    self.setitem(j + 1, self.list[j])
+                    j = j - 1
+                self.setitem(j + 1, key)
+	\end{lstlisting}
+	\caption*{Insertion sort algorithm used in this project}
+\end{table}
 
 \pagebreak
+\subsection{Algorithms}
+\label{ssec:algorithms}
+\subsubsection{LSD Counting sort}
+In lines 2-18 the algorithm is instantiating the variables it needs to perform calculations:
+\begin{description}
+	\item[listmax]contains the largest absolute value of the list and is used to calculate the passes over the data needed to complete sorting as well as the integer mask {\color{red}is integer mask the correct term>} used to invert the sign bit.
+	\item[$min$\textunderscore $bytes$]Uses the listmax variable and the selected radix to calculate the total iterations over the data (rounds of integer sorting) that wil be needed, which is equal to the number of digits required to express $list\textunderscore max$ in the current radix, to account for the sign of the integer,  $min\textunderscore bytes$ includes an extra digit incase . However if $min\textunderscore bytes$ is equal to the maximum possible number of digits, $min\textunderscore bytes$ is reduced by 1, this is a safeguard put in place to prevent the algorithm from using a rightshift value greater than the machine word length as this results in an overflow error. when $min\textunderscore bytes$ is divisible by the radix{\color{red} Can this be done by checking if min bytes is divisible by the radix? }
+	\item[$uint\textunderscore 63$]Integer mask used to invert the sign bit. Line 16 is the default value, but in the case of a listmax occupying the same quantity of digits as the largest possible value line 13 is used. 
+	$(1 << int\textunderscore bytes(listmax, 2))$ is represented in binary by a 1 in the position directly to the left of the leftmost 1 of the list max,.
+	\item[] 
+\end{description}
+\begin{table}[H]
+	\lstset{
+		language=python,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=3,
+    breaklines=true,
+    breakatwhitespace=false,}
+	\centering
+	\begin{lstlisting}[escapeinside={(*}{*)}]
+	def sort(self):
+		if self.listlength < 2:
+			return
+		listmax = self.list_abs_max(checkorder=True)
+		min_bytes = int_bytes(listmax, self.radix)
+		if self.ordered == True:
+			return
+		if self.reverseOrdered == True:
+			self.reverseSlice()
+			return
 
+		if min_bytes == int_bytes((-sys.maxint) - 1, self.radix):
+			uint_63 = (*$\sim$*)((1 << int_bytes(listmax, 2) - 1) - 1)
+			min_bytes -= 1
+		else:
+			uint_63 = (*$\sim$*)((1 << int_bytes(listmax, 2)) - 1)
+
+		counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes)]
+
+		for num in self.list:
+			for i in xrange(min_bytes):
+				shift = (self.base) * i
+				sortkey = (num) ^ uint_63
+				val = (sortkey >> shift) & self.radix - 1
+				counts[i][val] += 1
+
+		skip = []
+		for i in xrange(min_bytes):
+			for j in xrange(1, self.radix):
+				if counts[i][j] == self.listlength:
+					skip.append(i)
+				counts[i][j] += counts[i][j - 1]
+		temp_list = [0 for _ in xrange(self.listlength)]
+		for i in xrange(min_bytes):
+			if i in skip:
+				continue
+			shift = (self.base) * i
+			for j in xrange(self.listlength - 1, -1, -1):
+				num = self.list[j]
+				sortkey = (num) ^ uint_63
+				val = (sortkey >> shift) & self.radix - 1
+				temp_list[counts[i][val] - 1] = self.list[j]
+				counts[i][val] -= 1
+			self.setslice(temp_list, 0)
+	\end{lstlisting}
+	\caption*{LSD counting sort}
+\end{table}
 \printbibliography 
 \end{document}
