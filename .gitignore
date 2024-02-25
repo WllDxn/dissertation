@@ -2,5 +2,5 @@ old_files/*
 pypy_versions/*
 pypy_misc/*
 dissertation/*
-!dissertation/implementation.pdf
-!dissertation/implementation.tex
+!dissertation/Implementation.pdf
+!dissertation/Implementation.tex
