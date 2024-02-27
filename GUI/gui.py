@@ -102,7 +102,7 @@ class QueueConfig(object):
     def saveQueue(self):
         with open(self.filename, "w") as f:
             outputfile = {"queue": [config.as_json() for config in self.queue]}
-            json.dump(outputfile, f)
+            json.dump(outputfile, f, indent=4)
 
     def new_config(self, data=None, i=1):
         if data is None:

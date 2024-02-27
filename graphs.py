@@ -31,7 +31,7 @@ def do_graph(reject_outliers, fname):
 
         for group, g in gb:
             df2 = g.melt(id_vars=['data_type', 'data_size', 'cols', 'rows'], var_name='method', value_name='times')
-            print(df2)
+            # print(df2)
             df2[['method', 'base']] = df2['method'].str.extract(r'(\D+)(\d+)')
             df2["method"] = df2["method"].str.replace("times.", "", regex=False).str[:-1]
             df2 = df2.dropna()
@@ -81,7 +81,8 @@ def do_graph(reject_outliers, fname):
             plt.close()
 
 if __name__ == '__main__':
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/fewer_iters_insertion_evident_timsort_11.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_nosort_0.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_0.json'))
     # for i in range(3,4):
     #     fname = Path('/home/will/dissertation/sort_times') / f'fewer_iters_tim_{i}.json'
     #     do_graph(reject_outliers, fname)
