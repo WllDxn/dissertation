@@ -15,7 +15,11 @@ def reject_outliers_2(data, m=4):
     s = d / (mdev or 1.)
     return data[s < m]
 
+<<<<<<< Updated upstream:insertion_graphs.py
 def get_data(inp, threshold, maxc=500):
+=======
+def get_data(inp, threshold, maxc=2000):
+>>>>>>> Stashed changes:insertion_graphs2024.py
     #Input data#
     with open(f'sort_times/{inp}') as f:
         data = json.load(f)
@@ -120,11 +124,17 @@ def graph(threshold=False):
         ax.set_xlabels(melt,fontsize=20)
         ax.set_ylabels("Time",fontsize=20)
         plt.grid()
+<<<<<<< Updated upstream:insertion_graphs.py
         if group in [f'msd_{x}_{t}' for t in range(2,18,2) for x in ['p']]:
             print(f'{group}_insert.jpg')
             plt.savefig(f'graphs/insertionfinal/{group}_insert2.jpg')
         # break
 
+=======
+        if group in [f'msd_{x}_{t}' for t in range(14,15,2) for x in ['p']]:
+            plt.savefig(f'graphs/insertion2024/{group}_insert4.jpg')
+            print(f'{group}_insert.jpg')
+>>>>>>> Stashed changes:insertion_graphs2024.py
 
     # for method2 in df.columns.drop('threshold'):
     #     #ax = ax.scatter(df['threshold'], df[method2], marker=".")
