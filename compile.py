@@ -60,11 +60,7 @@ def get_files(path):
 
 import sys
 if __name__ == "__main__":
-<<<<<<< Updated upstream
-    compile("insertion_evident_nosort")
-=======
-    compile("insertion_data")
->>>>>>> Stashed changes
+    compile("final")
     # exc = f"python /home/will/dissertation/switch_bases.py"
 
     # run_tests.handler(["thresh_insert_update"])

@@ -68,6 +68,11 @@
   tabsize=3
   }
 \hfuzz=5.002pt 
+\usepackage{url}
+
+%%% --- The following two lines are what needs to be added --- %%%
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
 \begin{document}
 
 	
@@ -778,10 +783,110 @@ Using insertion sort in situations where the input list is reasonably small can 
 \subsubsection{LSD Counting sort}
 In lines 2-18 the algorithm is instantiating the variables it needs to perform calculations:
 \begin{description}
-	\item[listmax]contains the largest absolute value of the list and is used to calculate the passes over the data needed to complete sorting as well as the integer mask {\color{red}is integer mask the correct term>} used to invert the sign bit.
-	\item[$min$\textunderscore $bytes$]Uses the listmax variable and the selected radix to calculate the total iterations over the data (rounds of integer sorting) that wil be needed, which is equal to the number of digits required to express $list\textunderscore max$ in the current radix, to account for the sign of the integer,  $min\textunderscore bytes$ includes an extra digit incase . However if $min\textunderscore bytes$ is equal to the maximum possible number of digits, $min\textunderscore bytes$ is reduced by 1, this is a safeguard put in place to prevent the algorithm from using a rightshift value greater than the machine word length as this results in an overflow error. when $min\textunderscore bytes$ is divisible by the radix{\color{red} Can this be done by checking if min bytes is divisible by the radix? }
-	\item[$uint\textunderscore 63$]Integer mask used to invert the sign bit. Line 16 is the default value, but in the case of a listmax occupying the same quantity of digits as the largest possible value line 13 is used. 
-	$(1 << int\textunderscore bytes(listmax, 2))$ is represented in binary by a 1 in the position directly to the left of the leftmost 1 of the list max,.
+	\item[listmax]contains the largest absolute value of the list and is used to calculate the passes over the data needed to complete sorting as well as the bitmask used to invert the sign bit.
+ 	\item[min\textunderscore bytes (1)] Represents the total number of iterations over the data (rounds of integer sorting) that wil be needed. This is calculated by calling the function \textbf{\textit{int\textunderscore bytes()}} (\ref{ssec:intbytes}) with \textbf{listmax} and the selected base.
+	\par
+	Ensuring that this algorithm properly sorts integers with respect to their sign requires that the most significant digit sorted includes at least one sign bit (see \ref{ssec:negativesImplementation}). Asserting this involves observing whether the quantity of bits needed to express \textbf{listmax} is divisible by the selected base with or without a remainder.
+	\par 
+	If there is a remainder then the leftmost digit of \textbf{listmax}, when expressed in the selected radix ($2^{base}$), includes at least 1 sign bit and thus all negative/positive integers will be properly sorted when this digit is iterated over.
+	\par
+	If there is no remainder then the sign bit is not included in the leftmost digit of \textbf{listmax} as all bits in the leftmost digit are needed to express the magnitude of the digit. This signals that an extra iteration needs to be added to ensure negative values are properly sorted.
+	\par
+	This extra iteration does not get added on if the quantity of digits in binary of \textbf{listmax} and the system maximum integer are equal as this would result in a rightshift of more bits than there are in an integer resulting in an error in RPython {\color{red}go into detail? it's kind of pointless}. In this case the additional pass is not needed anyway as the leftmost bit is always the sign bit and so will definititely be included in sorting.
+	\par
+	\begin{table}[!htb]
+		\caption*{Two integers expressed in binary, the sign bits are highlighted and the binary digits are split into groups of 4 illustrating the number of iterations that would be needed if they were the maximum absolute value of an input list}
+		\vspace{5pt}
+		\setlength{\tabcolsep}{10pt}
+		\begin{minipage}{.45\textwidth}
+		\centering		
+		\caption*{174}
+		\setlength{\tabcolsep}{1pt}		
+        \begin{tabular}[t]{cccc}			
+			\rotatebox{90}{\begin{math}
+				\left\{
+				  \begin{array}{l}
+
+					\rotatebox[origin=c]{-90}{0}\\
+					\rotatebox[origin=c]{-90}{0}\\
+					\rotatebox[origin=c]{-90}{0}\\
+					\rotatebox[origin=c]{-90}{0}
+				  \end{array}
+				\right.
+			  \end{math}}
+			  &
+			  \hspace{10pt}
+			  &
+			  \rotatebox{90}{\begin{math}
+				\left\{
+				  \begin{array}{l}
+					\rotatebox[origin=c]{-90}{1}\\
+					\rotatebox[origin=c]{-90}{0}\\
+					\rotatebox[origin=c]{-90}{1}\\ 
+					\rotatebox[origin=c]{-90}{0}\\
+					\vspace{0mm}\\					
+					\rotatebox[origin=c]{-90}{1}\\
+					\rotatebox[origin=c]{-90}{1}\\
+					\rotatebox[origin=c]{-90}{1}\\
+					\rotatebox[origin=c]{-90}{0}
+				  \end{array}
+				\right.
+			  \end{math}}
+
+			  \\
+			  Sign bits & &Significant digits  \\
+			
+        \end{tabular}%
+		\vspace{0.1cm}
+		\caption*{This integer occupies 8 bits or 2 digits in base $2^4$, but as there is no sign bit in the most significant digit, 3 iterations are necessary for sorting}
+			
+		\end{minipage}\hfill%
+			\begin{minipage}{.45\textwidth}
+				\centering		
+				\caption*{26}
+				\setlength{\tabcolsep}{1pt}		
+				\begin{tabular}[t]{cccc}			
+					\rotatebox{90}{\begin{math}
+						\left\{
+						  \begin{array}{l}
+		
+							\rotatebox[origin=c]{-90}{0}\\
+							\rotatebox[origin=c]{-90}{0}\\
+							\rotatebox[origin=c]{-90}{0}\\
+							\rotatebox[origin=c]{-90}{0}\\
+							\vspace{0mm}\\
+							\rotatebox[origin=c]{-90}{0}\\
+							\rotatebox[origin=c]{-90}{0}\\
+							\rotatebox[origin=c]{-90}{0}
+						  \end{array}
+						\right.
+					  \end{math}}
+					  &
+					  \rotatebox{90}{\begin{math}
+						\left\{
+						  \begin{array}{l}
+
+ 
+							\rotatebox[origin=c]{-90}{1}\\
+							\vspace{0mm}\\					
+							\rotatebox[origin=c]{-90}{1}\\
+							\rotatebox[origin=c]{-90}{0}\\
+							\rotatebox[origin=c]{-90}{1}\\
+							\rotatebox[origin=c]{-90}{0}
+						  \end{array}
+						\right.
+					  \end{math}}
+		
+					  \\
+					  Sign bits & Significant digits  \\
+					
+				\end{tabular}%
+				\vspace{0.1cm}
+				\caption*{This integer occupies 5 bits or 2 digits in base $2^4$, and as there is at least 1 sign bit in the most significant digit only 2 iterations are needed}
+			\end{minipage}\hfill%
+		
+		\end{table}
+		\item[uint\textunderscore 63] This is a bitmask used to invert the sign of the inputs. In binary this value is represented by 0 in all digits needed to express \textbf{listmax} in two's complement excluding the sign bit and a 1 in all other digits. This is calculated using an integer, $1$, lefshifted a by a value equal to the quantity of digits in binary of \textbf{listmax} minus 1 (to account for 1 already containing a digit). Subtracting 1 from this value produces an integer that, represented in binary, contains a 1 in all digits needed to express \textbf{listmax} and 0 in every digit to the left. Thus the inverse of this value, calculated by bitwise not (\ref{sssec:not}), can be used in conjuction with a bitwise exclusive or operation (\ref{sssec:xor}) to invert the sign bit and all digits to the left without altering the magnitude of .
 	\item[] 
 \end{description}
 \begin{table}[H]
@@ -795,50 +900,50 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
     breakatwhitespace=false,}
 	\centering
 	\begin{lstlisting}[escapeinside={(*}{*)}]
-	def sort(self):
-		if self.listlength < 2:
-			return
-		listmax = self.list_abs_max(checkorder=True)
-		min_bytes = int_bytes(listmax, self.radix)
-		if self.ordered == True:
-			return
-		if self.reverseOrdered == True:
-			self.reverseSlice()
-			return
+        def sort(self):
+            if self.listlength < 2:
+                return
+            listmax = self.list_abs_max(checkorder=True)
+            min_bytes = int_bytes(listmax, self.base)
+            if self.ordered == True:
+                return
+            if self.reverseOrdered == True:
+                self.reverseSlice()
+                return
 
-		if min_bytes == int_bytes((-sys.maxint) - 1, self.radix):
-			uint_63 = (*$\sim$*)((1 << int_bytes(listmax, 2) - 1) - 1)
-			min_bytes -= 1
-		else:
-			uint_63 = (*$\sim$*)((1 << int_bytes(listmax, 2)) - 1)
+            bitno = int(int_bytes(listmax, 1))
+            uint_63 = ~((1 << bitno - 1) - 1)
 
-		counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes)]
+            if bitno % self.base == 0 and bitno != int_bytes((-sys.maxint) - 1, 1):
+                min_bytes += 1
 
-		for num in self.list:
-			for i in xrange(min_bytes):
-				shift = (self.base) * i
-				sortkey = (num) ^ uint_63
-				val = (sortkey >> shift) & self.radix - 1
-				counts[i][val] += 1
+            counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes)]
 
-		skip = []
-		for i in xrange(min_bytes):
-			for j in xrange(1, self.radix):
-				if counts[i][j] == self.listlength:
-					skip.append(i)
-				counts[i][j] += counts[i][j - 1]
-		temp_list = [0 for _ in xrange(self.listlength)]
-		for i in xrange(min_bytes):
-			if i in skip:
-				continue
-			shift = (self.base) * i
-			for j in xrange(self.listlength - 1, -1, -1):
-				num = self.list[j]
-				sortkey = (num) ^ uint_63
-				val = (sortkey >> shift) & self.radix - 1
-				temp_list[counts[i][val] - 1] = self.list[j]
-				counts[i][val] -= 1
-			self.setslice(temp_list, 0)
+            for num in self.list:
+                for i in xrange(min_bytes):
+                    shift = (self.base) * i
+                    sortkey = (num) ^ uint_63
+                    val = (sortkey >> shift) & self.radix - 1
+                    counts[i][val] += 1
+
+            skip = []
+            for i in xrange(min_bytes):
+                for j in xrange(1, self.radix):
+                    if counts[i][j] == self.listlength:
+                        skip.append(i)
+                    counts[i][j] += counts[i][j - 1]
+            temp_list = [0 for _ in xrange(self.listlength)]
+            for i in xrange(min_bytes):
+                if i in skip:
+                    continue
+                shift = (self.base) * i
+                for j in xrange(self.listlength - 1, -1, -1):
+                    num = self.list[j]
+                    sortkey = (num) ^ uint_63
+                    val = (sortkey >> shift) & self.radix - 1
+                    temp_list[counts[i][val] - 1] = self.list[j]
+                    counts[i][val] -= 1
+                self.setslice(temp_list, 0)
 	\end{lstlisting}
 	\caption*{LSD counting sort}
 \end{table}
