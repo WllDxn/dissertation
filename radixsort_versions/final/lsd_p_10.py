@@ -38,7 +38,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, list_length=None):
             self.list = list
-            self.base = 6
+            self.base = 10
             self.list_length = len(self.list)
             self.radix = int(pow(2, self.base))
 
@@ -121,31 +121,27 @@ def make_radixsort_class(
             ):
                 list_max_digits += 1
 
-            counts = [[0 for _ in xrange(self.radix)] for _ in xrange(list_max_digits)]
+            bucket_list = [[] for _ in xrange(self.radix)]
 
-            for num in self.list:
-                for i in xrange(list_max_digits):
-                    shift = (self.base) * i
-                    masked_input = (self.list[i]) ^ bit_mask
-                    curr_digit = ((masked_input >> shift)) & self.radix - 1
-                    counts[i][curr_digit] += 1
-
-            skip = []
             for i in xrange(list_max_digits):
-                for j in xrange(1, self.radix):
-                    if counts[i][j] == self.list_length:
-                        skip.append(i)
-                    counts[i][j] += counts[i][j - 1]
-            temp_list = [0 for _ in xrange(self.list_length)]
-            for i in xrange(list_max_digits):
-                if i in skip:
-                    continue
                 shift = (self.base) * i
-                for j in xrange(self.list_length - 1, -1, -1):
-                    masked_input = (self.list[j]) ^ bit_mask
+
+                out = {}
+
+                for num in self.list:
+                    masked_input = num ^ bit_mask
                     curr_digit = ((masked_input >> shift)) & self.radix - 1
-                    temp_list[counts[i][curr_digit] - 1] = self.list[j]
-                    counts[i][curr_digit] -= 1
-                self.setslice(temp_list, 0)
+                    out[num] = curr_digit
+                    bucket_list[curr_digit].append(num)
+                if len([bucket for bucket in bucket_list if bucket != []]) == 1:
+                    continue
+                index = 0
+                for bdx, bucket in enumerate(bucket_list):
+                    self.setslice(bucket, index)
+                    index += len(bucket)
+                    bucket_list[bdx] = []
 
     return Radixsort
+
+
+r = make_radixsort_class()

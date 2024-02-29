@@ -38,7 +38,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, list_length=None):
             self.list = list
-            self.base = 6
+            self.base = 10
             self.list_length = len(self.list)
             self.radix = int(pow(2, self.base))
 
@@ -61,7 +61,7 @@ def make_radixsort_class(
         def setitem(self, item, value):
             setitem(self.list, item, value)
 
-        def setslice(self, slice, index):
+        def setslice(self, slice, index=0):
             setslice(self.list, slice, index)
 
         def insertion_sort(self, start, end):
@@ -121,31 +121,47 @@ def make_radixsort_class(
             ):
                 list_max_digits += 1
 
-            counts = [[0 for _ in xrange(self.radix)] for _ in xrange(list_max_digits)]
-
-            for num in self.list:
-                for i in xrange(list_max_digits):
-                    shift = (self.base) * i
-                    masked_input = (self.list[i]) ^ bit_mask
-                    curr_digit = ((masked_input >> shift)) & self.radix - 1
-                    counts[i][curr_digit] += 1
-
-            skip = []
-            for i in xrange(list_max_digits):
-                for j in xrange(1, self.radix):
-                    if counts[i][j] == self.list_length:
-                        skip.append(i)
-                    counts[i][j] += counts[i][j - 1]
-            temp_list = [0 for _ in xrange(self.list_length)]
-            for i in xrange(list_max_digits):
-                if i in skip:
-                    continue
-                shift = (self.base) * i
-                for j in xrange(self.list_length - 1, -1, -1):
-                    masked_input = (self.list[j]) ^ bit_mask
-                    curr_digit = ((masked_input >> shift)) & self.radix - 1
-                    temp_list[counts[i][curr_digit] - 1] = self.list[j]
-                    counts[i][curr_digit] -= 1
-                self.setslice(temp_list, 0)
+            bucket_indexes = [(0, self.list_length)]
+            bucket_list = [[] for _ in xrange(self.radix)]
+            for k in xrange(list_max_digits, -1, -1):
+                shift = k * self.base
+                temp_indexes = []
+                for start, end in bucket_indexes:
+                    if start + 1 == end:
+                        continue
+                    sublist_sorted, sublist_reverse_sorted = self.slice_sorted(
+                        start, end
+                    )
+                    if sublist_sorted:
+                        continue
+                    if sublist_reverse_sorted:
+                        self.reverse_slice(start, end - 1)
+                        continue
+                    if (end - start) < 425:
+                        self.insertion_sort(start, end)
+                        continue
+                    for i in xrange(start, end):
+                        masked_input = (self.list[i]) ^ bit_mask
+                        curr_digit = ((masked_input >> shift)) & self.radix - 1
+                        bucket_list[curr_digit].append(self.list[i])
+                    if (
+                        len([len(bucket) for bucket in bucket_list if bucket != []])
+                        == 1
+                    ):
+                        temp_indexes.append((start, end))
+                        bucket_list = [[] for _ in bucket_list]
+                        continue
+                    index = 0
+                    for bdx, bucket in enumerate(bucket_list):
+                        if len(bucket) >= 1:
+                            temp_indexes.append(
+                                (start + index, start + index + len(bucket))
+                            )
+                            self.setslice(bucket, start + index)
+                        index += len(bucket)
+                        bucket_list[bdx] = []
+                bucket_indexes = temp_indexes
+                if not bucket_indexes:
+                    return
 
     return Radixsort

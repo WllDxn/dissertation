@@ -38,7 +38,7 @@ def make_radixsort_class(
     class Radixsort(object):
         def __init__(self, list, list_length=None):
             self.list = list
-            self.base = 6
+            self.base = 12
             self.list_length = len(self.list)
             self.radix = int(pow(2, self.base))
 
