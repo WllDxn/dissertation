@@ -16,9 +16,9 @@ def compile(version, npadd=True):
     cg = "\/tmp([^']*)"
     rg = "[/.+?\./]"
     for name in filenames:
+        if 'msd_c' in name or 'lsd_p' in name:continue
         packagename = f"{re.split(rg, name)[0]}_{version}"
         if packagename in existingnames:
-            if 'msd_p_12' not in packagename:continue
             if not npadd:
                 print(f'skipping: {str(name)}')
                 continue
@@ -49,12 +49,13 @@ def compile(version, npadd=True):
         subprocess.run(cmd_str, shell=True)
 
 
+from natsort import natsorted
 def get_directories(path):
-    for file in os.listdir(path):
+    for file in natsorted(os.listdir(path)):
         if not os.path.isfile(os.path.join(path, file)):
             yield file
 def get_files(path):
-    for file in os.listdir(path):
+    for file in natsorted(os.listdir(path)):
         if os.path.isfile(os.path.join(path, file)):
             yield file
 
