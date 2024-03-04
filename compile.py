@@ -10,13 +10,15 @@ def addpypy(packagename):
     subprocess.run(exc, shell=True)
     exc = f"{pypy_versions}/{packagename}/bin/pypy -mpip install numpy"
     subprocess.run(exc, shell=True)
-def compile(version, npadd=True):
+def compile(version, npadd=False):
+    
     filenames = get_files(f"{radixsort_location}/{version}")
     existingnames = list(get_directories(f"{pypy_versions}"))
     cg = "\/tmp([^']*)"
     rg = "[/.+?\./]"
     for name in filenames:
-        if 'msd_c' in name or 'lsd_p' in name:continue
+        if '_6' not  in name:continue
+        # if 'msd_c' in name or 'lsd_p' in name:continue
         packagename = f"{re.split(rg, name)[0]}_{version}"
         if packagename in existingnames:
             if not npadd:
@@ -61,10 +63,11 @@ def get_files(path):
 
 import sys
 if __name__ == "__main__":
-    compile("final")
-    # exc = f"python /home/will/dissertation/switch_bases.py"
-
-    # run_tests.handler(["thresh_insert_update"])
+    if len(sys.argv) > 1:
+        print(sys.argv[1])
+        compile(sys.argv[1])
+    else:
+        print('give name')
 
 
     

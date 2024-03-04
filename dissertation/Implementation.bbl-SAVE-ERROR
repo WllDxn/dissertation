@@ -46,10 +46,10 @@
       \field{year}{2022}
       \field{dateera}{ce}
       \verb{urlraw}
-      \verb https://foss.heptapod.net/pypy/pypy/-/blob/ab3f173b52ba0b51b155c372af40de3d85a855a7/rpython/rlib/listsort.py
+      \verb https://foss.heptapod.net/pypy/pypy/
       \endverb
       \verb{url}
-      \verb https://foss.heptapod.net/pypy/pypy/-/blob/ab3f173b52ba0b51b155c372af40de3d85a855a7/rpython/rlib/listsort.py
+      \verb https://foss.heptapod.net/pypy/pypy/
       \endverb
     \endentry
     \entry{rpythonobj}{online}{}

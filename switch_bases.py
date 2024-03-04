@@ -18,7 +18,7 @@ def base_switch(version, use_cutoff=True):
         data = read_file(os.path.join(radixsort_location, version, "originals", name))
         base_line = next(i for i, line in enumerate(data) if "self.base =" in line)
         if radix == "msd" and use_cutoff:
-           cutoff_line = next(i for i, line in enumerate(data) if "if end < start:" in line or "if end > start:" in line)
+           cutoff_line = next(i for i, line in enumerate(data) if "if (end - start) <" in line)
         for idx, base in enumerate(range(2, 18, 2)):
             data[base_line] = f"            self.base = {base}\n"
             if radix == "msd" and use_cutoff:
@@ -36,7 +36,11 @@ def write_file(path, data):
 
 def get_files(path):
     return [file for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))]
-
+import sys
 if __name__ == "__main__":
-    base_switch("final", True)
+    if len(sys.argv) > 1:
+        print(sys.argv[1])
+        base_switch(sys.argv[1], True)
+    else:
+        print('give name')
 #     # base_switch("never_insert_update")

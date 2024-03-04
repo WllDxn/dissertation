@@ -23,7 +23,7 @@ def reject_outliers_2(data, m=2):
     # print('---')
     # return data
 import sys
-   
+
 
 if __name__=='__main__':
     dataset = {}
@@ -31,7 +31,7 @@ if __name__=='__main__':
     dsids = ['1,000,000','100,000','10,000']
     dsidsint = [1000000,100000,10000]
     sizes = {'large':9223372036854775807, 'med':4294967296, 'small': 1048576, 'tiny': 65536}
-    
+
     for dsid, ds in enumerate(dsize):
         with open('switch_test.json', 'r') as f:
             dataset = json.load(f)
@@ -49,16 +49,23 @@ if __name__=='__main__':
         for group in gb.groups:
             fig = plt.figure(figsize=(60,15),constrained_layout=True)
             rows = gb.get_group(group).rows.values[0]
-            fig.suptitle('List length: '+dsids[dsid]+'\nList count: '+str(rows)+'\nData type:'+group,fontsize='x-large')
-            
+            fig.suptitle(
+                f'List length: {str(dsids[dsid])}'
+                + '\nList count: '
+                + str(rows)
+                + '\nData type:'
+                + str(group),
+                fontsize='x-large',
+            )
+
             df2 = gb.get_group(group).melt(id_vars=['data_type', 'data_size'],
                                                         var_name='method',
                                                         value_name='times')
             df2[['method', 'base']] = df2['method'].str.split('_base', expand=True)
             df2["method"] = df2["method"].apply(lambda x: x.replace("times.", "").replace("_sort", ""))
             df2 = df2.dropna()
-            sgb=df2.groupby(['data_size'])   
-            if sgb.ngroups<1:continue     
+            sgb=df2.groupby(['data_size'])
+            if sgb.ngroups<1:continue
             subfigs = fig.subfigures(1, sgb.ngroups, hspace=20)
             # print((sgb.groups))
             for subgroup, (outerind, subfig) in zip(sgb.groups, enumerate(subfigs.flat)):
@@ -70,7 +77,7 @@ if __name__=='__main__':
                     targets = zip(methodgroups.groups.keys(), axes.flatten())       
                     # print(targets) 
                     for md, (key, ax) in  enumerate(targets):
-                        
+
                         mdf = methodgroups.get_group(key)
                     # print(mdf['base'])
                         #Axis = [sum(value)/len(value) for key, value in dictionary.items()]
@@ -81,7 +88,7 @@ if __name__=='__main__':
                         mdf.loc[:,'times'] = mdf['times'].apply(reject_outliers_2)
                         # mdf["base"] = pd.to_numeric(mdf["base"])
                         mdf.sort_values(by=['base'], key=lambda x:x. str. len(), inplace=True)
-                        
+
                         xerrors = mdf['times'].apply(lambda x: np.std(x))
                         x = mdf['times'].apply(lambda x: np.mean(x))
                         # if group == 'Random' and key == 'lsd_counting':

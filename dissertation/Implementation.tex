@@ -252,6 +252,7 @@
 				\right.
 			  \end{math}}		
 			  &
+			  \hspace{5pt}
 			  \rotatebox{90}{\begin{math}
 				\left\{
 				  \begin{array}{l}
@@ -263,6 +264,7 @@
 				\right.
 			  \end{math}}
 			  &
+			  \hspace{5pt}
 			  \rotatebox{90}{\begin{math}
 				\left\{
 				  \begin{array}{l}
@@ -274,6 +276,7 @@
 				\right.
 			  \end{math}}
 			  &
+			  \hspace{5pt}
 			  \rotatebox{90}{\begin{math}
 				\left\{
 				  \begin{array}{l}
@@ -355,19 +358,30 @@ The purpose of this helper method was to allow for the calculation of absolute v
         return sys.maxint
         return -num if num < 0 else num
 \end{lstlisting}
-\subsubsection{Function int\textunderscore bytes}
-\label{ssec:intbytes}
-Returns the quantity of digits needed to express an integer using a specified numerical base. Each digit requires $n$ binary bits to express an integer in the base $2^n$. The returned value includes the bit needed to express the sign integer, which is sometimes taken as part of the most significant digit and sometimes is not, but this is handled in either case by the sorting algorithm.
+\pagebreak
+\subsubsection{Function int\textunderscore digits}
+\label{ssec:intdigits}
+Returns the quantity of digits needed to express an integer using a specified numerical base. Each digit requires $n$ binary bits to express an integer in the base $2^n$ excluding the sign bit which is not factored in when calculating the return value of this function but is accounted for elsewhere {\color{red} Reference}.
 \par
-This function uses a loop to rightshift the absolute value of the input an increasing number of times until it equals or falls below 0. The function begins with rightshifting once to ensure that 0 is never returned so as not to produce errors elsewhere in the algorithm. Finally the number of bits has the modulo of the radix subtracted and is divided by the radix, finding the number of times the radix is divisible by $l$ without producing a fraction. 1 is added to the returned value to include the sign bit if $l$ was divisible by the radix and to include the sign bit and all bits expressed in the remainder otherwise.
+This function repeatedly rightshifts the input value by a number of bits starting at the chosen base and increasing by the same on each repeat. This is performed until the rightshifted input is equal to $0$ or $-1$ if the input is positive or negative respectively, which indicates that the number of bits the input has been shifted by are equal to or greater than the number of bits needed to express it. The number of repeats (\textit{l}) is returned as this represents the number of digits needed to express the input value.
+\par
+On each repeat the current value for the rightshifted input is compared to the next value to ensure that the next value is closer to $0$, this is done because in RPython rightshifting an input by \textit{n} actually performs the input rightshifted by the \textit{n modulo s}, where \textit{s} is the system word size. For inputs occupying a number of bits in the range $s-b < s$, the smallest value by which the input must to be shifted that exceeds or equals the number of bits of the input is greater than \textit{s}, triggering the modulo operation and thus resulting in a larger value than the previous iteration of the loop and thus the exit condition of the loop is never met. Due to these factors an exttra exit condition has been included should the next rightshifted input value be further from 0 than the current one.
+\par
+Intuitively it would seem the use of logarithms would be a more prudent and concise way of performing this function, as taking $\log _{r} i$ (where \textit{r} is the chosen radix) and rounding up would give the same result as this function. However the inbuilt logarithm function of RPython does not allow the base to be specified forcing the use of $\frac{\log i}{\log r}$. Implementation of this solution caused occasional floating point errors when rounding, these errors occasionally allowed an incorrect calculation of a bit mask resulting in an incorrect sort, namely when the system word length and number of bits of the input value were divisible by the chosen base without remainder. Whilst this situation is extremely rare and it was possible to hard-code a solution for these cases, including a systematic calculation error in a function was deemed too risky.
 \begin{lstlisting}
-	def int_bytes(i, radix):
+	def int_digits(i, base):
 		l = 1
-		while (absolute(i) >> l) > 0:
+		v = 0 if i >= 0 else -1
+		prev = i >> (l * base)
+		while prev != v:
 			l += 1
-		diff = (((l) - (l % radix)) / radix) + 1
-		return diff
-      \end{lstlisting}
+			new = i >> (l * base)
+			if absolute(new) < absolute(prev):
+				prev = i >> (l * base)
+			else:
+				return l
+		return l
+\end{lstlisting}
 \pagebreak
 \subsubsection{Function make\textunderscore radixsort\textunderscore class}
 The container function that instantiates all other funtions, this is modelled on the existing function in listsort.py \cite{listsort} to minimize compatability issues when including this project in the pypy library.
@@ -377,7 +391,7 @@ The container function that instantiates all other funtions, this is modelled on
     ):
   \end{lstlisting}
 \subsubsection{Functions setitem and setslice}
-These functions have been imported from the existing listsort.py file within rlib. They enable the input list to be edited by functions within the Radixsort class. When the $.sort()$ function is called by PyPy, it initialises the Radixsort class with the list as a constructor, this means that the list attribute is not mutable from within the class unless these functions are imported.
+These functions have been imported from the existing listsort.py file within rlib \cite{listsort}. They enable the input list to be edited by functions within the Radixsort class. When the $.sort()$ function is called by PyPy, it initialises the Radixsort class with the list as a constructor, this means that the list attribute is not mutable from within the class unless these functions are imported.
 \par
 These are the only existing functions of the original listsort.py that were not removed.
 \begin{lstlisting}
@@ -618,7 +632,7 @@ The bitwise not operator produces the inverse of all binary digits in an integer
 \par
 `Exclusive Or' compares the bits of two integers and returns a value of 1 for each digit where the two bits are different and 0 if they are the same. It is performed in pypy using $x$ $\hat{}$ $y$ which results in an `Exclusive Or' performed across all 64 bits of the two integers $x$ and $y$. 
 \par
-The use case for this in this project occurs when inverting the sign bit to ensure negative and positive values are sorted correctly (see \ref{ssec:negativestwos} for details).This is done by identifying the quantity of binary digits needed to express the largest absolute value of the input using the function `int\textunderscore bytes' (shown in \ref{ssec:intbytes}) with a radix of 2, this quantity is given as the integer $d$. Left shifting an integer of value $1$ $d$ times and then subtracting 1 produces the maximum integer expressable in the same number of bits as the largest absolute input value, this is given as integer $v$. In binary $v$ contains $1$ in all digits up to the most significant digit of the largest absolute input value excluding any sign bits and a 0 in all other digits.
+The use case for this in this project occurs when inverting the sign bit to ensure negative and positive values are sorted correctly (see \ref{ssec:negativestwos} for details).This is done by identifying the quantity of binary digits needed to express the largest absolute value of the input using the function `int\textunderscore bytes' (shown in \ref{ssec:intdigits}) with a radix of 2, this quantity is given as the integer $d$. Left shifting an integer of value $1$ $d$ times and then subtracting 1 produces the maximum integer expressable in the same number of bits as the largest absolute input value, this is given as integer $v$. In binary $v$ contains $1$ in all digits up to the most significant digit of the largest absolute input value excluding any sign bits and a 0 in all other digits.
 \par
 This value $v$ is then inverted using bitwise `Not' (see \ref{sssec:not}) so that it instead contains $0$ in the bits representing the max input and 1 in all other bits. As explained in \ref{ssec:negativesImplementation}, in two's complement binary all digits to the left of the most significant are equal and represent the sign of an integer, therefore $v$ contains $1$ in all the sign bits of the largest max input. Performing the Bitwise `Exclusive Or' operation with any value in the list against the value $v$ inverts all values in these sign bits. As shown in \ref{ssec:negativesImplementation}, negative integers are originally stored in the correct order but placed higher than positive values, performing these operations ensures that the relative order is not altered but the negatives are positioned correctly.
 \par
@@ -643,7 +657,8 @@ Depending on the base selected and the number of digits of the largest absolute 
 
 
 
-\subsubsection{Optimizations {\color{red} Incomplete}}
+\subsubsection{Optimizations}
+{\color{red} Incomplete}
 Some of the code outlined in section {\color{red} Reference code explanation} differ in relatively substantial ways from the pseudocode outlined in section \ref{sec:design}, many of these differences arise from increasing the performance of the algorithm. In this section I will explain the function and reasoning of these differences.
 \paragraph{LSD counting sort - creating all count lists in one pass}\
 \par
@@ -655,7 +670,7 @@ The values stored in the count list represent the position of the items relative
 \par
 The way that this has been implemented in this project is seen below. It involves creating a 2 dimensional array with an outer list of $d$ sublists each of length $r$ where $d$ is the number of digits and $r$ is the radix. Following this the input list is iterated over and for each item the count list of each digit is incremented i.e. the sublist at position $[0..d]$ represents the count of the digit at the same position. After this, list of count lists is iterated over and each list is incremented, then when moving the input items based on the count lists the relevant count list can be accesed by accessing the outer list at the index equal to the index of the current digit.\par
 	\begin{lstlisting}
-		#Note: this code has been simplified
+		Note: this code has been simplified
 		counts = [[0 for _ in range(radix)] for _ in range(min_bytes + 1)]
 
 		for num in self.list:
@@ -668,8 +683,9 @@ The way that this has been implemented in this project is seen below. It involve
 			for j in xrange(1, self.radix):
 				counts[i][j] += counts[i][j - 1]
 	\end{lstlisting}
-\subsubsection{Order checking {\color{red} This needs testing further, it might be incorrect}}
-\par
+	\subsubsection{Order checking}
+	{\color{red} This needs testing further, it might be incorrect}
+	\par
 Radix sort has no advantage when called on already sorted lists compared to unsorted due to the non-comparative nature of the algorithm. Simple comparative algorithms such as bubble sort will actually out perform radix sort when called on sorted lists and as Timsort is highly efficient at sorting them there is substantial motivation for improvements to be made with regards to handling sorted data.
 \par
 Identifying sorted lists is not computationally expensive, it involves iterating over and comparing the list items in order and ensuring that each value is larger or equal to the previous value, essentially only involving $n\minus1$ comparisons where $n$ is the input list length giving a time complexity of $\mathcal{O}(n)$. As this algorithm already involves iterating over the data, the run time cost of adding a comparison function to check for sortedness is extremely low, thus a check to identify whether a list is sorted as well as whether a list is reverse sorted is included in the first iteration over the data, which is the point at which the absolute maximum value of the list is identified (a necessary step for this algorithm).
@@ -784,15 +800,15 @@ Using insertion sort in situations where the input list is reasonably small can 
 In lines 2-18 the algorithm is instantiating the variables it needs to perform calculations:
 \begin{description}
 	\item[listmax]contains the largest absolute value of the list and is used to calculate the passes over the data needed to complete sorting as well as the bitmask used to invert the sign bit.
- 	\item[min\textunderscore bytes (1)] Represents the total number of iterations over the data (rounds of integer sorting) that wil be needed. This is calculated by calling the function \textbf{\textit{int\textunderscore bytes()}} (\ref{ssec:intbytes}) with \textbf{listmax} and the selected base.
+ 	\item[list\textunderscore max\textunderscore digits] Represents the total number of iterations over the data (rounds of integer sorting) that wil be needed. This is calculated by calling the function \textbf{\textit{int\textunderscore bytes()}} (\ref{ssec:intdigits}) with \textbf{list\textunderscore max} and the selected base.
 	\par
-	Ensuring that this algorithm properly sorts integers with respect to their sign requires that the most significant digit sorted includes at least one sign bit (see \ref{ssec:negativesImplementation}). Asserting this involves observing whether the quantity of bits needed to express \textbf{listmax} is divisible by the selected base with or without a remainder.
+	Ensuring that this algorithm properly sorts integers with respect to their sign requires that the most significant digit sorted includes at least one sign bit (see \ref{ssec:negativesImplementation}). Identifying if this is the case involves observing whether the quantity of bits needed to express \textbf{list\textunderscore max} is divisible by the selected base with or without a remainder.
 	\par 
-	If there is a remainder then the leftmost digit of \textbf{listmax}, when expressed in the selected radix ($2^{base}$), includes at least 1 sign bit and thus all negative/positive integers will be properly sorted when this digit is iterated over.
+	If there is a remainder then the leftmost digit of \textbf{list\textunderscore max}, when expressed in the selected radix ($2^{base}$), includes at least 1 sign bit and thus all negative/positive integers will be properly sorted when this digit is iterated over.
 	\par
-	If there is no remainder then the sign bit is not included in the leftmost digit of \textbf{listmax} as all bits in the leftmost digit are needed to express the magnitude of the digit. This signals that an extra iteration needs to be added to ensure negative values are properly sorted.
+	If there is no remainder then the sign bit is not included in the leftmost digit of \textbf{list\textunderscore max} as all bits in the leftmost digit are needed to express the magnitude of the digit. This signals that an extra iteration needs to be added to ensure negative values are properly sorted.
 	\par
-	This extra iteration does not get added on if the quantity of digits in binary of \textbf{listmax} and the system maximum integer are equal as this would result in a rightshift of more bits than there are in an integer resulting in an error in RPython {\color{red}go into detail? it's kind of pointless}. In this case the additional pass is not needed anyway as the leftmost bit is always the sign bit and so will definititely be included in sorting.
+	This extra iteration does not get added on if the quantity of digits in binary of \textbf{list\textunderscore max} and the system maximum integer are equal as this would result in a rightshift of more bits than there are in an integer resulting in an error in RPython {\color{red}go into detail? it's kind of pointless}. In this case the additional pass is not needed anyway as the leftmost bit is always the sign bit and so will definititely be included in sorting.
 	\par
 	\begin{table}[!htb]
 		\caption*{Two integers expressed in binary, the sign bits are highlighted and the binary digits are split into groups of 4 illustrating the number of iterations that would be needed if they were the maximum absolute value of an input list}
@@ -800,7 +816,10 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
 		\setlength{\tabcolsep}{10pt}
 		\begin{minipage}{.45\textwidth}
 		\centering		
+		
+		\vspace{10pt}
 		\caption*{174}
+
 		\setlength{\tabcolsep}{1pt}		
         \begin{tabular}[t]{cccc}			
 			\rotatebox{90}{\begin{math}
@@ -842,8 +861,10 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
 			
 		\end{minipage}\hfill%
 			\begin{minipage}{.45\textwidth}
-				\centering		
+				\centering	
+				\vspace{10pt}	
 				\caption*{26}
+				\vspace{10pt}
 				\setlength{\tabcolsep}{1pt}		
 				\begin{tabular}[t]{cccc}			
 					\rotatebox{90}{\begin{math}
@@ -886,9 +907,12 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
 			\end{minipage}\hfill%
 		
 		\end{table}
-		\item[uint\textunderscore 63] This is a bitmask used to invert the sign of the inputs. In binary this value is represented by 0 in all digits needed to express \textbf{listmax} in two's complement excluding the sign bit and a 1 in all other digits. This is calculated using an integer, $1$, lefshifted a by a value equal to the quantity of digits in binary of \textbf{listmax} minus 1 (to account for 1 already containing a digit). Subtracting 1 from this value produces an integer that, represented in binary, contains a 1 in all digits needed to express \textbf{listmax} and 0 in every digit to the left. Thus the inverse of this value, calculated by bitwise not (\ref{sssec:not}), can be used in conjuction with a bitwise exclusive or operation (\ref{sssec:xor}) to invert the sign bit and all digits to the left without altering the magnitude of .
-	\item[] 
-\end{description}
+		\item[bit\textunderscore mask] A bitmask used to invert the sign of the inputs. In binary this value is represented by 0 in all digits needed to express \textbf{list\textunderscore max} in two's complement excluding the sign bit and a 1 in all other digits. This is calculated using an integer, $1$, lefshifted a by a value equal to the quantity of digits in binary of \textbf{list\textunderscore max} minus 1 (to account for 1 already containing a digit). Subtracting 1 from this value produces an integer that, represented in binary, contains a 1 in all digits needed to express \textbf{list\textunderscore max} and 0 in every digit to the left. Thus the inverse of this value, calculated by bitwise not (\ref{sssec:not}), can be used in conjuction with a bitwise exclusive or operation (\ref{sssec:xor}) to invert the sign bit and all digits to the left without altering the magnitude of the input value.
+		
+		\item[counts] A 2-dimensional list is instantiated, equal in length to \textbf{list\textunderscore max\textunderscore digits} (the number of digits needed to express \textbf{list\textunderscore max} in the selected numerical base) where each item is a list equal in length to the radix (the number of possible unique keys for each digit), filled with the integer $0$. 
+		\par The second level of lists store the frequency of occurence of each possible integer key for each item in the input list across a single digit with the first item in the list storing the rightmost/least significant digit.
+	\end{description}
+
 \begin{table}[H]
 	\lstset{
 		language=python,
@@ -900,52 +924,52 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
     breakatwhitespace=false,}
 	\centering
 	\begin{lstlisting}[escapeinside={(*}{*)}]
-        def sort(self):
-            if self.listlength < 2:
-                return
-            listmax = self.list_abs_max(checkorder=True)
-            min_bytes = int_bytes(listmax, self.base)
-            if self.ordered == True:
-                return
-            if self.reverseOrdered == True:
-                self.reverseSlice()
-                return
+	def sort(self):
+		if self.list_length < 2:
+			return
+		list_max = self.list_abs_max()
+		list_max_digits = int_digits(list_max, self.base)
+		if self.ordered:
+			return
+		if self.reverse_ordered:
+			self.reverse_slice()
+			return
+		max_bits = int(int_digits(list_max, 1))
+		bit_mask = (*$\sim$*)((1 << max_bits) - 1)
+		if max_bits % self.base == 0 and max_bits != int_digits(
+			(-sys.maxint) - 1, 1
+		):
+			list_max_digits += 1
+			
+		counts = [[0 for _ in xrange(self.radix)] for _ in xrange(list_max_digits)]
+		for j in xrange(self.list_length):
+			for i in xrange(list_max_digits):
+				shift = (self.base) * i
+				masked_input = self.list[j] ^ bit_mask
+				curr_digit = ((masked_input >> shift)) & self.radix - 1
+				counts[i][curr_digit] += 1
 
-            bitno = int(int_bytes(listmax, 1))
-            uint_63 = ~((1 << bitno - 1) - 1)
+		skip = []
+		for i in xrange(list_max_digits):
+			for j in xrange(1, self.radix):
+				if counts[i][j] == self.list_length:
+					skip.append(i)
+				counts[i][j] += counts[i][j - 1]
+		temp_list = self.list[:]
 
-            if bitno % self.base == 0 and bitno != int_bytes((-sys.maxint) - 1, 1):
-                min_bytes += 1
-
-            counts = [[0 for _ in xrange(self.radix)] for _ in xrange(min_bytes)]
-
-            for num in self.list:
-                for i in xrange(min_bytes):
-                    shift = (self.base) * i
-                    sortkey = (num) ^ uint_63
-                    val = (sortkey >> shift) & self.radix - 1
-                    counts[i][val] += 1
-
-            skip = []
-            for i in xrange(min_bytes):
-                for j in xrange(1, self.radix):
-                    if counts[i][j] == self.listlength:
-                        skip.append(i)
-                    counts[i][j] += counts[i][j - 1]
-            temp_list = [0 for _ in xrange(self.listlength)]
-            for i in xrange(min_bytes):
-                if i in skip:
-                    continue
-                shift = (self.base) * i
-                for j in xrange(self.listlength - 1, -1, -1):
-                    num = self.list[j]
-                    sortkey = (num) ^ uint_63
-                    val = (sortkey >> shift) & self.radix - 1
-                    temp_list[counts[i][val] - 1] = self.list[j]
-                    counts[i][val] -= 1
-                self.setslice(temp_list, 0)
+		for i in xrange(list_max_digits):
+			if i in skip:
+				continue
+			shift = (self.base) * i
+			for j in xrange(self.list_length - 1, -1, -1):
+				masked_input = (self.list[j]) ^ bit_mask
+				curr_digit = ((masked_input >> shift)) & self.radix - 1
+				temp_list[counts[i][curr_digit] - 1] = self.list[j]
+				counts[i][curr_digit] -= 1
+			self.setslice(temp_list)
 	\end{lstlisting}
 	\caption*{LSD counting sort}
 \end{table}
+\pagebreak
 \printbibliography 
 \end{document}

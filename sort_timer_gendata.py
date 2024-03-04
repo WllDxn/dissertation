@@ -30,8 +30,7 @@ def gen_list(cols, data_size, type="Random", threshold=None):
         lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
         lis = np.random.choice(lis[: len(lis) // 10], cols).tolist()
     elif type == "Sorted":
-        lis = [int(x*(max_value/cols)) for x in list(range(-cols//2,(cols//2)+1, 1))]
-        
+        lis = [int(x*(max_value/cols)) for x in list(range(-cols//2, (cols//2)+1))]        
         # lis = [int(x) for x in range(-max_value, max_value, int((2*max_value)/cols))]
     elif type == "Reverse Sorted":
         lis = [int(x*(max_value/cols)) for x in list(range(cols//2,(-cols//2)-1, -1))]
