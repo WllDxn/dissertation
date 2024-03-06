@@ -22,8 +22,8 @@ def absolute(num):
     :param num: Number to find absolute value of
     :return: absolute value of num
     """
-    if num == (-sys.maxint) - 1:
-        return sys.maxint
+    if num == (-sys.maxsize) - 1:
+        return sys.maxsize
     return -num if num < 0 else num
 
 
@@ -54,7 +54,7 @@ def make_radixsort_class(
             n = self.list[0]
             prev = self.list[0]
             (self.ordered, self.reverse_ordered) = (True, True)
-            for i in xrange(1, len(self.list)):
+            for i in range(1, len(self.list)):
                 if self.list[i] > m:
                     m = self.list[i]
                 if self.list[i] < n:
@@ -72,7 +72,7 @@ def make_radixsort_class(
             setslice(self.list, slice, index)
 
         def insertion_sort(self, start, end):
-            for step in xrange(start, end):
+            for step in range(start, end):
                 key = self.list[step]
                 j = step - 1
                 while j >= 0 and key < self.list[j]:
@@ -121,22 +121,29 @@ def make_radixsort_class(
             bit_mask = ~((1 << max_bits) - 1)
 
             if max_bits % self.base == 0 and max_bits != int_digits(
-                (-sys.maxint) - 1, 1
+                (-sys.maxsize) - 1, 1
             ):
                 list_max_digits += 1
 
-            bucket_list = [[] for _ in xrange(self.radix)]
+            bucket_list = [[] for _ in range(self.radix)]
 
-            for i in xrange(list_max_digits):
+            for i in range(list_max_digits):
                 shift = (self.base) * i
                 for num in self.list:
                     masked_input = num ^ bit_mask
                     curr_digit = ((masked_input >> shift)) & self.radix - 1
                     bucket_list[curr_digit].append(num)
-                if len([bucket for bucket in bucket_list if bucket != []]) == 1:
+                nonempty = [
+                    (bdx, bucket)
+                    for bdx, bucket in enumerate(bucket_list)
+                    if bucket != []
+                ]
+                if len(nonempty) == 1:
+                    bucket_list[nonempty[0][0]] = []
                     continue
                 index = 0
                 for bdx, bucket in enumerate(bucket_list):
+                    if len(bucket) == 0: continue
                     self.setslice(bucket, index)
                     index += len(bucket)
                     bucket_list[bdx] = []

@@ -103,7 +103,7 @@ def make_radixsort_class(
                         return sublist_sorted, sublist_reverse_sorted
             return sublist_sorted, sublist_reverse_sorted
 
-        def sort(self):
+def sort(self):
             if self.list_length < 2:
                 return
             list_max = self.list_abs_max()
@@ -119,12 +119,12 @@ def make_radixsort_class(
                 (-sys.maxint) - 1, 1
             ):
                 list_max_digits += 1
-                
+
             counts = [[0 for _ in xrange(self.radix)] for _ in xrange(list_max_digits)]
             for j in xrange(self.list_length):
+                masked_input = self.list[j] ^ bit_mask
                 for i in xrange(list_max_digits):
                     shift = (self.base) * i
-                    masked_input = self.list[j] ^ bit_mask
                     curr_digit = ((masked_input >> shift)) & self.radix - 1
                     counts[i][curr_digit] += 1
 

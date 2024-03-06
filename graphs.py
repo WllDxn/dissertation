@@ -44,7 +44,7 @@ def do_graph(reject_outliers, fname):
             subfigs = subfigs.flatten() if sgb.ngroups > 1 else [subfigs]
             for subgroup, subfig in zip(sgb.groups, subfigs):
                 df3 = sgb.get_group(subgroup)
-                subfig.suptitle(f'Limit: {subgroup} - {sizes[subgroup]}')
+                subfig.suptitle(f'Limit: {subgroup} - {sizes[str(subgroup)]}')
                 methodgroups = df3.groupby(['method'])
                 axes = subfig.subplots(nrows=1, ncols=methodgroups.ngroups, sharey=True, width_ratios=methodgroups.size())
                 for idx, (key, ax) in enumerate(zip(methodgroups.groups.keys(), np.ravel([axes]))):
@@ -81,8 +81,9 @@ def do_graph(reject_outliers, fname):
             plt.close()
 
 if __name__ == '__main__':
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_nosort_0.json'))
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_0.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinalmasked_0.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_0.json'))
+    # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_0.json'))
     # for i in range(3,4):
     #     fname = Path('/home/will/dissertation/sort_times') / f'fewer_iters_tim_{i}.json'
     #     do_graph(reject_outliers, fname)

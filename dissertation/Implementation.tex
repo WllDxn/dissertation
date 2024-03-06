@@ -74,16 +74,17 @@
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
 \begin{document}
-
-	
+\tableofcontents
+\pagebreak
 \section{Design}
 \label{sec:design}
 
-	This is an implementation in pseudocode of all 4 components of the radix sort variations included in this project: Radix sort starting from the most significant and least significant digit and then the integer sorting methods Counting sort and Pigeonhole sort. Each permutation of Radix sort takes the input array \textit{A} of integers and treats each item \textit{A[i]} as a series of digits d within the range 0 \textit{$\leq$ d $<$ k} where \textit{k} is the radix or the number of unique digits. 
+	This is an implementation in pseudocode of all 4 components of the radix sort variations included in this project: Radix sort starting from the most significant and least significant digit and then the integer sorting methods Counting sort and Pigeonhole sort. Each permutation of Radix sort takes the input array \textit{A} of integers and treats each item \textit{A[i]} as a series of digits d within the range 0 \textit{$\leq$ d $<$ k} where \textit{k} is the radix or the number of unique integer keys. 
 	\subsection{Integer Sorting}
-	Integer sorting is the underlying sorting method that is applied to each digit of the input array, these methods are non-comparitive algorithms that distribute items based on the value of each digit. 
+	Integer sorting is a method of sorting a list of inputs by identifying the integer key of each value of the input and using that to identify it's position in the output. Because the sorting is performed based on the integer key and not based on comparisons to other list items, it is non-comparative. Integer sorting is the underlying sorting method that is applied to each digit of the input array.
 	\subsubsection{Pigeonhole Sort}
-	Pigeonhole sort operates by instantiating an array \textit{B} of length \textit{k} (1) containing empty arrays (3). The input array \textit{A} is iterated over and each item \textit{A[i]} is appended to the array in \textit{B} at the position that corresponds to the current digit of the current item. \textit{B} is then iterated over (10) and each item in each array overwrites the original array in order (11). 
+	\label{ssec:pigeonhole}
+	Pigeonhole sort operates by instantiating an array \textit{B} of length \textit{k} (1) containing empty arrays (3). The input array \textit{A} is iterated over and each item \textit{A[i]} is appended to the array in \textit{B} at t he position that corresponds to the current integer key of the current item. \textit{B} is then iterated over (10) and each item in each array overwrites the original array in order (11). 
 	\begin{algorithm}[H] % enter the algorithm environment
 		\caption{Pigeonhole Sort({A})} % give the algorithm a caption
 		\label{alg1} % and a label for \ref{} commands later in the document
@@ -97,11 +98,11 @@
 			\FOR{$j\gets 1$ to $k$}
 			\STATE $append$\space$ A[j]$\space$ to$\space$ B[A[j]]$ \COMMENT{Move item to bucket}
 			\ENDFOR
-			\STATE $c \Leftarrow 1$ \COMMENT{Count items in A}
+			\STATE $c \Leftarrow 1$ \COMMENT{Insertion index of items into A}
 			\FOR{$i\gets 1$ to $k$}
 			\FORALL{$item$ in $B[i]$}
 			\STATE $A[c] \Leftarrow item$ \COMMENT{Move items from bucket to A}
-			\STATE $c \Leftarrow c + 1$
+			\STATE $c \Leftarrow c + 1$		\COMMENT{Increment insertion index}
 			\ENDFOR
 			\ENDFOR
 			\STATE \textbf{return} $A$
@@ -111,14 +112,14 @@
 	\pagebreak
 	\subsubsection{Counting Sort}
 	\label{ssec:counting}
-	Counting sort instantiates 2 arrays; \textit{B}, the output array equal in length to the input array \textit{A} (1), and \textit{C}, a count array to store the frequency of each digit which is of length \textit{k} and is instantiated to contain only integers of value 0 (2, 4). The input array is iterated over and the integer in C at the position equal to the current digit of the current item is incremented (7), producing a histogram of the frequency of each digit. This count list is then accumulated such that each item is added to the sum of the previous values (10). Finally the input array is iterated over in reverse and each item is moved to the output array in the position that is referred to by the value expressed in the count array at the position of the current digit of the current item(13), to ensure that values to not overwrite one another in the output array each item in the count array is decremented when a position in the output array is taken from it (14).
-	\begin{algorithm}[H] % enter the algorithm environment
-		\caption{Counting Sort({A})} % give the algorithm a caption
-		\label{alg2} % and a label for \ref{} commands later in the document
-		\begin{algorithmic}[1] % enter the algorithmic environment#					
+	Counting sort instantiates 2 arrays; \textit{B}, the output array equal in length to the input array \textit{A} (1), and \textit{C}, a count array to store the frequency of each integer key of length \textit{k}. \textit{C} is instantiated containing only integers of value 0 (2, 4). The input array is iterated over and the integer in C at the position equal to the current integer key of the current item is incremented (7), producing a histogram of the frequency of each key. This count list is then accumulated such that each item is added to the sum of the previous items (10). Finally the input array is iterated over in reverse and each item is moved to the output array in the position that is referred to by the value expressed in the count array at the position of the current key of the current item(13), to ensure that values to not overwrite one another in the output array each item in the count array is decremented when a position in the output array is taken from it (14).
+	\begin{algorithm}[H]
+		\caption{Counting Sort({A})}
+		\label{alg2}
+		\begin{algorithmic}[1]					
 			\REQUIRE $A \Leftarrow$ Unsorted Array of length $n$ with maximum value $k$
 			\ENSURE Sorted Array
-			\STATE $B \Leftarrow [1..n]$ \COMMENT{Temp array}
+			\STATE $B \Leftarrow [1..n]$ \COMMENT{Output array}
 			\STATE $C \Leftarrow [1..k]$ \COMMENT{Count array}
 			\FOR{$i\gets 1$ to $k$}
 				\STATE $C \Leftarrow 0$
@@ -130,7 +131,7 @@
 				\STATE $C[i] \Leftarrow C[i] + C[i-1]$\COMMENT{Accumulate Count array}
 			\ENDFOR
 			\FOR{$j\gets n$ to $1$ by $-1$}
-				\STATE $B[C[A[j]]] \Leftarrow A[J]$ \COMMENT{Move item from input to temp array}
+				\STATE $B[C[A[j]]] \Leftarrow A[J]$ \COMMENT{Move item from input to output array}
 				\STATE $C[A[j]] \Leftarrow C[A[j]] - 1$ \COMMENT{Deincrement count array}
 			\ENDFOR
 			\STATE \textbf{return} $B$
@@ -141,16 +142,18 @@
 	Radix sort is the method of applying the integer sorting method to each digit of the input, there are two approaches to this: Least significant digit first (LSD) or Most significant digit first (MSD).
 	\subsubsection{Least Significant Digit}
 	\label{ssec:lsd}
-	Least Significant Digit Radix sort (LSD) takes an input array \textit{A} and sorting function \textit{f()} which can be either of the previous integer sorting methods. The input array is sorted via the chosen method once for each of digits in the chosen radix of the largest value (3) This sorting process is applied first at the least significant or rightmost digit and moves incrementally to the most significant or leftmost digit. Values can have an unequal number of digits provided any digits farther left than their most significant are taken as 0 and the chosen integer sorting method is stable as this means they maintain their relative position with respect to values that have an equal or lesser number of digits.
+	Least Significant Digit Radix sort (LSD) takes an input array \textit{A} and sorting function \textit{f()} which can be either of the previous integer sorting methods. The input array is sorted via the chosen method once for each digit in the chosen radix of the largest absolute value \textit{m} (3).
+	\par 
+	This sorting process is applied first at the least significant or rightmost digit and progresses incrementally to the most significant or leftmost digit. Values can have an unequal number of digits provided any digits farther left than their most significant are taken as 0.
 	
 	\begin{algorithm} % enter the algorithm environment
 		\caption{LSD({A, f()})} % give the algorithm a caption
 		\label{alg3} % and a label for \ref{} commands later in the document
 		\begin{algorithmic}[1] % enter the algorithmic environment#			
-			\REQUIRE $A \Leftarrow$ Unsorted Array of length $n$ with maximum absolute Value $k$
+			\REQUIRE $A \Leftarrow$ Unsorted Array of length $n$ with maximum absolute Value $m$
 			\REQUIRE $f() \Leftarrow $Sorting function \COMMENT{Pigeonhole or Counting Sort}
 			\ENSURE Sorted Array
-			\STATE $d \Leftarrow$ Number of digits of k \COMMENT{Varies based on radix chosen}
+			\STATE $d \Leftarrow$ Number of digits of m \COMMENT{Varies based on radix chosen}
 			\STATE $A(i) \Leftarrow$ i-th digit of each item in A
 			\FOR{$i\gets 1$ to $d$}
 				\STATE $A \Leftarrow f(A(i))$ \COMMENT{Sorts Array using sort function}
@@ -159,8 +162,10 @@
 		\end{algorithmic}
 	\end{algorithm}
 	\pagebreak
-	\subsubsection{Most Significant Digit}
-	Most Significant Digit Radix sort (MSD) takes an input array \textit{A}, sorting function \textit{f()} and current digit \textit{i} which for the first call of the function should be the number of digits of the largest value in the input. This algorithm operates recursively, and the termination condition occurs when \textit{i} is equal to 0 meaning that all digits of the input have been sorted (1,2). After ensuring the termination condition has not been met the input array \textit{A} is then sorted using the chosen function with respect to the current digit (5). The input array is then iterated over and items that have an equal value at the current digit are identified (8) and taken as a slice of the input array. This slice is then sorted recursively using a function call to \textit{MSD()} with a decremented value for \textit{i}  meaning they are sorted over the next least significant digit (11). Once the termination condition has been reached within this slice and all sub-slices created by recursive calls the algorithm resets the start point of the slice and identifies further slices to sort (12).
+	\subsubsection{Most Significant Digit} \label{sssec:msdradix}
+	Most Significant Digit Radix sort (MSD) takes an input array \textit{A}, sorting function \textit{f()} and current digit \textit{i} which for the first call of the function should be the number of digits of the largest value in the input. This algorithm operates recursively, and the termination condition occurs when \textit{i} is equal to 0 meaning that all digits of the input have been sorted (1,2). After ensuring the termination condition has not been met the input array \textit{A} is then sorted using the chosen function with respect to the current digit (5). 
+	\par 
+	The input array is then iterated over and items that have an equal integer key value at the current digit are identified (8) and taken as a slice of the input array. This slice is then sorted recursively using a function call to \textit{MSD()} with a decremented value for \textit{i} meaning they are sorted over the next least significant digit (11). Once the termination condition has been reached within this slice and all sub-slices created by recursive calls the algorithm resets the start point of the slice and identifies further slices to sort (12). Each slice on which \textit{MSD()} is called that does not meet the termination condition must wait until all sublists return, which are then placed together in \textit{A} and finally returned (15).
 	\begin{algorithm} % enter the algorithm environment
 		\caption{MSD({A, i, f()})} % give the algorithm a caption
 		\label{alg4} % and a label for \ref{} commands later in the document
@@ -221,7 +226,7 @@
 	
 	\label{sec:radixselection}
 	\subsection{Introduction}
-	Radix sort utilises repeated rounds of integer sorting across each digit of the input list, therefore, it is necessary to make a clear definition of a digit so that an effective method of separating an integer into its component digits can be implemented. When expressing a number of any kind, it is necessary to establish the numerical base that will be used, this is the number of unique values that can be displayed in each digit and when a value exceeds the maximum value within this base, another digit must be added; i.e. in standard decimal or base 10 numbers 0 through 9 can be expressed in a single digit but increasing beyond this range requires adding a second digit to create the number 10.
+	Radix sort utilises multiple rounds of integer sorting across each digit of the input list, therefore, it is necessary to make a clear definition of a digit so that an effective method of separating an integer into its component digits can be implemented. When expressing a number of any kind, it is necessary to establish the numerical base that will be used, this is the number of unique values that can be displayed in each digit and when a value exceeds the maximum value within this base, another digit must be added; i.e. in standard decimal or base 10 numbers 0 through 9 can be expressed in a single digit but increasing beyond this range requires adding a second digit to create the number 10.
 	\par
 	Though numbers in typical day to day use by humans are typically thought of as arabic numerals in the decimal system, this is a social convention which this algorithm is not beholden to, and as Radix sort fundamentally relies on the processing of the component digits of an integer it is of great importance to select an appropriate base as well as identify an efficient method for processing each digit.
 	\subsection{Explanation}
@@ -346,10 +351,12 @@
 	The approach used in this project was to identify the number of digits needed to express the largest absolute value of the input in the chosen base and then flip the leftmost bit of the digit preceding this digit. So for example the integer 246 when expressed in base 4  (equal to $2^{2}$ or 8 bits) requires 4 digits [3312], so in RPython the preceding bits are all 0 to indicate the sign being positive, this method then identifies the bits that would represent the next digit (the bits 9th and 10th from the right) and flips the leftmost digit giving it the binary value of [10] and a digit value of 2 in base 4. This dynamic approach ensures that the relative correct order within the positive and negative integers is preserved  and is suitable for use with any integers being sorted in any base.
 \pagebreak
 \section{Implementation}
-\subsection{Extra Methods and Class}
-Explanation of all functions and classes that exist outside of the  radixsort algorithms. Each function is documented in isolation in the order they appear in the source files, for a full view of each of the files refer to {\color{red}reference section with full code explanation}
+{\color{red} I think I should write something here}
+\subsection{Extra Methods and Classes}
+The algorithm relies upon a number of helper methods to operate effectively and must be contained in a specific class structure to allow for it's inclusion into PyPy. This section explains the structure of the class used and contains documentation for all of the helper methods that are used by the algorithms.
+
 \subsubsection{Function absolute}
-The purpose of this helper method was to allow for the calculation of absolute values without overflow issues specifically caused by using the minimum possible value. This value's positive counterpart lies outside of the range of the 64 bits assigned for each integer in RPython, this causes unpredictable errors and even though there is only one specific case that necessitates the use of this method over the regular abs() inbuilt function, the runtime impacts are low so it's a worthwhile helper method to include.
+Allows for the calculation of absolute values without overflow issues specifically caused by using the minimum possible value. This value's positive counterpart lies outside of the range of the 64 bits assigned for each integer in RPython, this causes unpredictable errors and even though there is only one specific case that necessitates the use of this method over the regular abs() inbuilt function.
 \begin{lstlisting}
 	import sys
         
@@ -654,14 +661,11 @@ Depending on the base selected and the number of digits of the largest absolute 
 
 
 \pagebreak
-
-
-
-\subsubsection{Optimizations}
+\subsection{Optimizations}
 {\color{red} Incomplete}
 Some of the code outlined in section {\color{red} Reference code explanation} differ in relatively substantial ways from the pseudocode outlined in section \ref{sec:design}, many of these differences arise from increasing the performance of the algorithm. In this section I will explain the function and reasoning of these differences.
-\paragraph{LSD counting sort - creating all count lists in one pass}\
-\par
+\subsubsection{LSD counting sort - creating all count lists in one pass}
+\label{sssec:countlist}
 LSD counting sort is a combination of LSD sort (\ref{ssec:lsd}) which calls counting sort (\ref{ssec:counting}) on every digit. It iterates over the input list for each digit: once whilst counting the occurence of the values at the digit and a second time when moving the input list items into the output list based on these count lists.
 \par
 An optimization I have used is to make a single pass over the input list whilst creating the count lists for every digit simultaneously instead of once for each digit. The reason this is possible is that the occurence of the values for each digit do not change based on the order of the input list, items are moved from the input list to their new position based on the value stored in the count list representing the value of the current digit of the item, the order of the input list has no bearing on the order or values of the count list. 
@@ -684,6 +688,7 @@ The way that this has been implemented in this project is seen below. It involve
 				counts[i][j] += counts[i][j - 1]
 	\end{lstlisting}
 	\subsubsection{Order checking}
+	\label{sssec:order}
 	{\color{red} This needs testing further, it might be incorrect}
 	\par
 Radix sort has no advantage when called on already sorted lists compared to unsorted due to the non-comparative nature of the algorithm. Simple comparative algorithms such as bubble sort will actually out perform radix sort when called on sorted lists and as Timsort is highly efficient at sorting them there is substantial motivation for improvements to be made with regards to handling sorted data.
@@ -735,6 +740,7 @@ Testing involving the comparison of the performance of algorithms including and 
 
 \pagebreak
 \subsubsection{skipping iterations}
+\label{sssec:skip}
 The time complexity of radix sort is $\mathcal{O}${($N \cdot k$)} where k is the number of digits that must be sorted, therefore it is possible (and effective) to have a meaningful effect on the runtime of the algothim by reducing k, this is why the use of different bases has been focussed on as this also reduces k (the number of iterations over the input list that needs to be made).
 \par
 Skipping iterations over the data can be made by identifying digits on which no sorting is necessary, the specific method of identification differs based on the implementation of radix sort.
@@ -796,8 +802,8 @@ Using insertion sort in situations where the input list is reasonably small can 
 \pagebreak
 \subsection{Algorithms}
 \label{ssec:algorithms}
-\subsubsection{LSD Counting sort}
-In lines 2-18 the algorithm is instantiating the variables it needs to perform calculations:
+\subsubsection{Variables}
+At the start of each algorithm the following variables are instantiated, they are integral to the a correct radix sort and are identical across all implementations.
 \begin{description}
 	\item[listmax]contains the largest absolute value of the list and is used to calculate the passes over the data needed to complete sorting as well as the bitmask used to invert the sign bit.
  	\item[list\textunderscore max\textunderscore digits] Represents the total number of iterations over the data (rounds of integer sorting) that wil be needed. This is calculated by calling the function \textbf{\textit{int\textunderscore bytes()}} (\ref{ssec:intdigits}) with \textbf{list\textunderscore max} and the selected base.
@@ -811,7 +817,7 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
 	This extra iteration does not get added on if the quantity of digits in binary of \textbf{list\textunderscore max} and the system maximum integer are equal as this would result in a rightshift of more bits than there are in an integer resulting in an error in RPython {\color{red}go into detail? it's kind of pointless}. In this case the additional pass is not needed anyway as the leftmost bit is always the sign bit and so will definititely be included in sorting.
 	\par
 	\begin{table}[!htb]
-		\caption*{Two integers expressed in binary, the sign bits are highlighted and the binary digits are split into groups of 4 illustrating the number of iterations that would be needed if they were the maximum absolute value of an input list}
+		\caption*{Below are two integers expressed in binary, the sign bits are highlighted and the binary digits are split into groups of 4 illustrating the number of iterations that would be needed if they were the maximum absolute value of an input list}
 		\vspace{5pt}
 		\setlength{\tabcolsep}{10pt}
 		\begin{minipage}{.45\textwidth}
@@ -907,12 +913,49 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
 			\end{minipage}\hfill%
 		
 		\end{table}
-		\item[bit\textunderscore mask] A bitmask used to invert the sign of the inputs. In binary this value is represented by 0 in all digits needed to express \textbf{list\textunderscore max} in two's complement excluding the sign bit and a 1 in all other digits. This is calculated using an integer, $1$, lefshifted a by a value equal to the quantity of digits in binary of \textbf{list\textunderscore max} minus 1 (to account for 1 already containing a digit). Subtracting 1 from this value produces an integer that, represented in binary, contains a 1 in all digits needed to express \textbf{list\textunderscore max} and 0 in every digit to the left. Thus the inverse of this value, calculated by bitwise not (\ref{sssec:not}), can be used in conjuction with a bitwise exclusive or operation (\ref{sssec:xor}) to invert the sign bit and all digits to the left without altering the magnitude of the input value.
-		
-		\item[counts] A 2-dimensional list is instantiated, equal in length to \textbf{list\textunderscore max\textunderscore digits} (the number of digits needed to express \textbf{list\textunderscore max} in the selected numerical base) where each item is a list equal in length to the radix (the number of possible unique keys for each digit), filled with the integer $0$. 
-		\par The second level of lists store the frequency of occurence of each possible integer key for each item in the input list across a single digit with the first item in the list storing the rightmost/least significant digit.
-	\end{description}
 
+		\item[bit\textunderscore mask] A bitmask used to invert the sign of the inputs. In binary this value is represented by 0 in all digits needed to express \textbf{list\textunderscore max} in two's complement excluding the sign bit and a 1 in all other digits. This is calculated using an integer, $1$, lefshifted a by a value equal to the quantity of digits in binary of \textbf{list\textunderscore max} minus 1 (to account for 1 already containing a digit). Subtracting 1 from this value produces an integer that, represented in binary, contains a 1 in all digits needed to express \textbf{list\textunderscore max} and 0 in every digit to the left. Thus the inverse of this value, calculated by bitwise not (\ref{sssec:not}), can be used in conjuction with a bitwise exclusive or operation (\ref{sssec:xor}) to invert the sign bit and all digits to the left without altering the magnitude of the input value.
+	\end{description}
+	\begin{table}[H]
+		\lstset{
+			language=python,
+		numbers=left,
+		stepnumber=1,
+		showstringspaces=false,
+		tabsize=3,
+		breaklines=true,
+		breakatwhitespace=false,}
+		\centering
+		\begin{lstlisting}[escapeinside={(*}{*)}]
+		def sort(self):
+			if self.list_length < 2:
+				return
+			list_max = self.list_abs_max()
+			list_max_digits = int_digits(list_max, self.base)
+			if self.ordered:
+				return
+			if self.reverse_ordered:
+				self.reverse_slice()
+				return
+			max_bits = int(int_digits(list_max, 1))
+			bit_mask = (*$\sim$*)((1 << max_bits) - 1)
+			if max_bits % self.base == 0 and max_bits != int_digits(
+				(-sys.maxint) - 1, 1
+			):
+				list_max_digits += 1
+		\end{lstlisting}
+		\caption*{Shared variables}
+		\end{table}
+
+	\subsubsection{LSD Counting sort}
+	This algorithm sorts from least to most significant digit, performing \textit{counting sort} on each digit but differs from \ref{ssec:counting} as the method is split into the counting and moving processes to reduce iterations over the input list (see \ref{sssec:countlist})
+	\begin{description}
+		\item[Counting integer keys] A 2-dimensional list is instantiated, equal in length to \textbf{list\textunderscore max\textunderscore digits} (the number of digits needed to express \textbf{list\textunderscore max} in the selected numerical base) where each item is a list equal in length to the radix (the number of possible unique keys for each digit), filled with the integer $0$. 
+		\par The second level of lists store the frequency of occurence of each possible integer key for each item in the input list across a single digit with the first item in the list storing the rightmost/least significant digit.
+		\par The 2 dimensional nature of this list \textit{counts} allows it to store the frequency of each possible integer key at each digit of the input list, meaning the input list needs only be iterated over once to complete the counting process (as stated in \ref{sssec:countlist}).
+	\item[Count list accumulation] The counts lists are accumulated, such that the value at each index becomes the sum of all values from 0 up to the index. Before this, each count item is compared to the input list length as the two values being equal indicates sorting is not needed at this digit so the digit index is added to the skip list (see \ref{sssec:skip})
+	\item[Performing sorting] Finally the items are sorted based on the values in the count lists, but this operation rquires $\mathcal{O}(n)$ extra space, so \textit{temp\textunderscore list} is instantiated as a copy of the input list. After sorting the list across a digit into the temp list, the \textit{setslice} method is applied, overwriting the entire input list.
+\end{description}
 \begin{table}[H]
 	\lstset{
 		language=python,
@@ -925,27 +968,12 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
 	\centering
 	\begin{lstlisting}[escapeinside={(*}{*)}]
 	def sort(self):
-		if self.list_length < 2:
-			return
-		list_max = self.list_abs_max()
-		list_max_digits = int_digits(list_max, self.base)
-		if self.ordered:
-			return
-		if self.reverse_ordered:
-			self.reverse_slice()
-			return
-		max_bits = int(int_digits(list_max, 1))
-		bit_mask = (*$\sim$*)((1 << max_bits) - 1)
-		if max_bits % self.base == 0 and max_bits != int_digits(
-			(-sys.maxint) - 1, 1
-		):
-			list_max_digits += 1
-			
+		#Shared variables		
 		counts = [[0 for _ in xrange(self.radix)] for _ in xrange(list_max_digits)]
 		for j in xrange(self.list_length):
+			masked_input = self.list[j] ^ bit_mask
 			for i in xrange(list_max_digits):
 				shift = (self.base) * i
-				masked_input = self.list[j] ^ bit_mask
 				curr_digit = ((masked_input >> shift)) & self.radix - 1
 				counts[i][curr_digit] += 1
 
@@ -971,5 +999,191 @@ In lines 2-18 the algorithm is instantiating the variables it needs to perform c
 	\caption*{LSD counting sort}
 \end{table}
 \pagebreak
+\subsubsection{LSD Pigeonhole sort}
+\begin{description}
+	\item[bucket\textunderscore list] This two dimensional list contains a quanity of empty lists equal to the radix. Input list items are moved into the bucket with the index equal to the value of the digit at a given position.\par Because the frequency of each digit is not known, the sublists must be instantiated empty and the append method is used to insert list items.
+	\item[skip iteration check] After moving the list items into the buckets, a list comprehension is used to count the number of non empty buckets (line 27). If this value is $1$ this indicates that the list order will not change by unpacking he buckets to overwrite the input list and so the bucket containing the single non empty list is overwritten with an empty list and the next digit is processed.
+	\item[Overwriting the input list] The bucket list is iterated over and any on empty buckets are used to overwrite the input list before being themselves overwritten with an empty list. The list length of the buckets is accumulated and used as the start index of the \textit{setslice} method at this refers to the number of inputs already overwritten.
+\end{description}
+
+\begin{table}[H]
+	\lstset{
+		language=python,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=3,
+    breaklines=true,
+    breakatwhitespace=false,}
+	\centering
+	\begin{lstlisting}[escapeinside={(*}{*)}]
+	def sort(self):
+		#Shared variables
+		bucket_list = [[] for _ in xrange(self.radix)]
+
+		for i in xrange(list_max_digits):
+			shift = (self.base) * i
+			for num in self.list:
+				masked_input = num ^ bit_mask
+				curr_digit = ((masked_input >> shift)) & self.radix - 1
+				bucket_list[curr_digit].append(num)
+			nonempty = [
+				(bdx, bucket)
+				for bdx, bucket in enumerate(bucket_list)
+				if bucket != []
+			]
+			if len(nonempty) == 1:
+				bucket_list[nonempty[0][0]] = []
+				continue
+			index = 0
+			for bdx, bucket in enumerate(bucket_list):
+				if len(bucket) == 0: continue
+				self.setslice(bucket, index)
+				index += len(bucket)
+				bucket_list[bdx] = []
+\end{lstlisting}
+\caption*{LSD pigeonhole sort}
+\end{table}
+\pagebreak
+\subsubsection{MSD Counting sort}
+MSD Radix sort as outlined in \ref{sssec:msdradix} sort operates by using integer sorting on each digit to divide the input list into sublists upon which a recursive call to MSD Radix sort is made to sort across the next digit of each sublist.
+\par In order to avoid recursive calls {\color{red} Why?}, this project implements a method of storing only the start and end index of the sublists then iterating over this list of indexes when sorting over the next digit and sorting items within each index range only amongst eachother.
+\begin{description}
+	\item[Sublist Indexes] 
+	\par 
+	This requires two index lists, the first is instantiated on line 4, and contains the indexes 0 and list\textunderscore length, meaning the first sublist contains every item within the input list. The second is \textit{temp\textunderscore sublist\textunderscore indexes} on line 7 which is instantiated as empty at the beging of the process of applying integer sorting to each digit.
+	\par
+	The algorithm iterates over the digits starting at \textit{list\textunderscore max\textunderscore digit} down to 0, meaning the most to least significant. For each digit the sublist indexes are iterated over and for every pair of indexes, the integer sorting method counting sort is applied. When the count list is being accumulated, any items containing a count value greater than 1 indicates that a new sublist must be created, it's start index is calculated by taking the start index of the current sublist added to the previous entry in the accumulated count list i.e. the total number of items within the sublist that preceed the new sublist and the end index is the start index added to the total number of items with the current integer key i.e. the number of items within the new sublist.
+	\par The indexes of the new sublists are appended to \textit{list\textunderscore max\textunderscore digit}, meaning all of the sublist indexes for the next digit are calculated whilst a digit is being sorted and not that a sublist is sorted immediately after being identified as could be expected with a typical recursive implementation. At the end of the iteration over all \textit{sublist\textunderscore indexes} items, it is overwritten by \textit{list\textunderscore max\textunderscore digit} which is then overwritten as empty on the next iteration of the digits.
+	\par When a sublist does not require sorting, it's indexes are not included in the sublist index list, this occurs when \textit{slice\textunderscore sorted} returns positive for sorted or reverse sorted, when \textit{insertion\textunderscore sort} is used or when a sublist contains only 1 item and this just means these items will no longer be included in the sorting of any subsequent digits. A sublist that has all items sorted into the same integer key simply has it's start and end index added to \textit{temp\textunderscore sublist\textunderscore indexes} for sorting on the next digit.
+
+	\item[Sorted Sublists] \textit{slice\textunderscore sorted} is used to identify if sublists are sorted, which happens increasingly frequently on smaller sublists, this improves performance somewhat {\color{red}Reference}
+	\item[Insertion sort] The limit on line 15 is different for all bases and was identified using the method seen in {\color{red} Reference}
+\end{description}
+\begin{table}[H]
+	\lstset{
+		language=python,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=3,
+    breaklines=true,
+    breakatwhitespace=false,}
+	\centering
+	\begin{lstlisting}[escapeinside={(*}{*)}]
+        def sort(self):
+			#Shared variables
+			count = [0 for _ in xrange(self.radix)]
+			sublist_indexes = [(0, self.list_length)]
+			for k in xrange(list_max_digits - 1, -1, -1):
+				shift = k * self.base
+				temp_sublist_indexes = []
+				for start, end in sublist_indexes:
+					if start + 1 == end: continue
+					sublist_sorted, sublist_reverse_sorted = self.slice_sorted(start, end)
+					if sublist_sorted: continue
+					if sublist_reverse_sorted:
+						self.reverse_slice(start, end - 1)
+						continue
+					if (end - start) < (*\textit{\color{red}Limit}*):
+						self.insertion_sort(start, end)
+						continue
+					for idx in xrange(start, end):
+						masked_input = (self.list[idx]) ^ bit_mask
+						curr_digit = ((masked_input >> shift)) & self.radix - 1
+						count[curr_digit] += 1
+					if count[-1] == end - start:
+						temp_sublist_indexes.append((start, end))
+						count = [0 for _ in count]
+						continue
+					if count[0] > 1:
+						temp_sublist_indexes.append((start, start + count[0]))
+					for i in xrange(1, self.radix):
+						if count[i] > 1:
+							temp_sublist_indexes.append(
+								(start + count[i-1], start + count[i] + count[i-1])
+							)
+						count[i] += count[i - 1]
+					temp_list = [0 for _ in range(start, end)]
+					for i in xrange(start, end):
+						masked_input = (self.list[i]) ^ bit_mask
+						curr_digit = ((masked_input >> shift)) & self.radix - 1
+						temp_list[count[curr_digit] - 1] = self.list[i]
+						count[curr_digit] -= 1
+					count = [0 for _ in count]
+					self.setslice(temp_list, start)
+				sublist_indexes = list(temp_sublist_indexes)
+				if not sublist_indexes: return
+\end{lstlisting}
+\caption*{MSD Counting sort}
+\end{table}
+
+
+\subsubsection{MSD Pigeonhole sort}
+Once again, the method of storing indexes of sublists and sorting within the index ranges is applied.
+\begin{description}
+	\item[Sublist Indexes] This works in largely the same way as MSD Counting sort, sublist indexes are iterated over and items in a sublist have the integer sorting method, pigeonhole sort applied to them wherein further sublist indexes are identified and added to \textit{temp\textunderscore sublist\textunderscore indexes} to be sorted on the next iteration over the digits.
+	\par To calculate the indexes when sorting a sublist, first a cumulative value is instantiated at 0 (\textit{index}, line 31). The buckets are then iterated over, non empty bucket is considered a sublist with the stating index equal to the start index of the current sublist added to \textit{index} with the same for the end index plus the list length of the bucket. The list length of the bucket is added to the cumulative value \textit{index} so that it contains the total quantity of items in all buckets iterated over thus far. This occurs during the loop that overwrites the input list with the buckets as well as clearing the bucket list so it contains only empty lists.
+	\item[Insertion sort] The threshold used for insertion sort is different for each base, and is different from those used for counting sort, see {\color{red} reference}.
+	\item[Bucket List] To avoid repeated instantiation of \textit{bucket\textunderscore list}, it is created once at the same stage as the shared variables as a list of empty lists with a length equal to the radix. Instead of creating the bucket list again multiple times, each bucket is only overwritten with an empty bucket if it is accessed and identified as non empty, this saves on the number of read/write calls.
+\end{description}
+\begin{table}[H]
+	\lstset{
+		language=python,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=3,
+    breaklines=true,
+    breakatwhitespace=false,}
+	\centering
+	\begin{lstlisting}[escapeinside={(*}{*)}]
+	def sort(self):
+		#Shared variables
+		sublist_indexes = [(0, self.list_length)]
+		bucket_list = [[] for _ in xrange(self.radix)]
+		for k in xrange(list_max_digits - 1, -1, -1):
+			shift = k * self.base
+			temp_indexes = []
+			for start, end in sublist_indexes:
+				if start + 1 == end:continue
+				sublist_sorted, sublist_reverse_sorted = self.slice_sorted(					start, end )
+				if sublist_sorted: continue
+				if sublist_reverse_sorted:
+					self.reverse_slice(start, end - 1)
+					continue
+				if (end - start) < (*\textit{\color{red}Limit}*):
+					self.insertion_sort(start, end)
+					continue
+				for i in xrange(start, end):
+					masked_input = (self.list[i]) ^ bit_mask
+					curr_digit = ((masked_input >> shift)) & self.radix - 1
+					bucket_list[curr_digit].append(self.list[i])
+				nonempty = [
+					(bdx, bucket)
+					for (bdx, bucket) in enumerate(bucket_list)
+					if bucket != []
+				]
+				if len(nonempty) == 1:
+					temp_indexes.append((start, end))
+					bucket_list[nonempty[0][0]] = []
+					continue
+				index = 0
+				for bdx, bucket in enumerate(bucket_list):
+					if len(bucket) >= 1:
+						temp_indexes.append(
+							(start + index, start + index + len(bucket))
+						)
+						self.setslice(bucket, start + index)
+						index += len(bucket)
+						bucket_list[bdx] = []
+			sublist_indexes = temp_indexes
+			if not sublist_indexes: return
+\end{lstlisting}
+\caption*{MSD Pigeonhole sort}
+
+
+\end{table}
+
 \printbibliography 
 \end{document}
