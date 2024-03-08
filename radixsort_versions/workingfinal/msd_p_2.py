@@ -123,12 +123,12 @@ def make_radixsort_class(
                 (-sys.maxint) - 1, 1
             ):
                 list_max_digits += 1
-            bucket_indexes = [(0, self.list_length)]
+            sublist_indexes = [(0, self.list_length)]
             bucket_list = [[] for _ in xrange(self.radix)]
             for k in xrange(list_max_digits - 1, -1, -1):
                 shift = k * self.base
                 temp_indexes = []
-                for start, end in bucket_indexes:
+                for start, end in sublist_indexes:
                     if start + 1 == end:
                         continue
                     sublist_sorted, sublist_reverse_sorted = self.slice_sorted(
@@ -139,19 +139,21 @@ def make_radixsort_class(
                     if sublist_reverse_sorted:
                         self.reverse_slice(start, end - 1)
                         continue
-                    if (end - start) < 330:
+                    if (end - start) < 500:
                         self.insertion_sort(start, end)
                         continue
                     for i in xrange(start, end):
                         masked_input = (self.list[i]) ^ bit_mask
                         curr_digit = ((masked_input >> shift)) & self.radix - 1
                         bucket_list[curr_digit].append(self.list[i])
-                    if (
-                        len([len(bucket) for bucket in bucket_list if bucket != []])
-                        == 1
-                    ):
+                    nonempty = [
+                        (bdx, bucket)
+                        for (bdx, bucket) in enumerate(bucket_list)
+                        if bucket != []
+                    ]
+                    if len(nonempty) == 1:
                         temp_indexes.append((start, end))
-                        bucket_list = [[] for _ in bucket_list]
+                        bucket_list[nonempty[0][0]] = []
                         continue
                     index = 0
                     for bdx, bucket in enumerate(bucket_list):
@@ -160,10 +162,10 @@ def make_radixsort_class(
                                 (start + index, start + index + len(bucket))
                             )
                             self.setslice(bucket, start + index)
-                        index += len(bucket)
-                        bucket_list[bdx] = []
-                bucket_indexes = temp_indexes
-                if not bucket_indexes:
+                            index += len(bucket)
+                            bucket_list[bdx] = []
+                sublist_indexes = temp_indexes
+                if not sublist_indexes:
                     return
 
     return Radixsort

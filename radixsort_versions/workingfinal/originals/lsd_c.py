@@ -1,3 +1,18 @@
+
+import sys
+from math import pow
+def is_sorted(lst, key=lambda x: x, p=True):
+    s = True
+    out = ""
+    for i, el in enumerate(lst[1:]):
+        if key(el) < key(lst[i]): # i is the index of the previous element
+            out += '\033[0;31m'+str(el) + ", "
+            s = False
+        else:
+            out += '\033[0;32m'+str(el) + ", "            
+    if not s: print(out)
+    return s
+
 import sys
 from math import pow
 
@@ -17,7 +32,11 @@ def int_digits(i, base):
 
 
 def absolute(num):
-
+    """
+    Custom implementation of abs(Num)
+    :param num: Number to find absolute value of
+    :return: absolute value of num
+    """
     if num == (-sys.maxint) - 1:
         return sys.maxint
     return -num if num < 0 else num
@@ -35,7 +54,6 @@ def make_radixsort_class(
     if setslice is None:
 
         def setslice(list, slice, index):
-            assert index>=0
             list[index : index + len(slice)] = slice
 
     class Radixsort(object):
@@ -51,7 +69,7 @@ def make_radixsort_class(
             n = self.list[0]
             prev = self.list[0]
             (self.ordered, self.reverse_ordered) = (True, True)
-            for i in xrange(1, len(self.list)):
+            for i in range(1, len(self.list)):
                 if self.list[i] > m:
                     m = self.list[i]
                 if self.list[i] < n:
@@ -65,10 +83,11 @@ def make_radixsort_class(
             setitem(self.list, item, value)
 
         def setslice(self, slice, index=0):
+            assert index >= 0
             setslice(self.list, slice, index)
 
         def insertion_sort(self, start, end):
-            for step in xrange(start, end):
+            for step in range(start, end):
                 key = self.list[step]
                 j = step - 1
                 while j >= 0 and key < self.list[j]:
@@ -103,7 +122,7 @@ def make_radixsort_class(
                         return sublist_sorted, sublist_reverse_sorted
             return sublist_sorted, sublist_reverse_sorted
 
-def sort(self):
+        def sort(self):
             if self.list_length < 2:
                 return
             list_max = self.list_abs_max()
@@ -120,31 +139,29 @@ def sort(self):
             ):
                 list_max_digits += 1
 
-            counts = [[0 for _ in xrange(self.radix)] for _ in xrange(list_max_digits)]
+            nextcount = [0 for _ in xrange(self.radix)]
+            count = [0 for _ in xrange(self.radix)]
             for j in xrange(self.list_length):
                 masked_input = self.list[j] ^ bit_mask
-                for i in xrange(list_max_digits):
-                    shift = (self.base) * i
-                    curr_digit = ((masked_input >> shift)) & self.radix - 1
-                    counts[i][curr_digit] += 1
+                curr_digit = (masked_input) & (self.radix - 1)
+                count[curr_digit] += 1
 
-            skip = []
-            for i in xrange(list_max_digits):
-                for j in xrange(1, self.radix):
-                    if counts[i][j] == self.list_length:
-                        skip.append(i)
-                    counts[i][j] += counts[i][j - 1]
             temp_list = self.list[:]
-
             for i in xrange(list_max_digits):
-                if i in skip:
-                    continue
+                for j in xrange(1, self.radix):                    
+                    count[j] += count[j - 1]
+                    nextcount[j] = 0
+                nextcount[0] = 0
                 shift = (self.base) * i
                 for j in xrange(self.list_length - 1, -1, -1):
                     masked_input = (self.list[j]) ^ bit_mask
-                    curr_digit = ((masked_input >> shift)) & self.radix - 1
-                    temp_list[counts[i][curr_digit] - 1] = self.list[j]
-                    counts[i][curr_digit] -= 1
+                    curr_digit = ((masked_input >> shift)) & (self.radix - 1)
+                    temp_list[count[curr_digit] - 1] = self.list[j]
+                    count[curr_digit] -= 1
+                    if i < list_max_digits-1:
+                        next_curr_digit = (masked_input >> (self.base * (i+1))) & (self.radix - 1)
+                        nextcount[next_curr_digit] += 1
                 self.setslice(temp_list)
+                count = nextcount[:]
 
     return Radixsort

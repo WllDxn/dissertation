@@ -1,6 +1,6 @@
-import os, subprocess, re
+import os, subprocess, re, sys
 from natsort import natsorted
-pypy_version = 'workingfinal'
+pypy_version = 'workingfinal' if len(sys.argv) == 1 else sys.argv[1]
 def get_all_methods():
     tempv = os.listdir("/home/will/dissertation/pypy_versions")
     return {

@@ -52,6 +52,110 @@
       \verb https://foss.heptapod.net/pypy/pypy/-/blob/ab3f173b52ba0b51b155c372af40de3d85a855a7/rpython/rlib/listsort.py
       \endverb
     \endentry
+    \entry{Friend}{article}{}
+      \name{author}{1}{}{%
+        {{hash=bcf674cd6e7a4d052a6588cf21a19cbf}{%
+           family={Friend},
+           familyi={F\bibinitperiod},
+           given={Edward\bibnamedelima H.},
+           giveni={E\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{bcf674cd6e7a4d052a6588cf21a19cbf}
+      \strng{fullhash}{bcf674cd6e7a4d052a6588cf21a19cbf}
+      \strng{bibnamehash}{bcf674cd6e7a4d052a6588cf21a19cbf}
+      \strng{authorbibnamehash}{bcf674cd6e7a4d052a6588cf21a19cbf}
+      \strng{authornamehash}{bcf674cd6e7a4d052a6588cf21a19cbf}
+      \strng{authorfullhash}{bcf674cd6e7a4d052a6588cf21a19cbf}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0004-5411}
+      \field{journaltitle}{J. ACM}
+      \field{month}{7}
+      \field{number}{3}
+      \field{title}{Sorting on Electronic Computer Systems}
+      \field{volume}{3}
+      \field{year}{1956}
+      \field{pages}{134\bibrangedash 168}
+      \range{pages}{35}
+      \verb{doi}
+      \verb 10.1145/320831.320833
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/320831.320833
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/320831.320833
+      \endverb
+    \endentry
+    \entry{LAMARCA199966}{article}{}
+      \name{author}{2}{}{%
+        {{hash=0d222f8881609d21d95fa2c7f76334c8}{%
+           family={LaMarca},
+           familyi={L\bibinitperiod},
+           given={Anthony},
+           giveni={A\bibinitperiod}}}%
+        {{hash=674a228ba575cce95dfc413e9a048e65}{%
+           family={Ladner},
+           familyi={L\bibinitperiod},
+           given={Richard\bibnamedelima E},
+           giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{d1d52a4e2854c2739607ea92299d0323}
+      \strng{fullhash}{d1d52a4e2854c2739607ea92299d0323}
+      \strng{bibnamehash}{d1d52a4e2854c2739607ea92299d0323}
+      \strng{authorbibnamehash}{d1d52a4e2854c2739607ea92299d0323}
+      \strng{authornamehash}{d1d52a4e2854c2739607ea92299d0323}
+      \strng{authorfullhash}{d1d52a4e2854c2739607ea92299d0323}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We investigate the effect that caches have on the performance of sorting algorithms both experimentally and analytically. To address the performance problems that high cache miss penalties introduce we restructure mergesort, quicksort, and heapsort in order to improve their cache locality. For all three algorithms the improvement in cache performance leads to a reduction in total execution time. We also investigate the performance of radix sort. Despite the extremely low instruction count incurred by this linear time sorting algorithm, its relatively poor cache performance results in worse overall performance than the efficient comparison based sorting algorithms. For each algorithm we provide an analysis that closely predicts the number of cache misses incurred by the algorithm.}
+      \field{issn}{0196-6774}
+      \field{journaltitle}{Journal of Algorithms}
+      \field{number}{1}
+      \field{title}{The Influence of Caches on the Performance of Sorting}
+      \field{volume}{31}
+      \field{year}{1999}
+      \field{pages}{66\bibrangedash 104}
+      \range{pages}{39}
+      \verb{doi}
+      \verb https://doi.org/10.1006/jagm.1998.0985
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0196677498909853
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0196677498909853
+      \endverb
+    \endentry
+    \entry{lineprof}{online}{}
+      \list{organization}{1}{%
+        {Pyutils}%
+      }
+      \field{sortinit}{l}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labeltitlesource}{title}
+      \field{day}{2}
+      \field{month}{11}
+      \field{title}{line\textunderscore profiler}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/pyutils/line_profiler
+      \endverb
+      \verb{url}
+      \verb https://github.com/pyutils/line_profiler
+      \endverb
+    \endentry
     \entry{rpythonobj}{online}{}
       \list{organization}{1}{%
         {The PyPy Project}%

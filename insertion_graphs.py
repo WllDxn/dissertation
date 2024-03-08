@@ -15,11 +15,7 @@ def reject_outliers_2(data, m=4):
     s = d / (mdev or 1.)
     return data[s < m]
 
-<<<<<<< Updated upstream:insertion_graphs.py
-def get_data(inp, threshold, maxc=500):
-=======
 def get_data(inp, threshold, maxc=2000):
->>>>>>> Stashed changes:insertion_graphs2024.py
     #Input data#
     with open(f'sort_times/{inp}') as f:
         data = json.load(f)
@@ -62,13 +58,11 @@ def get_data(inp, threshold, maxc=2000):
     # dfm = dfm[dfm['method'].isin(a)]
     # print(dfm[dfm['insert'].isin(['always'])])
     # print(dfm)
-
-
     if maxc:
         dfm = dfm[dfm['cols'] <= maxc]
     return dfm.astype({'method':str, 'time':np.float32})
 import copy
-def graph(threshold=False):
+def graph(nn=0, threshold=False):
     melt = 'cols' if threshold==False else 'threshold'
     # dfms = []
     # for t in ['always', 'never']:
@@ -83,7 +77,10 @@ def graph(threshold=False):
     
     # # dfms[0] = dfms[0][dfms[0][melt].isin(list(dfms[1][melt]))]
     # dfm = pd.concat(dfms)
-    dfm = get_data('always_insert_update_never_insert_update_2.json', threshold)
+    
+    # dfm = get_data('workingfinal_alwaysinsert_workingfinal_neverinsert_4.jsonworkingrinsert_0.json', threshold)
+    
+    dfm = get_data(f'workingfinal_alwaysinsert_workingfinal_neverinsert_{nn}.json', threshold)
     # print(dfm)
     gb = dfm.groupby('method')
     for group in gb.groups:
@@ -116,26 +113,53 @@ def graph(threshold=False):
         #     # dfm.drop(dfg.get_group(g2), inplace=True)
         #     # dfm.drop(g2[-1], inplace=True)
         # print(o)
+        val = 0
+        dict = {}
+        if 'c' in group:
+            val=100000
+            if '10' in group:
+                val=200
+            # dict = {
+            #     2:400,
+            #     4:100,
+            #     6:100,
+            #     8:100,
+            #     10:200,
+            #     12:400,
+            #     14:1000,
+            #     16:2000
+            # }
+            # val = dict[int(re.findall(r'\d+', group)[0])]
+        else:
+            dict = {
+                2:750,
+                4:500,
+                6:500,
+                8:750,
+                10:750,
+                12:750,
+                14:1000,
+                16:2000
+            }
+            val = dict[int(re.findall(r'\d+', group)[0])]
+
+            
+        df = df.loc[df[melt]<=val]
         ax = sns.lmplot(data=df, x=melt, y='time',  hue='insert', order=2,height=10, aspect=15/10, palette=palette, line_kws={'linewidth': 5.0, 'solid_capstyle': 'round', 'path_effects' :[pe.Stroke(linewidth=7, foreground='black', alpha=0.5), pe.Normal()]})
-        # ax.set(xlim=(idx-100, idx+100))
+        # if '14' not in group and '16' not in group and 'c' in group:
+        #     ax.set(xlim=(0, 500))
+        #     ax.set(ylim=(0,(float(max()))))
+            # ax.set(ylim=(0, ))
         # ax.set(ylim=(mi, ma))
 
         # r = df.loc[np.logical_and(df[melt] < 5000, df[melt] >=0)]
         ax.set_xlabels(melt,fontsize=20)
         ax.set_ylabels("Time",fontsize=20)
         plt.grid()
-<<<<<<< Updated upstream:insertion_graphs.py
-        if group in [f'msd_{x}_{t}' for t in range(2,18,2) for x in ['p']]:
+        if group in [f'msd_{x}_{t}' for t in range(2,18,2) for x in ['p', 'c']]:
+            plt.savefig(f'graphs/insertion2024workingfinal/{group}_insert.jpg')
             print(f'{group}_insert.jpg')
-            plt.savefig(f'graphs/insertionfinal/{group}_insert2.jpg')
-        # break
-
-=======
-        if group in [f'msd_{x}_{t}' for t in range(14,15,2) for x in ['p']]:
-            plt.savefig(f'graphs/insertion2024/{group}_insert4.jpg')
-            print(f'{group}_insert.jpg')
->>>>>>> Stashed changes:insertion_graphs2024.py
-
+        plt.close()
     # for method2 in df.columns.drop('threshold'):
     #     #ax = ax.scatter(df['threshold'], df[method2], marker=".")
     #     df[method2] = df[method2].astype(np.float64)
@@ -147,5 +171,10 @@ def graph(threshold=False):
 
 if __name__=="__main__":
     # graph('never_insert_0.json')
-    graph()
+    for i in range(7):
+        if i==3:continue
+        try:
+            graph(i)
+        except:
+            pass
     

@@ -133,10 +133,17 @@ def make_radixsort_class(
                     masked_input = num ^ bit_mask
                     curr_digit = ((masked_input >> shift)) & self.radix - 1
                     bucket_list[curr_digit].append(num)
-                if len([bucket for bucket in bucket_list if bucket != []]) == 1:
+                nonempty = [
+                    (bdx, bucket)
+                    for bdx, bucket in enumerate(bucket_list)
+                    if bucket != []
+                ]
+                if len(nonempty) == 1:
+                    bucket_list[nonempty[0][0]] = []
                     continue
                 index = 0
                 for bdx, bucket in enumerate(bucket_list):
+                    if len(bucket) == 0: continue
                     self.setslice(bucket, index)
                     index += len(bucket)
                     bucket_list[bdx] = []

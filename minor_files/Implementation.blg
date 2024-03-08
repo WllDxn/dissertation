@@ -1,0 +1,5 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'Implementation.blg'
+[45] biber:340> INFO - === Thu Mar  7, 2024, 15:01:28
+[197] Utils.pm:410> ERROR - Cannot find 'Implementation.bcf'!
+[197] Biber.pm:136> INFO - ERRORS: 1

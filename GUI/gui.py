@@ -455,7 +455,7 @@ class SortingHelperGUI:
         
         internal_lengths = [int(x) for x in c.listlength]
         if c.insertion:
-            self.iters += (len(internal_lengths) * (len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*1000
+            self.iters += sum([((len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*max(l, 1000) for l in internal_lengths])
         else:
             self.iters += (len(internal_lengths) * (len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*1
         # if self.q.insertion == True:

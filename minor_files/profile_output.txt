@@ -1,0 +1,48 @@
+Timer unit: 1e-09 s
+
+Total time: 0.0372324 s
+File: /home/will/dissertation/minor_files/profile.py
+Function: sort at line 109
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   109                                                   @profile
+   110                                                   def sort(self):
+   111         1       1936.0   1936.0      0.0              if self.list_length < 2:
+   112                                                           return
+   113         1    8738458.0    9e+06     23.5              list_max = self.list_abs_max()
+   114         1       9504.0   9504.0      0.0              list_max_digits = int_digits(list_max, self.base)
+   115         1        272.0    272.0      0.0              if self.ordered:
+   116                                                           return
+   117         1        334.0    334.0      0.0              if self.reverse_ordered:
+   118                                                           self.reverse_slice()
+   119                                                           return
+   120         1      30374.0  30374.0      0.1              max_bits = int(int_digits(list_max, 1))
+   121         1        688.0    688.0      0.0              bit_mask = ~((1 << max_bits) - 1)
+   122         1        917.0    917.0      0.0              if max_bits % self.base == 0 and max_bits != int_digits(
+   123                                                           (-sys.maxsize) - 1, 1
+   124                                                       ):
+   125                                                           list_max_digits += 1
+   126         1       9887.0   9887.0      0.0              bucket_list = [[] for _ in range(self.radix)]
+   127         5       1648.0    329.6      0.0              for i in range(list_max_digits):
+   128         4       1587.0    396.8      0.0                  shift = (self.base) * i
+   129     40004    4158474.0    104.0     11.2                  for num in self.list:
+   130     40000    6395868.0    159.9     17.2                      masked_input = num ^ bit_mask
+   131     40000    9121812.0    228.0     24.5                      curr_digit = (masked_input >> shift) & self.radix-1
+   132     40000    8222270.0    205.6     22.1                      bucket_list[curr_digit].append(num)
+   133         8     117362.0  14670.2      0.3                  nonempty = [
+   134                                                               (bdx, bucket)
+   135         4       6053.0   1513.2      0.0                      for bdx, bucket in enumerate(bucket_list)
+   136                                                               if bucket != []
+   137                                                           ]
+   138         4       3578.0    894.5      0.0                  if len(nonempty) == 1:
+   139                                                               bucket_list[nonempty[0][0]] = []
+   140                                                               continue
+   141         4       1008.0    252.0      0.0                  index = 0
+   142       260      37565.0    144.5      0.1                  for bdx, bucket in enumerate(bucket_list):
+   143       256      41796.0    163.3      0.1                      if len(bucket) == 0: continue
+   144       200     257841.0   1289.2      0.7                      self.setslice(bucket, index)
+   145       200      36053.0    180.3      0.1                      index += len(bucket)
+   146       200      37072.0    185.4      0.1                      bucket_list[bdx] = []
+
+  0.04 seconds - /home/will/dissertation/minor_files/profile.py:109 - sort

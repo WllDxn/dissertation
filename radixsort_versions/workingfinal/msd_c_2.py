@@ -124,11 +124,11 @@ def make_radixsort_class(
             ):
                 list_max_digits += 1
             count = [0 for _ in xrange(self.radix)]
-            bucket_indexes = [(0, self.list_length)]
+            sublist_indexes = [(0, self.list_length)]
             for k in xrange(list_max_digits - 1, -1, -1):
                 shift = k * self.base
-                temp_bucket_indexes = []
-                for start, end in bucket_indexes:
+                temp_sublist_indexes = []
+                for start, end in sublist_indexes:
                     if start + 1 == end:
                         continue
                     sublist_sorted, sublist_reverse_sorted = self.slice_sorted(
@@ -139,7 +139,7 @@ def make_radixsort_class(
                     if sublist_reverse_sorted:
                         self.reverse_slice(start, end - 1)
                         continue
-                    if (end - start) < 64:
+                    if (end - start) < 10:
                         self.insertion_sort(start, end)
                         continue
                     for idx in xrange(start, end):
@@ -147,14 +147,14 @@ def make_radixsort_class(
                         curr_digit = ((masked_input >> shift)) & self.radix - 1
                         count[curr_digit] += 1
                     if count[-1] == end - start:
-                        temp_bucket_indexes.append((start, end))
+                        temp_sublist_indexes.append((start, end))
                         count = [0 for _ in count]
                         continue
                     if count[0] > 1:
-                        temp_bucket_indexes.append((start, start + count[0]))
+                        temp_sublist_indexes.append((start, start + count[0]))
                     for i in xrange(1, self.radix):
                         if count[i] > 1:
-                            temp_bucket_indexes.append(
+                            temp_sublist_indexes.append(
                                 (start + count[i - 1], start + count[i] + count[i - 1])
                             )
                         count[i] += count[i - 1]
@@ -166,8 +166,8 @@ def make_radixsort_class(
                         count[curr_digit] -= 1
                     count = [0 for _ in count]
                     self.setslice(temp_list, start)
-                bucket_indexes = list(temp_bucket_indexes)
-                if not bucket_indexes:
+                sublist_indexes = list(temp_sublist_indexes)
+                if not sublist_indexes:
                     return
 
     return Radixsort
