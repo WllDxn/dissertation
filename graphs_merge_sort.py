@@ -105,15 +105,15 @@ def g(df, fname):
 
 if __name__ == '__main__':
     data=[]
-    data.append(get_data(('/home/will/dissertation/sort_times/workingfinalmasked_0.json')))
-    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_0.json')))
+    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_3.json')))
+    # data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_0.json')))
     # data.append(get_data(('/home/will/dissertation/sort_times/insertion_evident_0.json')))
     # for i in [12]:
     #     fname = Path('/home/will/dissertation/sort_times') / f'fewer_iters_insertion_evident_timsort_{i}.json'
     #     data.append(get_data(fname))
     gdata = pd.concat(data)
     print(gdata)
-    g(gdata, 'workingfinal_workingfinalmasked_1')
+    g(gdata, 'workingfinal_workingfinalnosort_3')
     # get_data(Path('/home/will/dissertation/sort_times/fewer_iters_insertion_evident_timsort_11.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/fewer_iters_insertion_evident_timsort_11.json'))
     # for i in range(3,4):

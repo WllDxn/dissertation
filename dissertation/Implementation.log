@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  8 MAR 2024 13:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  8 MAR 2024 18:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -638,11 +638,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \openout5 = `Implementation.toc'.
 
  [2]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 90.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 93.
  [3] [4] [5] [6] [7] [8]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 306.
- [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26]
+(Font)              <10.95> on input line 309.
+ [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25]
 Overfull \hbox (9.37218pt too wide) in paragraph at lines 842--878
  [][] 
  []
@@ -652,7 +652,7 @@ Overfull \hbox (11.87215pt too wide) in paragraph at lines 887--924
  [][] 
  []
 
-[27] [28]
+[26] [27]
 
 Package xcolor Warning: Incompatible color definition on input line 984.
 
@@ -673,25 +673,25 @@ Package xcolor Warning: Incompatible color definition on input line 984.
 
 
 Package xcolor Warning: Incompatible color definition on input line 984.
+
+[28]
+
+Package xcolor Warning: Incompatible color definition on input line 1034.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1034.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1034.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1034.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1034.
 
 [29]
 
-Package xcolor Warning: Incompatible color definition on input line 1034.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1034.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1034.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1034.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1034.
-
-[30]
-
 Package xcolor Warning: Incompatible color definition on input line 1088.
 
 
@@ -706,7 +706,7 @@ Package xcolor Warning: Incompatible color definition on input line 1088.
 
 Package xcolor Warning: Incompatible color definition on input line 1088.
 
-[31] [32]
+[30] [31]
 
 Package xcolor Warning: Incompatible color definition on input line 1155.
 
@@ -722,34 +722,34 @@ Package xcolor Warning: Incompatible color definition on input line 1155.
 
 Package xcolor Warning: Incompatible color definition on input line 1155.
 
-[33] [34] [35]
+[32] [33] [34]
 
-LaTeX Warning: Unexpected alignment  on input line 1266.
+LaTeX Warning: Unexpected alignment  on input line 1265.
 
-[36] [37] [38] (./Implementation.aux)
+[35] [36] [37] (./Implementation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `Implementation.out' has not changed.
-(rerunfilecheck)             Checksum: 0F919F18C4E5CF9B4EA2DDF34FC251D0;6608.
+(rerunfilecheck)             Checksum: 18FE9F23F5833E863974219266B66BC9;6790.
 Package logreq Info: Writing requests to 'Implementation.run.xml'.
 \openout1 = `Implementation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21129 strings out of 474166
- 363498 string characters out of 5745489
+ 21132 strings out of 474166
+ 363566 string characters out of 5745489
  2159539 words of memory out of 5000000
- 42733 multiletter control sequences out of 15000+600000
+ 42736 multiletter control sequences out of 15000+600000
  564454 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  66i,20n,81p,1451b,1483s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Implementation.pdf (38 pages, 311867 bytes).
+Output written on Implementation.pdf (37 pages, 311110 bytes).
 PDF statistics:
- 1057 PDF objects out of 1200 (max. 8388607)
- 970 compressed objects within 10 object streams
+ 1059 PDF objects out of 1200 (max. 8388607)
+ 973 compressed objects within 10 object streams
  495 named destinations out of 1000 (max. 500000)
- 369 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 377 words of extra memory for PDF output out of 10000 (max. 10000000)
 

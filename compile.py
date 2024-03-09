@@ -17,7 +17,8 @@ def compile(version, npadd=False):
     cg = "\/tmp([^']*)"
     rg = "[/.+?\./]"
     for name in filenames:
-        # if 'msd_c' in name or 'lsd_p' in name:continue
+        if len(sys.argv) > 2 and '_'+sys.argv[2] not in name: continue
+        # if 'msd' in name: continue
         packagename = f"{re.split(rg, name)[0]}_{version}"
         if packagename in existingnames:
             if not npadd:

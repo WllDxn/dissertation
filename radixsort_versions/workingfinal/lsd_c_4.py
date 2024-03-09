@@ -140,27 +140,34 @@ def make_radixsort_class(
                 list_max_digits += 1
 
             nextcount = [0 for _ in xrange(self.radix)]
+            count = [0 for _ in xrange(self.radix)]
             for j in xrange(self.list_length):
                 masked_input = self.list[j] ^ bit_mask
                 curr_digit = (masked_input) & (self.radix - 1)
-                nextcount[curr_digit] += 1
+                count[curr_digit] += 1
 
             temp_list = self.list[:]
+            skip = []
             for i in xrange(list_max_digits):
-                count = nextcount[:]
-                for j in xrange(1, self.radix):                    
-                    count[j] += count[j - 1]
-                    nextcount[j] = 0
-                nextcount[0] = 0
+                if i not in skip:
+                    for j in xrange(1, self.radix):                    
+                        count[j] += count[j - 1]
+                        nextcount[j] = 0
+                    nextcount[0] = 0
                 shift = (self.base) * i
                 for j in xrange(self.list_length - 1, -1, -1):
                     masked_input = (self.list[j]) ^ bit_mask
-                    curr_digit = ((masked_input >> shift)) & (self.radix - 1)
-                    temp_list[count[curr_digit] - 1] = self.list[j]
-                    count[curr_digit] -= 1
+                    if i not in skip:
+                        curr_digit = ((masked_input >> shift)) & (self.radix - 1)
+                        temp_list[count[curr_digit] - 1] = self.list[j]
+                        count[curr_digit] -= 1
                     if i < list_max_digits-1:
-                        next_curr_digit = (masked_input >> (self.base * (i+1))) & (self.radix - 1)
+                        next_curr_digit = (masked_input >> (self.base + shift)) & (self.radix - 1)
                         nextcount[next_curr_digit] += 1
-                self.setslice(temp_list)
+                        if nextcount[next_curr_digit] == self.list_length:
+                            skip.append(i+1)
+                if i not in skip:
+                    self.setslice(temp_list)
+                    count = nextcount[:]
 
     return Radixsort

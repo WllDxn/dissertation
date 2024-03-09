@@ -81,8 +81,8 @@ def do_graph(reject_outliers, fname):
             plt.close()
 
 if __name__ == '__main__':
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinalmasked_0.json'))
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_0.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_0.json'))
+    # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_0.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_0.json'))
     # for i in range(3,4):
     #     fname = Path('/home/will/dissertation/sort_times') / f'fewer_iters_tim_{i}.json'
