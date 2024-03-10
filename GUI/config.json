@@ -52,8 +52,8 @@
             "listlength": [
                 100000
             ],
-            "listcount": 10,
-            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_2.json",
+            "listcount": 100,
+            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_4.json",
             "insertion": false,
             "basemax": "64",
             "data_types": {
