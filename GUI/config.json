@@ -29,39 +29,29 @@
                 "switchbase": [],
                 "working": [],
                 "workingfinal": [
-                    "msd_c_8",
-                    "msd_c_12",
-                    "msd_c_16",
-                    "msd_p_8",
-                    "msd_p_12",
-                    "msd_p_16"
+                    "msd_c_8"
                 ],
                 "workingfinal_alwaysinsert": [],
                 "workingfinal_neverinsert": [],
                 "workingfinalmasked": [],
                 "workingfinalnosort": [
-                    "msd_c_8",
-                    "msd_c_12",
-                    "msd_c_16",
-                    "msd_p_8",
-                    "msd_p_12",
-                    "msd_p_16"
+                    "msd_c_8"
                 ],
                 "workingovf": []
             },
             "listlength": [
-                100000
+                1000000
             ],
-            "listcount": 30,
-            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_5.json",
+            "listcount": 10,
+            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_6.json",
             "insertion": false,
             "basemax": "64",
             "data_types": {
                 "Few Unique": false,
                 "Sorted": false,
                 "Reverse Sorted": false,
-                "Nearly Sorted": true,
-                "Random": false
+                "Nearly Sorted": false,
+                "Random": true
             },
             "data_sizes": {
                 "large": false,
