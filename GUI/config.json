@@ -52,16 +52,16 @@
             "listlength": [
                 100000
             ],
-            "listcount": 100,
-            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_4.json",
+            "listcount": 30,
+            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_5.json",
             "insertion": false,
             "basemax": "64",
             "data_types": {
                 "Few Unique": false,
                 "Sorted": false,
                 "Reverse Sorted": false,
-                "Nearly Sorted": false,
-                "Random": true
+                "Nearly Sorted": true,
+                "Random": false
             },
             "data_sizes": {
                 "large": false,
