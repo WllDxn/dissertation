@@ -123,7 +123,7 @@ class Sorter:
         
         def generate_items():
             for list_length in self.max_list_length if not self.insert else list(range(max(1,(self.max_list_length[0]+1)//1000), self.max_list_length[0]+1, max(1, (self.max_list_length[0]+1)//1000))):
-                for data_size in self.datasizes if not self.basemax else list(range(0, self.basemax+1, 4)):
+                for data_size in self.datasizes if not self.basemax else list(range(0, self.basemax+1, 1)):
                     for data_type in self.datatypes:
                         thresholds = [None] if self.threshold is None else range(0, self.threshold + 1, self.threshold // self.threshold_divisions)
                         for threshold in thresholds:
