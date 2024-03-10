@@ -79,13 +79,16 @@
   \hypersetup{linkcolor=black}
   \tableofcontents
 }
+
+
+
 \pagebreak
 \section{Design}
 \label{sec:design}
 	\subsection{Pseudocode}
-	This is an implementation in pseudocode of all 4 components of the radix sort variations included in this project: Radix sort starting from the most significant and least significant digit and then the integer sorting methods Counting sort and Pigeonhole sort. Each permutation of Radix sort takes the input array \textit{A} of integers and treats each item \textit{A[i]} as a series of digits d within the range 0 \textit{$\leq$ d $<$ k} where \textit{k} is the radix or the number of unique integer keys. 
+	This is an implementation inf pseudocode of all 4 components of the radix sort variations included in this project: Radix sort starting from the most significant and least significant digit and then the integer sorting methods Counting sort and Pigeonhole sort. Each permutation of Radix sort takes the input array \textit{A} of integers and treats each item \textit{A[i]} as a series of digits d within the range 0 \textit{$\leq$ d $<$ k} where \textit{k} is the radix or the number of unique integer keys. 
 	\subsubsection{Integer Sorting}
-	Integer sorting is a method of sorting a list of inputs by identifying the integer key of each value of the input and using that to identify it's position in the output. Because the sorting is performed based on the integer key and not based on comparisons to other list items, it is non-comparative. Integer sorting is the underlying sorting method that is applied to each digit of the input array.
+	Integer sorting is a method of sorting a list off inputs by identifying the integer key of each value of the input and using that to identify it's position in the output. Because the sorting is performed based on the integer key and not based on comparisons to other list items, it is non-comparative. Integer sorting is the underlying sorting method that is applied to each digit of the input array.
 	\paragraph{Pigeonhole Sort}
 	\label{ssec:pigeonhole}
 	Pigeonhole sort operates by instantiating an array \textit{B} of length \textit{k} (1) containing empty arrays (3). The input array \textit{A} is iterated over and each item \textit{A[i]} is appended to the array in \textit{B} at t he position that corresponds to the current integer key of the current item. \textit{B} is then iterated over (10) and each item in each array overwrites the original array in order (11). 

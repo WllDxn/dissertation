@@ -19,6 +19,7 @@ class Config(object):
         self.listcount = 100
         self.outputFilePath = ""
         self.insertion = False
+        self.basemax = -1
         self.data_types = {
             "Few Unique": False,
             "Sorted": False,
@@ -40,6 +41,7 @@ class Config(object):
             "listcount": self.listcount,
             "outputFilePath": self.outputFilePath,
             "insertion": self.insertion,
+            "basemax": self.basemax,
             "data_types": self.data_types,
             "data_sizes": self.data_sizes,
         }
@@ -53,6 +55,7 @@ class Config(object):
                 "listcount",
                 "outputFilePath",
                 "insertion",
+                "basemax",
                 "data_types",
                 "data_sizes",
             ]:
@@ -60,6 +63,7 @@ class Config(object):
 
     def get_methodNames(self):
         if pdir := os.listdir(self.pypydir):
+            # print([x for x in pdir])
             return sorted(
                 {re.findall(r"_(.*)$", x[6:])[0] for x in pdir if x != "timsort_timsort"}
             )
@@ -172,8 +176,8 @@ class SortingHelperGUI:
             [
                 self.create_column("Data Type:", self.q.data_types),
                 self.create_column("Data Size:", self.q.data_sizes),
-                sg.Column(self.create_input_labels(), size=(100, 100)),
-                sg.Column(self.create_inputs(), size=(200, 100)),
+                sg.Column(self.create_input_labels(), expand_x=True ),
+                sg.Column(self.create_inputs(), expand_x=True),
             ],
             [
                 [
@@ -188,7 +192,7 @@ class SortingHelperGUI:
                 ],
             ],
         ]
-        self.window = sg.Window("Sorting Helper", layout, location=(500, 500))
+        self.window = sg.Window("Sorting Helper", layout, location=(200, 200))
 
     def create_listbox(self, key, values, default_values, select_mode):
         return sg.Listbox(
@@ -219,18 +223,25 @@ class SortingHelperGUI:
                 "List count (n)",
                 "Output file (o)",
                 "Insertion test (s)",
+                "Basemax "
             ]
         ]
 
     def create_inputs(self):
         return [
-            [sg.InputText(self.q.listlength, key="listlength", enable_events=True)],
+            [sg.InputText(self.q.listlength, key="listlength", enable_events=True )],
             [sg.InputText(self.q.listcount, key="listcount", enable_events=True)],
-            [sg.InputText(os.path.basename(self.q.outputFilePath), key="output_filename", visible=True)],
+            [sg.InputText(os.path.basename(self.q.outputFilePath), key="output_filename", visible=True, expand_x=True)],
             [
                 sg.Checkbox(
                     "", default=self.q.insertion, key="insertion", enable_events=True
                 )
+            ],
+            [
+                sg.Checkbox(
+                    "", default=self.q.basemax!=-1, key="basemax", enable_events=True
+                ),
+                sg.InputText(64, key="basemaxval", visible=self.q.basemax!=-1, expand_x=False, size=(5,100), enable_events=True)
             ],
         ]
 
@@ -248,6 +259,8 @@ class SortingHelperGUI:
             "clear_queue": self.clear_queue,
             "next_queue": self.next_queue,
             "del_queue": self.del_queue,
+            "basemax": self.update_basemax,
+            "basemaxval": self.update_basemax_val,
         }
         while True:
             event, values = self.window.read()
@@ -278,6 +291,7 @@ class SortingHelperGUI:
     def save_config_and_queue(self):
         self.get_output(force=True)
         self.saveQueue()
+        print(self.q.basemax)
 
     def start_sorting(self):
         if self.window["output_filename"].get() == "":
@@ -314,6 +328,7 @@ class SortingHelperGUI:
         self.window["listcount"].update(val)
         self.q[0].listcount = val
 
+        
     def update_listlength(self):
         val = re.sub("[^0-9, ]", "", self.window["listlength"].get()).replace(" ", "")
         self.q[0].listlength = [int(x.strip()) for x in val.split(",") if x.strip()]
@@ -321,7 +336,31 @@ class SortingHelperGUI:
             ", ".join(map(str, self.q[0].listlength))
             + ("," if val.endswith(",") else "")
         )
-
+    def update_basemax(self):
+        if self.window["basemax"].get():
+            self.q.basemax = self.window["basemaxval"].get()
+            self.window["basemaxval"].update(visible=True)
+        else:
+            self.window["basemaxval"].update(visible=False)
+            self.q.basemax = -1
+            
+        # self.get_output(force=True)
+        self.saveQueue()
+    def update_basemax_val(self):
+        if '-1' in self.window["basemaxval"].get():
+            val = self.window["basemaxval"].get().replace('-1', '')
+        else:
+            val = (
+                re.sub("[^0-9]", "", self.window["basemaxval"].get())
+                if self.window["basemaxval"].get() != ""
+                else -1
+            )
+            if int(val) > 64:
+                val=64
+        val = int(val)
+        self.window["basemaxval"].update(val)
+        self.q[0].basemax = val
+        
     def methodevent(self):
         for key in self.q.methods.keys():
             vals = list(self.q.methods[key])
@@ -382,6 +421,7 @@ class SortingHelperGUI:
     def get_checkboxes(self):
 
         self.q[0].insertion = self.window["insertion"].get()
+        self.q[0].basemax = self.window["basemaxval"].get()
         for cb in list(self.q.data_types.keys()):
             self.q.data_types[cb] = self.window[cb].get()
         for cb in list(self.q.data_sizes.keys()):
@@ -456,6 +496,8 @@ class SortingHelperGUI:
         internal_lengths = [int(x) for x in c.listlength]
         if c.insertion:
             self.iters += sum([((len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*max(l, 1000) for l in internal_lengths])
+        elif c.basemax != -1:
+            self.iters += (len(internal_lengths) * (len(data_types)-len(types)))*int(c.basemax)
         else:
             self.iters += (len(internal_lengths) * (len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*1
         # if self.q.insertion == True:
@@ -463,8 +505,8 @@ class SortingHelperGUI:
         lengths = str(internal_lengths)[1:-1].replace(",", "")
 
         methodname = re.findall(r"([^\/]+$)", m)[0]
-        yield f' sort_timer_gendata_pipe.py -m {methodname} -o {c.outputFilePath} -n {c.listcount} -l {lengths} -et {tyesstr} -es {sizesstr} {"-s" if c.insertion==True else ""}'
-
+        yield f' sort_timer_gendata_pipe.py -m {methodname} -o {c.outputFilePath} -n {c.listcount} -l {lengths} -et {tyesstr} -es {sizesstr} {"-s" if c.insertion==True else ""} {("-b " + c.basemax) if c.basemax!=-1 else ""}'
+    
     def get_methodCommand(self):
         methodCommand = []
         for c in self.q:
@@ -508,7 +550,7 @@ class SortingHelperGUI:
             [sg.Column([[sg.Text("", key="iters")], [sg.Text("", key="elapsed")], [sg.Text("", key="remaining")]])],
         ]
         self.window2 = sg.Window(
-            "Sorting Helper 2", layout2, location=(500, 500), finalize=True
+            "Sorting Helper 2", layout2, location=(200, 200), finalize=True
         )
         for l in self.q.items():
             self.window2["completed"].print(
