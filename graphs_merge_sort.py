@@ -25,10 +25,10 @@ def get_data(fname):
     df = df.melt(id_vars=['data_type', 'data_size', 'cols', 'rows'], var_name='method', value_name='times')
     df['implementation'] = df['method'].str.extract(r'([^\_]+$)')
     df[['method', 'base']] = df['method'].str.extract(r'(\D+)(\d+)')
-    print(df)
     df["method"] = df["method"].str.replace("times.", "", regex=False) + df['implementation']
-    df['method'] += 'nosort' if ('nosort') in fname else 'sort'
-    df.drop(df[df.method.str.contains('lsd')].index, inplace=True)
+    # df['method'] += 'nosort' if ('nosort') in fname else 'sort'
+    df.drop(df[np.logical_not(df.base.str.fullmatch('6'))].index, inplace=True)
+    df.drop(df[np.logical_not(df.method.str.contains('msd'))].index, inplace=True)
     df = df.dropna()
     return df
 
@@ -105,16 +105,15 @@ def g(df, fname):
 
 if __name__ == '__main__':
     data=[]
-    data.append(get_data(('/home/will/dissertation/sort_times/sort_comparison.json')))
-    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_1.json')))
+    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_3.json')))
     # data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_0.json')))
     # data.append(get_data(('/home/will/dissertation/sort_times/insertion_evident_0.json')))
     # for i in [12]:
     #     fname = Path('/home/will/dissertation/sort_times') / f'fewer_iters_insertion_evident_timsort_{i}.json'
     #     data.append(get_data(fname))
     gdata = pd.concat(data)
-    # print(gdata)
-    g(gdata, 'workingfinal_sortcomparison')
+    print(gdata)
+    g(gdata, 'workingfinal_workingfinalnosort_3')
     # get_data(Path('/home/will/dissertation/sort_times/fewer_iters_insertion_evident_timsort_11.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/fewer_iters_insertion_evident_timsort_11.json'))
     # for i in range(3,4):

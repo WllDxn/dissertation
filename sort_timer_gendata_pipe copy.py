@@ -21,27 +21,27 @@ def get_max_value(data_size):
         "tiny": 65536,
     }.get(data_size, 65536)
 
-def gen_list(cols, data_size, type="Random", threshold=None, insert=False, basemax=False):
-    max_value = get_max_value(data_size) if basemax==False else int(pow(2,data_size))
+def gen_list(cols, data_size, type="Random", threshold=None, insert=False):
+    max_value = get_max_value(data_size)
     lis = []
     if type == "Random" and not insert:
-        lis = np.random.randint(-max_value-1, max_value, cols, dtype=np.int64).tolist()
+        lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
     elif insert:
         lis = [int(x) for x in range(-cols//2, cols//2+1)][:cols]
         if insert:
             random.shuffle(lis)
     elif type == "Few Unique":
-        lis = np.random.randint(-max_value-1, max_value, cols, dtype=np.int64).tolist()
+        lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
         lis = np.random.choice(lis[: len(lis) // 10], cols).tolist()
     elif type == "Sorted" or insert:
         lis = [int(x*(max_value/cols)) for x in list(range(-cols//2,(cols//2)+1, 1))][:cols]
-        # lis = [int(x) for x in range(-max_value-1, max_value, int((2*max_value)/cols))]
+        # lis = [int(x) for x in range(-max_value, max_value, int((2*max_value)/cols))]
     elif type == "Reverse Sorted":
         lis = [int(x*(max_value/cols)) for x in list(range(cols//2,(-cols//2)-1, -1))][:cols]
-        # lis = [int(x) for x in range(max_value, -max_value-1, int(-(2*max_value)/cols))]
+        # lis = [int(x) for x in range(max_value, -max_value, int(-(2*max_value)/cols))]
     elif type == "Nearly Sorted":
-        # lis = [int(x) for x in range(-max_value-1, max_value, int((2*max_value)/cols))]
-        lis = np.random.randint(-max_value-1, max_value, cols, dtype=np.int64).tolist()
+        # lis = [int(x) for x in range(-max_value, max_value, int((2*max_value)/cols))]
+        lis = np.random.randint(-max_value, max_value, cols, dtype=np.int64).tolist()
         lis.sort()
         for idx1 in range(len(lis) - 2):
             if random.random() < 0.1:
@@ -74,7 +74,6 @@ class Sorter:
         self.datatypes = [
             item for item in datachoices if item not in config["exclude_data_types"]
         ]
-        self.basemax = config["basemax"]
         self.begin_sorting()
 
     def create_output_dictionary(self, output):
@@ -123,7 +122,7 @@ class Sorter:
         
         def generate_items():
             for list_length in self.max_list_length if not self.insert else list(range(max(1,(self.max_list_length[0]+1)//1000), self.max_list_length[0]+1, max(1, (self.max_list_length[0]+1)//1000))):
-                for data_size in self.datasizes if not self.basemax else list(range(0, self.basemax, 4)):
+                for data_size in self.datasizes:
                     for data_type in self.datatypes:
                         thresholds = [None] if self.threshold is None else range(0, self.threshold + 1, self.threshold // self.threshold_divisions)
                         for threshold in thresholds:
@@ -280,14 +279,6 @@ if __name__ == "__main__":
         default=False,
         action=argparse.BooleanOptionalAction,
         help="Use insertion test feature"
-    )
-    parser.add_argument(
-        "-b",
-        "--basemax",
-        type=integer_range(1,64),
-        nargs="?",
-        default=None,
-        help="Perform testing of lists of all sizes up to and including 2 to the power of the given basse (override -es)"
     )
     args = parser.parse_args()
     sorter = Sorter(vars(args))

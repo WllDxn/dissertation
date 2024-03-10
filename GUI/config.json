@@ -3,13 +3,7 @@
         {
             "pypydir": "/home/will/dissertation/pypy_versions",
             "methods": {
-                "always_insert": [],
                 "always_insert_update": [],
-                "disc_example": [],
-                "disc_example_2": [],
-                "disc_example_3": [],
-                "disc_example_4": [],
-                "disc_example_5": [],
                 "fewer_iters": [],
                 "final": [],
                 "finaltest": [],
@@ -53,25 +47,28 @@
                 "workingovf": []
             },
             "listlength": [
-                10000,
-                100000,
                 1000000
             ],
             "listcount": 100,
+<<<<<<< HEAD
             "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_1.json",
+=======
+            "outputFilePath": "/home/will/dissertation/sort_times/final_5.json",
+>>>>>>> new-graph-method
             "insertion": false,
+            "basemax": "64",
             "data_types": {
-                "Few Unique": true,
-                "Sorted": true,
-                "Reverse Sorted": true,
-                "Nearly Sorted": true,
+                "Few Unique": false,
+                "Sorted": false,
+                "Reverse Sorted": false,
+                "Nearly Sorted": false,
                 "Random": true
             },
             "data_sizes": {
-                "large": true,
-                "med": true,
-                "small": true,
-                "tiny": true
+                "large": false,
+                "med": false,
+                "small": false,
+                "tiny": false
             }
         }
     ]
