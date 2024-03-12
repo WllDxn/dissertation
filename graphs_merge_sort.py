@@ -24,12 +24,15 @@ def get_data(fname):
     df = df.drop(['files', 'read', 'key'], axis=1, errors='ignore')
     df = df.melt(id_vars=['data_type', 'data_size', 'cols', 'rows'], var_name='method', value_name='times')
     df['implementation'] = df['method'].str.extract(r'([^\_]+$)')
+    df['implementation'] = df['implementation'].str.replace("workingfinalnosort", "nosort", regex=False)
+    df['implementation'] = df['implementation'].str.replace("workingfinal", "sort", regex=False)
     df[['method', 'base']] = df['method'].str.extract(r'(\D+)(\d+)')
     df["method"] = df["method"].str.replace("times.", "", regex=False) + df['implementation']
     # df['method'] += 'nosort' if ('nosort') in fname else 'sort'
-    df.drop(df[np.logical_not(df.base.str.fullmatch('6'))].index, inplace=True)
+    # df.drop(df[np.logical_not(df.base.str.fullmatch('6'))].index, inplace=True)
     df.drop(df[np.logical_not(df.method.str.contains('msd'))].index, inplace=True)
     df = df.dropna()
+    print(df)
     return df
 
 
@@ -105,7 +108,10 @@ def g(df, fname):
 
 if __name__ == '__main__':
     data=[]
-    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_3.json')))
+    data.append(get_data(('/home/will/dissertation/sort_times/sort_comparison.json')))
+    data[0].drop(data[0][np.logical_and(True, data[0].method.str.contains('_sort'))].index, inplace=True)
+    print('---')
+    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_1.json')))
     # data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_0.json')))
     # data.append(get_data(('/home/will/dissertation/sort_times/insertion_evident_0.json')))
     # for i in [12]:
@@ -113,7 +119,7 @@ if __name__ == '__main__':
     #     data.append(get_data(fname))
     gdata = pd.concat(data)
     print(gdata)
-    g(gdata, 'workingfinal_workingfinalnosort_3')
+    g(gdata, 'workingfinal_111')
     # get_data(Path('/home/will/dissertation/sort_times/fewer_iters_insertion_evident_timsort_11.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/fewer_iters_insertion_evident_timsort_11.json'))
     # for i in range(3,4):

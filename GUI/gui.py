@@ -291,7 +291,6 @@ class SortingHelperGUI:
     def save_config_and_queue(self):
         self.get_output(force=True)
         self.saveQueue()
-        print(self.q.basemax)
 
     def start_sorting(self):
         if self.window["output_filename"].get() == "":
@@ -421,7 +420,7 @@ class SortingHelperGUI:
     def get_checkboxes(self):
 
         self.q[0].insertion = self.window["insertion"].get()
-        self.q[0].basemax = self.window["basemaxval"].get()
+        self.q[0].basemax = self.window["basemaxval"].get() if self.window["basemax"].get() else -1
         for cb in list(self.q.data_types.keys()):
             self.q.data_types[cb] = self.window[cb].get()
         for cb in list(self.q.data_sizes.keys()):

@@ -730,27 +730,8 @@ Identifying sorted lists is not computationally expensive, it involves iterating
 \par
 An extension of this idea is to perform this order checking every time the input list is rearranged (once for each digit). Unlike the initial order checking which has a minor footprint on the run time of the algorithm, checking order on each digit has a moderately significant impact, therefore it should only be implemented on the conditions that it reasonably likely that sorted lists will occur and that when the test does identify a sorted list the time saved from early termination of the algorithm is greater than the time added by performing the test. 
 \par
-Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts can benefit from order checking performed on sublists which trigger positive ordered tests frequently and early termination of the sorting of these sublists improved performance {\color{red} Reference testing that proves this}. In contrast, LSD sorts rarely trigger positive results with the frequency of these events dropping to 0 when negative integers are included. The lack of occurences of sorted lists in this circumstance is likely because the least significant digits have weaker influence on the size of integers meaning aside from random events and specific circumstances the input list is simply less likely to become sorted earlier than expected; the inclusion of negatives procludes the possibility of a list being sorted because of the leading sign bits causing negatives (and particularly negatives closer to 0) to be sorted as though they are the largest integers i.e. in the wrong order. 
-\par
-\begin{table}[H]
-	\centering
-	\begin{lstlisting}
-        def is_sorted(self, start=0, end=-1):
-            end = end if end > -1 else self.listlength
-            assert start >= 0; assert end >= 0
-            sortd, rsortd = True, True
-            for i, el in enumerate(self.list[start + 1 : end]):
-                if el < self.list[start + i]:
-                    sortd = False
-                    if rsortd == False: return sortd, rsortd
-                if el > self.list[start + i]:
-                    rsortd = False
-                    if sortd == False: return sortd, rsortd
-            return sortd, rsortd
-	\end{lstlisting}
-	\caption*{Checking whether a slice of the list is ordered or reverse ordered \\after integer sorting has been applied to each digit}
-\end{table}
-\par
+Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts sometimes create sorted sublists but rarely see runtime benefits and LSD radix rarely does, and never does if any negative integers are introduced. Due to the highly sporatic nature of benefits being seen in MSD and complete lack of benefits to LSD, this type of order checking was not included.
+
 
 \pagebreak
 \subsubsection{Skipping iterations}
@@ -1268,8 +1249,10 @@ The data provided by this tool was, however, very useful at identifying the corr
 		}}
 		\caption*{line\textunderscore profiler output of LSD Counting sort}
 	\end{table}
-\subsubsection{Test parameters}
-In order to properly asses the efficacy of a solution, it must be tested in a range of environments
+
+
+\subsubsection{Test criteria}
+Testing the efficacy of the solutions for this project involved measuring performance across a number of different variables. Radix sort 
 {\color{red} Talk aobut how testing was only a secondary evaluation method to using minimizing time complexity due to the difference in machines}
 \pagebreak
 \printbibliography

@@ -10,7 +10,7 @@ def get_all_methods():
 
 for method in get_all_methods()[pypy_version]:
     b = re.findall(r'\d+', method)[0]
-    if '_6' not  in method:continue
+    # if '_6' not  in method:continue
     p = f"/home/will/dissertation/pypy_versions/{method}_{pypy_version}/bin/pypy correctnesstest.py {b}"
     print(p)
     subprocess.run(p, shell=True,  cwd="/home/will/dissertation/minor_files")

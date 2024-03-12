@@ -36,16 +36,16 @@
 \contentsline {subsection}{\numberline {2.3}Optimizations}{21}{subsection.2.3}%
 \contentsline {subsubsection}{\numberline {2.3.1}Streamlining count lists}{21}{subsubsection.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.3.2}Order checking}{22}{subsubsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.3}Skipping iterations}{24}{subsubsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.4}Insertion sort}{25}{subsubsection.2.3.4}%
-\contentsline {subsection}{\numberline {2.4}Algorithms}{26}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}Shared Variables}{26}{subsubsection.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.4.2}LSD Counting sort}{27}{subsubsection.2.4.2}%
-\contentsline {subsubsection}{\numberline {2.4.3}LSD Pigeonhole sort}{29}{subsubsection.2.4.3}%
-\contentsline {subsubsection}{\numberline {2.4.4}MSD Counting sort}{30}{subsubsection.2.4.4}%
-\contentsline {subsubsection}{\numberline {2.4.5}MSD Pigeonhole sort}{32}{subsubsection.2.4.5}%
-\contentsline {section}{\numberline {3}Testing}{34}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Test Criteria}{34}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Using PyPy for testing}{34}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Profiling}{34}{subsubsection.3.1.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}Test parameters}{36}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {2.3.3}Skipping iterations}{23}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}Insertion sort}{24}{subsubsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.4}Algorithms}{25}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Shared Variables}{25}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}LSD Counting sort}{26}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}LSD Pigeonhole sort}{28}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}MSD Counting sort}{29}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}MSD Pigeonhole sort}{31}{subsubsection.2.4.5}%
+\contentsline {section}{\numberline {3}Testing}{33}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Test Criteria}{33}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Using PyPy for testing}{33}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Profiling}{33}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Test criteria}{35}{subsubsection.3.1.3}%
