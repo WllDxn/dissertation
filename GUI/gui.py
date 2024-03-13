@@ -493,10 +493,12 @@ class SortingHelperGUI:
         ].replace(",", "")
         
         internal_lengths = [int(x) for x in c.listlength]
-        if c.insertion:
-            self.iters += sum([((len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*max(l, 1000) for l in internal_lengths])
+        if c.insertion and c.basemax != -1:            
+            self.iters += sum([((int(c.basemax)))*max(l, 50) for l in internal_lengths])
+        elif c.insertion:
+            self.iters += sum([((len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*max(l, 50) for l in internal_lengths])
         elif c.basemax != -1:
-            self.iters += (len(internal_lengths) * (len(data_types)-len(types)))*int(c.basemax)
+            self.iters += (len(internal_lengths) * (len(data_types)-len(types)))*(int(c.basemax)//2)
         else:
             self.iters += (len(internal_lengths) * (len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*1
         # if self.q.insertion == True:

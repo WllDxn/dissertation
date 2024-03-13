@@ -122,8 +122,8 @@ class Sorter:
                 data.setdefault("radix_sort", [])
         
         def generate_items():
-            for list_length in self.max_list_length if not self.insert else list(range(max(1,(self.max_list_length[0]+1)//100), self.max_list_length[0]+1, max(1, (self.max_list_length[0]+1)//100))):
-                for data_size in self.datasizes if not self.basemax else list(range(0, self.basemax+1, 1)):
+            for list_length in self.max_list_length if not self.insert else list(range(max(1,(self.max_list_length[0]+1)//50), self.max_list_length[0]+1, max(1, (self.max_list_length[0]+1)//50))):
+                for data_size in self.datasizes if not self.basemax else list(range(0, self.basemax+1, 2)):
                     for data_type in self.datatypes:
                         thresholds = [None] if self.threshold is None else range(0, self.threshold + 1, self.threshold // self.threshold_divisions)
                         for threshold in thresholds:
@@ -172,7 +172,7 @@ class Sorter:
         self, tdelta, data_type, data_size, list_length, sortd, threshold=None
     ):
         name = "%s,%s" % (data_type, data_size)
-        ll = list(range(max(1,(self.max_list_length[0]+1)//100), self.max_list_length[0]+1, max(1,(self.max_list_length[0]+1)//100))) if self.insert else [self.max_list_length]
+        ll = list(range(max(1,(self.max_list_length[0]+1)//50), self.max_list_length[0]+1, max(1,(self.max_list_length[0]+1)//50))) if self.insert else [self.max_list_length]
         myp(
             "eval,%s,%f,%d,%s,%s"
             % (name, tdelta, list_length, str(sortd), (str(len(ll))))

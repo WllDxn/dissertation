@@ -49,18 +49,18 @@
                 ]
             },
             "listlength": [
-                100000
+                1000000
             ],
             "listcount": 10,
-            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_8.json",
-            "insertion": false,
+            "outputFilePath": "/home/will/dissertation/sort_times/all_multidimension.json",
+            "insertion": true,
             "basemax": "64",
             "data_types": {
-                "Few Unique": true,
+                "Few Unique": false,
                 "Sorted": false,
                 "Reverse Sorted": false,
                 "Nearly Sorted": false,
-                "Random": false
+                "Random": true
             },
             "data_sizes": {
                 "large": false,
