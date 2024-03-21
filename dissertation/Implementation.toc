@@ -47,5 +47,8 @@
 \contentsline {section}{\numberline {3}Testing}{33}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Test Criteria}{33}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}Using PyPy for testing}{33}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Profiling}{33}{subsubsection.3.1.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}Test criteria}{35}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.2}Methodology}{34}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Preliminary testing}{35}{subsubsection.3.1.3}%
+\contentsline {paragraph}{\numberline {3.1.3.1}Insertion sort threshold}{35}{paragraph.3.1.3.1}%
+\contentsline {paragraph}{\numberline {3.1.3.2}Profiling}{36}{paragraph.3.1.3.2}%
+\contentsline {subsubsection}{\numberline {3.1.4}Test criteria}{38}{subsubsection.3.1.4}%

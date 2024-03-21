@@ -152,46 +152,50 @@ class SortingHelperGUI:
 
     def setup_window(self):
         sg.theme("DarkAmber")
-        layout = [
-            [
-                self.create_listbox(
-                    "methods_var",
-                    self.q.methodNames,
-                    self.q.methodNames[0],
-                    "LISTBOX_SELECT_MODE_SINGLE",
-                ),
-                self.create_listbox(
-                    "method_imps",
-                    self.q.all_methods[self.q.methodNames[0]],
-                    self.q.methods[self.q.methodNames[0]],
-                    sg.LISTBOX_SELECT_MODE_MULTIPLE,
-                ),
-                self.create_listbox(
-                    "methods_selected",
-                    self.q.items(),
-                    [],
-                    sg.LISTBOX_SELECT_MODE_SINGLE,
-                ),
-            ],
-            [
-                self.create_column("Data Type:", self.q.data_types),
-                self.create_column("Data Size:", self.q.data_sizes),
-                sg.Column(self.create_input_labels(), expand_x=True ),
-                sg.Column(self.create_inputs(), expand_x=True),
-            ],
-            [
+        try:
+            layout = [
                 [
-                    sg.Button("Update Output", key="update_button"),
-                    sg.Button("Save", key="save_config"),
-                    sg.Button("Sort", key="start_sorting"),
-                    sg.Button("Queue", key="add_queue"),
-                    sg.Button("Clear Queue", key="clear_queue"),
-                    sg.Button("View Next", key="next_queue"),
-                    sg.Button("Delete item", key="del_queue"),
-                    sg.Text(str(len(self.q.queue)), key="queuelen"),
+                    self.create_listbox(
+                        "methods_var",
+                        self.q.methodNames,
+                        self.q.methodNames[0],
+                        "LISTBOX_SELECT_MODE_SINGLE",
+                    ),
+                    
+                    self.create_listbox(
+                        "method_imps",
+                        self.q.all_methods[self.q.methodNames[0]],
+                        self.q.methods[self.q.methodNames[0]],
+                        sg.LISTBOX_SELECT_MODE_MULTIPLE,
+                    ),
+                    self.create_listbox(
+                        "methods_selected",
+                        self.q.items(),
+                        [],
+                        sg.LISTBOX_SELECT_MODE_SINGLE,
+                    ),
                 ],
-            ],
-        ]
+                [
+                    self.create_column("Data Type:", self.q.data_types),
+                    self.create_column("Data Size:", self.q.data_sizes),
+                    sg.Column(self.create_input_labels(), expand_x=True ),
+                    sg.Column(self.create_inputs(), expand_x=True),
+                ],
+                [
+                    [
+                        sg.Button("Update Output", key="update_button"),
+                        sg.Button("Save", key="save_config"),
+                        sg.Button("Sort", key="start_sorting"),
+                        sg.Button("Queue", key="add_queue"),
+                        sg.Button("Clear Queue", key="clear_queue"),
+                        sg.Button("View Next", key="next_queue"),
+                        sg.Button("Delete item", key="del_queue"),
+                        sg.Text(str(len(self.q.queue)), key="queuelen"),
+                    ],
+                ],
+            ]
+        except:
+            print(self.q.methods)
         self.window = sg.Window("Sorting Helper", layout, location=(200, 200))
 
     def create_listbox(self, key, values, default_values, select_mode):

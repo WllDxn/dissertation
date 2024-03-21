@@ -17,6 +17,7 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{hhline}
+\usepackage{geometry}
 \hypersetup{
     colorlinks,
     linkcolor={red!50!black},
@@ -70,10 +71,11 @@
   }
 \hfuzz=5.002pt 
 \usepackage{url}
-
+\usepackage{subfigure}
 %%% --- The following two lines are what needs to be added --- %%%
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
+\graphicspath{ {./demographs/} {./insertion/}}
 \begin{document}
 {
   \hypersetup{linkcolor=black}
@@ -469,7 +471,7 @@ The secondary purpose of the function is to identify on the first pass over the 
       \end{lstlisting}
 \pagebreak
 \subsubsection{Function insertion\textunderscore sort}
-This is an implementation of insertion sort, it is used in MSD sorts when the length of a sublist falls below the critical value. This value was determined by testing as explored  {\color{red} reference testing}
+This is an implementation of insertion sort, it is used in MSD sorts when the length of a sublist falls below the critical value. This value was determined by testing demonstrated in \ref{sssec:insertiontesting}
 \begin{lstlisting}
         def insertion_sort(self, start, end):
             for step in xrange(start, end):
@@ -774,6 +776,7 @@ In pigeonhole sort a similar opportunity arises in the form of identifying wheth
 
 
 \subsubsection{Insertion sort}
+\label{sssec:insertionoptimization}
 Radix sort has a significant overhead cost due to the establishment of the count lists and the list of bins that must be instantiated or cleared on each digit, this cost has little to no relation to the length of the list and so it is oveten highly inefficient when compared to other algorithms to perform radix sort.
 \par
 This issue beomes exponentially worse when radix sort is implemented in MSD fashion due to the nature of establishing sub-lists and thus performing sorting on an ever increasing number of lists containing progressively fewer and fewer items (sorting $150000$ items in base $2^{16}$ can create over $65000$ lists with an average length of $2$ for which the count list must be established separately).
@@ -1053,9 +1056,7 @@ MSD Radix sort as outlined in \ref{sssec:msdradix} sort operates by using intege
 	The algorithm iterates over the digits starting at \textit{list\textunderscore max\textunderscore digit} down to 0, meaning the most to least significant. For each digit the sublist indexes are iterated over and for every pair of indexes, the integer sorting method counting sort is applied. When the count list is being accumulated, any items containing a count value greater than 1 indicates that a new sublist must be created, it's start index is calculated by taking the start index of the current sublist added to the previous entry in the accumulated count list i.e. the total number of items within the sublist that preceed the new sublist and the end index is the start index added to the total number of items with the current integer key i.e. the number of items within the new sublist.
 	\par The indexes of the new sublists are appended to \textit{list\textunderscore max\textunderscore digit}, meaning all of the sublist indexes for the next digit are calculated whilst a digit is being sorted and not that a sublist is sorted immediately after being identified as could be expected with a typical recursive implementation. At the end of the iteration over all \textit{sublist\textunderscore indexes} items, it is overwritten by \textit{list\textunderscore max\textunderscore digit} which is then overwritten as empty on the next iteration of the digits.
 	\par When a sublist does not require sorting, it's indexes are not included in the sublist index list, this occurs when \textit{slice\textunderscore sorted} returns positive for sorted or reverse sorted, when \textit{insertion\textunderscore sort} is used or when a sublist contains only 1 item and this just means these items will no longer be included in the sorting of any subsequent digits. A sublist that has all items sorted into the same integer key simply has it's start and end index added to \textit{temp\textunderscore sublist\textunderscore indexes} for sorting on the next digit.
-
-	\item[Sorted Sublists] \textit{slice\textunderscore sorted} is used to identify if sublists are sorted, which happens increasingly frequently on smaller sublists, this improves performance somewhat {\color{red}Reference}
-	\item[Insertion sort] The limit on line 15 is different for all bases and was identified using the method seen in {\color{red} Reference}
+	\item[Insertion sort] The limit on line 15 is different for all bases and was identified using the method seen in \ref{sssec:insertiontesting}
 \end{description}
 \begin{table}[H]
 	\lstset{
@@ -1077,11 +1078,6 @@ MSD Radix sort as outlined in \ref{sssec:msdradix} sort operates by using intege
 				temp_sublist_indexes = []
 				for start, end in sublist_indexes:
 					if start + 1 == end: continue
-					sublist_sorted, sublist_reverse_sorted = self.slice_sorted(start, end)
-					if sublist_sorted: continue
-					if sublist_reverse_sorted:
-						self.reverse_slice(start, end - 1)
-						continue
 					if (end - start) < (*\textit{\color{red}Limit}*):
 						self.insertion_sort(start, end)
 						continue
@@ -1115,13 +1111,13 @@ MSD Radix sort as outlined in \ref{sssec:msdradix} sort operates by using intege
 \caption*{MSD Counting sort}
 \end{table}
 
-
+\pagebreak
 \subsubsection{MSD Pigeonhole sort}
 Once again, the method of storing indexes of sublists and sorting within the index ranges is applied.
 \begin{description}
 	\item[Sublist Indexes] This works in largely the same way as MSD Counting sort, sublist indexes are iterated over and items in a sublist have the integer sorting method, pigeonhole sort applied to them wherein further sublist indexes are identified and added to \textit{temp\textunderscore sublist\textunderscore indexes} to be sorted on the next iteration over the digits.
 	\par To calculate the indexes when sorting a sublist, first a cumulative value is instantiated at 0 (\textit{index}, line 31). The buckets are then iterated over, non empty bucket is considered a sublist with the stating index equal to the start index of the current sublist added to \textit{index} with the same for the end index plus the list length of the bucket. The list length of the bucket is added to the cumulative value \textit{index} so that it contains the total quantity of items in all buckets iterated over thus far. This occurs during the loop that overwrites the input list with the buckets as well as clearing the bucket list so it contains only empty lists.
-	\item[Insertion sort] The threshold used for insertion sort is different for each base, and is different from those used for counting sort, see {\color{red} reference}.
+	\item[Insertion sort] The threshold used for insertion sort is different for each base, and is different from those used for counting sort, see \ref{sssec:insertiontesting}.
 	\item[Bucket List] To avoid repeated instantiation of \textit{bucket\textunderscore list}, it is created once at the same stage as the shared variables as a list of empty lists with a length equal to the radix. Instead of creating the bucket list again multiple times, each bucket is only overwritten with an empty bucket if it is accessed and identified as non empty, this saves on the number of read/write calls.
 \end{description}
 \begin{table}[H]
@@ -1144,11 +1140,6 @@ Once again, the method of storing indexes of sublists and sorting within the ind
 			temp_indexes = []
 			for start, end in sublist_indexes:
 				if start + 1 == end:continue
-				sublist_sorted, sublist_reverse_sorted = self.slice_sorted(					start, end )
-				if sublist_sorted: continue
-				if sublist_reverse_sorted:
-					self.reverse_slice(start, end - 1)
-					continue
 				if (end - start) < (*\textit{\color{red}Limit}*):
 					self.insertion_sort(start, end)
 					continue
@@ -1188,14 +1179,58 @@ When testing the algorithms designed for this project, it was necessary to desig
 Testing with this criteria in mind, and testing continuously throughout the development process, ensured that any solutions produced were applicable to the goals of the project and ventures into solutions that may work on other platforms such as Python 3 or even Python 2 but not on RPython were short lived. For example an early solution of this project utilised the inbuilt methods \textit{max()} and \textit{min()}, which are not available in RPython at a later stage the stark difference in RPython handling rightshifting by values greater than the machine word size as the value moldulo the machine word size whereas in all other versions of Python the full rightshift is performed, giving very diffent results to the helper method outlined in \ref{ssec:intdigits}.
 \par 
 PyPy source code includes the file \textit{rpython} used to compile and package PyPy, this file has the useful feature of allowing the compilation of a single file into an executable, which is helpful as compiling a single file takes less than 30 seconds wheras compiling a fully functioning version of PyPy can tak up to 20 minutes. This feature was regularly utilised during the development process to test the correctness of solutions but is not particularly useful when testing performance for a number of reasons. Firstly it woudld compromise the applicability of test data to the goals of the project, it is not a version of PyPy after all, merely an executable file compiled using the same tools. Beyond this another problem exists though, it is not possible to design the executable in such a way that it can either generate new data for sorting or read generated data from files in dynamic way. Whilst it is possible to use a library such as random to generate a random list, or to read from files to assemble a list, this must be performed outside of the code block run by RPython, it is instead run by the version of PyPy that is called to run the file \textit{rpython} and the variables it generates are stored within the executable, meaning the first random list generated is always stored and the values read from a file remain the same even if the file is edited.
-\subsubsection{Profiling}
+\pagebreak
+\subsubsection{Methodology}
+\label{sssec:methodology}
+Testing was performed by creating a python script to be run by a version of PyPy using the custom sort method to be evaluated. The testing process in the script is  to generate a list within the specified parameters, begin a timer, perform the sort function then stop the timer and record the time taken. The timer used was the \textit{time} library function \textit{perf\textunderscore counter}, which uses a system performance counter and when measuring an interval, as in the script, returns highly accurate results.
+\par  The decision to use \textit{perf\textunderscore counter} was made based on a reccomendation that is shown when using the \textit{timeit} module on PyPy, warning against the use of the module and instead presenting \textit{perf\textunderscore counter} as an alternative.
+\par
+The lists to be sorted are generated using various functions in the \textit{numpy} and \textit{random} libraries in the formats listed below and are generated to contain a specified quantity of items and contain values within a specified range.
+\par
+\begin{description}
+	\item[Nearly sorted] lists generate a sorted list then iterates over the items and  for each has a $10\%$ chance to swap it with an item in the next index.
+	\item[Few unique] generates a random list with a length $1/10^{th}$ of the target length then randomly populates a list of the target length with the preliminary list.
+	\item[Random] generates list of random integers of the target length
+\end{description} 
+Below is a demonstration of 50 items generated in these formats within the range $[0..50]$. For demonstration purposes the chance of items being swapped in nearly sorted has been increased.
+\begin{table}[h]
+	\makebox[\textwidth]{\includegraphics[width=1.2\textwidth]{demo}}
+	\caption*{A demonstration of a list generated in each format.\par Each bar represents an integer, the order of the bars left to right represents the order of the items in indexes $[0..49]$}
+\end{table}
+\pagebreak
+\subsubsection{Preliminary testing}
+\paragraph{Insertion sort threshold}
+\label{sssec:insertiontesting}
+MSD Radix sort uses insertion sort on sublists with a length below a certain threshold due to the overhead cost of repeatedly performing radix sort (see \ref{sssec:insertionoptimization}). Therefore, in order to implement insertion sort, testing was required to establish the optimal threshold to use.
+\par
+This testing involved creating two versions of pypy that use MSD Radix sort, one of which never uses insertion sort and another that always uses it, and then recording and comparing the time taken for the two implementations to sort randomized lists of increasing lengths starting at 0. 
+\par
+The goal of this test was to identify a critical list length for which insertion sort is faster than MSD Radix for lists with fewer items and slower for lists with more items, so that small sublists of larger lists can be sorted more efficiently.
+\par
+Two versions of PyPy were created for each base and integer sorting method, one of which used a threshold of $0$ to ensure insertion sort was never used. The other version replaced the threshold check with a test of whether the length was greater than 0 which always returns true and triggers insertion sort, this was done instead of replacing the entire radix sort method with insertion sort as all the code executed prior to sorting (whether that be insertion or radix) is identical and therefore the results can be used to make a valid comparison of the two sorting methods being applied to a sublist.
+\par
+The testing results are shown in Figure \ref{fig:msdinsert}, Full results can be seen in appendix {\color{red} Ref}. Each point represents the average of 100 sample of the time to sort a list of a given length, also shown are the polynomial regression lines modelled using the method of least squares with the intersect labelled in red which is then taken as a generally acceptable threshold to use.
+\begin{table}[h]
+	\begin{minipage}{\textwidth}
+		\centering
+		\raisebox{-0.5\height}{\includegraphics[width=.75\textwidth]{msd_c_10.png}}
+		\raisebox{-0.5\height}{\includegraphics[width=.15\textwidth]{insertionLegend.png}}
+		
+		\captionof{figure}{Time comparison for insertion sort and radix sort using counting sort, base $2^{10}$}
+		\label{fig:msdinsert}
+	\end{minipage}
+	
+\end{table}
+\pagebreak
+
+\paragraph{Profiling}
 A tool utilised to test the performance of solutions was a line profiler for Python, in this project the open source utility line\textunderscore profiler \cite{lineprof} was used. This tool runs a python script and returns information about executed code within a function, namely the execution time of each line per call, the number of calls of each line, the total number of times a line was called and the time taken by calling the line as a percentage of the total execution time of the script.
 \par 
 It is important to note that this tool runs using Python, not PyPy and also that as theis project demands a compiled piece of code written in RPython the results regarding time taken must not be taken as too strongly indicative of the performance of a solution. It was also necessary to make minor changes to the code such as replacing \textit{xrange} with the equivalent \textit{range} and \textit{sys.maxint} with \textit{sys.maxsize}.
 \par 
 The data provided by this tool was, however, very useful at identifying the correctness of solutions as the number of calls to a particular line would be identical whether run using line\textunderscore profiler or with a compiled version of PyPy, provided the input list is identical. Using this information allowed me to ensure that the code was efficient and that unnecessary iterations over the input list were not made. As an example this tool allowed me to identify that pigeonhole sort was incorrectly performing an additional iteration by showing that all lists made up of positive integers triggered the condition of a single bucket containing all items.
 \par
-
+Initially one of the aims of testing was to complete a profile of the memory usage of the sort methods, however this was deemed to not be feasible as memory profiling in PyPy is highly inaccurate, and the function \textit{sys.getsizeof} is not included in PyPy causing an error for most memory profilers. According to the documentation, the reason for this is due to optimizations performed by the PyPy compiler that cause the size of most objects to be reported incorrectly, meaning any value returned by \textit{sys.getsizeof} would be meaningless {\color{red} Reference?}.
 \begin{table}[H]
 	\centering
 	\makebox[\linewidth][]{
@@ -1249,11 +1284,64 @@ The data provided by this tool was, however, very useful at identifying the corr
 		}}
 		\caption*{line\textunderscore profiler output of LSD Counting sort}
 	\end{table}
+	
+	\pagebreak
+	\subsubsection{Test criteria}
+	The purpose of the testing was primarily to compare the efficacy of the solution in this project to Timsort and verify whether the project goal of producing a more optimal sort method had been achieved. Secondary goals of the tests were to identify which of the 4 solutions and which base was the best as well as apply the algorithms to a variety of lists to identify the situations in which the algorithms were strong or weak relative to one another and to Timsort.
+	\par
+	The three formats identified in \ref{sssec:methodology} were therefore selected to provide an adequate comparison to Timsort, the sort method used in \textit{listsort.py}, which is optimized for sorting lists with already sorted subsections as well as testing performance on multiple types of data that may be seen in real world use of a sort method. Each format was tested using lists of three lengths, $10$,$000$, $100$,$000$ and $1$,$000$,$000$ and within the ranges $[-2^{n}$ $..$ $2^{n}-1]$ where $n$ is $16$, $20$, $32$ and $63$.
+	\par
+	 Testing the various list lengths shows the algorithms' applicability to real world situations and the different ranges are tested to compare the effect of changing the base used for radix sorting. With a larger range, more rounds of integer sorting are needed, and therefore the difference in results of these tests can be used to identify the optimal base to use. {\color{blue} I'm really not happy with how this bit is worded}
+	\par
+
+	\pagebreak
+	
+	\begin{table}[]
+		\begin{center}		
+		\caption*{Insertion sort tests for msd radix counting sort \hspace{.5cm}\includegraphics[width=.1\linewidth]{insertionLegend.png}}
+		\makebox[\linewidth][]{
+			\begin{minipage}[t]{.55\linewidth}
+				\includegraphics[width=\linewidth]{msd_c_2.png}
+			\end{minipage}%
+			\hspace{0.5cm}
+			\begin{minipage}[t]{.55\linewidth}
+				\includegraphics[width=\linewidth]{msd_c_4.png}
+			\end{minipage}
+			}\\
+		\makebox[\linewidth][]{
+			\begin{minipage}[t]{.55\linewidth}
+				\includegraphics[width=\linewidth]{msd_c_6.png}
+			\end{minipage}%
+			\hspace{0.5cm}
+			\begin{minipage}[t]{.55\linewidth}
+				\includegraphics[width=\linewidth]{msd_c_8.png}
+			\end{minipage}
+			}\\
+		\makebox[\linewidth][]{
+			\begin{minipage}[t]{.55\linewidth}
+				\includegraphics[width=\linewidth]{msd_c_10.png}
+			\end{minipage}%
+			\hspace{0.5cm}
+			\begin{minipage}[t]{.55\linewidth}
+				\includegraphics[width=\linewidth]{msd_c_12.png}
+			\end{minipage}
+			}\\
+		\makebox[\linewidth][]{
+			\begin{minipage}[t]{.55\linewidth}
+				\includegraphics[width=\linewidth]{msd_c_14.png}
+			\end{minipage}%
+			\hspace{0.5cm}
+			\begin{minipage}[t]{.55\linewidth}
+				\includegraphics[width=\linewidth]{msd_c_16.png}
+			\end{minipage}
+			}
+		\end{center}
+\end{table}
 
 
-\subsubsection{Test criteria}
-Testing the efficacy of the solutions for this project involved measuring performance across a number of different variables. Radix sort 
-{\color{red} Talk aobut how testing was only a secondary evaluation method to using minimizing time complexity due to the difference in machines}
+	
+
+
 \pagebreak
 \printbibliography
 \end{document}

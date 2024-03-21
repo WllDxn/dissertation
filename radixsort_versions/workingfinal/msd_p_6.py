@@ -139,7 +139,7 @@ def make_radixsort_class(
                     if sublist_reverse_sorted:
                         self.reverse_slice(start, end - 1)
                         continue
-                    if (end - start) < 300:
+                    if (end - start) < 248:
                         self.insertion_sort(start, end)
                         continue
                     for i in xrange(start, end):

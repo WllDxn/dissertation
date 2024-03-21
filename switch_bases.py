@@ -8,8 +8,8 @@ rg = re.compile(r"[_/.]")
 
 def base_switch(version, use_cutoff=True):
     filenames = get_files(os.path.join(radixsort_location, version, "originals"))
-    cutoffs_c = [str(x) for x in [10, 22, 22, 40, 112, 275, 550, 1240]]
-    cutoffs_p = [str(x) for x in [500, 350, 300, 300, 300, 450, 700, 1750]]
+    cutoffs_c = [str(x) for x in [200, 30, 14, 52, 115, 285, 569, 1237]]
+    cutoffs_p = [str(x) for x in [437, 313, 248, 214, 249, 361, 682, 1647]]
     # if use_thresh:
     # cutoffs = ["self.threshold" for _ in cutoffs]
 
