@@ -15,6 +15,7 @@ def reject_outliers(df, m=2):
     return df[s < m]
 
 def do_graph(reject_outliers, fname):
+    # plt.rcParams["axes.axisbelow"] = False
     dsize = ['lrg', 'med', 'sml']
     dsidsint = [1000000, 100000, 10000]
     sizes = {'large': 9223372036854775807, 'med': 4294967296, 'small': 1048576, 'tiny': 65536}
@@ -36,17 +37,20 @@ def do_graph(reject_outliers, fname):
             df2["method"] = df2["method"].str.replace("times.", "", regex=False).str[:-1]
             df2 = df2.dropna()
             sgb = df2.groupby(['data_size'])
-            fig = plt.figure(figsize=((15*sgb.ngroups)+5, 15), constrained_layout=True)
+            fig = plt.figure(figsize=((15*sgb.ngroups)+10, 15), constrained_layout=True)
+            # pads = fig.get_constrained_layout_pads()
             rows = g.rows.values[0]
-            fig.suptitle(f'List length: {dsid}\nList count: {rows}\nData type: {group}', fontsize='x-large')
+            fig.suptitle(f'List length: {dsid:,}\nList count: {rows:,}\nData type: {group[0]}', fontsize='x-large')
 
-            subfigs = fig.subfigures(1, sgb.ngroups, hspace=20)
+            subfigs = fig.subfigures(1, sgb.ngroups, wspace=0)
             subfigs = subfigs.flatten() if sgb.ngroups > 1 else [subfigs]
+
             for subgroup, subfig in zip(sgb.groups, subfigs):
                 df3 = sgb.get_group(subgroup)
-                subfig.suptitle(f'Limit: {subgroup} - {sizes[str(subgroup)]}')
+                subfig.suptitle(f'Limit: {sizes[str(subgroup)]:,}')
                 methodgroups = df3.groupby(['method'])
-                axes = subfig.subplots(nrows=1, ncols=methodgroups.ngroups, sharey=True, width_ratios=methodgroups.size())
+                axes = subfig.subplots(nrows=1, ncols=methodgroups.ngroups, sharey=True, width_ratios=methodgroups.size()+0.1)
+                subfig.get_layout_engine().set(w_pad=0, h_pad=0, hspace=0, wspace=0)
                 for idx, (key, ax) in enumerate(zip(methodgroups.groups.keys(), np.ravel([axes]))):
                     # if 'p' in key:continue
                     # print(key)
@@ -60,7 +64,10 @@ def do_graph(reject_outliers, fname):
                     if 'timsort' not in key:
                         ax.set_xlabel(key)
                     else:
-                        ax.set_xlabel('timsort')                        
+                        for subax in subfig.axes:
+                            subax.axhline(y=np.mean(mdf['times'].tolist()[0]), xmin=0, xmax=1, color='C8')
+                        ax.set_xlabel('tim', zorder=100)   
+                        # ax.get_xlabel().set_zorder(1000)                     
                         ax.tick_params(axis='x', colors='white')  
                                       
                     if key == list(methodgroups.groups.keys())[0]:
@@ -75,13 +82,14 @@ def do_graph(reject_outliers, fname):
             os.makedirs(graphdir, exist_ok = True)
             graphdir.mkdir(parents=True, exist_ok=True)
             gname = str(group).replace(' ', '_').strip('(,)\'')
-            filename = f"{ds}_{gname}.jpg"
-            plt.savefig(graphdir / filename)
+            filename = f"{ds}_{gname}.png"
+            fig.set_constrained_layout_pads(w_pad=0, h_pad=0, hspace=0, wspace=0)
+            plt.savefig(graphdir / filename, bbox_inches='tight')
             print(graphdir / filename)
             plt.close()
 
 if __name__ == '__main__':
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_workingfinalnosort_0.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/production_0.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_0.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_0.json'))
     # for i in range(3,4):

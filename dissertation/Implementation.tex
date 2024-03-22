@@ -705,8 +705,6 @@ In terms of implementation, an initial pass over the data counts the occurance o
 
 	\subsubsection{Order checking}
 	\label{sssec:order}
-	{\color{red} This needs testing further, it might be incorrect}
-	\par
 Radix sort has no advantage when called on already sorted lists compared to unsorted due to the non-comparative nature of the algorithm. Simple comparative algorithms such as bubble sort will out perform radix sort when called on sorted lists and as Timsort is highly efficient at sorting them there is substantial motivation for improvements to be made with regards to handling sorted data.
 \par
 Identifying sorted lists is not computationally expensive, it involves iterating over and comparing the list items in order and ensuring that each value is larger or equal to the previous value, essentially only involving $n\minus1$ comparisons where $n$ is the input list length giving a time complexity of $\mathcal{O}(n)$. As this algorithm already involves iterating over the data, the run time cost of adding a comparison function to check for sortedness is extremely low, thus a check to identify whether a list is sorted as well as whether a list is reverse sorted is included in the first iteration over the data, which is the point at which the absolute maximum value of the list is identified (a necessary step for this algorithm).
@@ -730,9 +728,9 @@ Identifying sorted lists is not computationally expensive, it involves iterating
 	\caption*{Checking whether the list is ordered or reverse ordered whilst\\ iterating over the list to identify the absolute maximum value}
 \end{table}
 \par
-An extension of this idea is to perform this order checking every time the input list is rearranged (once for each digit). Unlike the initial order checking which has a minor footprint on the run time of the algorithm, checking order on each digit has a moderately significant impact, therefore it should only be implemented on the conditions that it reasonably likely that sorted lists will occur and that when the test does identify a sorted list the time saved from early termination of the algorithm is greater than the time added by performing the test. 
+An extension of this idea is to perform this order checking every time the input list is rearranged (once for each digit). Unlike the initial order checking which has a minor footprint on the run time of the algorithm, checking order on each digit has a moderately significant impact, therefore it should only be implemented on the conditions that it reasonably likely that sorted lists will occur and that when the test does identify a sorted list the time saved from early termination of the algorithm is greater than the time added by performing the test. This type of optimization is not suitable for use in LSD sorts as the chance of the entire list being sorted by a single digit is extremely low.
 \par
-Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts sometimes create sorted sublists but rarely see runtime benefits and LSD radix rarely does, and never does if any negative integers are introduced. Due to the highly sporatic nature of benefits being seen in MSD and complete lack of benefits to LSD, this type of order checking was not included.
+Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts do sometimes create sorted sublists but skipping these sublists rarely results in a lower runtime as the cost of checking every list is too great. Due to the highly sporatic nature of benefits being seen, this type of order checking was not included.
 
 
 \pagebreak
@@ -1231,6 +1229,30 @@ It is important to note that this tool runs using Python, not PyPy and also that
 The data provided by this tool was, however, very useful at identifying the correctness of solutions as the number of calls to a particular line would be identical whether run using line\textunderscore profiler or with a compiled version of PyPy, provided the input list is identical. Using this information allowed me to ensure that the code was efficient and that unnecessary iterations over the input list were not made. As an example this tool allowed me to identify that pigeonhole sort was incorrectly performing an additional iteration by showing that all lists made up of positive integers triggered the condition of a single bucket containing all items.
 \par
 Initially one of the aims of testing was to complete a profile of the memory usage of the sort methods, however this was deemed to not be feasible as memory profiling in PyPy is highly inaccurate, and the function \textit{sys.getsizeof} is not included in PyPy causing an error for most memory profilers. According to the documentation, the reason for this is due to optimizations performed by the PyPy compiler that cause the size of most objects to be reported incorrectly, meaning any value returned by \textit{sys.getsizeof} would be meaningless {\color{red} Reference?}.
+\pagebreak
+\paragraph{Order checking}
+As an extension of the sort check made at the start of each call to radix sort, it is possible to repeatedly check sublists for being sorted or reverse sorted in MSD sort and then mark these sublists as sorted to reduce further iterations of integer sorting being applied. Doing reduces runtime by reducing the amount of integer sorting required but increases runtime due to the time required to perform the order checks, this is further explained in \ref{sssec:order}.
+\par
+The function used to identify whether a list is sorted is shown below, and operates by iterating over an input list to identify whether every item is larger than or equal to the item at the previous index and then returns the booleans identifying whether the list is sorted or reverse sorted. The function also returns early if it is determined the list is neither sorted or rever sorted without iterating over every list item. 
+\begin{lstlisting}	
+	def slice_sorted(self, start=0, end=-1):
+		end = end if end > -1 else self.list_length
+		assert start >= 0
+		assert end >= 0
+		sublist_sorted, sublist_reverse_sorted = True, True
+		for i, el in enumerate(self.list[start + 1 : end]):
+			if el < self.list[start + i]:
+				sublist_sorted = False
+				if sublist_reverse_sorted == False:
+					return sublist_sorted, sublist_reverse_sorted
+			if el > self.list[start + i]:
+				sublist_reverse_sorted = False
+				if sublist_sorted == False:
+					return sublist_sorted, sublist_reverse_sorted
+		return sublist_sorted, sublist_reverse_sorted
+\end{lstlisting}
+\par
+To evaluate the effectiveness of order checking, two versions of PyPy were compiled, one with the above function being used on every sublist and one without.{\color{red}These versions of PyPy were then tested on lists of $1$,$000$,$000$ integers within the largest possible range in the data formats of random and nearly sorted. A full test of all possible data types was not completed as the preliminary results showed a lack of benefits.}
 \begin{table}[H]
 	\centering
 	\makebox[\linewidth][]{
@@ -1284,7 +1306,6 @@ Initially one of the aims of testing was to complete a profile of the memory usa
 		}}
 		\caption*{line\textunderscore profiler output of LSD Counting sort}
 	\end{table}
-	
 	\pagebreak
 	\subsubsection{Test criteria}
 	The purpose of the testing was primarily to compare the efficacy of the solution in this project to Timsort and verify whether the project goal of producing a more optimal sort method had been achieved. Secondary goals of the tests were to identify which of the 4 solutions and which base was the best as well as apply the algorithms to a variety of lists to identify the situations in which the algorithms were strong or weak relative to one another and to Timsort.
