@@ -11,25 +11,24 @@
                 "insertion_set": [],
                 "insertion_tests_3": [],
                 "never_insert_update": [],
-                "prod_withsorted": [
-                    "msd_c_2",
-                    "msd_c_4",
-                    "msd_c_6",
-                    "msd_c_8",
-                    "msd_c_10",
-                    "msd_c_12",
-                    "msd_c_14",
-                    "msd_c_16",
-                    "msd_p_2",
-                    "msd_p_4",
-                    "msd_p_6",
-                    "msd_p_8",
-                    "msd_p_10",
-                    "msd_p_12",
-                    "msd_p_14",
-                    "msd_p_16"
-                ],
+                "only_insert": [],
                 "production": [
+                    "lsd_c_2",
+                    "lsd_c_4",
+                    "lsd_c_6",
+                    "lsd_c_8",
+                    "lsd_c_10",
+                    "lsd_c_12",
+                    "lsd_c_14",
+                    "lsd_c_16",
+                    "lsd_p_2",
+                    "lsd_p_4",
+                    "lsd_p_6",
+                    "lsd_p_8",
+                    "lsd_p_10",
+                    "lsd_p_12",
+                    "lsd_p_14",
+                    "lsd_p_16",
                     "msd_c_2",
                     "msd_c_4",
                     "msd_c_6",
@@ -47,29 +46,36 @@
                     "msd_p_14",
                     "msd_p_16"
                 ],
-                "thresh_insert_update": [],
-                "threshold_insert": [],
-                "workingfinal": []
+                "switchbase": [],
+                "working": [],
+                "workingfinal": [],
+                "workingfinal_alwaysinsert": [],
+                "workingfinal_neverinsert": [],
+                "workingfinalmasked": [],
+                "workingfinalnosort": [],
+                "workingovf": []
             },
             "listlength": [
+                10000,
+                100000,
                 1000000
             ],
             "listcount": 100,
-            "outputFilePath": "/home/will/dissertation/sort_times/prod_withsorted_production_1.json",
+            "outputFilePath": "/home/will/dissertation/sort_times/production_0.json",
             "insertion": false,
             "basemax": -1,
             "data_types": {
                 "Few Unique": true,
-                "Sorted": false,
-                "Reverse Sorted": false,
+                "Sorted": true,
+                "Reverse Sorted": true,
                 "Nearly Sorted": true,
                 "Random": true
             },
             "data_sizes": {
                 "large": true,
-                "med": false,
+                "med": true,
                 "small": true,
-                "tiny": false
+                "tiny": true
             }
         }
     ]
