@@ -55,11 +55,11 @@
                 1000000
             ],
             "listcount": 100,
-            "outputFilePath": "/home/will/dissertation/sort_times/prod_withsorted_production_0.json",
+            "outputFilePath": "/home/will/dissertation/sort_times/prod_withsorted_production_1.json",
             "insertion": false,
             "basemax": -1,
             "data_types": {
-                "Few Unique": false,
+                "Few Unique": true,
                 "Sorted": false,
                 "Reverse Sorted": false,
                 "Nearly Sorted": true,
@@ -68,7 +68,7 @@
             "data_sizes": {
                 "large": true,
                 "med": false,
-                "small": false,
+                "small": true,
                 "tiny": false
             }
         }
