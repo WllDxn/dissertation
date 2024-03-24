@@ -115,8 +115,8 @@ def g2(df, fname):
                 # sns.set_style("darkgrid", {'xtick.bottom': True, 'ytick.left': True})            
                 order = list(bg.loc[max(bg['cols'])==bg['cols']].sort_values(by=['meantimes'], ascending=False)['methodbase'])
                 # sns.relplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, kind='line',estimator='mean', errorbar="sd")
-                bg =  bg.loc[bg['cols'].astype(int) >= 83000]
-                bg =  bg.loc[bg['cols'].astype(int) <= 83400]
+                # bg =  bg.loc[bg['cols'].astype(int) >= 83000]
+                # bg =  bg.loc[bg['cols'].astype(int) <= 83400]
                 # print(bg)
                 # exit()
                 bg = bg.explode('times')
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     # gdata = pd.concat(data)
     # g_size(gdata, 'sort_comparison')
     
-    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_17.json')))
+    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_19.json')))
     gdata = pd.concat(data)
     print(gdata)
-    g2(gdata, 'lengthgraphs4')
+    g2(gdata, 'lengthgraphs6')

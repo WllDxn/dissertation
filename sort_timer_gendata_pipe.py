@@ -150,8 +150,8 @@ class Sorter:
         itemcount = sum(1 for _ in generate_items())
         sortcount = 0
         for list_length, data_size, data_type, threshold, shuffle, count in items:
-            if list_length<83000 or list_length>83400:
-                continue
+            # if list_length<83000 or list_length>83400:
+            #     continue
             # print('shuff', list_length, data_size, data_type, threshold, shuffle, count, len(items))            
             self.print_sortmethod_count(data_size, data_type, count, itemcount)
             # curr_list = list(randlists[count])
