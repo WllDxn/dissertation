@@ -23,49 +23,16 @@
                 "insertonly": [],
                 "isolate_byte": [],
                 "isolate_byte_nodisc": [],
-                "n_0_timsort": [
-                    "timsort"
-                ],
+                "n_0_timsort": [],
                 "never_insert": [],
                 "never_insert_update": [],
                 "only_insert": [],
-                "production": [
-                    "lsd_c_2",
-                    "lsd_c_4",
-                    "lsd_c_6",
-                    "lsd_c_8",
-                    "lsd_c_10",
-                    "lsd_c_12",
-                    "lsd_c_14",
-                    "lsd_c_16",
-                    "lsd_p_2",
-                    "lsd_p_4",
-                    "lsd_p_6",
-                    "lsd_p_8",
-                    "lsd_p_10",
-                    "lsd_p_12",
-                    "lsd_p_14",
-                    "lsd_p_16",
-                    "msd_c_2",
-                    "msd_c_4",
-                    "msd_c_6",
-                    "msd_c_8",
-                    "msd_c_10",
-                    "msd_c_12",
-                    "msd_c_14",
-                    "msd_c_16",
-                    "msd_p_2",
-                    "msd_p_4",
-                    "msd_p_6",
-                    "msd_p_8",
-                    "msd_p_10",
-                    "msd_p_12",
-                    "msd_p_14",
-                    "msd_p_16"
-                ],
+                "production": [],
                 "switchbase": [],
                 "working": [],
-                "workingfinal": [],
+                "workingfinal": [
+                    "lsd_c_8"
+                ],
                 "workingfinal_alwaysinsert": [],
                 "workingfinal_neverinsert": [],
                 "workingfinalmasked": [],
@@ -73,26 +40,25 @@
                 "workingovf": []
             },
             "listlength": [
-                10000,
-                100000,
-                1000000
+                100000
             ],
             "listcount": 100,
-            "outputFilePath": "/home/will/dissertation/sort_times/production_0.json",
-            "insertion": false,
+            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_17.json",
+            "insertion": true,
             "basemax": -1,
+            "shuffle": -1,
             "data_types": {
-                "Few Unique": true,
-                "Sorted": true,
-                "Reverse Sorted": true,
-                "Nearly Sorted": true,
+                "Few Unique": false,
+                "Sorted": false,
+                "Reverse Sorted": false,
+                "Nearly Sorted": false,
                 "Random": true
             },
             "data_sizes": {
                 "large": true,
-                "med": true,
-                "small": true,
-                "tiny": true
+                "med": false,
+                "small": false,
+                "tiny": false
             }
         }
     ]

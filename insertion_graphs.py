@@ -87,7 +87,7 @@ def graph(nn=0, threshold=False):
     
     # dfm = get_data('workingfinal_alwaysinsert_workingfinal_neverinsert_4.jsonworkingrinsert_0.json', threshold)
     
-    dfm = get_data(f'workingfinal_alwaysinsert_workingfinal_neverinsert_{nn}.json', threshold)
+    dfm = get_data(f'workingfinal_13.json', threshold)
     # print(dfm)
     dfm.sort_values(by=['method'], inplace=True)
     dfm.sort_index(inplace=True)
@@ -193,7 +193,7 @@ def graph(nn=0, threshold=False):
         # ax.legend.set_draggable(True)
         plt.grid()
         if group in [f'msd_{x}_{t}' for t in range(2,18,2) for x in ['p', 'c']]:
-            plt.savefig(f'dissertation/insertion/{group}.png', dpi=300,bbox_inches='tight')
+            plt.savefig(f'graphs/lengthgraphs/{group}.png', dpi=300,bbox_inches='tight')
             print(f'{group}.png')
         plt.close()
     print('-'*32)
@@ -212,13 +212,14 @@ def graph(nn=0, threshold=False):
 
 if __name__=="__main__":
     # graph('never_insert_0.json')
-    for i in range(11,12):
-        if i==3 or i==7 or i==5 or i==10 :continue
-        try:
-            graph(i)
-            break
-        except Exception as e:
-            print(e)
-            pass
+    graph()
+    # for i in range(11,12):
+    #     if i==3 or i==7 or i==5 or i==10 :continue
+    #     try:
+    #         graph(i)
+    #         break
+    #     except Exception as e:
+    #         print(e)
+    #         pass
         
     

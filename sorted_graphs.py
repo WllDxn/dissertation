@@ -42,7 +42,7 @@ def do_graph(reject_outliers, fname):
             rows = g.rows.values[0]
             fig.suptitle(f'List length: {dsid:,}\nList count: {rows:,}\nData type: {group[0]}', fontsize='x-large')
 
-            subfigs = fig.subfigures(1, sgb.ngroups, wspace=200)
+            subfigs = fig.subfigures(1, sgb.ngroups)
             subfigs = subfigs.flatten() if sgb.ngroups > 1 else [subfigs]
             for subgroup, subfig in zip(sgb.groups, subfigs):
                 df3 = sgb.get_group(subgroup)
@@ -86,4 +86,4 @@ def do_graph(reject_outliers, fname):
             plt.close()
 
 if __name__ == '__main__':
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times_in_diss/prod_withsorted_production_0.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/prod_withsorted_production_1.json'))

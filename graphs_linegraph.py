@@ -38,6 +38,18 @@ def get_data(fname):
     # df = df.explode('times')
     # print(df)
     df = df.dropna()
+    # print(df[np.logical_and(df['data_size'].(int)=='32', df['base'].astype(int)=='2')])
+    reject = {
+        'lsd_c':[16,2,10,14,8,4],
+        'lsd_p':[16,2,6,8,4,14],
+    }
+    for i in reject.keys():
+        for j in reject[i]:
+            None
+            # df.drop(df[np.logical_and(df['method'].str.contains(i), df['base'].astype(int)==j)].index, inplace=True)
+        
+    # df.drop(df[np.logical_and(df['data_size']==32, df['base'].astype(int)==16)].index, inplace=True)
+    # print(df)
     return df
 
 
@@ -58,6 +70,7 @@ def g(df, fname):
                 # sns.set_style("darkgrid", {'xtick.bottom': True, 'ytick.left': True})            
                 order = list(bg.loc[max(bg['data_size'])==bg['data_size']].sort_values(by=['times'], ascending=False)['methodbase'])
                 # sns.relplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, kind='line',estimator='mean', errorbar="sd")
+                print(bg)
                 sns.lineplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, estimator='mean', errorbar='pi')
                 legend = ax.get_legend_handles_labels()
                 colours = {}
@@ -69,7 +82,7 @@ def g(df, fname):
                 # print([handles[idx] for idx in order])
                 ax.legend(handles, labels, title='methodbase', shadow=True, loc='center left', bbox_to_anchor=(1, 0.5))
                 # ax.legend(legend[0], legend[1])
-                ticks = [x for x in bg['data_size'].unique() if (int(x)%2)==0]
+                ticks = [x for x in bg['data_size'].unique() if (int(x)%2)!=0]
                 ax.set_xticks(ticks)
                 graphdir = Path('graphs') / Path(fname).stem
                 os.makedirs(graphdir, exist_ok = True)
@@ -83,39 +96,7 @@ def g(df, fname):
                 plt.savefig(graphdir / filename)
                 print(graphdir / filename)
                 plt.close()
-                
-def g_size(df, fname):
-    dsize = df['cols'].unique()
-    dsizetext = ['lrg', 'med', 'sml']
-    sizes = df['data_size'].unique()
-    sizeVals = {'large': 9223372036854775807, 'med': 4294967296, 'small': 1048576, 'tiny': 65536}
-    plt.rcParams.update({'font.size': 22})
-    # typeGroups = df.groupby(['data_type'])
-    sizeGroups = df.groupby(['data_size'])
-    for sgroup, sg in sizeGroups:
-        typeGroups = sg.groupby(['data_type'])
-        for tgroup, tg in typeGroups:
-            baseGroups = tg.groupby(['method'])
-            for bgroup, bg in baseGroups:
-                bg['times'] = bg['times'].apply(np.mean)    
-                fig, ax = plt.subplots(figsize=(50,10))      
-                sns.set_style("darkgrid", {'xtick.bottom': True, 'ytick.left': True})            
-                order = list(bg.loc[max(bg['cols'])==bg['cols']].sort_values(by=['times'], ascending=False)['methodbase'])
-                # print(bg)
-                sns.lineplot(data=bg, x='cols', y = 'times', hue='methodbase', hue_order=order, estimator='mean')
-                legend = ax.get_legend_handles_labels
-                handles, labels = ax.get_legend_handles_labels()
-                ax.legend(handles, labels, title='methodbase', shadow=True, loc='center left', bbox_to_anchor=(1, 0.5))
-                graphdir = Path('graphs') / Path(fname).stem
-                os.makedirs(graphdir, exist_ok = True)
-                graphdir.mkdir(parents=True, exist_ok=True)
-                gname = str(tgroup).replace(' ', '_').strip('(,)\'')+'_'+str(bgroup[0])
-                filename = f"{sgroup[0]}_{gname}.jpg"
-                plt.savefig(graphdir / filename)
-                print(graphdir / filename)
-                plt.close()
-                
-def g_sorted_nosort(df, fname):
+def g2(df, fname):
     dsize = df['cols'].unique()
     dsizetext = ['lrg', 'med', 'sml']
     sizes = df['data_size'].unique()
@@ -125,19 +106,30 @@ def g_sorted_nosort(df, fname):
     for sgroup, sg in sizeGroups:
         typeGroups = sg.groupby(['data_type'])
         for tgroup, tg in typeGroups:
-            baseGroups = tg.groupby(['methodbase'])
+            baseGroups = tg.groupby(['method'])
             for bgroup, bg in baseGroups:
-                bg['times'] = bg['times'].apply(np.mean)
-                fig, ax = plt.subplots(figsize=(40,10))      
-                sns.set_style("whitegrid", {'xtick.bottom': True, 'ytick.left': True})            
-                sns.lineplot(data=bg, x='data_size', y = 'times', hue='implementation',  palette=['g', 'r'], estimator='mean', errorbar='se')
-                for handle in bg['implementation'].unique():
-                    sns.regplot(data=bg.loc[bg['implementation']==handle], x='data_size', y = 'times', scatter=False,  line_kws={"ls":'--'}, label=handle+'-regression')
+                bg['times'] = bg['times'].apply(reject_outliers)            
+                bg['meantimes'] = bg['times'].apply(np.mean)            
+                fig, ax = plt.subplots(figsize=(30,10))      
+                # sns.set_style("darkgrid", {'xtick.bottom': True, 'ytick.left': True})            
+                order = list(bg.loc[max(bg['data_size'])==bg['data_size']].sort_values(by=['meantimes'], ascending=False)['methodbase'])
+                # sns.relplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, kind='line',estimator='mean', errorbar="sd")
+                bg = bg.explode('times')
+                bg.reset_index(drop=True, inplace=True)
+                bg['times']=bg['times'].astype(float)
+                sns.lmplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, scatter=True, height=10, aspect=3, lowess=True)
                 legend = ax.get_legend_handles_labels()
-                legend[0].sort(key=lambda x: x.get_label())
-                legend[1].sort()
-                ax.legend(legend[0], legend[1], title='Implementation')
-                ax.set_xticks(bg['data_size'].unique())
+                colours = {}
+                for idx, i in enumerate(legend[0]):
+                    colours[legend[1][idx]] = i._color
+                # for handle in bg['methodbase'].unique():
+                #     sns.regplot(data=bg.loc[bg['methodbase']==handle], x='data_size', y = 'times', scatter=False,  line_kws={"ls":'--', 'color': colours[handle]}),
+                handles, labels = ax.get_legend_handles_labels()
+                # print([handles[idx] for idx in order])
+                ax.legend(handles, labels, title='methodbase', shadow=True, loc='center left', bbox_to_anchor=(1, 0.5))
+                # ax.legend(legend[0], legend[1])
+                ticks = [x for x in bg['data_size'].unique() if (int(x)%2)!=0]
+                ax.set_xticks(ticks)
                 graphdir = Path('graphs') / Path(fname).stem
                 os.makedirs(graphdir, exist_ok = True)
                 graphdir.mkdir(parents=True, exist_ok=True)
@@ -146,10 +138,12 @@ def g_sorted_nosort(df, fname):
                 for size, text in zip(reversed(sorted(dsize)), dsizetext):
                     if size == sgroup:
                         ds = text
-                filename = f"{ds}_{gname}2.jpg"
-                plt.savefig(graphdir / filename)
+                filename = f"{ds}_{gname}.png"
+                plt.savefig(graphdir / filename, dpi=100)
                 print(graphdir / filename)
                 plt.close()
+                
+
 
         
 
@@ -159,6 +153,6 @@ if __name__ == '__main__':
     # gdata = pd.concat(data)
     # g_size(gdata, 'sort_comparison')
     
-    data.append(get_data(('/home/will/dissertation/sort_times/all_bits.json')))
+    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_13.json')))
     gdata = pd.concat(data)
-    g(gdata, 'sort_comparison_bits')
+    g2(gdata, 'sort_comparison_bits')

@@ -75,7 +75,7 @@
 %%% --- The following two lines are what needs to be added --- %%%
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
-\graphicspath{ {./demographs/} {./insertion/}}
+\graphicspath{ {./demographs/} {./insertion/} {./results}}
 \begin{document}
 {
   \hypersetup{linkcolor=black}
@@ -1186,9 +1186,9 @@ Testing was performed by creating a python script to be run by a version of PyPy
 The lists to be sorted are generated using various functions in the \textit{numpy} and \textit{random} libraries in the formats listed below and are generated to contain a specified quantity of items and contain values within a specified range.
 \par
 \begin{description}
-	\item[Nearly sorted] lists generate a sorted list then iterates over the items and  for each has a $10\%$ chance to swap it with an item in the next index.
-	\item[Few unique] generates a random list with a length $1/10^{th}$ of the target length then randomly populates a list of the target length with the preliminary list.
-	\item[Random] generates list of random integers of the target length
+	\item[Nearly sorted] lists generate a sorted list and repeatedly swap items at adjascent indexes until the number of swaps equals 10\% of the list length
+	\item[Few unique] generate a random list with a length $1/10^{th}$ of the target length then randomly populates a list of the target length with the preliminary list.
+	\item[Random] generate list of random integers of the target length
 \end{description} 
 Below is a demonstration of 50 items generated in these formats within the range $[0..50]$. For demonstration purposes the chance of items being swapped in nearly sorted has been increased.
 \begin{table}[h]
@@ -1252,7 +1252,7 @@ The function used to identify whether a list is sorted is shown below, and opera
 		return sublist_sorted, sublist_reverse_sorted
 \end{lstlisting}
 \par
-To evaluate the effectiveness of order checking, two versions of PyPy were compiled, one with the above function being used on every sublist and one without.{\color{red}These versions of PyPy were then tested on lists of $1$,$000$,$000$ integers within the largest possible range in the data formats of random and nearly sorted. A full test of all possible data types was not completed as the preliminary results showed a lack of benefits.}
+To evaluate the effectiveness of order checking, two versions of PyPy were compiled, one with the above function being used on every sublist and one without.{\color{red}These versions of PyPy were then tested on lists of $1$,$000$,$000$ integers within the largest possible range in the data formats of random, few unique and nearly sorted. The results of the tests show that in almost all cases the order checking has a detrimental effect or an extremely small positive effect and therefore this function was not included in this project.}
 \begin{table}[H]
 	\centering
 	\makebox[\linewidth][]{
@@ -1357,7 +1357,31 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 			\end{minipage}
 			}
 		\end{center}
-\end{table}
+	\end{table}
+
+	\pagebreak
+	\begin{table}[h]
+		\makebox[\linewidth][]{
+		\centering
+		\includegraphics[width=1.2\linewidth]{lrg_Random.png}
+		}
+		\makebox[\linewidth][]{
+		\centering
+		\includegraphics[width=1.2\linewidth]{lrg_Nearly_Sorted.png}
+		}
+		\makebox[\linewidth][]{
+		\centering
+		\includegraphics[width=1.2\linewidth]{lrg_Few_Unique.png}
+		}
+		\makebox[\linewidth][]{
+		\centering
+		\includegraphics[width=1.2\linewidth]{lrg_Sorted.png}
+		}
+		\makebox[\linewidth][]{
+		\centering
+		\includegraphics[width=1.2\linewidth]{lrg_Reverse_Sorted.png}
+		}
+	\end{table}
 
 
 	

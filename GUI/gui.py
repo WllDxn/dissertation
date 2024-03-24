@@ -20,6 +20,7 @@ class Config(object):
         self.outputFilePath = ""
         self.insertion = False
         self.basemax = -1
+        self.shuffle = -1
         self.data_types = {
             "Few Unique": False,
             "Sorted": False,
@@ -42,6 +43,7 @@ class Config(object):
             "outputFilePath": self.outputFilePath,
             "insertion": self.insertion,
             "basemax": self.basemax,
+            "shuffle": self.shuffle,
             "data_types": self.data_types,
             "data_sizes": self.data_sizes,
         }
@@ -56,6 +58,7 @@ class Config(object):
                 "outputFilePath",
                 "insertion",
                 "basemax",
+                "shuffle",
                 "data_types",
                 "data_sizes",
             ]:
@@ -194,8 +197,8 @@ class SortingHelperGUI:
                     ],
                 ],
             ]
-        except:
-            print(self.q.methods)
+        except Exception as e:
+            print(e)
         self.window = sg.Window("Sorting Helper", layout, location=(200, 200))
 
     def create_listbox(self, key, values, default_values, select_mode):
@@ -227,7 +230,8 @@ class SortingHelperGUI:
                 "List count (n)",
                 "Output file (o)",
                 "Insertion test (s)",
-                "Basemax "
+                "Basemax ",
+                "Shuffle "
             ]
         ]
 
@@ -247,6 +251,12 @@ class SortingHelperGUI:
                 ),
                 sg.InputText(64, key="basemaxval", visible=self.q.basemax!=-1, expand_x=False, size=(5,100), enable_events=True)
             ],
+            [
+                sg.Checkbox(
+                    "", default=self.q.shuffle!=-1, key="shuffle", enable_events=True
+                ),
+                sg.InputText(100, key="shuffleval", visible=self.q.shuffle!=-1, expand_x=False, size=(5,100), enable_events=True)
+            ],
         ]
 
     def event_loop(self):
@@ -265,6 +275,9 @@ class SortingHelperGUI:
             "del_queue": self.del_queue,
             "basemax": self.update_basemax,
             "basemaxval": self.update_basemax_val,
+            "shuffle": self.update_shuffle,
+            "shuffleval": self.update_shuffle_val,
+            
         }
         while True:
             event, values = self.window.read()
@@ -346,9 +359,13 @@ class SortingHelperGUI:
         else:
             self.window["basemaxval"].update(visible=False)
             self.q.basemax = -1
+            self.q.basemax = -1
+            
+            self.q.basemax = -1            
             
         # self.get_output(force=True)
         self.saveQueue()
+
     def update_basemax_val(self):
         if '-1' in self.window["basemaxval"].get():
             val = self.window["basemaxval"].get().replace('-1', '')
@@ -363,6 +380,28 @@ class SortingHelperGUI:
         val = int(val)
         self.window["basemaxval"].update(val)
         self.q[0].basemax = val
+    def update_shuffle(self):
+        if self.window["shuffle"].get():
+            self.q.shuffle = self.window["shuffleval"].get()
+            self.window["shuffleval"].update(visible=True)
+        else:
+            self.window["shuffleval"].update(visible=False)
+            self.q.shuffle = -1            
+        # self.get_output(force=True)
+        self.saveQueue()
+
+    def update_shuffle_val(self):
+        if '-1' in self.window["shuffleval"].get():
+            val = self.window["shuffleval"].get().replace('-1', '')
+        else:
+            val = (
+                re.sub("[^0-9]", "", self.window["shuffleval"].get())
+                if self.window["shuffleval"].get() != ""
+                else -1
+            )
+        val = int(val)
+        self.window["shuffleval"].update(val)
+        self.q[0].shuffle = val
         
     def methodevent(self):
         for key in self.q.methods.keys():
@@ -425,6 +464,7 @@ class SortingHelperGUI:
 
         self.q[0].insertion = self.window["insertion"].get()
         self.q[0].basemax = self.window["basemaxval"].get() if self.window["basemax"].get() else -1
+        self.q[0].shuffle = self.window["shuffleval"].get() if self.window["shuffle"].get() else -1
         for cb in list(self.q.data_types.keys()):
             self.q.data_types[cb] = self.window[cb].get()
         for cb in list(self.q.data_sizes.keys()):
@@ -470,6 +510,8 @@ class SortingHelperGUI:
             "small",
             "tiny",
             "insertion",
+            "basemax",
+            "shuffle",
         ]:
             self.window[f"{key}"].update(False)
         self.window["listlength"].update(self.q.listlength)
@@ -489,28 +531,32 @@ class SortingHelperGUI:
             "Nearly Sorted",
             "Random",
         ]
-        sizes = [f"{str(size)}" for size in data_sizes if not c.data_sizes[size]]     
+        sizes = [f"{str(size)}" for size in data_sizes if not c.data_sizes[size]]
         sizesstr = str(sizes)[1:-1].replace(",", "")
         types = [f"{str(t)}" for t in data_types if not c.data_types[t]]
         tyesstr = str(types)[
             1:-1
         ].replace(",", "")
-        
+
         internal_lengths = [int(x) for x in c.listlength]
-        if c.insertion and c.basemax != -1:            
+        if c.insertion and c.basemax != -1:        
             self.iters += sum([((int(c.basemax)))*max(l, 50) for l in internal_lengths])
         elif c.insertion:
-            self.iters += sum([((len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*max(l, 50) for l in internal_lengths])
+            self.iters += sum([((len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*l for l in internal_lengths])
         elif c.basemax != -1:
             self.iters += (len(internal_lengths) * (len(data_types)-len(types)))*(int(c.basemax)//2)
         else:
             self.iters += (len(internal_lengths) * (len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*1
+        if c.shuffle != -1:
+            self.iters += 50
+        #     for _ in range(int(c.shuffle)):
+        
         # if self.q.insertion == True:
         #     self.iters *= len(list(range((internal_lengths[0]+1)//1000, internal_lengths[0]+1, (internal_lengths[0]+1)//1000)))
         lengths = str(internal_lengths)[1:-1].replace(",", "")
 
         methodname = re.findall(r"([^\/]+$)", m)[0]
-        yield f' sort_timer_gendata_pipe.py -m {methodname} -o {c.outputFilePath} -n {c.listcount} -l {lengths} -et {tyesstr} -es {sizesstr} {"-s" if c.insertion==True else ""} {("-b " + c.basemax) if c.basemax!=-1 else ""}'
+        yield f' sort_timer_gendata_pipe.py -m {methodname} -o {c.outputFilePath} -n {c.listcount} -l {lengths} -et {tyesstr} -es {sizesstr} {"-s" if c.insertion == True else ""} {f"-b {c.basemax}" if c.basemax != -1 else "" } {f"-f {c.shuffle}" if c.shuffle != -1 else ""}'
     
     def get_methodCommand(self):
         methodCommand = []
@@ -566,27 +612,31 @@ class SortingHelperGUI:
             )
         self.startTime = time.time()
         for count, (path, command, method) in enumerate(self.methodCommand, start=1):
+            print(f"{path} {command}")
             self.runCommand(f"{path} {command}", method, window=self.window2)
 
     def get_outpout(self, items, method, count):
         if match := re.match(r"(.*?\d+)+", method):
             method = match[1]
-        if items[0] == "count":
-            return (
-                "Green",
-                f"{method}\t {items[1]} {items[2]} \t {items[3]}/{items[4]}",
-            )
-        elif items[0] == "warming":
-            return ("Cyan", f"{method}\t Warming up: \t{items[1]}/{items[2]}")
-        elif items[0] == "eval":
-            insr = f"{items[4]}" if items[6] == "1" else f"{count}/{items[6]}"
-            return (
-                "Red",
-                f'{method} {items[1]} {items[2]} {items[3]} s\t{insr}\t\t {"" if items[5] else "error"}',
-            )
-        elif items[0] == "Total":
-            return ("Purple", f"{method} Total time: {items[1]}")
-        else:
+        try:
+            if items[0] == "count":
+                return (
+                    "Green",
+                    f"{method}\t {items[1]} {items[2]} \t {items[3]}/{items[4]}",
+                )
+            elif items[0] == "warming":
+                return ("Cyan", f"{method}\t Warming up: \t{items[1]}/{items[2]}")
+            elif items[0] == "eval":
+                insr = f"{items[4]}" if items[6] == "1" else f"{count}/{items[6]}"
+                return (
+                    "Red",
+                    f'{method} {items[1]} {items[2]} {items[3]} s\t{insr}\t\t {"" if items[5] else "error"}',
+                )
+            elif items[0] == "Total":
+                return ("Purple", f"{method} Total time: {items[1]}")
+            else:
+                return ("White", str(items))
+        except:
             return ("White", str(items))
 
     def runCommand(self, cmd, method, window=None):
@@ -606,6 +656,7 @@ class SortingHelperGUI:
             if "\n" in out:
                 for o in out.split("\n"):
                     colour, text = self.get_outpout(o.split(","), method, count)
+                    if 'shuff' in text:print(text)
                     if colour == "White":
                         continue
                     elif colour in ["Red", "Purple"]:
