@@ -156,7 +156,7 @@ def do_graph(reject_outliers, fname, stats=True):
     # print(df)
 
 if __name__ == '__main__':
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/production_0.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_alwaysinsert_workingfinal_neverinsert_11.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_0.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_0.json'))
     # for i in range(3,4):

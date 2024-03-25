@@ -41,13 +41,15 @@ def get_data(fname):
     df = df.dropna()
     # print(df[np.logical_and(df['data_size'].(int)=='32', df['base'].astype(int)=='2')])
     reject = {
-        'lsd_c':[16,2,10,14,6,4, 12],
-        'lsd_p':[16,2],#,6,8,4,14],
+        'lsd_c':[2, 4, 6, 8, 16],
+        'lsd_p':[2, 4, 16, 14, 8],
+        'msd_c':[2, 4, 8, 16],
+        'msd_p':[2, 12, 14, 16],
     }
     for i in reject.keys():
         for j in reject[i]:
-            # None
-            df.drop(df[np.logical_and(df['method'].str.contains(i), df['base'].astype(int)==j)].index, inplace=True)
+            None
+            # df.drop(df[np.logical_and(df['method'].str.contains(i), df['base'].astype(int)==j)].index, inplace=True)
         
     # df.drop(df[np.logical_and(df['data_size']==32, df['base'].astype(int)==16)].index, inplace=True)
     # print(df)
@@ -116,9 +118,11 @@ def g2(df, fname):
                 order = list(bg.loc[max(bg['cols'])==bg['cols']].sort_values(by=['meantimes'], ascending=False)['methodbase'])
                 # sns.relplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, kind='line',estimator='mean', errorbar="sd")
                 # bg =  bg.loc[bg['cols'].astype(int) >= 83000]
-                # bg =  bg.loc[bg['cols'].astype(int) <= 83400]
+                # bg =  bg.loc[bg['cols'].astype(int) > 65535]
+                # bg =  bg.loc[bg['cols'].astype(int) <= 50000]
                 # print(bg)
                 # exit()
+                # print(bg.loc[bg['cols']==max(bg['cols'])].sort_values(by=['meantimes'], ascending=False))
                 bg = bg.explode('times')
                 bg = bg.sort_values(by=['cols'])
                 bg['times'] = bg['times'].astype(np.float32)
@@ -132,14 +136,13 @@ def g2(df, fname):
                 # sns.relplot(data=pv, height=10, aspect=3, kind='line', palette=sns.color_palette("tab10"))
                 # sns.lmplot(data=bg,y='cols', y = pv.columns, height=10, aspect=3)# scatter=False, height=10, aspect=3, x_estimator=np.mean
                 # sns.regplot(data=bg, x='cols', y = 'times', scatter=False)
-                print(order)
+                # print(order)
                 bg.reset_index(drop=True, inplace=True)
-                print(bg)
+                # print(bg)
                 
-                sns.lmplot(data=bg, x='cols', y = 'times',lowess=True,hue='methodbase', hue_order=order, scatter=True,fit_reg=True, height=10, aspect=3)
+                sns.lmplot(data=bg, x='cols', y = 'times',lowess=True,hue='methodbase', hue_order=order, x_estimator=np.mean, scatter=True,fit_reg=True, height=10, aspect=2.5, x_ci=None)
                 # plt.show()
-
-                print('graphed')
+                cax = plt.gca()
                 legend = ax.get_legend_handles_labels()
                 colours = {}
                 for idx, i in enumerate(legend[0]):
@@ -148,7 +151,7 @@ def g2(df, fname):
                 #     sns.regplot(data=bg.loc[bg['methodbase']==handle], x='data_size', y = 'times', scatter=False,  line_kws={"ls":'--', 'color': colours[handle]}),
                 handles, labels = ax.get_legend_handles_labels()
                 # print([handles[idx] for idx in order])
-                ax.legend(handles, labels, title='methodbase', shadow=True, loc='center left', bbox_to_anchor=(1, 0.5))
+                # ax.legend(handles, labels, title='methodbase', shadow=True, loc='center left', bbox_to_anchor=(1, 0.5))
                 # ax.legend(legend[0], legend[1])
                 ticks = [x for x in bg['data_size'].unique() if (int(x)%2)!=0]
                 ax.set_xticks(ticks)
@@ -157,6 +160,7 @@ def g2(df, fname):
                 graphdir.mkdir(parents=True, exist_ok=True)
                 gname = str(tgroup).replace(' ', '_').strip('(,)\'')+'_'+str(bgroup[0])
                 filename = f"{gname}.png"
+                cax.set_title(f"{bg['method'].values[0]}")
                 plt.savefig(graphdir / filename)
                 print(graphdir / filename)
                 plt.close()
@@ -171,8 +175,17 @@ if __name__ == '__main__':
     # data.append(get_data(('/home/will/dissertation/sort_times/all_insertion_final.json')))
     # gdata = pd.concat(data)
     # g_size(gdata, 'sort_comparison')
-    
-    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_19.json')))
+    # for i in range(21):
+    #     with open(f'/home/will/dissertation/sort_times/workingfinal_{i}.json', 'r') as f:
+    #         dataset = json.load(f)
+    #         df = pd.json_normalize(dataset['radix_sort'])
+    #         df = df.reindex(sorted(df.columns), axis=1)
+    #         df = df.drop(['files', 'read', 'key'], axis=1, errors='ignore')
+    #         df = df.melt(id_vars=['data_type', 'data_size', 'cols', 'rows'], var_name='method', value_name='times').sort_values(by='cols')
+    #         print(f'/home/will/dissertation/sort_times/workingfinal_{i}.json')
+    #         print(df)
+    #         print('------')
+    # exit()
+    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_test.json')))
     gdata = pd.concat(data)
-    print(gdata)
-    g2(gdata, 'lengthgraphs6')
+    g2(gdata, 'lengthgraphs7')

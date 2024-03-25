@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  23 MAR 2024 12:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  25 MAR 2024 18:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -661,242 +661,139 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 98.
  [3] [4] [5] [6] [7] [8]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 314.
+(Font)              <10.95> on input line 315.
  [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24]
-Overfull \hbox (9.37218pt too wide) in paragraph at lines 827--863
+Overfull \hbox (9.37218pt too wide) in paragraph at lines 828--864
  [][] 
  []
 
 
-Overfull \hbox (11.87215pt too wide) in paragraph at lines 872--909
+Overfull \hbox (11.87215pt too wide) in paragraph at lines 873--910
  [][] 
  []
 
 [25] [26]
 
-Package xcolor Warning: Incompatible color definition on input line 969.
+Package xcolor Warning: Incompatible color definition on input line 970.
 
 
-Package xcolor Warning: Incompatible color definition on input line 969.
+Package xcolor Warning: Incompatible color definition on input line 970.
 
 
-Package xcolor Warning: Incompatible color definition on input line 969.
+Package xcolor Warning: Incompatible color definition on input line 970.
 
 
-Package xcolor Warning: Incompatible color definition on input line 969.
+Package xcolor Warning: Incompatible color definition on input line 970.
 
 
-Package xcolor Warning: Incompatible color definition on input line 969.
+Package xcolor Warning: Incompatible color definition on input line 970.
 
 
-Package xcolor Warning: Incompatible color definition on input line 969.
+Package xcolor Warning: Incompatible color definition on input line 970.
 
 
-Package xcolor Warning: Incompatible color definition on input line 969.
+Package xcolor Warning: Incompatible color definition on input line 970.
 
 [27]
 
-Package xcolor Warning: Incompatible color definition on input line 1019.
+Package xcolor Warning: Incompatible color definition on input line 1020.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1019.
+Package xcolor Warning: Incompatible color definition on input line 1020.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1019.
+Package xcolor Warning: Incompatible color definition on input line 1020.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1019.
+Package xcolor Warning: Incompatible color definition on input line 1020.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1019.
+Package xcolor Warning: Incompatible color definition on input line 1020.
 
 [28]
 
-Package xcolor Warning: Incompatible color definition on input line 1071.
+Package xcolor Warning: Incompatible color definition on input line 1072.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1071.
+Package xcolor Warning: Incompatible color definition on input line 1072.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1071.
+Package xcolor Warning: Incompatible color definition on input line 1072.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1071.
+Package xcolor Warning: Incompatible color definition on input line 1072.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1071.
+Package xcolor Warning: Incompatible color definition on input line 1072.
 
 [29] [30]
 
-Package xcolor Warning: Incompatible color definition on input line 1133.
+Package xcolor Warning: Incompatible color definition on input line 1134.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1133.
+Package xcolor Warning: Incompatible color definition on input line 1134.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1133.
+Package xcolor Warning: Incompatible color definition on input line 1134.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1133.
+Package xcolor Warning: Incompatible color definition on input line 1134.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1133.
+Package xcolor Warning: Incompatible color definition on input line 1134.
 
 [31] [32] [33]
-<./demographs/demo.png, id=829, 740.0448pt x 273.1806pt>
+<./demographs/demo.png, id=839, 740.0448pt x 273.1806pt>
 File: ./demographs/demo.png Graphic file (type png)
 <use ./demographs/demo.png>
-Package pdftex.def Info: ./demographs/demo.png  used on input line 1195.
+Package pdftex.def Info: ./demographs/demo.png  used on input line 1196.
 (pdftex.def)             Requested size: 520.34267pt x 192.08795pt.
  [34 <./demographs/demo.png>]
-<./insertion/msd_c_10.png, id=839, 838.332pt x 559.3698pt>
+<./insertion/msd_c_10.png, id=849, 838.332pt x 559.3698pt>
 File: ./insertion/msd_c_10.png Graphic file (type png)
 <use ./insertion/msd_c_10.png>
-Package pdftex.def Info: ./insertion/msd_c_10.png  used on input line 1214.
+Package pdftex.def Info: ./insertion/msd_c_10.png  used on input line 1215.
 (pdftex.def)             Requested size: 325.215pt x 217.00107pt.
-<./insertion/insertionLegend.png, id=840, 408.77719pt x 267.24844pt>
+<./insertion/insertionLegend.png, id=850, 408.77719pt x 267.24844pt>
 File: ./insertion/insertionLegend.png Graphic file (type png)
 <use ./insertion/insertionLegend.png>
-Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1215.
+Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1216.
 (pdftex.def)             Requested size: 65.04034pt x 42.52002pt.
- [35 <./insertion/msd_c_10.png> <./insertion/insertionLegend.png>] [36]
+ [35 <./insertion/msd_c_10.png> <./insertion/insertionLegend.png>]
 
-LaTeX Warning: Unexpected alignment  on input line 1306.
+LaTeX Warning: Unexpected alignment  on input line 1266.
 
-[37] [38] [39]
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1320.
-
-File: ./insertion/insertionLegend.png Graphic file (type png)
-<use ./insertion/insertionLegend.png>
-Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1322.
-(pdftex.def)             Requested size: 43.36464pt x 28.3494pt.
-File: ./insertion/insertionLegend.png Graphic file (type png)
-<use ./insertion/insertionLegend.png>
-Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1322.
-(pdftex.def)             Requested size: 43.36464pt x 28.3494pt.
-<./insertion/msd_c_2.png, id=888, 838.332pt x 559.3698pt>
-File: ./insertion/msd_c_2.png Graphic file (type png)
-<use ./insertion/msd_c_2.png>
-Package pdftex.def Info: ./insertion/msd_c_2.png  used on input line 1331.
-(pdftex.def)             Requested size: 238.49231pt x 159.13184pt.
-<./insertion/msd_c_4.png, id=889, 828.9369pt x 559.3698pt>
-File: ./insertion/msd_c_4.png Graphic file (type png)
-<use ./insertion/msd_c_4.png>
-Package pdftex.def Info: ./insertion/msd_c_4.png  used on input line 1331.
-(pdftex.def)             Requested size: 238.49231pt x 160.93279pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1331.
-
-<./insertion/msd_c_6.png, id=890, 838.0911pt x 559.3698pt>
-File: ./insertion/msd_c_6.png Graphic file (type png)
-<use ./insertion/msd_c_6.png>
-Package pdftex.def Info: ./insertion/msd_c_6.png  used on input line 1340.
-(pdftex.def)             Requested size: 238.49231pt x 159.17451pt.
-<./insertion/msd_c_8.png, id=891, 828.9369pt x 559.3698pt>
-File: ./insertion/msd_c_8.png Graphic file (type png)
-<use ./insertion/msd_c_8.png>
-Package pdftex.def Info: ./insertion/msd_c_8.png  used on input line 1340.
-(pdftex.def)             Requested size: 238.49231pt x 160.93279pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1340.
-
-File: ./insertion/msd_c_10.png Graphic file (type png)
-<use ./insertion/msd_c_10.png>
-Package pdftex.def Info: ./insertion/msd_c_10.png  used on input line 1349.
-(pdftex.def)             Requested size: 238.49231pt x 159.13184pt.
-<./insertion/msd_c_12.png, id=892, 838.332pt x 559.3698pt>
-File: ./insertion/msd_c_12.png Graphic file (type png)
-<use ./insertion/msd_c_12.png>
-Package pdftex.def Info: ./insertion/msd_c_12.png  used on input line 1349.
-(pdftex.def)             Requested size: 238.49231pt x 159.13184pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1349.
-
-<./insertion/msd_c_14.png, id=893, 838.332pt x 559.3698pt>
-File: ./insertion/msd_c_14.png Graphic file (type png)
-<use ./insertion/msd_c_14.png>
-Package pdftex.def Info: ./insertion/msd_c_14.png  used on input line 1358.
-(pdftex.def)             Requested size: 238.49231pt x 159.13184pt.
-<./insertion/msd_c_16.png, id=894, 838.332pt x 559.3698pt>
-File: ./insertion/msd_c_16.png Graphic file (type png)
-<use ./insertion/msd_c_16.png>
-Package pdftex.def Info: ./insertion/msd_c_16.png  used on input line 1358.
-(pdftex.def)             Requested size: 238.49231pt x 159.13184pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1358.
-
-
-LaTeX Warning: Float too large for page by 20.06117pt on input line 1360.
-
-<./results/lrg_Random.png, id=895, 5072.6313pt x 1098.504pt>
-File: ./results/lrg_Random.png Graphic file (type png)
-<use ./results/lrg_Random.png>
-Package pdftex.def Info: ./results/lrg_Random.png  used on input line 1367.
-(pdftex.def)             Requested size: 520.34267pt x 112.6728pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1367.
-
-<./results/lrg_Nearly_Sorted.png, id=896, 5072.6313pt x 1098.504pt>
-File: ./results/lrg_Nearly_Sorted.png Graphic file (type png)
-<use ./results/lrg_Nearly_Sorted.png>
-Package pdftex.def Info: ./results/lrg_Nearly_Sorted.png  used on input line 1371.
-(pdftex.def)             Requested size: 520.34267pt x 112.6728pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1371.
-
-<./results/lrg_Few_Unique.png, id=897, 5072.6313pt x 1098.504pt>
-File: ./results/lrg_Few_Unique.png Graphic file (type png)
-<use ./results/lrg_Few_Unique.png>
-Package pdftex.def Info: ./results/lrg_Few_Unique.png  used on input line 1375.
-(pdftex.def)             Requested size: 520.34267pt x 112.6728pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1375.
-
-<./results/lrg_Sorted.png, id=898, 5072.6313pt x 1098.504pt>
-File: ./results/lrg_Sorted.png Graphic file (type png)
-<use ./results/lrg_Sorted.png>
-Package pdftex.def Info: ./results/lrg_Sorted.png  used on input line 1379.
-(pdftex.def)             Requested size: 520.34267pt x 112.6728pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1379.
-
-<./results/lrg_Reverse_Sorted.png, id=899, 5072.6313pt x 1098.504pt>
-File: ./results/lrg_Reverse_Sorted.png Graphic file (type png)
-<use ./results/lrg_Reverse_Sorted.png>
-Package pdftex.def Info: ./results/lrg_Reverse_Sorted.png  used on input line 1383.
-(pdftex.def)             Requested size: 520.34267pt x 112.6728pt.
-
-LaTeX Warning: Unexpected alignment  on input line 1383.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[40] [41 <./insertion/msd_c_2.png> <./insertion/msd_c_4.png> <./insertion/msd_c_6.png> <./insertion/msd_c_8.png> <./insertion/msd_c_12.png> <./insertion/msd_c_14.png> <./insertion/msd_c_16.png>] [42 <./results/lrg_Random.png> <./results/lrg_Nearly_Sorted.png> <./results/lrg_Few_Unique.png> <./results/lrg_Sorted.png> <./results/lrg_Reverse_Sorted.png>] (./Implementation.aux)
+[36] [37] [38] [39] [40] (./Implementation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-Package rerunfilecheck Info: File `Implementation.out' has not changed.
-(rerunfilecheck)             Checksum: 9DF7E95A51E9AC57410E9504B7C5815D;6956.
+
+
+Package rerunfilecheck Warning: File `Implementation.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Implementation.out':
+(rerunfilecheck)             Before: 4FE1723B96EE4CF4D963A12CDFE8CA67;7294
+(rerunfilecheck)             After:  9E821785F2B53860DBEA47F878C13B37;7317.
 Package logreq Info: Writing requests to 'Implementation.run.xml'.
 \openout1 = `Implementation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21438 strings out of 474166
- 370289 string characters out of 5745489
+ 21329 strings out of 474166
+ 367129 string characters out of 5745489
  2139539 words of memory out of 5000000
- 43031 multiletter control sequences out of 15000+600000
+ 42923 multiletter control sequences out of 15000+600000
  564454 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  66i,20n,81p,1451b,1485s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Implementation.pdf (42 pages, 5063268 bytes).
+Output written on Implementation.pdf (40 pages, 838480 bytes).
 PDF statistics:
- 1123 PDF objects out of 1200 (max. 8388607)
- 1001 compressed objects within 11 object streams
- 500 named destinations out of 1000 (max. 500000)
- 460 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1101 PDF objects out of 1200 (max. 8388607)
+ 1005 compressed objects within 11 object streams
+ 499 named destinations out of 1000 (max. 500000)
+ 416 words of extra memory for PDF output out of 10000 (max. 10000000)
 

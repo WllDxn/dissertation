@@ -129,7 +129,7 @@ class Sorter:
                 data.setdefault("radix_sort", [])
         
         def generate_items():       
-            for list_length in list(range(max(1,(self.max_list_length[0]+1)//1000), self.max_list_length[0]+1, max(1, (self.max_list_length[0]+1)//1000))) if self.insert else self.max_list_length:
+            for list_length in list(range(max(1,(self.max_list_length[0]+1)//100), self.max_list_length[0]+1, max(1, (self.max_list_length[0]+1)//100))) if self.insert else self.max_list_length:
                 for data_size in list(range(1, self.basemax, 1)) if self.basemax else self.datasizes:
                     for data_type in self.datatypes:
                         thresholds = [None] if self.threshold is None else range(0, self.threshold + 1, self.threshold // self.threshold_divisions)
@@ -150,7 +150,8 @@ class Sorter:
         itemcount = sum(1 for _ in generate_items())
         sortcount = 0
         for list_length, data_size, data_type, threshold, shuffle, count in items:
-            # if list_length<83000 or list_length>83400:
+            # if list_length<83000 or list_length>8
+            # 3400:
             #     continue
             # print('shuff', list_length, data_size, data_type, threshold, shuffle, count, len(items))            
             self.print_sortmethod_count(data_size, data_type, count, itemcount)
@@ -190,7 +191,7 @@ class Sorter:
         self, tdelta, data_type, data_size, list_length, sortd, threshold=None
     ):
         name = "%s,%s" % (data_type, data_size)
-        ll = list(range(max(1,(self.max_list_length[0]+1)//1000), self.max_list_length[0]+1, max(1,(self.max_list_length[0]+1)//1000))) if self.insert else [self.max_list_length]
+        ll = list(range(max(1,(self.max_list_length[0]+1)//100), self.max_list_length[0]+1, max(1,(self.max_list_length[0]+1)//100))) if self.insert else [self.max_list_length]
         myp(
             "eval,%s,%f,%d,%s,%s"
             % (name, tdelta, list_length, str(sortd), (str(len(ll))))

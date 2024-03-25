@@ -1,4 +1,5 @@
 import json
+from turtle import title
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -39,9 +40,17 @@ def get_data(fname):
     # print(df)
     df = df.dropna()
     # print(df[np.logical_and(df['data_size'].(int)=='32', df['base'].astype(int)=='2')])
+    # reject = {
+    #     'lsd_c':[2, 4, 6, 14, 16],
+    #     'lsd_p':[2, 4, 16, 6, 8,],
+    #     'msd_c':[2, 4, 8, 14, 6, 16],
+    #     'msd_p':[2, 8,  14, 16, 12],
+    # }
     reject = {
-        'lsd_c':[16,2,10,14,8,4],
-        'lsd_p':[16,2,6,8,4,14],
+        'lsd_c':[2,4,6,14],
+        'lsd_p':[2,4,6,8],
+        'msd_c':[2,4,6,8,10,12,14,16],
+        'msd_p':[2,4,6,8,10,12,14,16],
     }
     for i in reject.keys():
         for j in reject[i]:
@@ -71,7 +80,9 @@ def g(df, fname):
                 order = list(bg.loc[max(bg['data_size'])==bg['data_size']].sort_values(by=['times'], ascending=False)['methodbase'])
                 # sns.relplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, kind='line',estimator='mean', errorbar="sd")
                 print(bg)
-                sns.lineplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, estimator='mean', errorbar='pi')
+                g =sns.lineplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order,  errorbar='pi')
+                if gname=='lsd_p':
+                    plt.ylim(0,0.002)
                 legend = ax.get_legend_handles_labels()
                 colours = {}
                 for idx, i in enumerate(legend[0]):
@@ -109,7 +120,8 @@ def g2(df, fname):
             baseGroups = tg.groupby(['method'])
             for bgroup, bg in baseGroups:
                 bg['times'] = bg['times'].apply(reject_outliers)            
-                bg['meantimes'] = bg['times'].apply(np.mean)            
+                bg['meantimes'] = bg['times'].apply(np.mean)   
+                bg = bg.sort_values(by=['meantimes'], ascending=True)
                 fig, ax = plt.subplots(figsize=(30,10))      
                 # sns.set_style("darkgrid", {'xtick.bottom': True, 'ytick.left': True})            
                 order = list(bg.loc[max(bg['data_size'])==bg['data_size']].sort_values(by=['meantimes'], ascending=False)['methodbase'])
@@ -117,7 +129,10 @@ def g2(df, fname):
                 bg = bg.explode('times')
                 bg.reset_index(drop=True, inplace=True)
                 bg['times']=bg['times'].astype(float)
-                sns.lmplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, scatter=True, height=10, aspect=3, lowess=True)
+                bg.drop(bg[bg['times']==0].index, inplace=True)
+                sns.lmplot(data=bg, x='data_size', y = 'times', hue='methodbase', hue_order=order, scatter=True, height=10, aspect=3, lowess=True, x_estimator=np.mean)
+                cax = plt.gca()
+
                 legend = ax.get_legend_handles_labels()
                 colours = {}
                 for idx, i in enumerate(legend[0]):
@@ -134,6 +149,9 @@ def g2(df, fname):
                 os.makedirs(graphdir, exist_ok = True)
                 graphdir.mkdir(parents=True, exist_ok=True)
                 gname = str(tgroup).replace(' ', '_').strip('(,)\'')+'_'+str(bgroup[0])
+                # if gname=='Random_lsd_p':
+                #     plt.ylim(0,0.02)
+                print(gname)
                 ds = str(sgroup)
                 for size, text in zip(reversed(sorted(dsize)), dsizetext):
                     if size == sgroup:
@@ -152,7 +170,9 @@ if __name__ == '__main__':
     # data.append(get_data(('/home/will/dissertation/sort_times/all_insertion_final.json')))
     # gdata = pd.concat(data)
     # g_size(gdata, 'sort_comparison')
-    
-    data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_13.json')))
-    gdata = pd.concat(data)
-    g2(gdata, 'sort_comparison_bits')
+    gdata = None
+    for i in range(1,3):
+        data.append(get_data((f'/home/will/dissertation/sort_times/workingfinal_2{str(i)}.json')))
+        print(f'sort_comparison_bits{str(i+1)}', f'/home/will/dissertation/sort_times/workingfinal_2{str(i)}.json')
+    g2(pd.concat(data), f'basegraphs')
+    # data.append(get_data(('/home/will/dissertation/sort_times/workingfinal_22.json')))

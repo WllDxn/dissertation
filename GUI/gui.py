@@ -543,7 +543,7 @@ class SortingHelperGUI:
             self.iters += sum([((int(c.basemax)))*max(l, 50) for l in internal_lengths])
         elif c.insertion:
             
-            self.iters += ((len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*1000
+            self.iters += ((len(data_types)-len(types)) * (len(data_sizes) -len(sizes)))*100
         elif c.basemax != -1:
             self.iters += (len(internal_lengths) * (len(data_types)-len(types)))*(int(c.basemax)//2)
         else:

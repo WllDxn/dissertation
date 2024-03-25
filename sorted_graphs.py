@@ -19,7 +19,7 @@ def do_graph(reject_outliers, fname):
     dsize = ['lrg', 'med', 'sml']
     dsidsint = [1000000, 100000, 10000]
     sizes = {'large': 9223372036854775807, 'med': 4294967296, 'small': 1048576, 'tiny': 65536}
-    
+
     for dsid, ds in zip(dsidsint, dsize):
         with open(fname, 'r') as f:
             dataset = json.load(f)
@@ -60,13 +60,23 @@ def do_graph(reject_outliers, fname):
                     xerrors = mdf['times'].apply(np.std)
                     x = mdf['times'].apply(np.mean)
                     mdf['base'] =  mdf['base'].astype(int)
+                    xtick = mdf['base'].unique()
+                    colors = {'with sorted':'C0', 'not sorted':'C1'}
+                    colorkeys = {'with sorted':'production', 'not sorted':'prod_withsorted'}
+                    mdf['version'] = mdf['version'].astype('category')
+                    
+                    labels = [
+                        f"{version}"
+                        for version in colors
+                    ]
+                    fasterslower = '\n'.join([f"{version} - {mdf.loc[mdf.assign(times=mdf['times'].apply(np.mean)).groupby('base')['times'].idxmax()]['version'].value_counts()[colorkeys[version]]}" for version in colors])
                     mdf['base'] = mdf.apply(lambda x: x['base']-0.4 if x['version']=='prod_withsorted' else x['base']+0.4, axis=1)
-                    colors = {'with sorted':'C0', 'not sorted':'C1'}         
-                    labels = list(colors.keys())
-                    handles = [plt.Rectangle((0,0),1,1, color=colors[label]) for label in labels]
+                    handles = [plt.Rectangle((0,0),1,1, color=colors[label]) for label in colors]
                     ax.bar(mdf['base'], x, width=0.7, yerr=xerrors, color=['C0', 'C1'])
                     plt.legend(handles, labels)
-                    ax.set_xlabel(key)                                      
+                    
+                    ax.set_xlabel(f'{key}\n{fasterslower}')
+                    ax.set_xticks(xtick)
                     # if key == list(methodgroups.groups.keys())[0]:
                     # else:
                     ax.set_ylabel('mean sort time (s)')
@@ -86,4 +96,4 @@ def do_graph(reject_outliers, fname):
             plt.close()
 
 if __name__ == '__main__':
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/prod_withsorted_production_1.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/prod_withsorted_production_5.json'))

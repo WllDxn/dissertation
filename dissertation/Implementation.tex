@@ -202,6 +202,7 @@
 	\end{algorithm}
 	\pagebreak
 	\subsection{Time complexity}
+	\label{ssec:timecomplexity}
 	\subsubsection{Integer Sorting}
 	Counting and Pigeonhole sort both require one iteration over the input list which contains $n$ items and one pass over the intermediary buckets array for pigeonhole sort or the count array for counting sort, both of these arrays contain $k$ items where $k$ is the maximum range of input values. The combination of these two passes gives both integer sorting methods a time complexity of 
 	\begin{table}[!h]
@@ -1229,6 +1230,42 @@ It is important to note that this tool runs using Python, not PyPy and also that
 The data provided by this tool was, however, very useful at identifying the correctness of solutions as the number of calls to a particular line would be identical whether run using line\textunderscore profiler or with a compiled version of PyPy, provided the input list is identical. Using this information allowed me to ensure that the code was efficient and that unnecessary iterations over the input list were not made. As an example this tool allowed me to identify that pigeonhole sort was incorrectly performing an additional iteration by showing that all lists made up of positive integers triggered the condition of a single bucket containing all items.
 \par
 Initially one of the aims of testing was to complete a profile of the memory usage of the sort methods, however this was deemed to not be feasible as memory profiling in PyPy is highly inaccurate, and the function \textit{sys.getsizeof} is not included in PyPy causing an error for most memory profilers. According to the documentation, the reason for this is due to optimizations performed by the PyPy compiler that cause the size of most objects to be reported incorrectly, meaning any value returned by \textit{sys.getsizeof} would be meaningless {\color{red} Reference?}.
+
+\begin{table}[H]
+	\centering
+	\makebox[\linewidth][]{
+	\resizebox{1.1\linewidth}{!}{
+		\centering
+	% \mbox{
+	\begin{tabular}{rrrrrl}
+		\hline
+		Line \# & Hits   & Time   & Per Hit   & \% Time   & Line Contents                                                       \\
+	 \hline
+	 127 & 5     & 1.6    & 0.3    & 0.0  &  \;\;\;\;\lstinline{    for i in range(list_max_digits):}\\
+	 128 & 4     & 1.6    & 0.4    & 0.0  &  \;\;\;\;\;\;\;\;\lstinline{        shift = (self.base) * i}\\
+	 129 & 40004 & 4158.5 & 0.1    & 11.2 &  \;\;\;\;\;\;\;\;\lstinline{        for num in self.list:}\\
+	 130 & 40000 & 6395.9 & 0.2    & 17.2 &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            masked_input = num ^ bit_mask}\\
+	 131 & 40000 & 9121.8 & 0.2    & 24.5 &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            curr_digit = (masked_input >> shift) & self.radix - 1}\\
+	 132 & 40000 & 8222.3 & 0.2    & 22.1 &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            bucket_list[curr_digit].append(num)}\\
+	 133 & 8     & 117.4  & 14.7   & 0.3  &  \;\;\;\;\;\;\;\;\lstinline{        nonempty = [}\\
+	 134 &       &        &        &      &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            (bdx, bucket)}\\
+	 135 & 4     & 6.1    & 1.5    & 0.0  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            for bdx, bucket in enumerate(bucket_list)}\\
+	 136 &       &        &        &      &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            if bucket != []}\\
+	 137 &       &        &        &      &  \;\;\;\;\;\;\;\;\lstinline{        ]}\\
+	 138 & 4     & 3.6    & 0.9    & 0.0  &  \;\;\;\;\;\;\;\;\lstinline{        if len(nonempty) == 1:}\\
+	 139 &       &        &        &      &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            bucket_list[nonempty[0][0]] = []}\\
+	 140 &       &        &        &      &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            continue}\\
+	 141 & 4     & 1.0    & 0.3    & 0.0  &  \;\;\;\;\;\;\;\;\lstinline{        index = 0}\\
+	 142 & 260   & 37.6   & 0.1    & 0.1  &  \;\;\;\;\;\;\;\;\lstinline{        for bdx, bucket in enumerate(bucket_list):}\\
+	 143 & 256   & 41.8   & 0.2    & 0.1  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            if len(bucket) == 0: continue}\\
+	 144 & 200   & 257.8  & 1.3    & 0.7  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            self.setslice(bucket, index)}\\
+	 145 & 200   & 36.1   & 0.2    & 0.1  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            index += len(bucket)}\\
+	 146 & 200   & 37.1   & 0.2    & 0.1  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            bucket_list[bdx] = []}\\
+	 \hline
+		\end{tabular}
+		}}
+		\caption*{excerpt from line\textunderscore profiler output of LSD Counting sort}
+	\end{table}
 \pagebreak
 \paragraph{Order checking}
 As an extension of the sort check made at the start of each call to radix sort, it is possible to repeatedly check sublists for being sorted or reverse sorted in MSD sort and then mark these sublists as sorted to reduce further iterations of integer sorting being applied. Doing reduces runtime by reducing the amount of integer sorting required but increases runtime due to the time required to perform the order checks, this is further explained in \ref{sssec:order}.
@@ -1253,135 +1290,95 @@ The function used to identify whether a list is sorted is shown below, and opera
 \end{lstlisting}
 \par
 To evaluate the effectiveness of order checking, two versions of PyPy were compiled, one with the above function being used on every sublist and one without.{\color{red}These versions of PyPy were then tested on lists of $1$,$000$,$000$ integers within the largest possible range in the data formats of random, few unique and nearly sorted. The results of the tests show that in almost all cases the order checking has a detrimental effect or an extremely small positive effect and therefore this function was not included in this project.}
-\begin{table}[H]
-	\centering
-	\makebox[\linewidth][]{
-	\resizebox{1.1\linewidth}{!}{
-		\centering
-	% \mbox{
-	\begin{tabular}{rrrrrl}
-		\hline
-		Line \# & Hits   & Time   & Per Hit   & \% Time   & Line Contents                                                       \\
-	 \hline
-	 109 &       &        &        &      &  \lstinline{@profile}\\
-	 110 &       &        &        &      &  \lstinline{def sort(self):}\\
-	 111 & 1     & 1.9    & 1.9    & 0.0  &  \;\;\;\;\lstinline{    if self.list_length < 2:}\\
-	 112 &       &        &        &      &  \;\;\;\;\;\;\;\;\lstinline{        return}\\
-	 113 & 1     & 8738.5 & 9000.0 & 23.5 &  \;\;\;\;\lstinline{    list_max = self.list_abs_max()}\\
-	 114 & 1     & 9.5    & 9.5    & 0.0  &  \;\;\;\;\lstinline{    list_max_digits = int_digits(list_max, self.base)}\\
-	 115 & 1     & 0.3    & 0.3    & 0.0  &  \;\;\;\;\lstinline{    if self.ordered:}\\
-	 116 &       &        &        &      &  \;\;\;\;\;\;\;\;\lstinline{        return}\\
-	 117 & 1     & 0.3    & 0.3    & 0.0  &  \;\;\;\;\lstinline{    if self.reverse_ordered:}\\
-	 118 &       &        &        &      &  \;\;\;\;\;\;\;\;\lstinline{        self.reverse_slice()}\\
-	 119 &       &        &        &      &  \;\;\;\;\;\;\;\;\lstinline{        return}\\
-	 120 & 1     & 30.4   & 30.4   & 0.1  &  \;\;\;\;\lstinline{    max_bits = int(int_digits(list_max, 1))}\\
-	 121 & 1     & 0.7    & 0.7    & 0.0  &  \;\;\;\;\lstinline{    bit_mask = ~((1 << max_bits) - 1)}\\
-	 122 & 1     & 0.9    & 0.9    & 0.0  &  \;\;\;\;\lstinline{    if max_bits \% self.base == 0 and max_bits != int_digits(}\\
-	 123 &       &        &        &      &  \;\;\;\;\;\;\;\;\lstinline{        (-sys.maxsize) - 1, 1}\\
-	 124 &       &        &        &      &  \;\;\;\;\lstinline{    ):}\\
-	 125 &       &        &        &      &  \;\;\;\;\;\;\;\;\lstinline{        list_max_digits += 1}\\
-	 126 & 1     & 9.9    & 9.9    & 0.0  &  \;\;\;\;\lstinline{    bucket_list = [[] for _ in range(self.radix)]}\\
-	 127 & 5     & 1.6    & 0.3    & 0.0  &  \;\;\;\;\lstinline{    for i in range(list_max_digits):}\\
-	 128 & 4     & 1.6    & 0.4    & 0.0  &  \;\;\;\;\;\;\;\;\lstinline{        shift = (self.base) * i}\\
-	 129 & 40004 & 4158.5 & 0.1    & 11.2 &  \;\;\;\;\;\;\;\;\lstinline{        for num in self.list:}\\
-	 130 & 40000 & 6395.9 & 0.2    & 17.2 &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            masked_input = num ^ bit_mask}\\
-	 131 & 40000 & 9121.8 & 0.2    & 24.5 &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            curr_digit = (masked_input >> shift) & self.radix - 1}\\
-	 132 & 40000 & 8222.3 & 0.2    & 22.1 &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            bucket_list[curr_digit].append(num)}\\
-	 133 & 8     & 117.4  & 14.7   & 0.3  &  \;\;\;\;\;\;\;\;\lstinline{        nonempty = [}\\
-	 134 &       &        &        &      &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            (bdx, bucket)}\\
-	 135 & 4     & 6.1    & 1.5    & 0.0  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            for bdx, bucket in enumerate(bucket_list)}\\
-	 136 &       &        &        &      &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            if bucket != []}\\
-	 137 &       &        &        &      &  \;\;\;\;\;\;\;\;\lstinline{        ]}\\
-	 138 & 4     & 3.6    & 0.9    & 0.0  &  \;\;\;\;\;\;\;\;\lstinline{        if len(nonempty) == 1:}\\
-	 139 &       &        &        &      &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            bucket_list[nonempty[0][0]] = []}\\
-	 140 &       &        &        &      &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            continue}\\
-	 141 & 4     & 1.0    & 0.3    & 0.0  &  \;\;\;\;\;\;\;\;\lstinline{        index = 0}\\
-	 142 & 260   & 37.6   & 0.1    & 0.1  &  \;\;\;\;\;\;\;\;\lstinline{        for bdx, bucket in enumerate(bucket_list):}\\
-	 143 & 256   & 41.8   & 0.2    & 0.1  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            if len(bucket) == 0: continue}\\
-	 144 & 200   & 257.8  & 1.3    & 0.7  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            self.setslice(bucket, index)}\\
-	 145 & 200   & 36.1   & 0.2    & 0.1  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            index += len(bucket)}\\
-	 146 & 200   & 37.1   & 0.2    & 0.1  &  \;\;\;\;\;\;\;\;\;\;\;\;\lstinline{            bucket_list[bdx] = []}\\
-	 \hline
-		\end{tabular}
-		}}
-		\caption*{line\textunderscore profiler output of LSD Counting sort}
-	\end{table}
+
 	\pagebreak
 	\subsubsection{Test criteria}
-	The purpose of the testing was primarily to compare the efficacy of the solution in this project to Timsort and verify whether the project goal of producing a more optimal sort method had been achieved. Secondary goals of the tests were to identify which of the 4 solutions and which base was the best as well as apply the algorithms to a variety of lists to identify the situations in which the algorithms were strong or weak relative to one another and to Timsort.
+	The purpose of the testing was primarily to compare the efficacy of the solution in this project to Timsort and verify whether the project goal of producing a more optimal sort method had been achieved. Secondary goals of the tests were to identify which of the 4 solutions performs the best and which base as the most effective as well as apply the algorithms to a variety of lists to identify the situations in which the algorithms were strong or weak relative to one another and to Timsort.
 	\par
-	The three formats identified in \ref{sssec:methodology} were therefore selected to provide an adequate comparison to Timsort, the sort method used in \textit{listsort.py}, which is optimized for sorting lists with already sorted subsections as well as testing performance on multiple types of data that may be seen in real world use of a sort method. Each format was tested using lists of three lengths, $10$,$000$, $100$,$000$ and $1$,$000$,$000$ and within the ranges $[-2^{n}$ $..$ $2^{n}-1]$ where $n$ is $16$, $20$, $32$ and $63$.
+	As outlined in \ref{ssec:timecomplexity}, Radix sort has a time complexity that depends on the list length $n$ and the number of digits $d$, therefore a complete testing must evaluate the effect of these two variables on the runtime of the algorithms. Measuring the effect of altering $n$ and $d$ was performed in two separate ways, in the first each was isolated and tested as a continuous variable without altering the other, in the second $3$ values were chosen for $n$ as well as $4$ ranges for list item values that contain different amounts of digits to test $d$. 
 	\par
-	 Testing the various list lengths shows the algorithms' applicability to real world situations and the different ranges are tested to compare the effect of changing the base used for radix sorting. With a larger range, more rounds of integer sorting are needed, and therefore the difference in results of these tests can be used to identify the optimal base to use. {\color{blue} I'm really not happy with how this bit is worded}
+	The continous testing of $n$ involved generating lists with a value for $n$ in the range $[1..1$,$000$,$000]$ and with list values of up to the maxmimum value for integers to ensure as best as possible that $d$ was constant. To test $d$, lists were generated with values constrained to the range $[-2^r..2^r\minus1]$ where $r$ varies from $[1..63]$, thereby increasing the value of $d$ but keeping $n$ constant.
 	\par
-
+	The non-continous testing evaluated the runtime of the algorithms of lists with a length of $10$,$000$, $100$,$000$ and $1$,$000$,$000$ and containing items with values within the range $[-2^{r}$ $..$ $2^{r}\minus1]$ where $r$ is $16$, $20$, $32$ and $63$. These parameters were selected to provide tests that represent the smallest and largest extremes of the continous tests as well as some tests in the middle. 
+	\par
+	Testing had to be split into continous and non-continous as performing a continous evaluation of both $n$ and $d$ would require a test of all values of $d$ performed for all values of $n$ and the amount of tests necessary makes this unfeasible. Furthermore, the data created by this would span 3 dimensions and would be difficult to extract useful information from. The continuous tests are useful for identifying the differences between each numerical base used for the algorithms, but as they are primarily evaluating the effect of $n$ and $d$ on Radix sort, they are not suitable for making a comparison to Timsort, the sort method used in \textit{listsort.py}.
+	\par
+	As the non-continous testing evaluates a range of both $n$ and $d$, the non-continous testing is also performed on lists generated in different format to evaluate each algorithms peformance in the widest range of circumstances. The formats used are identified in \ref{sssec:methodology} (Random, Nearly sorted and Few Unique). This type of testing was used to make a final comparison to Timsort, which is optimized for efficiency on lists with sorted sub-sections and therefore highly performant on nearly sorted lists.
+	\par
 	\pagebreak
+	\subsection{Test results and analysis} 
+	\subsubsection{Varying list length}
+	This test shows the effect of list size on the performance of radix sort and very clearly highlights the difference between the bases used. Some bases produce results that prevent meaningful information from being shown as their results are so much slower than others. This is visible in the first figure but in all other diagrams non-competitive bases are ommitted.
+	\paragraph{LSD Counting sort}
 	
-	\begin{table}[]
-		\begin{center}		
-		\caption*{Insertion sort tests for msd radix counting sort \hspace{.5cm}\includegraphics[width=.1\linewidth]{insertionLegend.png}}
-		\makebox[\linewidth][]{
-			\begin{minipage}[t]{.55\linewidth}
-				\includegraphics[width=\linewidth]{msd_c_2.png}
-			\end{minipage}%
-			\hspace{0.5cm}
-			\begin{minipage}[t]{.55\linewidth}
-				\includegraphics[width=\linewidth]{msd_c_4.png}
-			\end{minipage}
-			}\\
-		\makebox[\linewidth][]{
-			\begin{minipage}[t]{.55\linewidth}
-				\includegraphics[width=\linewidth]{msd_c_6.png}
-			\end{minipage}%
-			\hspace{0.5cm}
-			\begin{minipage}[t]{.55\linewidth}
-				\includegraphics[width=\linewidth]{msd_c_8.png}
-			\end{minipage}
-			}\\
-		\makebox[\linewidth][]{
-			\begin{minipage}[t]{.55\linewidth}
-				\includegraphics[width=\linewidth]{msd_c_10.png}
-			\end{minipage}%
-			\hspace{0.5cm}
-			\begin{minipage}[t]{.55\linewidth}
-				\includegraphics[width=\linewidth]{msd_c_12.png}
-			\end{minipage}
-			}\\
-		\makebox[\linewidth][]{
-			\begin{minipage}[t]{.55\linewidth}
-				\includegraphics[width=\linewidth]{msd_c_14.png}
-			\end{minipage}%
-			\hspace{0.5cm}
-			\begin{minipage}[t]{.55\linewidth}
-				\includegraphics[width=\linewidth]{msd_c_16.png}
-			\end{minipage}
-			}
-		\end{center}
-	\end{table}
+	
+	
 
-	\pagebreak
-	\begin{table}[h]
-		\makebox[\linewidth][]{
-		\centering
-		\includegraphics[width=1.2\linewidth]{lrg_Random.png}
-		}
-		\makebox[\linewidth][]{
-		\centering
-		\includegraphics[width=1.2\linewidth]{lrg_Nearly_Sorted.png}
-		}
-		\makebox[\linewidth][]{
-		\centering
-		\includegraphics[width=1.2\linewidth]{lrg_Few_Unique.png}
-		}
-		\makebox[\linewidth][]{
-		\centering
-		\includegraphics[width=1.2\linewidth]{lrg_Sorted.png}
-		}
-		\makebox[\linewidth][]{
-		\centering
-		\includegraphics[width=1.2\linewidth]{lrg_Reverse_Sorted.png}
-		}
-	\end{table}
+	% \begin{table}[]
+	% 	\begin{center}		
+	% 	\caption*{Insertion sort tests for msd radix counting sort \hspace{.5cm}\includegraphics[width=.1\linewidth]{insertionLegend.png}}
+	% 	\makebox[\linewidth][]{
+	% 		\begin{minipage}[t]{.55\linewidth}
+	% 			\includegraphics[width=\linewidth]{msd_c_2.png}
+	% 		\end{minipage}%
+	% 		\hspace{0.5cm}
+	% 		\begin{minipage}[t]{.55\linewidth}
+	% 			\includegraphics[width=\linewidth]{msd_c_4.png}
+	% 		\end{minipage}
+	% 		}\\
+	% 	\makebox[\linewidth][]{
+	% 		\begin{minipage}[t]{.55\linewidth}
+	% 			\includegraphics[width=\linewidth]{msd_c_6.png}
+	% 		\end{minipage}%
+	% 		\hspace{0.5cm}
+	% 		\begin{minipage}[t]{.55\linewidth}
+	% 			\includegraphics[width=\linewidth]{msd_c_8.png}
+	% 		\end{minipage}
+	% 		}\\
+	% 	\makebox[\linewidth][]{
+	% 		\begin{minipage}[t]{.55\linewidth}
+	% 			\includegraphics[width=\linewidth]{msd_c_10.png}
+	% 		\end{minipage}%
+	% 		\hspace{0.5cm}
+	% 		\begin{minipage}[t]{.55\linewidth}
+	% 			\includegraphics[width=\linewidth]{msd_c_12.png}
+	% 		\end{minipage}
+	% 		}\\
+	% 	\makebox[\linewidth][]{
+	% 		\begin{minipage}[t]{.55\linewidth}
+	% 			\includegraphics[width=\linewidth]{msd_c_14.png}
+	% 		\end{minipage}%
+	% 		\hspace{0.5cm}
+	% 		\begin{minipage}[t]{.55\linewidth}
+	% 			\includegraphics[width=\linewidth]{msd_c_16.png}
+	% 		\end{minipage}
+	% 		}
+	% 	\end{center}
+	% \end{table}
+
+	% \pagebreak
+	% \begin{table}[h]
+	% 	\makebox[\linewidth][]{
+	% 	\centering
+	% 	\includegraphics[width=1.2\linewidth]{lrg_Random.png}
+	% 	}
+	% 	\makebox[\linewidth][]{
+	% 	\centering
+	% 	\includegraphics[width=1.2\linewidth]{lrg_Nearly_Sorted.png}
+	% 	}
+	% 	\makebox[\linewidth][]{
+	% 	\centering
+	% 	\includegraphics[width=1.2\linewidth]{lrg_Few_Unique.png}
+	% 	}
+	% 	\makebox[\linewidth][]{
+	% 	\centering
+	% 	\includegraphics[width=1.2\linewidth]{lrg_Sorted.png}
+	% 	}
+	% 	\makebox[\linewidth][]{
+	% 	\centering
+	% 	\includegraphics[width=1.2\linewidth]{lrg_Reverse_Sorted.png}
+	% 	}
+	% \end{table}
 
 
 	
