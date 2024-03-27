@@ -39,14 +39,6 @@
                     "lsd_c_12",
                     "lsd_c_14",
                     "lsd_c_16",
-                    "lsd_p_2",
-                    "lsd_p_4",
-                    "lsd_p_6",
-                    "lsd_p_8",
-                    "lsd_p_10",
-                    "lsd_p_12",
-                    "lsd_p_14",
-                    "lsd_p_16",
                     "msd_c_2",
                     "msd_c_4",
                     "msd_c_6",
@@ -54,15 +46,7 @@
                     "msd_c_10",
                     "msd_c_12",
                     "msd_c_14",
-                    "msd_c_16",
-                    "msd_p_2",
-                    "msd_p_4",
-                    "msd_p_6",
-                    "msd_p_8",
-                    "msd_p_10",
-                    "msd_p_12",
-                    "msd_p_14",
-                    "msd_p_16"
+                    "msd_c_16"
                 ],
                 "workingfinal_alwaysinsert": [],
                 "workingfinal_neverinsert": [],
@@ -71,10 +55,10 @@
                 "workingovf": []
             },
             "listlength": [
-                1000000
+                920000
             ],
             "listcount": 100,
-            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_25.json",
+            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_28.json",
             "insertion": true,
             "basemax": -1,
             "shuffle": -1,
