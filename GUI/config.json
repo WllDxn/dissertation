@@ -31,22 +31,8 @@
                 "switchbase": [],
                 "working": [],
                 "workingfinal": [
-                    "lsd_c_2",
-                    "lsd_c_4",
-                    "lsd_c_6",
-                    "lsd_c_8",
-                    "lsd_c_10",
-                    "lsd_c_12",
-                    "lsd_c_14",
-                    "lsd_c_16",
-                    "msd_c_2",
-                    "msd_c_4",
-                    "msd_c_6",
-                    "msd_c_8",
-                    "msd_c_10",
-                    "msd_c_12",
-                    "msd_c_14",
-                    "msd_c_16"
+                    "lsd_p_10",
+                    "lsd_p_12"
                 ],
                 "workingfinal_alwaysinsert": [],
                 "workingfinal_neverinsert": [],
@@ -55,10 +41,10 @@
                 "workingovf": []
             },
             "listlength": [
-                920000
+                1200000
             ],
             "listcount": 100,
-            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_28.json",
+            "outputFilePath": "/home/will/dissertation/sort_times/workingfinal_26.json",
             "insertion": true,
             "basemax": -1,
             "shuffle": -1,
