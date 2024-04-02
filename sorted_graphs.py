@@ -28,72 +28,77 @@ def do_graph(reject_outliers, fname):
         df = df.drop(['files', 'read', 'key'], axis=1, errors='ignore')
         df = df[df.cols == dsid]
         gb = df.groupby(['data_type'])
-        plt.rcParams.update({'font.size': 22})
+        plt.rcParams.update({'font.size': 24})
 
         for group, g in gb:
-            df2 = g.melt(id_vars=['data_type', 'data_size', 'cols', 'rows'], var_name='method', value_name='times')
-            df2['version'] = df2['method'].str.extract(r'(?!\D*\d+)(\D+)')
-            df2["version"] = df2['version'].str.strip('_')
-            df2[['method', 'base']] = df2['method'].str.extract(r'(\D+)(\d+)')
-            df2["method"] = df2["method"].str.replace("times.", "", regex=False).str[:-1]
-            df2 = df2.dropna()
-            sgb = df2.groupby(['data_size'])
-            fig = plt.figure(figsize=((15*sgb.ngroups)+5, 15), constrained_layout=True)
-            rows = g.rows.values[0]
-            fig.suptitle(f'List length: {dsid:,}\nList count: {rows:,}\nData type: {group[0]}', fontsize='x-large')
+            df0 = g.melt(id_vars=['data_type', 'data_size', 'cols', 'rows'], var_name='method', value_name='times')
+            for kdx, k in enumerate([['large',''],['med',''],['small',''],['tiny','']]):
+                df2 = df0.dropna().copy()
+                if len(k)<4:
+                    df2.drop(df2.loc[(df2['data_size'] != k[0]) & (df2['data_size'] != k[1])].index, inplace=True)
+                df2['version'] = df2['method'].str.extract(r'(?!\D*\d+)(\D+)')
+                df2["version"] = df2['version'].str.strip('_')
+                df2[['method', 'base']] = df2['method'].str.extract(r'(\D+)(\d+)')
+                df2["method"] = df2["method"].str.replace("times.", "", regex=False).str[:-1]
+                df2 = df2.dropna()
+                sgb = df2.groupby(['data_size'])
+                fig = plt.figure(figsize=((7.5*sgb.ngroups)+7, 10), constrained_layout=True)
+                rows = g.rows.values[0]
+                fig.suptitle(f'List length: {dsid:,}\nData type: {group[0]}', fontsize='x-large')
 
-            subfigs = fig.subfigures(1, sgb.ngroups)
-            subfigs = subfigs.flatten() if sgb.ngroups > 1 else [subfigs]
-            for subgroup, subfig in zip(sgb.groups, subfigs):
-                df3 = sgb.get_group(subgroup)
-                subfig.suptitle(f'Limit: {sizes[str(subgroup)]:,}')
-                # print(df3.head(10))
-                methodgroups = df3.groupby(['method'])
-                axes = subfig.subplots(nrows=1, ncols=methodgroups.ngroups, sharey=False, width_ratios=methodgroups.size())
-                for idx, (key, ax) in enumerate(zip(methodgroups.groups.keys(), np.ravel([axes]))):
-                    # if 'p' in key:continue
-                    # print(key)
-                    mdf = methodgroups.get_group(key)
-                    # print(mdf)
-                    mdf.loc[:,['times']] = mdf['times'].apply(reject_outliers, m=3)
-                    mdf = mdf.sort_values(by=['base'], key=natsort.natsort_keygen())
-                    xerrors = mdf['times'].apply(np.std)
-                    x = mdf['times'].apply(np.mean)
-                    mdf['base'] =  mdf['base'].astype(int)
-                    xtick = mdf['base'].unique()
-                    colors = {'with sorted':'C0', 'not sorted':'C1'}
-                    colorkeys = {'with sorted':'production', 'not sorted':'prod_withsorted'}
-                    mdf['version'] = mdf['version'].astype('category')
-                    
-                    labels = [
-                        f"{version}"
-                        for version in colors
-                    ]
-                    fasterslower = '\n'.join([f"{version} - {mdf.loc[mdf.assign(times=mdf['times'].apply(np.mean)).groupby('base')['times'].idxmax()]['version'].value_counts()[colorkeys[version]]}" for version in colors])
-                    mdf['base'] = mdf.apply(lambda x: x['base']-0.4 if x['version']=='prod_withsorted' else x['base']+0.4, axis=1)
-                    handles = [plt.Rectangle((0,0),1,1, color=colors[label]) for label in colors]
-                    ax.bar(mdf['base'], x, width=0.7, yerr=xerrors, color=['C0', 'C1'])
-                    plt.legend(handles, labels)
-                    
-                    ax.set_xlabel(f'{key}\n{fasterslower}')
-                    ax.set_xticks(xtick)
-                    # if key == list(methodgroups.groups.keys())[0]:
-                    # else:
-                    ax.set_ylabel('mean sort time (s)')
-                    ax.tick_params(axis='y', left=False)
-                    ax.spines["left"].set_visible(True)
-                    # ax.set_ylabel('')
-                    ax.spines["right"].set_visible(False)
-                    ax.spines["top"].set_visible(False)
+                subfigs = fig.subfigures(1, sgb.ngroups)
+                subfigs = subfigs.flatten() if sgb.ngroups > 1 else [subfigs]
+                for subgroup, subfig in zip(sgb.groups, subfigs):
+                    df3 = sgb.get_group(subgroup)
+                    subfig.suptitle(f'Limit: {sizes[str(subgroup)]:,}')
+                    # print(df3.head(10))
+                    methodgroups = df3.groupby(['method'])
+                    axes = subfig.subplots(nrows=1, ncols=methodgroups.ngroups, sharey=False, width_ratios=methodgroups.size())
+                    for idx, (key, ax) in enumerate(zip(methodgroups.groups.keys(), np.ravel([axes]))):
+                        # if 'p' in key:continue
+                        # print(key)
+                        mdf = methodgroups.get_group(key)
+                        # print(mdf)
+                        mdf.loc[:,['times']] = mdf['times'].apply(reject_outliers, m=3)
+                        mdf = mdf.sort_values(by=['base'], key=natsort.natsort_keygen())
+                        xerrors = mdf['times'].apply(np.std)
+                        x = mdf['times'].apply(np.mean)
+                        mdf['base'] =  mdf['base'].astype(int)
+                        xtick = mdf['base'].unique()
+                        colors = {'with sorted':'C0', 'not sorted':'C1'}
+                        colorkeys = {'with sorted':'production', 'not sorted':'prod_withsorted'}
+                        mdf['version'] = mdf['version'].astype('category')
+                        
+                        labels = [
+                            f"{version}"
+                            for version in colors
+                        ]
+                        fasterslower = [f"{version} - {mdf.loc[mdf.assign(times=mdf['times'].apply(np.mean)).groupby('base')['times'].idxmax()]['version'].value_counts()[colorkeys[version]]}" for version in colors]
+                        mdf['base'] = mdf.apply(lambda x: x['base']-0.4 if x['version']=='prod_withsorted' else x['base']+0.4, axis=1)
+                        handles = [plt.Rectangle((0,0),1,1, color=colors[label]) for label in colors]
+                        ax.bar(mdf['base'], x, width=0.7, yerr=xerrors, color=['C0', 'C1'])
+                        plt.legend(handles, labels)
+                        
+                        ax.set_xlabel(f'{fasterslower[0]}         {fasterslower[1]}')
+                        ax.set_title(f'{key}')
+                        ax.set_xticks(xtick)
+                        # if key == list(methodgroups.groups.keys())[0]:
+                        # else:
+                        ax.set_ylabel('mean sort time (s)')
+                        ax.tick_params(axis='y', left=False)
+                        ax.spines["left"].set_visible(True)
+                        # ax.set_ylabel('')
+                        ax.spines["right"].set_visible(False)
+                        ax.spines["top"].set_visible(False)
 
-            graphdir = Path('graphs') / Path(fname).stem
-            os.makedirs(graphdir, exist_ok = True)
-            graphdir.mkdir(parents=True, exist_ok=True)
-            gname = str(group).replace(' ', '_').strip('(,)\'')
-            filename = f"{ds}_{gname}.png"
-            plt.savefig(graphdir / filename)
-            print(graphdir / filename)
-            plt.close()
+                graphdir = Path('graphs') / Path(fname).stem
+                os.makedirs(graphdir, exist_ok = True)
+                graphdir.mkdir(parents=True, exist_ok=True)
+                gname = str(group).replace(' ', '_').strip('(,)\'')
+                filename = f"{ds}_{gname}_sorted_{kdx}.png"
+                plt.savefig(graphdir / filename)
+                print(graphdir / filename)
+                plt.close()
 
 if __name__ == '__main__':
     do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/prod_withsorted_production_5.json'))

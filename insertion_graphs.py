@@ -19,7 +19,7 @@ def reject_outliers_2(data, m=4):
 
 def get_data(inp, threshold, maxc=2000):
     #Input data#
-    with open(f'sort_times/{inp}') as f:
+    with open(f'{inp}') as f:
         data = json.load(f)
 
     methodnames = list(data['radix_sort'][0]['times'].keys())
@@ -70,6 +70,7 @@ def graph(nn=0, threshold=False):
     plt.rcParams['text.usetex'] = True
     plt.rcParams['axes.formatter.limits'] = [-2,6]
     plt.rcParams['ytick.major.pad'] = 0
+    plt.rcParams.update({'font.size': 26})
     melt = 'cols' if threshold==False else 'threshold'
     # dfms = []
     # for t in ['always', 'never']:
@@ -87,7 +88,7 @@ def graph(nn=0, threshold=False):
     
     # dfm = get_data('workingfinal_alwaysinsert_workingfinal_neverinsert_4.jsonworkingrinsert_0.json', threshold)
     
-    dfm = get_data(f'workingfinal_13.json', threshold)
+    dfm = get_data(f'sort_times_in_diss/insertion_test.json', threshold)
     # print(dfm)
     dfm.sort_values(by=['method'], inplace=True)
     dfm.sort_index(inplace=True)
@@ -146,7 +147,7 @@ def graph(nn=0, threshold=False):
         next(palette)
         plt.vlines(x=roots, ymin=0, ymax=ry, color=next(palette),linestyles='dashed')
         plt.plot(roots,ry, 'rD', alpha=0.75, mec='#9d1c00', mew=1)
-        plt.text(roots[0], 0, '\n' + str(int(np.round(roots[0]))), linespacing= 0.25, color='r', horizontalalignment='center', verticalalignment='top')
+        plt.text(roots[0], 0, f'\n${str(int(np.round(roots[0])))}$', linespacing= 0.10, color='r', horizontalalignment='center', verticalalignment='top')
         
         for g in ax.axes.flatten():
             # ival = 3 if len(str(g.get_xticks()[1]))<3 else 4
@@ -193,7 +194,7 @@ def graph(nn=0, threshold=False):
         # ax.legend.set_draggable(True)
         plt.grid()
         if group in [f'msd_{x}_{t}' for t in range(2,18,2) for x in ['p', 'c']]:
-            plt.savefig(f'graphs/lengthgraphs/{group}.png', dpi=300,bbox_inches='tight')
+            plt.savefig(f'graphs/insertionLarge/{group}.png', dpi=300, bbox_inches='tight')
             print(f'{group}.png')
         plt.close()
     print('-'*32)

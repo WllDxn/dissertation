@@ -72,10 +72,14 @@
 \hfuzz=5.002pt 
 \usepackage{url}
 \usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{longtable}
 %%% --- The following two lines are what needs to be added --- %%%
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
-\graphicspath{ {./demographs/} {./insertion/} {./results} {./lengthgraphs} {./basegraphs}}
+\graphicspath{ {./demographs/} {./insertion/} {./results} {./lengthgraphs} {./basegraphs} {./sortedgraphs}}
 \begin{document}
 {
   \hypersetup{linkcolor=black}
@@ -242,13 +246,12 @@
 	\label{ssec:radixexplanation}
 	Python stores integers in the format "two’s complement”, which is a type of binary and therefore uses a base of 2. This means that bases that are of the order $2^n$ where $n$ is some integer are the most suitable for this project as each single $2^n$ digit utilises a maximum of $n$ bits and each subsequent digit utilises the next $n$ bits.
 	\par
-	The main consideration when selecting a numerical base for Radix sort is the trade off between iterations of the integer sorting method, minimized by selecting a higher base, and speed of each iteration of integer sorting, minimized by selecting a lower base. There is technically no upper bound for $n$ when taking a theoretical approach, however in practice the constraints of a physical memory limit and larger overhead costs limit radix sort algorithm to reasonably small values of $n$. This project includes values in the range $[2..16]$ as a value of $18$ made the performance graphs seen in {\color{red}reference} unreadable for any other base due to the time taken being so much higher.
+	The main consideration when selecting a numerical base for Radix sort is the trade off between iterations of the integer sorting method, minimized by selecting a higher base, and speed of each iteration of integer sorting, minimized by selecting a lower base. There is technically no upper bound for $n$ when taking a theoretical approach, however in practice the constraints of a physical memory limit and larger overhead costs limit radix sort algorithm to reasonably small values of $n$. This project includes values in the range $[2..16]$ as a value of $18$ (and presumably anything above) performed so poorly the charts generated were unreadable for any other base.
 	\par 
 	The reason performance suffers with a higher radix being used is that each item in the range $[1..n]$ represents a list item in the integer sorting method (count list items / buckets) and each list item requires a memory address and a certain allocation of memory when being instantiated, each list item requires access to a location in the count list/bucket list during the building stage and the count/bucket list requires iterating over when rebuilding the input list. Whilst a higher value of $n$ is desirable to reduce iterations over the input, any increase causes an exponential increase in the these overhead costs incentivising a lower $n$. 
 	\par 
 	The effect of larger values of $n$ being more costly is highlighted further when considering the effect of cache misses on performance. A cache is a small piece of hihg speed memory that can be accessed much faster than main memory, however this memory is much smaller than main memory and so can only store limited amounts of data. The number of successful reads of a count/bucket list item from cache can greatly improve the performance of an algorithm, and when considering radix sort, a higher $n$ value decreases the ability of the system to be stored in the cache. Lamarca and Ladner use a $n = 16$ in their implementation of radix sort to minimize cache misses and instruction count \cite{LAMARCA199966}
 	\subsubsection{Implementation}
-	Accessing a digit
 	The method of identifying each digit of an integer from the binary representation first involves manipulating the integer such that the desired digit is in the rightmost position, in base $n$ this means discarding the rightmost $n \cdot d$ binary digits where d is the index (from the right) of the required digit in base $2^n$. Following this, isolating the rightmost $n$ binary digits produces the correct digit.  
 		\par
 	In order to complete this task, bitwise operations have been utilised (see \ref{ssec:bitwise}).
@@ -307,8 +310,8 @@
 				\right.
 			  \end{math}}
 			  \\
-			  Digit 4 & Digit 3 & Digit 2 & Digit 1 \\
-			  14 & 10 & 6 & 0
+			 Digit 4 & \hspace{10pt} Digit 3 & \hspace{10pt}Digit 2 & \hspace{10pt}Digit 1 \\
+			   14 & \hspace{10pt}10 & \hspace{10pt} 6 & \hspace{10pt}0
 			
         \end{tabular}%
 		\vspace{0.1cm}
@@ -366,24 +369,44 @@
 	\end{table}
 \pagebreak
 \section{Implementation}
-{\color{red} I think I should write something here}
 \subsection{Extra Methods and Classes}
 The algorithm relies upon a number of helper methods to operate effectively and must be contained in a specific class structure to allow for it's inclusion into PyPy. This section explains the structure of the class used and contains documentation for all of the helper methods that are used by the algorithms.
 
 \subsubsection{Function absolute}
-Allows for the calculation of absolute values without overflow issues specifically caused by using the minimum possible value. This value's positive counterpart lies outside of the range of the 64 bits assigned for each integer in RPython, this causes unpredictable errors and even though there is only one specific case that necessitates the use of this method over the regular abs() inbuilt function.
+Allows for the calculation of absolute values without overflow issues specifically caused by using the minimum possible value as the positive of this value requirs an extra bit to express and thus causes an overflow error.
 \begin{lstlisting}
 	import sys
         
 	def absolute(num):
         if num == (-sys.maxint) - 1:
-        return sys.maxint
+			return sys.maxint
         return -num if num < 0 else num
 \end{lstlisting}
+
+\subsubsection{Function make\textunderscore radixsort\textunderscore class}
+The container function that instantiates all other funtions, this is modelled on the existing function in listsort.py \cite{listsort} to minimize compatability issues when including this project in the pypy library.
+\begin{lstlisting}
+    def make_radixsort_class(
+        setitem=None,	setslice=None,
+    ):
+  \end{lstlisting}
+\subsubsection{Functions setitem and setslice}
+These functions have been imported from the existing listsort.py file within rlib \cite{listsort}. They enable the input list to be edited by functions within the Radixsort class. When the $.sort()$ function is called by PyPy, it initialises the Radixsort class with the list as a constructor, this means that the list attribute is not mutable from within the class unless these functions are imported.
+\begin{lstlisting}
+    if setitem is None:
+      def setitem(list, item, value):
+          list[item] = value
+	
+	if setslice is None:
+		def setslice(list, slice, index):
+			list[index : index + len(slice)] = slice
+  \end{lstlisting}
+
+
 \pagebreak
 \subsubsection{Function int\textunderscore digits}
 \label{ssec:intdigits}
-Returns the quantity of digits needed to express an integer using a specified numerical base. Each digit requires $n$ binary bits to express an integer in the base $2^n$ excluding the sign bit which is not factored in when calculating the return value of this function but is accounted for elsewhere {\color{red} Reference}.
+Returns the quantity of digits needed to express an integer using a specified numerical base. Each digit requires $n$ binary bits to express an integer in the base $2^n$ excluding the sign bit which is not factored in when calculating the return value of this function but is accounted for elsewhere (see \ref{sssec:listmaxdigits}).
 \par
 This function repeatedly rightshifts the input value by a number of bits starting at the chosen base and increasing by the same on each repeat. This is performed until the rightshifted input is equal to $0$ or $-1$ if the input is positive or negative respectively, which indicates that the number of bits the input has been shifted by are equal to or greater than the number of bits needed to express it. The number of repeats (\textit{l}) is returned as this represents the number of digits needed to express the input value.
 \par
@@ -405,32 +428,12 @@ Intuitively it would seem the use of logarithms would be a more prudent and conc
 		return l
 \end{lstlisting}
 \pagebreak
-\subsubsection{Function make\textunderscore radixsort\textunderscore class}
-The container function that instantiates all other funtions, this is modelled on the existing function in listsort.py \cite{listsort} to minimize compatability issues when including this project in the pypy library.
-\begin{lstlisting}
-    def make_radixsort_class(
-        setitem=None,
-    ):
-  \end{lstlisting}
-\subsubsection{Functions setitem and setslice}
-These functions have been imported from the existing listsort.py file within rlib \cite{listsort}. They enable the input list to be edited by functions within the Radixsort class. When the $.sort()$ function is called by PyPy, it initialises the Radixsort class with the list as a constructor, this means that the list attribute is not mutable from within the class unless these functions are imported.
-\par
-These are the only existing functions of the original listsort.py that were not removed.
-\begin{lstlisting}
-    if setitem is None:
-      def setitem(list, item, value):
-          list[item] = value
-	
-	if setslice is None:
-		def setslice(list, slice, index):
-			list[index : index + len(slice)] = slice
-  \end{lstlisting}
 
 
 \subsubsection{Class Radixsort}
 This is the class that contains all other functions of the radixsort algorithm. It is initialised with the input list which is stored as an attribute for access by other functions as well as the base and radix.\par
 \par
-The function $setitem$ is imported here as mentioned above so that the list can be edited outside of the scope of the class.
+The functions $setitem$ and $setslice$ are imported here as mentioned above so that the list can be edited outside of the scope of the class.
 \begin{lstlisting}
         class Radixsort(object):
             def __init__(self, list, listlength=None):
@@ -448,13 +451,12 @@ The function $setitem$ is imported here as mentioned above so that the list can 
 \subsubsection{Function list\textunderscore abs\textunderscore max}
 This function returns the largest absolute value of the input list as well as identifing whether the list is sorted in asscending or descending order. These functions are combined as a time saving measure as they both require a pass over the data.
 \par
-The primary purpose of this function is to return the value that is used to identify the number of passes over the input necessary for sorting, this is why it is necessary to identify the farthest value form 0 as this is the value that will contain the most digits. Note that neither min() or max() are implemented in RPython \cite{rpythonobj}, hence why they have not been used.
+The primary purpose of this function is to return the value that is used to identify the number of passes over the input necessary for sorting, this is the value that will contain the most digits and is thus the largest absolute value. 
 \par
 The secondary purpose of the function is to identify on the first pass over the list whether it is sorted, in which case the algorithm terminates, or if it is reverse sorted in which case the list is reversed and then the algorithm terminates.
 \begin{lstlisting}
         self.ordered = True
         self.reverseOrdered = True
-
         def list_abs_max(self, checkorder=False):
             assert len(self.list) != 0
             m = self.list[0]
@@ -468,7 +470,7 @@ The secondary purpose of the function is to identify on the first pass over the 
 					self.ordered &= self.list[i] >= prev
 					self.reverseOrdered &= self.list[i] <= prev
 					prev = self.list[i]
-            return m if absolute(m) > absolute(n) else n
+            return m if absolute(m) > absolute(m) else n
       \end{lstlisting}
 \pagebreak
 \subsubsection{Function insertion\textunderscore sort}
@@ -499,30 +501,6 @@ This reverses the items of the input inbetween the provided start and stop index
                 stop -= 1
       \end{lstlisting}
 \pagebreak
-\subsubsection{Function is\textunderscore sorted}
-This function exists to check whether a subsection of the list is sorted. It is called on subsections of the list during MSD sorts. The assert statements exist to ensure that RPython compiles the code as it does not allow for slicing lists with negative slice indexes \cite{rpythonobj}
-\begin{lstlisting}
-	def is_sorted(self, start=0, end=-1):
-		end = end if end > -1 else self.listlength
-		assert start >= 0
-		assert end >= 0
-		sortd, rsortd = True, True
-		for i, el in enumerate(self.list[start + 1 : end]):
-			if el < self.list[start + i]:
-				sortd = False
-				if rsortd == False:
-					return sortd, rsortd
-			if el > self.list[start + i]:
-				rsortd = False
-				if sortd == False:
-					return sortd, rsortd
-		return sortd, rsortd
-\end{lstlisting}
-\pagebreak
-
-
-
-
 \subsection{Bitwise operations}
 \label{ssec:bitwise}
 Bitwise operations operate on binary numerals at the level of individual bits, they allow for fast and consistant manipulation that bypasses arithmetic functions. Through the use of bitwise operations, radix sort can be performed using different numeral bases, meaning a diffent maximum value at each digit and a different total number of digits. By reducing the number of digits the amount of iterations over the data is reduced thereby improving run time, however this comes at the cost of an increase in the amount of time each round of integer sorting takes and an increase in the memory consumption due to the larger count list or quantity of bins. 
@@ -706,7 +684,7 @@ In terms of implementation, an initial pass over the data counts the occurance o
 
 	\subsubsection{Order checking}
 	\label{sssec:order}
-Radix sort has no advantage when called on already sorted lists compared to unsorted due to the non-comparative nature of the algorithm. Simple comparative algorithms such as bubble sort will out perform radix sort when called on sorted lists and as Timsort is highly efficient at sorting them there is substantial motivation for improvements to be made with regards to handling sorted data.
+Radix sort has no inherrant advantage when called on already sorted lists compared to unsorted due to the non-comparative nature of the algorithm. Simple comparative algorithms such as bubble sort will out perform radix sort when called on sorted lists and as Timsort is highly efficient at sorting them there is substantial motivation for improvements to be made with regards to handling sorted data.
 \par
 Identifying sorted lists is not computationally expensive, it involves iterating over and comparing the list items in order and ensuring that each value is larger or equal to the previous value, essentially only involving $n\minus1$ comparisons where $n$ is the input list length giving a time complexity of $\mathcal{O}(n)$. As this algorithm already involves iterating over the data, the run time cost of adding a comparison function to check for sortedness is extremely low, thus a check to identify whether a list is sorted as well as whether a list is reverse sorted is included in the first iteration over the data, which is the point at which the absolute maximum value of the list is identified (a necessary step for this algorithm).
 \begin{table}[H]
@@ -731,9 +709,7 @@ Identifying sorted lists is not computationally expensive, it involves iterating
 \par
 An extension of this idea is to perform this order checking every time the input list is rearranged (once for each digit). Unlike the initial order checking which has a minor footprint on the run time of the algorithm, checking order on each digit has a moderately significant impact, therefore it should only be implemented on the conditions that it reasonably likely that sorted lists will occur and that when the test does identify a sorted list the time saved from early termination of the algorithm is greater than the time added by performing the test. This type of optimization is not suitable for use in LSD sorts as the chance of the entire list being sorted by a single digit is extremely low.
 \par
-Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts do sometimes create sorted sublists but skipping these sublists rarely results in a lower runtime as the cost of checking every list is too great. Due to the highly sporatic nature of benefits being seen, this type of order checking was not included.
-
-
+Testing involving the comparison of the performance of algorithms including and excluding order checking showed that MSD radix sorts do sometimes create sorted sublists but skipping these sublists rarely results in a lower runtime. The testing process is further explored in \ref{sssec:orderchecking}
 \pagebreak
 \subsubsection{Skipping iterations}
 \label{sssec:skip}
@@ -803,7 +779,8 @@ Using insertion sort in situations where the input list is reasonably small can 
 At the start of each algorithm the following variables are instantiated, they are integral to the a correct radix sort and are identical across all implementations.
 \begin{description}
 	\item[listmax]contains the largest absolute value of the list and is used to calculate the passes over the data needed to complete sorting as well as the bitmask used to invert the sign bit.
- 	\item[list\textunderscore max\textunderscore digits] Represents the total number of iterations over the data (rounds of integer sorting) that wil be needed. This is calculated by calling the function \textbf{\textit{int\textunderscore bytes()}} (\ref{ssec:intdigits}) with \textbf{list\textunderscore max} and the selected base.
+ 	\item[list\textunderscore max\textunderscore digits] 
+	\label{sssec:listmaxdigits} Represents the total number of iterations over the data (rounds of integer sorting) that wil be needed. This is calculated by calling the function \textbf{\textit{int\textunderscore bytes()}} (\ref{ssec:intdigits}) with \textbf{list\textunderscore max} and the selected base.
 	\par
 	Ensuring that this algorithm properly sorts integers with respect to their sign requires that the most significant digit sorted includes at least one sign bit (see \ref{ssec:pypynegatives}). Identifying if this is the case involves observing whether the quantity of bits needed to express \textbf{list\textunderscore max} is divisible by the selected base with or without a remainder.
 	\par 
@@ -811,7 +788,7 @@ At the start of each algorithm the following variables are instantiated, they ar
 	\par
 	If there is no remainder then the sign bit is not included in the leftmost digit of \textbf{list\textunderscore max} as all bits in the leftmost digit are needed to express the magnitude of the digit. This signals that an extra iteration needs to be added to ensure negative values are properly sorted.
 	\par
-	This extra iteration does not get added on if the quantity of digits in binary of \textbf{list\textunderscore max} and the system maximum integer are equal as this would result in a rightshift of more bits than there are in an integer resulting in an error in RPython {\color{red}go into detail? it's kind of pointless}. In this case the additional pass is not needed anyway as the leftmost bit is always the sign bit and so will definititely be included in sorting.
+	This extra iteration does not get added on if the quantity of digits in binary of \textbf{list\textunderscore max} and the system maximum integer are equal as this would result in a rightshift of more bits than there are in an integer resulting in an error. In this case the additional pass is not needed anyway as the leftmost bit is always the sign bit and so will definititely be included in sorting.
 	\par
 	\begin{table}[!htb]
 		\caption*{Below are two integers expressed in binary, the sign bits are highlighted and the binary digits are split into groups of 4 illustrating the number of iterations that would be needed if they were the maximum absolute value of an input list}
@@ -1003,7 +980,7 @@ At the start of each algorithm the following variables are instantiated, they ar
 \begin{description}
 	\item[bucket\textunderscore list] This two dimensional list contains a quanity of empty lists equal to the radix. Input list items are moved into the bucket with the index equal to the value of the digit at a given position.\par Because the frequency of each digit is not known, the sublists must be instantiated empty and the append method is used to insert list items.
 	\item[skip iteration check] After moving the list items into the buckets, a list comprehension is used to count the number of non empty buckets (line 27). If this value is $1$ this indicates that the list order will not change by unpacking he buckets to overwrite the input list and so the bucket containing the single non empty list is overwritten with an empty list and the next digit is processed.
-	\item[Overwriting the input list] The bucket list is iterated over and any on empty buckets are used to overwrite the input list before being themselves overwritten with an empty list. The list length of the buckets is accumulated and used as the start index of the \textit{setslice} method at this refers to the number of inputs already overwritten.
+	\item[Overwriting the input list] The bucket list is iterated over and any non empty buckets are used to overwrite the input list before being themselves overwritten with an empty list. The list length of the buckets is accumulated and used as the start index of the \textit{setslice} method at this refers to the number of inputs already overwritten.
 \end{description}
 
 \begin{table}[H]
@@ -1046,8 +1023,8 @@ At the start of each algorithm the following variables are instantiated, they ar
 \end{table}
 \pagebreak
 \subsubsection{MSD Counting sort}
-MSD Radix sort as outlined in \ref{sssec:msdradix} sort operates by using integer sorting on each digit to divide the input list into sublists upon which a recursive call to MSD Radix sort is made to sort across the next digit of each sublist.
-\par In order to avoid recursive calls {\color{red} Why?}, this project implements a method of storing only the start and end index of the sublists then iterating over this list of indexes when sorting over the next digit and sorting items within each index range only amongst eachother.
+MSD Radix sort, as outlined in \ref{sssec:msdradix}, sort operates by using integer sorting on each digit to divide the input list into sublists upon which a recursive call to MSD Radix sort is made to sort across the next digit of each sublist.
+\par In order to avoid recursive calls, this project implements a method of storing only the start and end index of the sublists then iterating over this list of indexes when sorting over the next digit and sorting items within each index range only amongst eachother.
 \begin{description}
 	\item[Sublist Indexes] 
 	\par 
@@ -1209,7 +1186,7 @@ The goal of this test was to identify a critical list length for which insertion
 \par
 Two versions of PyPy were created for each base and integer sorting method, one of which used a threshold of $0$ to ensure insertion sort was never used. The other version replaced the threshold check with a test of whether the length was greater than 0 which always returns true and triggers insertion sort, this was done instead of replacing the entire radix sort method with insertion sort as all the code executed prior to sorting (whether that be insertion or radix) is identical and therefore the results can be used to make a valid comparison of the two sorting methods being applied to a sublist.
 \par
-The testing results are shown in Figure \ref{fig:msdinsert}, Full results can be seen in appendix {\color{red} Ref}. Each point represents the average of 100 sample of the time to sort a list of a given length, also shown are the polynomial regression lines modelled using the method of least squares with the intersect labelled in red which is then taken as a generally acceptable threshold to use.
+A sample of testing results are shown in \ref{fig:msdinsert}. Each point represents the average of 100 sample of the time to sort a list of a given length, also shown are the polynomial regression lines modelled using the method of least squares with the intersect labelled in red which is then taken as a generally acceptable threshold to use.
 \begin{table}[h]
 	\begin{minipage}{\textwidth}
 		\centering
@@ -1230,7 +1207,7 @@ It is important to note that this tool runs using Python, not PyPy and also that
 \par 
 The data provided by this tool was, however, very useful at identifying the correctness of solutions as the number of calls to a particular line would be identical whether run using line\textunderscore profiler or with a compiled version of PyPy, provided the input list is identical. Using this information allowed me to ensure that the code was efficient and that unnecessary iterations over the input list were not made. As an example this tool allowed me to identify that pigeonhole sort was incorrectly performing an additional iteration by showing that all lists made up of positive integers triggered the condition of a single bucket containing all items.
 \par
-Initially one of the aims of testing was to complete a profile of the memory usage of the sort methods, however this was deemed to not be feasible as memory profiling in PyPy is highly inaccurate, and the function \textit{sys.getsizeof} is not included in PyPy causing an error for most memory profilers. According to the documentation, the reason for this is due to optimizations performed by the PyPy compiler that cause the size of most objects to be reported incorrectly, meaning any value returned by \textit{sys.getsizeof} would be meaningless {\color{red} Reference?}.
+Initially one of the aims of testing was to complete a profile of the memory usage of the sort methods, however this was deemed to not be feasible as memory profiling in PyPy is highly inaccurate, and the function \textit{sys.getsizeof} is not included in PyPy causing an error for most memory profilers. According to the documentation, the reason for this is due to optimizations performed by the PyPy compiler that cause the size of most objects to be reported incorrectly, meaning any value returned by \textit{sys.getsizeof} would be meaningless \cite{pypymem}.
 
 \begin{table}[H]
 	\centering
@@ -1269,9 +1246,9 @@ Initially one of the aims of testing was to complete a profile of the memory usa
 	\end{table}
 \pagebreak
 \myparagraph{Order checking}
-As an extension of the sort check made at the start of each call to radix sort, it is possible to repeatedly check sublists for being sorted or reverse sorted in MSD sort and then mark these sublists as sorted to reduce further iterations of integer sorting being applied. Doing reduces runtime by reducing the amount of integer sorting required but increases runtime due to the time required to perform the order checks, this is further explained in \ref{sssec:order}.
+\label{sssec:orderchecking}
+As an extension of the sort check made at the start of each call to radix sort, in MSD sort, it is possible to check sublists for being sorted or reverse sorted after each iteration of integer sorting to identify lists that can be excluded from sorting on subsequent digits. Whether or not this strategy is effective is a trade off between the time saved from reduced iterations of integer sorting versus the time taken to complete this check. There is no similar optimization for LSD sorts as the list is never broken down into sublists and so the entire list must be checked for randomly becoming sorted which is such a rare occurance that it is not worth considering.
 \par
-The function used to identify whether a list is sorted is shown below, and operates by iterating over an input list to identify whether every item is larger than or equal to the item at the previous index and then returns the booleans identifying whether the list is sorted or reverse sorted. The function also returns early if it is determined the list is neither sorted or rever sorted without iterating over every list item. 
 \begin{lstlisting}	
 	def slice_sorted(self, start=0, end=-1):
 		end = end if end > -1 else self.list_length
@@ -1290,7 +1267,18 @@ The function used to identify whether a list is sorted is shown below, and opera
 		return sublist_sorted, sublist_reverse_sorted
 \end{lstlisting}
 \par
-To evaluate the effectiveness of order checking, two versions of PyPy were compiled, one with the above function being used on every sublist and one without.{\color{red}These versions of PyPy were then tested on lists of $1$,$000$,$000$ integers within the largest possible range in the data formats of random, few unique and nearly sorted. The results of the tests show that in almost all cases the order checking has a detrimental effect or an extremely small positive effect and therefore this function was not included in this project.}
+To evaluate the effectiveness of order checking, two versions of PyPy were compiled, one with the above function being used on every sublist and one without. These were then tested on lists of $1$,$000$,$000$ on lists containing random, nearly sorted and few unique data. The results of the tests showed that in almost all cases the order checking has a detrimental or limited positive effect and therefore this function was not included in this project. The figure below shows two examples of these tests and are representative of the other results.
+
+\begin{table}[h]
+	\centering
+	\makebox[\linewidth]{
+	\includegraphics[draft=true, height=5.5cm]{lrg_Nearly_Sorted_sorted_1.png}
+	\hspace{0.25cm}
+	\includegraphics[draft=true, height=5.5cm]{lrg_Random_sorted_0.png}
+	}
+	\captionof{figure}{The effects of completing order checking across sublists. Listed below are the number of bases for which sort checking and not checking are the fastest option}
+	
+\end{table}
 
 	\pagebreak
 	\subsubsection{Test criteria}
@@ -1322,7 +1310,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\begin{table}[h]
 		\centering
 		\makebox[\linewidth]{
-			\includegraphics[draft=false,width=1.1\linewidth]{lsd_c_length}
+			\includegraphics[draft=true,width=1.1\linewidth]{lsd_c_length}
 			}
 			\caption*{LSD Counting sort length test for 100,000 and 1,000,000 items \par bases 2, 4, 6 and 8 ommitted}
 	\end{table}
@@ -1335,7 +1323,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\begin{table}[h]
 		\centering
 		\makebox[\linewidth]{
-			\includegraphics[draft=false,width=1.1\linewidth]{lsd_p_length}
+			\includegraphics[draft=true,width=1.1\linewidth]{lsd_p_length}
 			}
 			\caption*{LSD Pigeonhole sort length test for 100,000 and 1,000,000 items \par bases 2 and 4 ommitted}
 	\end{table}
@@ -1344,7 +1332,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\begin{table}[h]
 		\centering
 		\makebox[\linewidth]{
-			\includegraphics[draft=false,width=1.1\linewidth]{msd_c_length}
+			\includegraphics[draft=true,width=1.1\linewidth]{msd_c_length}
 			}
 			\caption*{MSD Counting sort length test for 100,000 and 1,000,000 items \par base 2 ommitted}
 	\end{table}
@@ -1358,7 +1346,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 		\centering
 		\makebox[\linewidth]{
 			\setlength{\floatsep}{0pt}
-			\includegraphics[draft=false,width=1.1\linewidth]{msd_p_length}
+			\includegraphics[draft=true,width=1.1\linewidth]{msd_p_length}
 			}
 			\caption*{MSD pigeonhole sort length test}	
 	\end{table}
@@ -1372,7 +1360,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\begin{table}[h]
 		\centering
 		\makebox[\linewidth]{
-			\includegraphics[draft=false,height=4.8cm]{lsd_c_base}
+			\includegraphics[draft=true,height=4.8cm]{lsd_c_base}
 		}
 			\caption*{LSD counting sort input limit test}
 	\end{table}
@@ -1382,7 +1370,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\begin{table}[h]
 		\centering
 		\makebox[\linewidth]{
-			\includegraphics[draft=false,height=4.8cm]{lsd_p_base}
+			\includegraphics[draft=true,height=4.8cm]{lsd_p_base}
 		}
 			\caption*{LSD pigeonhole sort input limit test}
 	\end{table}
@@ -1391,7 +1379,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\begin{table}[h]
 		\centering
 		\makebox[\linewidth]{
-			\includegraphics[draft=false,height=4.8cm]{msd_c_base}
+			\includegraphics[draft=true,height=4.8cm]{msd_c_base}
 		}
 			\caption*{MSD counting sort input limit test}
 	\end{table}
@@ -1401,7 +1389,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\begin{table}[h]
 		\centering
 		\makebox[\linewidth]{
-			\includegraphics[draft=false,height=4.8cm]{msd_p_base}
+			\includegraphics[draft=true,height=4.8cm]{msd_p_base}
 		}
 			\caption*{MSD pigeonhole sort input limit test}
 	\end{table}
@@ -1410,40 +1398,147 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\begin{table}[b]
 		\centering
 		\makebox[\linewidth]{
-			\includegraphics[draft=false,height=6cm]{lrg_Random_0.png}
+			\includegraphics[draft=true,height=6cm]{lrg_Random_0.png}
+			\hspace{0.5cm}
+			\includegraphics[draft=true,height=6cm]{lrg_Random_1.png}
 			}
 			\captionof{figure}{Sort times for categorical tests, List length, data type and maximum integer identified above, Sort method and base (2-16) listed below}
 			\label{fig:lrg_Random_0}
+
+			
 	\end{table}
 	\myparagraph{Random}
 	Random data also was used for the continious tests and as expected, the results show similar results to the previous continuous tests for comparisons between the bases of each algorithm. 
 	\par
-	When comparing the algorithms against one another and timsort, the random data shows that all implementations of counting sort perform faster than timsort, as well as at least one base of each iteration of pigeonhole sort. The difference between the comparative nature of timsort and non-comparative radix sort is highlighted by observing LSD\textunderscore C for list length 1,000,000 (shown in figure \ref{fig:lrg_Random_0} and below); Timsort completes sorting in roughly $0.17s$ regardless of integer limit whereas LSD\textunderscore C sees smaller runtimes for smaller integer limits, showing the benefits of the fewer digits requiring counting sort in contrast with the lack of any reduction in the number of comparisons timsort must make.
+	When comparing the algorithms against one another and timsort, the random data shows that all implementations of counting sort perform faster than timsort, as well as at least one base of each iteration of pigeonhole sort. The difference between the comparative nature of timsort and non-comparative radix sort is highlighted by observing LSD\textunderscore C for list length 1,000,000 (shown in \ref{fig:lrg_Random_0}); Timsort completes sorting in roughly $0.17s$ regardless of integer limit whereas LSD\textunderscore C sees smaller runtimes for smaller integer limits, showing the benefits of the fewer digits requiring counting sort in contrast with the lack of any reduction in the number of comparisons timsort must make.
+	\myparagraph{Few Unique}
+	Data containing few unique values was intended to simulate sorting a series of discrete values, a potential real world usage of the algorithm. \ref{fig:rnd-fu-diff} shows the percentage difference in sort time between sorting random and few unique data where each item is the average difference of all bases and a positive value indicates Few unique was faster. It shows there is typically a negligible difference between the two with the exception of certain higher data limits in longer lists for MSD sorts, particular counting sort. This may be due to the large number of identical items preventing insertion sort and only causes 10\% difference from random data.
+
 	\begin{table}[h]
 		\centering
-		\makebox[\linewidth]{
-			\includegraphics[draft=false,height=6cm]{lrg_Random_1.png}
-			}
-			\label{fig:lrg_Random_1}
+		\makebox[\linewidth][h]{
+			\centering
+			\begin{minipage}[h]{.55\linewidth}
+				\hspace{.05\linewidth}
+				\includegraphics[draft=true, width=.9\linewidth]{med_Few_Unique_1.png}
+				\captionof{figure}{categorical tests for few unique data}
+			\end{minipage}%
+			\hspace{0.5cm}
+			\begin{minipage}[h]{.55\linewidth}
+				\resizebox{\columnwidth}{!}{%
+					\begin{tabular}{llrrrrr}
+						\toprule
+						items & int size & lsd c & lsd p & msd c & msd p & timsort \\
+						\midrule
+						\multirow[t]{4}{*}{10000} & large & -9.5\% & 0.3\% & 2.3\% & 3.3\% & 6.9\% \\
+						& med & -7.2\% & 6.1\% & 3.0\% & 3.6\% & 5.3\% \\
+						& small & -3.4\% & 7.6\% & 6.3\% & 1.8\% & 1.1\% \\
+						& tiny & -1.8\% & -0.3\% & 0.8\% & 6.5\% & 1.8\% \\
+						\cline{1-7}
+						\multirow[t]{4}{*}{100000} & large & 4.7\% & -23.1\% & 18.2\% & 7.1\% & 5.2\% \\
+						& med & 7.2\% & -10.4\% & 10.1\% & 9.0\% & 5.1\% \\
+						& small & 1.7\% & 2.1\% & 2.0\% & 16.4\% & 3.1\% \\
+						& tiny & 0.9\% & -5.6\% & 11.8\% & 1.0\% & 4.8\% \\
+						\cline{1-7}
+						\multirow[t]{4}{*}{1000000} & large & 8.8\% & -1.0\% & -124.9\% & 10.4\% & 7.0\% \\
+						& med & 8.5\% & -6.3\% & -20.1\% & -48.6\% & 3.9\% \\
+						& small & 0.9\% & 7.5\% & 0.0\% & 51.2\% & 2.5\% \\
+						& tiny & 2.9\% & 23.9\% & -33.7\% & 20.2\% & 4.6\% \\
+						\cline{1-7}
+						\multirow[t]{1}{*}{} & mean & 1.1\% & 0.1\% & -10.4\% & 6.8\% & 4.3\% \\
+						\bottomrule
+					\end{tabular}
+				}
+				\captionof{figure}{Comparison of few unique and random data, using average between equivalent bases}
+				\label{fig:rnd-fu-diff}
+			\end{minipage}
+		}
 	\end{table}
-
-	\myparagraph{Few Unique}
-	Data with few unique values was included simply to simulate the sorting of discrete values, which may be a potential use of a sorting algorithm in the real world. It was not expected to be drastically different to random data, and {\color{red} figure 2 and table 6} show this to be largely correct with the exception of certain higher data limits in longer lists for MSD sorts, particular counting sort. This could be due to the large number of items with the same digts preventing insertion sort from triggering but this only causes at most a 10\% difference to random.
+	
 	\myparagraph{Nearly sorted}
 	This data type was selected to make a comparison between algorithms in a situation where timsort is at an advantage. As stated in the source code for timsort \cite{listsort}, the algorithm iterates over the input, continuously identifying sorted sequences and merging them with the already sorted items and as such it is highly efficient at sorting this data which is essentially a series of sorted sequences within a larger list.
 	\par
-	The graph shown in {\color{red}figure 4} has been pruned to omit all of LSD\textunderscore P as well as bases 2, 14 and 16 as the results for these algorithms are much slower than timsort and make the graph unreadable. The remaining data is representative of all tests of this data type, with timsort performing exceptionally well compared to radix sort and being faster in every situation except on lists of 10,000 items where certain bases of MSD\textunderscore P and LSD\textunderscore C are a fraction faster.  
-	\par
-	Whilst timsort benefits from a 94\% decrease in runtime when performed on nearly sorted lists compared to random, radix sort typically benefits much less from the switch, as is illustrated in {\color{red} figure 5}. MSD sorts benefit from nearly sorted lists due to their use of insertion sort which completes in $\mathcal{O}\textit{(n)}$ time on sorted lists, which it will be called on frequently in this situation. LSD sorts do not employ this method and as such don't see much benefit. The discrepancy between pigeonhole and counting sort may be due to optimizations in PyPy involving moving items from one list into another in the same order, and there is some evidence for this such as LSD\textunderscore P having larger speed gains at smaller integer limits{\color{blue}, though I do not feel like any useful information could be gained from proving this theory}.
+	\pagebreak
+	The graphs shown in \ref{fig:lrg_Nearly_Sorted_nolp_0} and \ref{fig:sml_Nearly_Sorted_nolp_1} have been pruned to omit all of LSD\textunderscore P as well as bases 2, 14 and 16 as the results for these algorithms are much slower than timsort and stretch the axis, making the graph unreadable. The remaining data is representative of all tests of this data type, with timsort performing exceptionally well compared to radix sort and being faster in every situation except on lists of 10,000 items where certain bases of MSD\textunderscore P and LSD\textunderscore C are a fraction faster.  	
+	\ref{fig:rnd-ns-diff} Contains the difference in runtime between Random and nearly sorted lists, it shows Whilst timsort benefits from a 94\% decrease in runtime when performed on nearly sorted lists compared to random, radix sort does not see the same benefit, though there is variation base on the implementation used. MSD sorts benefit from nearly sorted lists due to their use of insertion sort which completes in $\mathcal{O}\textit{(n)}$ time on sorted lists. LSD sorts do not employ this method and as such don't see much benefit. The discrepancy between pigeonhole and counting sort may be due to optimizations in PyPy involving moving items from one list into another in the same order, and there is some evidence for this such as LSD\textunderscore P having larger speed gains at smaller integer limits.
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth][h]{
+			\centering
+			\begin{minipage}[h]{.55\linewidth}
+				\hspace{.05\linewidth}
+				\includegraphics[draft=true, width=.9\linewidth]{lrg_Nearly_Sorted_nolp_0.png}
+				\captionof{figure}{Nearly sorted data test with LSD\textunderscore P, bases 2, 14, 16 pruned}
+				\label{fig:lrg_Nearly_Sorted_nolp_0}
+			\end{minipage}%
+			\hspace{0.5cm}
+			\begin{minipage}[h]{.55\linewidth}
+				\resizebox{\columnwidth}{!}{%
+					\begin{tabular}{llrrrrr}
+						\toprule
+						items & int size & lsd c & lsd p & msd c & msd p & timsort \\
+						\midrule
+						\multirow[t]{4}{*}{10000} & large & -3.1\% & -8.4\% & -1.3\% & 32.3\% & 91.9\% \\
+						& med & -3.6\% & -9.7\% & 17.5\% & 52.0\% & 92.0\% \\
+						& small & -4.5\% & -5.1\% & 0.9\% & 43.5\% & 92.2\% \\
+						& tiny & -1.8\% & -3.9\% & 15.1\% & 39.6\% & 92.0\% \\
+					   \cline{1-7}
+					   \multirow[t]{4}{*}{100000} & large & -0.2\% & 6.7\% & 8.6\% & 27.5\% & 94.4\% \\
+						& med & -1.6\% & 10.8\% & 19.6\% & 43.1\% & 94.3\% \\
+						& small & -3.7\% & 20.0\% & 16.4\% & 39.0\% & 94.3\% \\
+						& tiny & -7.2\% & 32.4\% & 14.0\% & 31.1\% & 95.0\% \\
+					   \cline{1-7}
+					   \multirow[t]{4}{*}{1000000} & large & 0.3\% & 6.1\% & 35.4\% & 54.7\% & 95.3\% \\
+						& med & 1.4\% & 0.4\% & 23.0\% & 47.0\% & 95.1\% \\
+						& small & -1.4\% & 22.6\% & 14.7\% & 40.5\% & 95.2\% \\
+						& tiny & 11.9\% & 32.9\% & 28.7\% & 41.8\% & 98.6\% \\
+						\cline{1-7}
+						\multirow[t]{1}{*}{} & mean & -1.1\% & 8.7\% & 16.0\% & 41.0\% & 94.3\% \\
+						\bottomrule
+					\end{tabular}
+				}
+				\captionof{figure}{Comparison of Nearly sorted and random data, using average between equivalent bases. Positives indicate nearly sorted is faster}
+				\label{fig:rnd-ns-diff}
+			\end{minipage}
+		}
+
+	\end{table}
+	\begin{table}[h]
+		\centering
+		\includegraphics[draft=true, height=6cm]{sml_Nearly_Sorted_nolp_2.png}
+		\hspace{0.5cm}
+		\includegraphics[draft=true, height=6cm]{sml_Nearly_Sorted_nolp_3.png}
+		\captionof{figure}{Nearly sorted data test showing list length 10,000}
+		\label{fig:sml_Nearly_Sorted_nolp_1}
+	\end{table}
 	\subsubsection{Testing evaluation}
 	Making an empirical choice for the best algorithm is not possible in this situation, the varibles identified during time complexity analysis, $n$ and $d$, are independant of one another meaning an exhaustive performance test of both is not possible. Additionally, the categorical testing of different data types proves that the nature of the input list also affects sort times, meaning only sorting radom data would not paint the full picture. 
 	\par
 	Based on the idea that there are so many factors in play, and the uncertainty as to the relative importance of each factor, the best algorithm out of the choices presented in this project should be one that performs poorly in the fewest number of situations, that is to say it is unimportant to identify the best algorithm in any one of the tests and instead find an algorithm that performs at an acceptable level in as many as possible. 
 	\par 
 	Based on this principle, the data from the categorical tests has been used to identify a suitable list of bases for each algorithm by analysing the bases in groups containing a single list length, data type and integer range. For each group, the bases that are deemed 'acceptable' are identified by performing k-means clustering of the sort time with 2 clusters, and selecting all items within the same cluster as the fastest base within the group, resulting in a smaller group that excludes the slowest base and bases significantly slower than the fastest. Counting the number of occurances of each base across all groups then shows how often the base performed at an acceptable level, with bases that show higher counts being good performers in a wider range of circumstances.
-	{\color{red} show table}
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{l|cc|cc|cc|cc}
+			\toprule
+			\multicolumn{1}{c}{}& \multicolumn{2}{c}{lsd c} & \multicolumn{2}{c}{lsd p} & \multicolumn{2}{c}{msd c} & \multicolumn{2}{c}{msd p} \\
+			 \midrule
+			 \multicolumn{1}{c}{rank} & base & \multicolumn{1}{c}{count} & base & \multicolumn{1}{c}{count} & base & \multicolumn{1}{c}{count} & base & \multicolumn{1}{c}{count} \\
+			\midrule
+			1 & 10 & 36 & 10 & 36 & 4 & 36 & 4 & 34 \\
+			2 & 12 & 36 & 12 & 36 & 10 & 35 & 6 & 34 \\
+			3 & 14 & 36 & 14 & 36 & 8 & 35 & 8 & 33 \\
+			4 & 4 & 36 & 8 & 34 & 12 & 31 & 10 & 32 \\
+			5 & 6 & 36 & 6 & 31 & 6 & 29 & 12 & 31 \\
+			6 & 8 & 36 & 4 & 30 & 16 & 24 & 2 & 28 \\
+			7 & 16 & 23 & 16 & 16 & 14 & 22 & 14 & 25 \\
+			8 & 2 & 9 & 2 & 13 & 2 & 17 & 16 & 10 \\
+			\bottomrule
+			\end{tabular}
+	\end{table}
 	\par
-	Combining this information with the suitable bases identified in the continuous testing, the bases that have been selected for use are listed below, 36 situations were examined overall.
+	Combining this information with the suitable bases identified in the continuous testing, the bases that have been selected for use are listed overleaf, 36 situations were examined overall.
+	\pagebreak
 	\begin{description}
 		\item[MSD Pigeonhole - 6] Performed well in 34 situations, tied with base 4 but showed greater performance in the variable test of length, particularly at smaller list lengths. Admittedly performed poorly for small integer sizes on large list lengths in the category few unique, but this is anomalous as this base performed very well in all other situations.
 		\item[MSD Counting - 10] Deemed acceptable in 35 situations, with the exception being Few unique, medium int limit, length 1,000,000. This was selected over the best performer, base 4, which showed confusingly good results in categorical tests despite the poor performance in the continuous tests, for which it was rejected.
@@ -1452,6 +1547,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\end{description}
 	\par
 	Now these 4 final methods have been identified, comparing them is simple; omitting all results not for the four stated methods and timsort, across the 36 categories LSD counting sort was the best 20 times, MSD counting 5 and Timsort 11. Selecting only random lists produces the results of 9 and 3 for LSD C and MSD C respectively with 0 for Timsort. This indicates that LSD counting sort is the best option, that pigeonhole sort is generally inferior for this purpose and within the tests specified performed better than timsort.
+
 	% \begin{table}[]
 	% 	\begin{center}		
 	% 	\caption*{Insertion sort tests for msd radix counting sort \hspace{.5cm}\includegraphics[width=.1\linewidth]{insertionLegend.png}}

@@ -2364,11 +2364,10 @@
     <bcf:citekey order="1" intorder="1">LAMARCA199966</bcf:citekey>
     <bcf:citekey order="2" intorder="1">listsort</bcf:citekey>
     <bcf:citekey order="3" intorder="1">listsort</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">rpythonobj</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">rpythonobj</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">Friend</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">lineprof</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">listsort</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">Friend</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">lineprof</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">pypymem</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">listsort</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

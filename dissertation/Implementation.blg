@@ -1,0 +1,15 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'Implementation.blg'
+[103] biber:340> INFO - === Tue Apr  2, 2024, 16:32:34
+[120] Biber.pm:419> INFO - Reading 'Implementation.bcf'
+[213] Biber.pm:979> INFO - Found 6 citekeys in bib section 0
+[227] Biber.pm:4419> INFO - Processing section 0
+[246] Biber.pm:4610> INFO - Looking for bibtex file 'Implementation.bib' for section 0
+[252] bibtex.pm:1713> INFO - LaTeX decoding ...
+[266] bibtex.pm:1519> INFO - Found BibTeX data source 'Implementation.bib'
+[332] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[332] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[332] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[332] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[344] bbl.pm:660> INFO - Writing 'Implementation.bbl' with encoding 'UTF-8'
+[348] bbl.pm:763> INFO - Output to Implementation.bbl

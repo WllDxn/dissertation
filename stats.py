@@ -7,6 +7,8 @@ import numpy as np
 from pathlib import Path
 import natsort
 import os
+
+from pyparsing import col
 pd.set_option('display.max_rows', 10)
 pd.set_option('expand_frame_repr', False)
 def reject_outliers(df, m=2, dropna=True):
@@ -72,6 +74,7 @@ def do_graph(reject_outliers, fname, stats=True):
     results = pd.concat(results)
 
     results.reset_index(inplace=True)
+    bestmethod(results)
     # for gr, g in :
     #     print(gr)
     #     print(g)
@@ -80,25 +83,7 @@ def do_graph(reject_outliers, fname, stats=True):
 
 
         # print(len(g))
-    temp = (results.groupby(['data_type', 'cols', 'data_size','method'], as_index=False).apply(get_suitable2))
-    # print(temp)
-    temp.reset_index(drop=True, inplace=True)
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-        print(temp.groupby(['method','base'])['method'].agg(['count']).sort_values(by=['method','count'], ascending=False))
-        counts = (temp.groupby(['method','base'],as_index=False)['method'].agg(['count']).sort_values(by=['method','count'], ascending=False).groupby('method').agg('first'))
-        for fi, f in counts.groupby('method'):
-            if fi=='msd_c':f['base'].values[0]='10'
-            if fi=='msd_p':f['base'].values[0]='6'
-            if fi=='lsd_p':f['base'].values[0]='12'
-            print(fi, f['base'].values[0], f['count'].values[0])
-            rejects = pd.concat([results,temp]).drop_duplicates(keep=False)
-            print(rejects.loc[(rejects['method'] == fi) & (rejects['base'] == (f['base'].values[0]))])
-            print('')
-            results.drop(results.loc[(results['method'] == fi) & (results['base'] != (f['base'].values[0]))].index, inplace=True)
-    
-    print(results.loc[results.groupby(['data_type', 'cols', 'data_size'], as_index=True).times.idxmin()].groupby('method')['method'].agg('count'))
-    results.drop(results.loc[results['data_type'] != 'Random'].index, inplace=True)
-    print(results.loc[results.groupby(['data_type', 'cols', 'data_size'], as_index=True).times.idxmin()].groupby('method')['method'].agg('count'))
+
     # temp2 = (results.groupby(['data_type', 'cols', 'data_size'], as_index=False))
     # for gi, g in temp2:
     #     print(gi)
@@ -157,14 +142,68 @@ def do_graph(reject_outliers, fname, stats=True):
     #         print(gr)
     
     # print(df)#
+
+def bestmethod(results):
+    temp = (results.groupby(['data_type', 'cols', 'data_size','method'], as_index=False).apply(get_suitable2))
+    # print(temp)
+    temp.reset_index(drop=True, inplace=True)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        temp.drop(temp.loc[temp['method'] == 'timsort_n'].index, inplace=True)
+        countdf = temp.groupby(['method','base']).agg(
+            count=pd.NamedAgg(column="method", aggfunc="count"),                   
+            ).reset_index()
+        countdf['rank'] = countdf.groupby(['method'])[['count']].transform('rank','first',ascending=False).astype(int)
+        countdf.sort_values(['method','rank'], inplace=True)
+        countdf = countdf.pivot(index='rank', columns='method', values=['base','count'])
+        countdf.columns = countdf.columns.swaplevel(0,1)
+        countdf = countdf.sort_index(axis=1)
+        # countdf = countdf.pivot(columns='method', values=['base', 'count'])
+        countdf.rename(columns={'lsd_c':'lsd c','lsd_p':'lsd p','msd_c':'msd c','msd_p':'msd p'}, inplace=True)
+        
+        print(countdf.to_latex(index=True,
+
+                  formatters={"name": str.upper},
+
+                  float_format="{:.1%}".format,
+
+))  
+        exit()
+        counts = (temp.groupby(['method','base'],as_index=False)['method'].agg(['count']).sort_values(by=['method','count'], ascending=False).groupby('method').agg('first'))
+        for fi, f in counts.groupby('method'):
+            if fi=='msd_c':f['base'].values[0]='10'
+            if fi=='msd_p':f['base'].values[0]='6'
+            if fi=='lsd_p':f['base'].values[0]='12'
+            print(fi, f['base'].values[0], f['count'].values[0])
+            rejects = pd.concat([results,temp]).drop_duplicates(keep=False)
+            print(rejects.loc[(rejects['method'] == fi) & (rejects['base'] == (f['base'].values[0]))])
+            print('')
+            results.drop(results.loc[(results['method'] == fi) & (results['base'] != (f['base'].values[0]))].index, inplace=True)
     
-def randvsrt(results):
-    randomvsdiff = results.pivot(index=['cols','data_size','method','base'], columns='data_type', values='times').rename_axis(None, axis=1).reset_index().drop('Nearly Sorted', axis=1)
-    randomvsdiff['diff'] = (randomvsdiff['Random'] - randomvsdiff['Few Unique']) / randomvsdiff['Random'] * 100
+    print(results.loc[results.groupby(['data_type', 'cols', 'data_size'], as_index=True).times.idxmin()].groupby('method')['method'].agg('count'))
+    results.drop(results.loc[results['data_type'] != 'Random'].index, inplace=True)
+    print(results.loc[results.groupby(['data_type', 'cols', 'data_size'], as_index=True).times.idxmin()].groupby('method')['method'].agg('count'))
+def randvsrt(results, include='Few Unique'):
+    exclude = ({include}^{'Few Unique', 'Nearly Sorted'}).pop()
+    randomvsdiff = results.pivot(index=['cols','data_size','method','base'], columns='data_type', values='times').rename_axis(None, axis=1).reset_index().drop(exclude, axis=1)
+    randomvsdiff['diff'] = (randomvsdiff['Random'] - randomvsdiff[include]) / randomvsdiff['Random']
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified    
+        gp = (randomvsdiff.groupby(['method','data_size','cols'],as_index=False)['diff'].apply(lambda x:  np.mean(reject_outliers(x, m=3, dropna=True))))
+        gp = gp.pivot(index=['cols','data_size'], columns='method', values='diff')
+        # gp = gp.rename_axis(None, axis=1).reset_index()
+        pd.options.display.float_format = '{:.1%}'.format
+        gp.rename(columns={'lsd_c':'lsd c','lsd_p':'lsd p','msd_c':'msd c','msd_p':'msd p', 'timsort_n':'timsort'}, inplace=True)
+        print(gp.mean(skipna=True))
+        print(gp.to_latex(index=True,
+
+                  formatters={"name": str.upper},
+
+                  float_format="{:.1%}".format,
+
+))  
+        # exit()
         for gr, g in randomvsdiff.groupby(['method'],as_index=False):
             print(gr[0])
-            # print(g)
+
             # print((g.groupby(['cols'], axis=0)[['Nearly Sorted', 'Random']].apply(rejout)))
             gp = g.pivot(columns=['base'], index=['cols', 'data_size',], values='diff').reindex(natsort.natsorted(g['base'].unique()), axis=1)
             # gp = gp.rename_axis(None, axis=1).reset_index()
@@ -176,7 +215,7 @@ def randvsrt(results):
             gp['mean'] = gp.mean(axis=1, skipna=True)
             gp.loc['mean'] = gp.mean(skipna=True)
             print(gp)
-            print('')
+            # print('')
 def get_suitable2(g):
     if len(g)>1:
         from sklearn.cluster import KMeans
