@@ -23,7 +23,9 @@
                 "insertonly": [],
                 "isolate_byte": [],
                 "isolate_byte_nodisc": [],
-                "n_0_timsort": [],
+                "n_0_timsort": [
+                    "timsort"
+                ],
                 "never_insert": [],
                 "never_insert_update": [],
                 "only_insert": [],
@@ -49,17 +51,17 @@
             "basemax": -1,
             "shuffle": -1,
             "data_types": {
-                "Few Unique": false,
-                "Sorted": false,
-                "Reverse Sorted": false,
-                "Nearly Sorted": false,
+                "Few Unique": true,
+                "Sorted": true,
+                "Reverse Sorted": true,
+                "Nearly Sorted": true,
                 "Random": true
             },
             "data_sizes": {
                 "large": true,
-                "med": false,
-                "small": false,
-                "tiny": false
+                "med": true,
+                "small": true,
+                "tiny": true
             }
         }
     ]

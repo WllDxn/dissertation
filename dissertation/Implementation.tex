@@ -12,7 +12,7 @@
 \usepackage[]{algorithmic, algorithm, letltxmacro}
 \usepackage{eqparbox}
 \usepackage{titlesec}
-\usepackage{graphicx}
+\usepackage[draft]{graphicx}
 \usepackage{array}
 \usepackage{hyperref}
 \usepackage{xcolor}
@@ -46,7 +46,7 @@
 {\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}
 {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
-\titleformat{\paragraph}[runin]
+\titleformat{\myparagraph}[runin]
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titleformat{\subparagraph}[runin]
 {\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
@@ -75,13 +75,13 @@
 %%% --- The following two lines are what needs to be added --- %%%
 \setcounter{biburllcpenalty}{7000}
 \setcounter{biburlucpenalty}{8000}
-\graphicspath{ {./demographs/} {./insertion/} {./results}}
+\graphicspath{ {./demographs/} {./insertion/} {./results} {./lengthgraphs} {./basegraphs}}
 \begin{document}
 {
   \hypersetup{linkcolor=black}
   \tableofcontents
 }
-
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 
 
 \pagebreak
@@ -91,7 +91,7 @@
 	This is an implementation inf pseudocode of all 4 components of the radix sort variations included in this project: Radix sort starting from the most significant and least significant digit and then the integer sorting methods Counting sort and Pigeonhole sort. Each permutation of Radix sort takes the input array \textit{A} of integers and treats each item \textit{A[i]} as a series of digits d within the range 0 \textit{$\leq$ d $<$ k} where \textit{k} is the radix or the number of unique integer keys. 
 	\subsubsection{Integer Sorting}
 	Integer sorting is a method of sorting a list off inputs by identifying the integer key of each value of the input and using that to identify it's position in the output. Because the sorting is performed based on the integer key and not based on comparisons to other list items, it is non-comparative. Integer sorting is the underlying sorting method that is applied to each digit of the input array.
-	\paragraph{Pigeonhole Sort}
+	\myparagraph{Pigeonhole Sort}
 	\label{ssec:pigeonhole}
 	Pigeonhole sort operates by instantiating an array \textit{B} of length \textit{k} (1) containing empty arrays (3). The input array \textit{A} is iterated over and each item \textit{A[i]} is appended to the array in \textit{B} at t he position that corresponds to the current integer key of the current item. \textit{B} is then iterated over (10) and each item in each array overwrites the original array in order (11). 
 	\begin{algorithm}[H] % enter the algorithm environment
@@ -119,7 +119,7 @@
 	\end{algorithm}
 
 	\pagebreak
-	\paragraph{Counting Sort}
+	\myparagraph{Counting Sort}
 	\label{ssec:counting}
 	Counting sort instantiates 2 arrays; \textit{B}, the output array equal in length to the input array \textit{A} (1), and \textit{C}, a count array to store the frequency of each integer key of length \textit{k}. \textit{C} is instantiated containing only integers of value 0 (2, 4). The input array is iterated over and the integer in C at the position equal to the current integer key of the current item is incremented (7), producing a histogram of the frequency of each key. This count list is then accumulated such that each item is added to the sum of the previous items (10). Finally the input array is iterated over in reverse and each item is moved to the output array in the position that is referred to by the value expressed in the count array at the position of the current key of the current item(13), to ensure that values to not overwrite one another in the output array each item in the count array is decremented when a position in the output array is taken from it (14).
 	\begin{algorithm}[H]
@@ -149,7 +149,7 @@
 	\pagebreak
 	\subsubsection{Radix Sort}
 	Radix sort is the method of applying the integer sorting method to each digit of the input, there are two approaches to this: Least significant digit first (LSD) or Most significant digit first (MSD).
-	\paragraph{Least Significant Digit}
+	\myparagraph{Least Significant Digit}
 	\label{ssec:lsd}
 	Least Significant Digit Radix sort (LSD) takes an input array \textit{A} and sorting function \textit{f()} which can be either of the previous integer sorting methods. The input array is sorted via the chosen method once for each digit in the chosen radix of the largest absolute value \textit{m} (3).
 	\par 
@@ -171,7 +171,7 @@
 		\end{algorithmic}
 	\end{algorithm}
 	\pagebreak
-	\paragraph{Most Significant Digit} \label{sssec:msdradix}
+	\myparagraph{Most Significant Digit} \label{sssec:msdradix}
 	Most Significant Digit Radix sort (MSD) takes an input array \textit{A}, sorting function \textit{f()} and current digit \textit{i} which for the first call of the function should be the number of digits of the largest value in the input. This algorithm operates recursively, and the termination condition occurs when \textit{i} is equal to 0 meaning that all digits of the input have been sorted (1,2). After ensuring the termination condition has not been met the input array \textit{A} is then sorted using the chosen function with respect to the current digit (5). 
 	\par 
 	The input array is then iterated over and items that have an equal integer key value at the current digit are identified (8) and taken as a slice of the input array. This slice is then sorted recursively using a function call to \textit{MSD()} with a decremented value for \textit{i} meaning they are sorted over the next least significant digit (11). Once the termination condition has been reached within this slice and all sub-slices created by recursive calls the algorithm resets the start point of the slice and identifies further slices to sort (12). Each slice on which \textit{MSD()} is called that does not meet the termination condition must wait until all sublists return, which are then placed together in \textit{A} and finally returned (15).
@@ -922,7 +922,8 @@ At the start of each algorithm the following variables are instantiated, they ar
 		showstringspaces=false,
 		tabsize=3,
 		breaklines=true,
-		breakatwhitespace=false,}
+		breakatwhitespace=false,
+		}
 		\centering
 		\begin{lstlisting}[escapeinside={(*}{*)}]
 		def sort(self):
@@ -1198,7 +1199,7 @@ Below is a demonstration of 50 items generated in these formats within the range
 \end{table}
 \pagebreak
 \subsubsection{Preliminary testing}
-\paragraph{Insertion sort threshold}
+\myparagraph{Insertion sort threshold}
 \label{sssec:insertiontesting}
 MSD Radix sort uses insertion sort on sublists with a length below a certain threshold due to the overhead cost of repeatedly performing radix sort (see \ref{sssec:insertionoptimization}). Therefore, in order to implement insertion sort, testing was required to establish the optimal threshold to use.
 \par
@@ -1222,7 +1223,7 @@ The testing results are shown in Figure \ref{fig:msdinsert}, Full results can be
 \end{table}
 \pagebreak
 
-\paragraph{Profiling}
+\myparagraph{Profiling}
 A tool utilised to test the performance of solutions was a line profiler for Python, in this project the open source utility line\textunderscore profiler \cite{lineprof} was used. This tool runs a python script and returns information about executed code within a function, namely the execution time of each line per call, the number of calls of each line, the total number of times a line was called and the time taken by calling the line as a percentage of the total execution time of the script.
 \par 
 It is important to note that this tool runs using Python, not PyPy and also that as theis project demands a compiled piece of code written in RPython the results regarding time taken must not be taken as too strongly indicative of the performance of a solution. It was also necessary to make minor changes to the code such as replacing \textit{xrange} with the equivalent \textit{range} and \textit{sys.maxint} with \textit{sys.maxsize}.
@@ -1267,7 +1268,7 @@ Initially one of the aims of testing was to complete a profile of the memory usa
 		\caption*{excerpt from line\textunderscore profiler output of LSD Counting sort}
 	\end{table}
 \pagebreak
-\paragraph{Order checking}
+\myparagraph{Order checking}
 As an extension of the sort check made at the start of each call to radix sort, it is possible to repeatedly check sublists for being sorted or reverse sorted in MSD sort and then mark these sublists as sorted to reduce further iterations of integer sorting being applied. Doing reduces runtime by reducing the amount of integer sorting required but increases runtime due to the time required to perform the order checks, this is further explained in \ref{sssec:order}.
 \par
 The function used to identify whether a list is sorted is shown below, and operates by iterating over an input list to identify whether every item is larger than or equal to the item at the previous index and then returns the booleans identifying whether the list is sorted or reverse sorted. The function also returns early if it is determined the list is neither sorted or rever sorted without iterating over every list item. 
@@ -1308,12 +1309,149 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\pagebreak
 	\subsection{Test results and analysis} 
 	\subsubsection{Varying list length}
-	This test shows the effect of list size on the performance of radix sort and very clearly highlights the difference between the bases used. Some bases produce results that prevent meaningful information from being shown as their results are so much slower than others. This is visible in the first figure but in all other diagrams non-competitive bases are ommitted.
-	\paragraph{LSD Counting sort}
-	
-	
-	
+	This test shows the effect of list size on the performance of radix sort and very clearly highlights the difference between the bases used. Some bases produce results that stretch the size of the graph so much that it prevents meaningful information from being shown, hence some graphs have non-competitive bases omitted for readability.
+	\par To prevent the focus of this analysis being unfairly weighted towards lists of lengths closer to $1$,$000$,$000$ where the difference between run times is larger and therefore more visible on graphs, where the results may be differenct to lower list length, and which may not represent the most common use case for this algorithm, these tests were also performed with lists of length $100$,$000$. 
+	\myparagraph{LSD Counting sort}
+	The results show that at all small list lengths, sort times are comparable but above lengths of $65$,$536$ bases $8$ ad $16$, which were slightly faster, become slower and do not recover at any point up to $1$,$000$,$000$. This critical value likely exists at this point as it is $2^{16}$ and as 16 is divisible by both values and therefore is the point where another digit is needed for sorting, but all other bases also take slight jumps at this stage and this is the most pronounced increase on either graph which indicates there may be some sort of cache limitation at this value (similar to what is discussed in \ref{ssec:radixexplanation}), alternatively, pypy may be optimizing the storage of lists into chunks of this size.
 
+	\par
+	Base $6$ is the slowest shown, performing similarly to 8 and 16 around 100,000 items but falls off as more items are added. This bases seem to be too small to be suitable for this type of radix sort and this result is compounded in the ommitted bases 4 and 2 which was the worse performer.
+	\par
+	Overall, the results show $10$ is the best performing base here, but it is only narrowly better than the $12$ and $14$ which are slightly faster than bases $8$ and $16$ with 6 showing a clear deficit particularly at greater list lengths.
+
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,width=1.1\linewidth]{lsd_c_length}
+			}
+			\caption*{LSD Counting sort length test for 100,000 and 1,000,000 items \par bases 2, 4, 6 and 8 ommitted}
+	\end{table}
+	\pagebreak
+
+	\myparagraph{LSD Pigeonhole sort}
+	The fastest base for LSD Pigeonhole varies a lot amongst the best performers as list length increases. Bases 16, 14, 12 and 10 appear intertwined from 200,000 to 1,000,000 items with 16 ahead at the 1,000,000 point but not by a large margin. Bases 8 and below are ommitted from the 1,000,000 graph as they are notably slower in this range.
+	\par
+	Though base 16 becomes the most effective at higher list lengths, it is not truthful to call it the best as it is nearly 10 times slower than base $10$ for list lengths below $100$,$000$. For this reason bases 10 and 12 would be the most suitable, as base 14 is also noticably slower for lower lengths, albeit less pronounced than 16.
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,width=1.1\linewidth]{lsd_p_length}
+			}
+			\caption*{LSD Pigeonhole sort length test for 100,000 and 1,000,000 items \par bases 2 and 4 ommitted}
+	\end{table}
+	\myparagraph{MSD Counting sort}
+	The results visible here are highly similar to those of LSD counting sort, base 6 becomes more performant than 8 and 16 in the lower range, but again lags behind in the higher range. Once again, base 10 performs best with similar grouping of the other bases.
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,width=1.1\linewidth]{msd_c_length}
+			}
+			\caption*{MSD Counting sort length test for 100,000 and 1,000,000 items \par base 2 ommitted}
+	\end{table}
+	\pagebreak
+	\myparagraph{MSD Pigeonhole sort}
+	This set of results deviates qignificantly from the rest of this set, it shows that the larger bases are unsuitable for this implementation, with base 16 being the worst. This is the only iteration of this test in which base 2 wasn't the worst performer.
+	\par
+	The ideal range appears to be around base 6, with 4 and 8 roughly equivalent in performance, as are 2 and 10, above which a base increase is detrimental.
+	\vspace{-0.5cm}
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\setlength{\floatsep}{0pt}
+			\includegraphics[draft=false,width=1.1\linewidth]{msd_p_length}
+			}
+			\caption*{MSD pigeonhole sort length test}	
+	\end{table}
+	\vspace{-1cm}
+	\subsubsection{Varying base}
+	This test examines lists of 1,000,000 items generated randomly within the range $[\minus2^r..2^r\minus1]$ where r is the $data$\textunderscore $size$ referenced on the x axis. It is designed to test the algorithm's response to an increasing number of digits.
+	\par
+	This test is limited when applied to MSD radix sorts due to the algorithms ability to terminate sorting on smaller lists via insertion sort or sorting a list into a sublist of length 1, this means that typically a list of 1,000,000 items is sorted when $20/{base}$ digits have been sorted as $2^{20}$ is the smallest power of 2 greater than the list length. This is visible in the results as the sort times level out after $data$\textunderscore $size$ and does restrict the usefulness of the results but does present an interesting benefit of MSD sorting.
+	\myparagraph{LSD Counting}
+	The results shown on this graph are so similar that any difference between them was completely unreadable if any of the other bases were not ommitted, showing that any of the bases 8,10,12,16 are suitable. As is typical for this type of testing, the jump in runtime as $data$\textunderscore $size$ reaches values divisible by each base is easily identifiable, showing the effect of each additional digit.
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,height=4.8cm]{lsd_c_base}
+		}
+			\caption*{LSD counting sort input limit test}
+	\end{table}
+	\vspace{-1cm}
+	\myparagraph{LSD Pigeonhole}
+	The results for LSD Pigeonhole sort show higher bases performing better than lower bases, with 16 and 14 performing the best and almost identically which indicates that the results for the list length results for base 14 (in which it was slower than base 12 and 10 at 1,000,000 items) may be anomalous.
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,height=4.8cm]{lsd_p_base}
+		}
+			\caption*{LSD pigeonhole sort input limit test}
+	\end{table}
+	\myparagraph{MSD Counting}
+	As already stated, the usefulness of results of this type of test for this algorithm is limited, but of the most performant algorithms, 10 and 12 , the results for base 10 show a smaller delta between the maximum and minimum times with very similar times overall
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,height=4.8cm]{msd_c_base}
+		}
+			\caption*{MSD counting sort input limit test}
+	\end{table}
+	\pagebreak
+	\myparagraph{MSD Pigeonhole}
+	MSD pigeonhole again has results quite dissimilar from the other algorithms, the increase $data$\textunderscore $size$ has the smallest effect on the growth of run time and as the increases causes an additional digit's worth of sorting, the jump in run time is followed by a huge spike before falling again all in the range of values fitting onto the same digit. Drawing conclusions about any of these algorithms based on this data is almost impossible, but there isn't anything immediately wrong with bases 8 or 10, where base 8 is slightly slower but has smaller spikes in runtime.
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,height=4.8cm]{msd_p_base}
+		}
+			\caption*{MSD pigeonhole sort input limit test}
+	\end{table}
+	\subsubsection{Categorical tests}
+	These tests were completed to provide an opportunity to make comparisons between the 4 algorithms, the 8 bases used and give insightn into their effectiveness relative to Timsort. Each image shows the results for a list length and data type identified in the title, a set of axes for each data size listed as a subtitle and on each axis is the 4 algorithms developed for this project split into a bar for each base alongside timsort farthest on the right which has a line streching across the axis to aid comparison to each implementation.
+	\begin{table}[b]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,height=6cm]{lrg_Random_0.png}
+			}
+			\captionof{figure}{Sort times for categorical tests, List length, data type and maximum integer identified above, Sort method and base (2-16) listed below}
+			\label{fig:lrg_Random_0}
+	\end{table}
+	\myparagraph{Random}
+	Random data also was used for the continious tests and as expected, the results show similar results to the previous continuous tests for comparisons between the bases of each algorithm. 
+	\par
+	When comparing the algorithms against one another and timsort, the random data shows that all implementations of counting sort perform faster than timsort, as well as at least one base of each iteration of pigeonhole sort. The difference between the comparative nature of timsort and non-comparative radix sort is highlighted by observing LSD\textunderscore C for list length 1,000,000 (shown in figure \ref{fig:lrg_Random_0} and below); Timsort completes sorting in roughly $0.17s$ regardless of integer limit whereas LSD\textunderscore C sees smaller runtimes for smaller integer limits, showing the benefits of the fewer digits requiring counting sort in contrast with the lack of any reduction in the number of comparisons timsort must make.
+	\begin{table}[h]
+		\centering
+		\makebox[\linewidth]{
+			\includegraphics[draft=false,height=6cm]{lrg_Random_1.png}
+			}
+			\label{fig:lrg_Random_1}
+	\end{table}
+
+	\myparagraph{Few Unique}
+	Data with few unique values was included simply to simulate the sorting of discrete values, which may be a potential use of a sorting algorithm in the real world. It was not expected to be drastically different to random data, and {\color{red} figure 2 and table 6} show this to be largely correct with the exception of certain higher data limits in longer lists for MSD sorts, particular counting sort. This could be due to the large number of items with the same digts preventing insertion sort from triggering but this only causes at most a 10\% difference to random.
+	\myparagraph{Nearly sorted}
+	This data type was selected to make a comparison between algorithms in a situation where timsort is at an advantage. As stated in the source code for timsort \cite{listsort}, the algorithm iterates over the input, continuously identifying sorted sequences and merging them with the already sorted items and as such it is highly efficient at sorting this data which is essentially a series of sorted sequences within a larger list.
+	\par
+	The graph shown in {\color{red}figure 4} has been pruned to omit all of LSD\textunderscore P as well as bases 2, 14 and 16 as the results for these algorithms are much slower than timsort and make the graph unreadable. The remaining data is representative of all tests of this data type, with timsort performing exceptionally well compared to radix sort and being faster in every situation except on lists of 10,000 items where certain bases of MSD\textunderscore P and LSD\textunderscore C are a fraction faster.  
+	\par
+	Whilst timsort benefits from a 94\% decrease in runtime when performed on nearly sorted lists compared to random, radix sort typically benefits much less from the switch, as is illustrated in {\color{red} figure 5}. MSD sorts benefit from nearly sorted lists due to their use of insertion sort which completes in $\mathcal{O}\textit{(n)}$ time on sorted lists, which it will be called on frequently in this situation. LSD sorts do not employ this method and as such don't see much benefit. The discrepancy between pigeonhole and counting sort may be due to optimizations in PyPy involving moving items from one list into another in the same order, and there is some evidence for this such as LSD\textunderscore P having larger speed gains at smaller integer limits{\color{blue}, though I do not feel like any useful information could be gained from proving this theory}.
+	\subsubsection{Testing evaluation}
+	Making an empirical choice for the best algorithm is not possible in this situation, the varibles identified during time complexity analysis, $n$ and $d$, are independant of one another meaning an exhaustive performance test of both is not possible. Additionally, the categorical testing of different data types proves that the nature of the input list also affects sort times, meaning only sorting radom data would not paint the full picture. 
+	\par
+	Based on the idea that there are so many factors in play, and the uncertainty as to the relative importance of each factor, the best algorithm out of the choices presented in this project should be one that performs poorly in the fewest number of situations, that is to say it is unimportant to identify the best algorithm in any one of the tests and instead find an algorithm that performs at an acceptable level in as many as possible. 
+	\par 
+	Based on this principle, the data from the categorical tests has been used to identify a suitable list of bases for each algorithm by analysing the bases in groups containing a single list length, data type and integer range. For each group, the bases that are deemed 'acceptable' are identified by performing k-means clustering of the sort time with 2 clusters, and selecting all items within the same cluster as the fastest base within the group, resulting in a smaller group that excludes the slowest base and bases significantly slower than the fastest. Counting the number of occurances of each base across all groups then shows how often the base performed at an acceptable level, with bases that show higher counts being good performers in a wider range of circumstances.
+	{\color{red} show table}
+	\par
+	Combining this information with the suitable bases identified in the continuous testing, the bases that have been selected for use are listed below, 36 situations were examined overall.
+	\begin{description}
+		\item[MSD Pigeonhole - 6] Performed well in 34 situations, tied with base 4 but showed greater performance in the variable test of length, particularly at smaller list lengths. Admittedly performed poorly for small integer sizes on large list lengths in the category few unique, but this is anomalous as this base performed very well in all other situations.
+		\item[MSD Counting - 10] Deemed acceptable in 35 situations, with the exception being Few unique, medium int limit, length 1,000,000. This was selected over the best performer, base 4, which showed confusingly good results in categorical tests despite the poor performance in the continuous tests, for which it was rejected.
+		\item[LSD Pigeonhole - 12] Bases 10, 12 and 14 were acceptable in all situations, and peformed very similarly on continuous tests so this decision was made arbritrarily so that the selection is more in line with the other methods.
+		\item[LSD Counting - 10] Bases 6, 4, 14, 12 and 10 were all acceptable in all situations, but of those base 10 was the best performer in the continous tests.
+	\end{description}
+	\par
+	Now these 4 final methods have been identified, comparing them is simple; omitting all results not for the four stated methods and timsort, across the 36 categories LSD counting sort was the best 20 times, MSD counting 5 and Timsort 11. Selecting only random lists produces the results of 9 and 3 for LSD C and MSD C respectively with 0 for Timsort. This indicates that LSD counting sort is the best option, that pigeonhole sort is generally inferior for this purpose and within the tests specified performed better than timsort.
 	% \begin{table}[]
 	% 	\begin{center}		
 	% 	\caption*{Insertion sort tests for msd radix counting sort \hspace{.5cm}\includegraphics[width=.1\linewidth]{insertionLegend.png}}
