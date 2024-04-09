@@ -175,25 +175,6 @@
       \verb https://doc.pypy.org/en/latest/cpython_differences.html
       \endverb
     \endentry
-    \entry{rpythonobj}{online}{}
-      \list{organization}{1}{%
-        {The PyPy Project}%
-      }
-      \field{sortinit}{R}
-      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
-      \field{labeltitlesource}{title}
-      \field{day}{4}
-      \field{month}{1}
-      \field{title}{RPython Language - RPython Documentation}
-      \field{year}{2024}
-      \field{dateera}{ce}
-      \verb{urlraw}
-      \verb https://rpython.readthedocs.io/en/latest/rpython.html#object-restrictions
-      \endverb
-      \verb{url}
-      \verb https://rpython.readthedocs.io/en/latest/rpython.html#object-restrictions
-      \endverb
-    \endentry
   \enddatalist
 \endrefsection
 \endinput

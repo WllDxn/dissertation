@@ -77,6 +77,7 @@ def make_radixsort_class(
                 self.ordered &= self.list[i] >= prev
                 self.reverse_ordered &= self.list[i] <= prev
                 prev = self.list[i]
+            #n takes precedence over m to ensure that when m==n and n is 2^{self.base*some int}, max_bytes is smaller than it needs to be and thus when +1 is added it does not add an unnecessary loop
             return m if absolute(m) > absolute(n) else n
 
         def setitem(self, item, value):

@@ -45,12 +45,19 @@ def do_graph(reject_outliers, fname, stats=False, prune=False, sortedComp=False)
                 df0.drop(df0.loc[(df0['base']=='2')].index, axis=0, inplace=True)
                 df0.drop(df0.loc[(df0['base']=='14')].index, axis=0, inplace=True)
                 df0.drop(df0.loc[(df0['base']=='16')].index, axis=0, inplace=True)
+
+
             df0["method"] = df0["method"].str.replace("times.", "", regex=False).str[:-1]
             for kdx, k in enumerate([['large',''],['med',''],['small',''],['tiny','']]):
                 df2 = df0.dropna().copy()
                 if len(k)<4:
                     df2.drop(df2.loc[(df2['data_size'] != k[0]) & (df2['data_size'] != k[1])].index, inplace=True)
-                
+                df2.drop(df2.index.difference(df2.loc[((df2['method'] == 'msd_c') & (df2['base'] == '10')) 
+                | ((df2['method'] == 'msd_p') & (df2['base'] == '6'))
+                | ((df2['method'] == 'lsd_c') & (df2['base'] == '10'))
+                | ((df2['method'] == 'lsd_p') & (df2['base'] == '12'))
+                | (df2['method'] == 'timsort_n')].index),inplace=True)           
+                # print(df2)  
                 sgb = df2.groupby(['data_size'])
                 fig = plt.figure(figsize=((7.5*sgb.ngroups)+4, 10), constrained_layout=True)
                 # pads = fig.get_constrained_layout_pads()
@@ -133,7 +140,7 @@ def do_graph(reject_outliers, fname, stats=False, prune=False, sortedComp=False)
                         ax.spines["right"].set_visible(False)
                         ax.spines["top"].set_visible(False)
                 if stats: continue
-                graphdir = Path('graphs') / Path(fname).stem / Path('nopig') if prune else Path('graphs') / Path(fname).stem 
+                graphdir = Path('graphs') / Path(fname).stem / Path('nopig') if prune else Path('graphs') / Path('winners') / Path(fname).stem 
                 os.makedirs(graphdir, exist_ok = True)
                 graphdir.mkdir(parents=True, exist_ok=True)
                 gname = str(group).replace(' ', '_').strip('(,)\'')
@@ -148,7 +155,7 @@ def do_graph(reject_outliers, fname, stats=False, prune=False, sortedComp=False)
 
 if __name__ == '__main__':
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/workingfinal_alwaysinsert_workingfinal_neverinsert_11.json'))
-    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times_in_diss/prod_withsorted_production_0.json'))
+    do_graph(reject_outliers, Path('/home/will/dissertation/sort_times_in_diss/production_0.json'))
     # do_graph(reject_outliers, Path('/home/will/dissertation/sort_times/insertion_evident_0.json'))
     # for i in range(3,4):
     #     fname = Path('/home/will/dissertation/sort_times') / f'fewer_iters_tim_{i}.json'

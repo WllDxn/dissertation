@@ -1,3 +1,4 @@
+from ast import Name
 from calendar import c
 import json
 import stat
@@ -74,78 +75,116 @@ def do_graph(reject_outliers, fname, stats=True):
     results = pd.concat(results)
 
     results.reset_index(inplace=True)
-    bestmethod(results)
-    # for gr, g in :
-    #     print(gr)
-    #     print(g)
+    bestofbest(results)
+    # normalr(results)
+    # bestmethod(results)
+
+
+def bestofbest(results):
+    # grafresults(results.drop(results.loc[results['data_type'] == 'Few Unique'].index))
+    grafresults(results)
+    print('-------------------')
+    grafresults(results.drop(results.loc[results['data_type'] != 'Random'].index))
+    print('-------------------')
+    grafresults(results.drop(results.loc[results['data_type'] != 'Nearly Sorted'].index))
+    # results.drop(results.loc[(results['method'] != 'timsort_n') & (results['method'] != 'lsd_p')].index, inplace=True)
+    
+def grafresults(results):
+    results.drop(results.index.difference(results.loc[((results['method'] == 'msd_c') & (results['base'] == '10')) 
+                            | ((results['method'] == 'msd_p') & (results['base'] == '6'))
+                            | ((results['method'] == 'lsd_c') & (results['base'] == '10'))
+                            | ((results['method'] == 'lsd_p') & (results['base'] == '12'))
+                            | (results['method'] == 'timsort_n')].index),inplace=True)
+    
+        
+    results['times'] = results.groupby(['data_type', 'cols', 'data_size'])[['times']].transform(lambda g: (g - np.mean(g)) / np.std(g))
+    results['rank'] = (results.groupby(['data_type', 'cols', 'data_size']).agg(rank=pd.NamedAgg(column='times', aggfunc='rank'))['rank'].astype(int))
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        # print(results.loc[results['method']=='timsort_n'])
+        for cat in [ 'data_type','cols', 'data_size', '']:
+            print(cat)
+            r = (results.groupby(['method',cat] if cat!='' else ['method']).agg(
+                rank=pd.NamedAgg(column='rank', aggfunc='mean'),
+                ranksum=pd.NamedAgg(column='rank', aggfunc='sum'),
+                times=pd.NamedAgg(column='times', aggfunc='mean')
+            ).sort_values(by=['method'], ascending=False).reset_index())
+            r['rank'] = np.round(r['rank'],2)
+            r['times'] = np.round(r['times'],2)
+            if cat!='':
+                r=r.pivot(index='method', columns=[cat], values=['rank', 'times'])
+                r.columns = r.columns.swaplevel(0,1)
+                r = r.sort_index(axis=1)
+                print(r.to_latex(index=True,
+
+                  formatters={"name": str.upper},
+
+                  float_format="{:.4}".format,))  
+                # print(r)
+            else:
+                print(r[['method','rank','times']])
+        # print(results.groupby(['method']).agg(
+        #     rank=pd.NamedAgg(column='rank', aggfunc='mean'),
+        #     ranksum=pd.NamedAgg(column='rank', aggfunc='sum'),
+        #     times=pd.NamedAgg(column='times', aggfunc='mean')
+        # ).sort_values(by=['ranksum'], ascending=False))
+        # for gi, g in results.groupby(['data_type', 'cols', 'data_size']):
+        #     print(gi)
+        #     print(g)
+        #     print('')
+        # countdf.reset_index(inplace=True)
+        # print(countdf)
+def normalr(results, drop=True):
     # print(results)
-    # temp = (results.groupby(['data_type', 'cols', 'data_size','method'], as_index=False)[['times','base']].agg({'times':min, 'base':'first'})) 
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        if drop:
+            results.drop(results.loc[results['method'] == 'timsort_n'].index, inplace=True)
+        from scipy import stats
+        # results = (results.groupby(['data_type', 'cols', 'data_size','method'], as_index=False).apply(lambda g:  g.drop(g.loc[((stats.zscore(g['times'])) > 1)].index)))
+        # results['times'] = results.groupby(['data_type', 'cols', 'data_size'])[['times']].transform(lambda g: (g - np.mean(g)) / np.std(g))
+        results['times'] = results.groupby(['data_type', 'cols', 'data_size','method'])[['times']].transform(lambda g: (g - np.mean(g)) / np.std(g))
+        countdf = results.groupby(['method', 'base']).agg(
+            times=pd.NamedAgg(column="times", aggfunc="mean"),                   
+            ).reset_index().sort_values(by=['times'])
+        # print(countdf)
+        countdf['rank'] = countdf.groupby(['method'])[['times']].transform('rank','first',ascending=True).astype(int)
+        countdf.sort_values(['method','rank'], inplace=True)
+        countdf = countdf.pivot(index='rank', columns='method', values=['base','times'])
+        countdf.columns = countdf.columns.swaplevel(0,1)
+        countdf = countdf.sort_index(axis=1)
+        # countdf = countdf.pivot(columns='method', values=['base', 'count'])
+        countdf.rename(columns={'lsd_c':'lsd c','lsd_p':'lsd p','msd_c':'msd c','msd_p':'msd p'}, inplace=True)
+        co = [(x,'times') for x in ['lsd c','lsd p','msd c','msd p']]
+        countdf[co] = countdf[co].astype(float)
+        countdf[co] = countdf[co].round(3) 
+        print(countdf)
+                
+        print(countdf.to_latex(index=True,
 
+                  formatters={"name": str.upper},
 
-        # print(len(g))
-
-    # temp2 = (results.groupby(['data_type', 'cols', 'data_size'], as_index=False))
-    # for gi, g in temp2:
-    #     print(gi)
-    #     print(g)
-    
-    # for ir, i in temp:
-    #     i['diff'] = ((i['times'] - min(i['times']))/min(i['times']))*100
-    #     # i.drop(i.loc[i['diff'] > 100].index, inplace=True)
-    #     # i.drop(i.loc[np.median(i['diff']) < i['diff']].index, inplace=True)
-    #     # i.drop(i.loc[np.median(i['diff']) < i['diff']].index, inplace=True)
-    #     if len(i)!=1:
-    #         from scipy import stats
-    #         # i['diffreject'] = reject_outliers(i['times'], m=1, dropna=False)
-    #         i.drop(i.loc[(i['times'] > 2*np.min(i['times']))].index, inplace=True)
-    #         i.drop(i.loc[stats.zscore(i['times']) > 1].index, inplace=True)
-    #         # i.drop(i.loc[pd.isna(i['diffreject']) & (i['times'] > np.median(i['times']))].index, inplace=True)
-    #         # i.drop(i.loc[i['diff'] >], axis=1, inplace=True)
-    #         # i.apply(lambda x: x['diffreject'], axis=1)
-    #         print(i)
-    # print(temp)
-    # print(temp.pivot(index=['data_type', 'data_size', 'cols'], columns=['method'], values=['base', 'times']))
-    # for gr, g in results.groupby(['data_type', 'cols', 'data_size','method'], as_index=False)[['times','base']].agg({'times':min, 'base':'first'}).groupby(['data_type', 'cols', 'data_size']):
-    #     print(gr) 
-    #     print(g.sort_values(by='times'))
-    # randvsrt(results)
-    # bestbase(results)
-
-    # groups = results.groupby(['data_type', 'cols', 'data_size'])
-    # for gr, group in groups:
-    #     # if gr==('Random', 1000000, 'tiny'):
-    #     with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified     
-    #         # for gr2, group2 in group.groupby(['method']):
-    #         #     if gr2[0]!='msd_c':continue
-    #         #     print(group2)
-    #         #     print('')
-    #         print(group.loc[group.groupby(['method']).times.idxmin()].pivot(index=['data_type', 'data_size', 'cols', 'rows'], columns='method', values='base'))
-    # gr = groups.agg(lower=pd.NamedAgg(column="diff", aggfunc=lambda x: sum(x<0)), diff=pd.NamedAgg(column="diff", aggfunc="mean"), perc_diff=pd.NamedAgg(column="pdiff", aggfunc="mean"))
-    
-    # groups = results.groupby(['method', 'base'])
-    # gr = groups.agg(lower=pd.NamedAgg(column="diff", aggfunc=lambda x: sum(x<0)), diff=pd.NamedAgg(column="diff", aggfunc="mean"), perc_diff=pd.NamedAgg(column="pdiff", aggfunc="mean"))
-    # groupsnons = results.drop(results[results['data_type'] == 'Nearly Sorted'].index).groupby(['method', 'base'])
-    # grnons = groupsnons.agg(pdiff_no_ns=pd.NamedAgg(column="pdiff", aggfunc="mean"))
-    # groupns = results[results['data_type'] == 'Nearly Sorted'].groupby(['method', 'base'])
-    # grns = groupns.agg(pdiff_ns=pd.NamedAgg(column="pdiff", aggfunc="mean"))
-    # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-    #     gr = gr.merge(grnons, left_index=True, right_index=True).merge(grns, left_index=True, right_index=True).sort_values(by=['pdiff_no_ns'])
-    #     print(gr)
-    # print(grnons)
-    # groups = results.groupby(['data_type', 'data_size'])
-    # allprint = []
-    # for group, g in groups:
-    #     print(f'-----------{group[0]} - {group[1]}-----------')
-    #     gr = g.groupby(['method', 'base'])
-    #     gr = gr.agg(unnamed=pd.NamedAgg(column="diff", aggfunc=lambda x: sum(x<0)), diff=pd.NamedAgg(column="diff", aggfunc="mean"), avetime=pd.NamedAgg(column='times', aggfunc='mean')).sort_values(by=['avetime'])
-    #     with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-    #         print(gr)
-    
-    # print(df)#
-
+                  float_format="{:.4}".format,))  
+        results.sort_values(by=['times'], inplace=True)
+        results.drop(results.loc[(results['base'] != '10')& (results['base'] != '12')].index, inplace=True)
+        t2 = (results.groupby(['data_type','data_size','cols','method'],as_index=True).agg(
+            first=pd.NamedAgg(column="base", aggfunc="first"),
+            max=pd.NamedAgg(column="times", aggfunc='max'),
+            min=pd.NamedAgg(column="times", aggfunc='min'),            
+              ))
+        t2['diff'] = abs(abs(t2['max']) - abs(t2['min']))
+        t2.drop(columns=['min','max'],inplace=True)
+        print(t2)
+        t2.sort_values(by=['data_type','data_size','cols'], inplace=True)
+        # # print(t2.loc[(t2['first']=='8') & (t2['method']=='lsd_c')])
+        # print(t2.loc[(t2['method']=='lsd_c')].sort_values(by=['first','data_type','cols', 'data_size'],ascending=False))
+        print(t2.groupby(['method','first'],as_index=False).agg(
+            count=pd.NamedAgg(column="first", aggfunc="count"),
+            diff=pd.NamedAgg(column="diff", aggfunc="mean")
+            ))
+        # print(countdf)
 def bestmethod(results):
     temp = (results.groupby(['data_type', 'cols', 'data_size','method'], as_index=False).apply(get_suitable2))
     # print(temp)
+    temp.drop(temp.loc[(temp['base'] != '10')& (temp['base'] != '12')].index, inplace=True)
     temp.reset_index(drop=True, inplace=True)
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
         temp.drop(temp.loc[temp['method'] == 'timsort_n'].index, inplace=True)
@@ -160,15 +199,15 @@ def bestmethod(results):
         # countdf = countdf.pivot(columns='method', values=['base', 'count'])
         countdf.rename(columns={'lsd_c':'lsd c','lsd_p':'lsd p','msd_c':'msd c','msd_p':'msd p'}, inplace=True)
         
-        print(countdf.to_latex(index=True,
+        # print(countdf.to_latex(index=True,
 
-                  formatters={"name": str.upper},
+        #           formatters={"name": str.upper},
 
-                  float_format="{:.1%}".format,
+        #           float_format="{:.1%}".format,))  
 
-))  
-        exit()
+        
         counts = (temp.groupby(['method','base'],as_index=False)['method'].agg(['count']).sort_values(by=['method','count'], ascending=False).groupby('method').agg('first'))
+        temp.sort_values(by=['times'], inplace=True)
         for fi, f in counts.groupby('method'):
             if fi=='msd_c':f['base'].values[0]='10'
             if fi=='msd_p':f['base'].values[0]='6'
@@ -223,10 +262,6 @@ def get_suitable2(g):
         kmeans = KMeans(n_clusters=2, random_state=0, n_init="auto")
         g['group'] = kmeans.fit_predict(g[['times']])
         g.sort_values(by=['times'], inplace=True)
-        # g.drop(g.loc[stats.zscore(abs(g['times'])) < 1].index, inplace=True)
-        # group = (g.loc[(g['group'] == g['group'].values[0])]['times'])
-        # g['std'] = g['times'] - (np.mean(group) + (2*np.std(group)))
-        # g['zscore'] = 
         g.drop(g.loc[(g['group'] != g['group'].values[0]) & (abs(stats.zscore(g['times'])) > 0.5)].index, inplace=True)
         g.drop(['group'], axis=1, inplace=True)
     return g
