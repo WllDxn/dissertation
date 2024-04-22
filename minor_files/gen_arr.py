@@ -29,11 +29,20 @@ def gen_list(cols, data_size, type="Random", threshold=None):
                 lis[idx1], lis[idx1 + 1] = lis[idx1 + 1], lis[idx1]
         return lis
 
-with open("/home/will/dissertation/minor_files/arr.txt", "w+") as f:
-    arr = gen_list(100000, 'large', "Random")
-    for i in arr:
-        f.write(str(i)+',')
-with open("/home/will/dissertation/minor_files/arrm.txt", "w+") as f:
-    arr = gen_list(5, 'med', "Nearly Sorted")
-    for i in arr:
-        f.write(str(i)+',')
+
+# with open("/home/will/dissertation/minor_files/arr.txt", "w+") as f:
+#     for j in range(10):
+#         arr = gen_list(10, 'large', "Random")
+#         for i in arr:
+#             f.write(str(i)+',')
+#         f.write('\n')
+for k in range(1, 101):
+    with open(f"/home/will/dissertation/minor_files/compareCompiledArrs/arr{k}.txt", "w+") as f:
+        arr = gen_list(1000000, 'large', "Random")
+        for i in arr:
+            f.write(str(i)+',')
+        
+# with open("/home/will/dissertation/minor_files/arrm.txt", "w+") as f:
+#     arr = gen_list(5, 'med', "Nearly Sorted")
+#     for i in arr:
+#         f.write(str(i)+',')
