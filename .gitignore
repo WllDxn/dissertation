@@ -12,3 +12,6 @@ sort_times/workingfinal_13.json
 sort_times/workingfinal_21.json
 sort_times/workingfinal_20.json
 sort_times_in_diss/lengthgraphs1e5.json
+video/__pycache__/*
+video/media/*
+video/tmp/*
