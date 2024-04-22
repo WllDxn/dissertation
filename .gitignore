@@ -15,3 +15,4 @@ sort_times_in_diss/lengthgraphs1e5.json
 video/__pycache__/*
 video/media/*
 video/tmp/*
+!pypy_versions/lsd_c_10_production
