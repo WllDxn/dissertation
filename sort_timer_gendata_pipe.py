@@ -130,7 +130,7 @@ class Sorter:
         
         def generate_items():       
             # for list_length in list(range(max(1,(self.max_list_length[0]+1)//100), self.max_list_length[0]+1, max(1, (self.max_list_length[0]+1)//100))) if self.insert else self.max_list_length:
-            for list_length in list(range(max(1000000,(self.max_list_length[0]+1)//100), self.max_list_length[0]+1, max(1, (self.max_list_length[0]+1)//100))) if self.insert else self.max_list_length:
+            for list_length in list(range(700000, self.max_list_length[0]+1, 20000)) if self.insert else self.max_list_length:
                 for data_size in list(range(1, self.basemax, 1)) if self.basemax else self.datasizes:
                     for data_type in self.datatypes:
                         thresholds = [None] if self.threshold is None else range(0, self.threshold + 1, self.threshold // self.threshold_divisions)
@@ -192,7 +192,7 @@ class Sorter:
         self, tdelta, data_type, data_size, list_length, sortd, threshold=None
     ):
         name = "%s,%s" % (data_type, data_size)
-        ll = list(range(max(1000000,(self.max_list_length[0]+1)//100), self.max_list_length[0]+1, max(1,(self.max_list_length[0]+1)//100))) if self.insert else [self.max_list_length]
+        ll = list(range(700000, self.max_list_length[0]+1, 20000)) if self.insert else [self.max_list_length]
         myp(
             "eval,%s,%f,%d,%s,%s"
             % (name, tdelta, list_length, str(sortd), (str(len(ll))))
