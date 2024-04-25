@@ -36,11 +36,12 @@ def gen_list(cols, data_size, type="Random", threshold=None):
 #         for i in arr:
 #             f.write(str(i)+',')
 #         f.write('\n')
-for k in range(1, 101):
+for k in range(1, 1001):
     with open(f"/home/will/dissertation/minor_files/compareCompiledArrs/arr{k}.txt", "w+") as f:
         arr = gen_list(1000000, 'large', "Random")
         for i in arr:
             f.write(str(i)+',')
+        print(k)
         
 # with open("/home/will/dissertation/minor_files/arrm.txt", "w+") as f:
 #     arr = gen_list(5, 'med', "Nearly Sorted")
