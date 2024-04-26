@@ -62,4 +62,4 @@ def caller():
                 newdata[key] += data[key]
             f.seek(0)
             json.dump(newdata,f,indent = 6)
-caller()
+analysis()
