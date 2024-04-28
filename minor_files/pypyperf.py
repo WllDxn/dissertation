@@ -1,5 +1,5 @@
 import pyperf
-import sys, math
+import math
 def gen_list(cols, max_value, type="Random", insert=False, nearlysorted_percentage=10):
     lis = []
     if type == "Random" and not insert:
@@ -17,15 +17,20 @@ for _ in range(int(len(lis)//(100/max(1, {nearlysorted_percentage})))):
     idx1 = random.randint(0, len(lis)-2);
     lis[idx1], lis[idx1 + 1] = lis[idx1 + 1], lis[idx1]'''
     return s
-import sys
+import sys, itertools,random
 runner = pyperf.Runner()
-for typ in ["Nearly Sorted","Random"]:
-    for cols in [100000]:
-        for m in [63]:
-            max_value = int(math.pow(2, m))
-            s = gen_list(cols, max_value, typ)
-
-            runner.timeit(name=f"{cols},{m},{typ}-",
-                        stmt="s.sort()",
-                        setup=f"import numpy as np;import random;lis = {s};s = [x for x in lis]")
+# variations = list(itertools.product(["Random", "Few Unique", "Nearly Sorted" ],[100000],[63,48, 32,16]))
+nl = r'\n'
+variations = list(itertools.product(["Random"],[10000],[63]))
+# print(variations)
+for (typ, cols, m) in variations:
+    max_value = int(math.pow(2, m))
+    s = gen_list(cols, max_value, typ)
+    # print(f"import numpy as np;import random;lis = {s};s = [x for x in lis]")
+    runner.timeit(name=f"{cols},{m},{typ}",
+                stmt='s[:].sort();',
+                setup=f"import numpy as np;import random;lis = {s};s = [x for x in lis]",
+               )
+    
+    """/home/will/dissertation/pypy_versions/lsd_c_10_production/bin/pypy -mpyperf timeit -s 'import numpy as np;import random;lis = np.random.randint(-9223372036854775808, 9223372036854775808-1, 100000, dtype=np.int64).tolist();s = [x for x in lis]' 's.sort()' -o 'pyperf/lsd_c_10_production-mil2.json' --rigorous"""
     

@@ -61,6 +61,7 @@ def do_graph(reject_outliers, fname, stats=True):
                 lim = np.mean(df3.loc[df3['method'] == 'timsort_n', 'times'].values[0])
                 df4 = df3.copy()
                 df4.loc[:,['times']] = df4['times'].apply(reject_outliers, m=3)
+                df4['stdev'] = df4['times'].apply(lambda x: np.std(x))
                 df4['times'] = df4['times'].apply(lambda x: np.mean(x))
                 # idxs = (list(df3[np.logical_and(True, (df4.times > lim))].index))
                 # df3.loc[idxs,'times'] = 0
@@ -75,7 +76,9 @@ def do_graph(reject_outliers, fname, stats=True):
     results = pd.concat(results)
 
     results.reset_index(inplace=True)
-    bestofbest(results)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified    
+        print(results.loc[(results['cols']==10000)  & (results['base']=='10') & (results['data_type']=='Random') & (results['data_size']=='large')][['method', 'base', 'times', 'stdev']])
+    # bestofbest(results)
     # normalr(results)
     # bestmethod(results)
 

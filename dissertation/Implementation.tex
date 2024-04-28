@@ -1223,17 +1223,19 @@ PyPy source code includes the file \textit{RPython} used to compile and package 
 \pagebreak
 \subsubsection{Methodology}
 \label{sssec:methodology}
-Testing was performed by creating a python script to be run by a version of PyPy using the custom sort method to be evaluated. The testing process in the script is  to generate a list within the specified parameters, begin a timer, perform the sort function then stop the timer and record the time taken. The timer used was the \textit{time} library function \textit{perf\textunderscore counter}, which uses a system performance counter and when measuring an interval, as in the script, returns highly accurate results.
-\par  The decision to use \textit{perf\textunderscore counter} was made based on a recommendation that is shown when using the \textit{timeit} module on PyPy, warning against the use of the module and instead presenting \textit{perf\textunderscore counter} as an alternative.
+Testing was performed via a script executed by each version of PyPy that uses an implementation of Radix sort as the default sort method for lists of integers. The testing process in the script is  to generate a list within the specified parameters, begin a timer, perform the sort function then stop the timer and record the time taken. The timer used was the \textit{time} library function \textit{perf\textunderscore counter}, which uses a system performance counter to deliver accurate results.
+\par  
+The decision to use \textit{time.perf\textunderscore counter} over other timing resources such as \textit{time.time} was made based on {\color{red}THIS}, which states that \textit{perf\textunderscore counter} always uses the most precise clock/performance counter available and is the reccomendation for benchmarking purposes. Ultimately, this decision was probably inconsequential as a test performed on 10,000 lists of 1,000,000 random integers sorted by lsd counting sort (using a radix of $2^{10}$) showed a time difference of 0.000185 or $0.6\%$, but a decision had to be made and sticking with the library developers' reccomendation is the more prudent action.
+\par
+
 \par
 The lists to be sorted are generated using various functions in the \textit{numpy} and \textit{random} libraries in the formats listed below and are generated to contain a specified quantity of items and contain values within a specified range.
 \par
 \begin{description}
-	\item[Nearly sorted] lists generate a sorted list and repeatedly swap items at adjacent indexes until the number of swaps equals 10\% of the list length
-	\item[Few unique] generate a random list with a length $1/10^{th}$ of the target length then randomly populates a list of the target length with the preliminary list.
-	\item[Random] generate list of random integers of the target length
+	\item[Nearly sorted - ] Generate a sorted list and repeatedly swap items at adjacent indexes until the number of swaps equals 10\% of the list length
+	\item[Few unique - ] Generate a random list with a length $1/10^{th}$ of the target length then randomly populates a list of the target length with the preliminary list.
+	\item[Random - ] Generate list of random integers of the target length
 \end{description} 
-Below is a demonstration of 50 items generated in these formats within the range $[0..50]$. For demonstration purposes the chance of items being swapped in nearly sorted has been increased.
 \begin{table}[h]
 	\makebox[\textwidth]{\includegraphics[width=1.2\textwidth]{demo}}
 	\caption*{A demonstration of a list generated in each format.\par Each bar represents an integer, the order of the bars left to right represents the order of the items in indexes $[0..49]$}

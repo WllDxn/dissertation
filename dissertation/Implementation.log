@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  16 APR 2024 13:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  28 APR 2024 11:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -898,106 +898,106 @@ Package xcolor Warning: Incompatible color definition on input line 1176.
 <./demographs/demo.png, id=840, 740.0448pt x 273.1806pt>
 File: ./demographs/demo.png Graphic file (type png)
 <use ./demographs/demo.png>
-Package pdftex.def Info: ./demographs/demo.png  used on input line 1238.
+Package pdftex.def Info: ./demographs/demo.png  used on input line 1240.
 (pdftex.def)             Requested size: 520.34267pt x 192.08795pt.
  [33 <./demographs/demo.png>]
 <./insertion/msd_c_10.png, id=850, 825.3234pt x 552.8655pt>
 File: ./insertion/msd_c_10.png Graphic file (type png)
 <use ./insertion/msd_c_10.png>
-Package pdftex.def Info: ./insertion/msd_c_10.png  used on input line 1257.
+Package pdftex.def Info: ./insertion/msd_c_10.png  used on input line 1259.
 (pdftex.def)             Requested size: 325.215pt x 217.85222pt.
 <./insertion/insertionLegend.png, id=851, 408.77719pt x 267.24844pt>
 File: ./insertion/insertionLegend.png Graphic file (type png)
 <use ./insertion/insertionLegend.png>
-Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1258.
+Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1260.
 (pdftex.def)             Requested size: 65.04034pt x 42.52002pt.
  [34 <./insertion/msd_c_10.png> <./insertion/insertionLegend.png>] [35]
 <./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png, id=869, 1047.915pt x 722.7pt>
 File: ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png Graphic file (type png)
 <use ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png>
-Package pdftex.def Info: ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png  used on input line 1342.
+Package pdftex.def Info: ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png  used on input line 1344.
 (pdftex.def)             Requested size: 226.91231pt x 156.49014pt.
 <./sortedgraphs/lrg_Random_sorted_0.png, id=870, 1047.915pt x 722.7pt>
 File: ./sortedgraphs/lrg_Random_sorted_0.png Graphic file (type png)
 <use ./sortedgraphs/lrg_Random_sorted_0.png>
-Package pdftex.def Info: ./sortedgraphs/lrg_Random_sorted_0.png  used on input line 1342.
+Package pdftex.def Info: ./sortedgraphs/lrg_Random_sorted_0.png  used on input line 1344.
 (pdftex.def)             Requested size: 226.91231pt x 156.49014pt.
  [36 <./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png> <./sortedgraphs/lrg_Random_sorted_0.png>] [37]
 <./lengthgraphs/lsd_c_length.png, id=902, 2388.5235pt x 722.7pt>
 File: ./lengthgraphs/lsd_c_length.png Graphic file (type png)
 <use ./lengthgraphs/lsd_c_length.png>
-Package pdftex.def Info: ./lengthgraphs/lsd_c_length.png  used on input line 1378.
+Package pdftex.def Info: ./lengthgraphs/lsd_c_length.png  used on input line 1380.
 (pdftex.def)             Requested size: 476.98463pt x 144.31688pt.
  [38 <./lengthgraphs/lsd_c_length.png>]
 <./lengthgraphs/lsd_p_length.png, id=910, 2391.4143pt x 722.7pt>
 File: ./lengthgraphs/lsd_p_length.png Graphic file (type png)
 <use ./lengthgraphs/lsd_p_length.png>
-Package pdftex.def Info: ./lengthgraphs/lsd_p_length.png  used on input line 1391.
+Package pdftex.def Info: ./lengthgraphs/lsd_p_length.png  used on input line 1393.
 (pdftex.def)             Requested size: 476.98463pt x 144.14044pt.
 <./lengthgraphs/msd_c_length.png, id=911, 2408.0364pt x 722.7pt>
 File: ./lengthgraphs/msd_c_length.png Graphic file (type png)
 <use ./lengthgraphs/msd_c_length.png>
-Package pdftex.def Info: ./lengthgraphs/msd_c_length.png  used on input line 1400.
+Package pdftex.def Info: ./lengthgraphs/msd_c_length.png  used on input line 1402.
 (pdftex.def)             Requested size: 476.98463pt x 143.14796pt.
  [39 <./lengthgraphs/lsd_p_length.png> <./lengthgraphs/msd_c_length.png>]
 <./lengthgraphs/msd_p_length.png, id=922, 2410.9272pt x 722.7pt>
 File: ./lengthgraphs/msd_p_length.png Graphic file (type png)
 <use ./lengthgraphs/msd_p_length.png>
-Package pdftex.def Info: ./lengthgraphs/msd_p_length.png  used on input line 1414.
+Package pdftex.def Info: ./lengthgraphs/msd_p_length.png  used on input line 1416.
 (pdftex.def)             Requested size: 476.98463pt x 142.97153pt.
 <./basegraphs/lsd_c_base.png, id=923, 2043.0729pt x 722.7pt>
 File: ./basegraphs/lsd_c_base.png Graphic file (type png)
 <use ./basegraphs/lsd_c_base.png>
-Package pdftex.def Info: ./basegraphs/lsd_c_base.png  used on input line 1428.
+Package pdftex.def Info: ./basegraphs/lsd_c_base.png  used on input line 1430.
 (pdftex.def)             Requested size: 386.06801pt x 136.5733pt.
 <./basegraphs/lsd_p_base.png, id=924, 2045.241pt x 722.7pt>
 File: ./basegraphs/lsd_p_base.png Graphic file (type png)
 <use ./basegraphs/lsd_p_base.png>
-Package pdftex.def Info: ./basegraphs/lsd_p_base.png  used on input line 1438.
+Package pdftex.def Info: ./basegraphs/lsd_p_base.png  used on input line 1440.
 (pdftex.def)             Requested size: 386.47769pt x 136.5733pt.
  [40 <./lengthgraphs/msd_p_length.png> <./basegraphs/lsd_c_base.png>]
 <./basegraphs/msd_c_base.png, id=935, 2064.0312pt x 722.7pt>
 File: ./basegraphs/msd_c_base.png Graphic file (type png)
 <use ./basegraphs/msd_c_base.png>
-Package pdftex.def Info: ./basegraphs/msd_c_base.png  used on input line 1447.
+Package pdftex.def Info: ./basegraphs/msd_c_base.png  used on input line 1449.
 (pdftex.def)             Requested size: 390.02838pt x 136.5733pt.
  [41 <./basegraphs/lsd_p_base.png> <./basegraphs/msd_c_base.png>]
 <./basegraphs/msd_p_base.png, id=946, 2066.1993pt x 722.7pt>
 File: ./basegraphs/msd_p_base.png Graphic file (type png)
 <use ./basegraphs/msd_p_base.png>
-Package pdftex.def Info: ./basegraphs/msd_p_base.png  used on input line 1457.
+Package pdftex.def Info: ./basegraphs/msd_p_base.png  used on input line 1459.
 (pdftex.def)             Requested size: 390.43806pt x 136.5733pt.
 <./results/lrg_Random_0.png, id=947, 845.559pt x 736.4313pt>
 File: ./results/lrg_Random_0.png Graphic file (type png)
 <use ./results/lrg_Random_0.png>
-Package pdftex.def Info: ./results/lrg_Random_0.png  used on input line 1468.
+Package pdftex.def Info: ./results/lrg_Random_0.png  used on input line 1470.
 (pdftex.def)             Requested size: 196.00984pt x 170.71652pt.
 <./results/lrg_Random_1.png, id=948, 845.559pt x 736.4313pt>
 File: ./results/lrg_Random_1.png Graphic file (type png)
 <use ./results/lrg_Random_1.png>
-Package pdftex.def Info: ./results/lrg_Random_1.png  used on input line 1468.
+Package pdftex.def Info: ./results/lrg_Random_1.png  used on input line 1470.
 (pdftex.def)             Requested size: 196.00984pt x 170.71652pt.
  [42 <./basegraphs/msd_p_base.png> <./results/lrg_Random_0.png> <./results/lrg_Random_1.png>]
 <./results/med_Few_Unique_1.png, id=962, 845.559pt x 736.4313pt>
 File: ./results/med_Few_Unique_1.png Graphic file (type png)
 <use ./results/med_Few_Unique_1.png>
-Package pdftex.def Info: ./results/med_Few_Unique_1.png  used on input line 1519.
+Package pdftex.def Info: ./results/med_Few_Unique_1.png  used on input line 1521.
 (pdftex.def)             Requested size: 214.64162pt x 186.9391pt.
  [43 <./results/med_Few_Unique_1.png>]
 <./results/lrg_Nearly_Sorted_nolp_0.png, id=977, 845.559pt x 736.4313pt>
 File: ./results/lrg_Nearly_Sorted_nolp_0.png Graphic file (type png)
 <use ./results/lrg_Nearly_Sorted_nolp_0.png>
-Package pdftex.def Info: ./results/lrg_Nearly_Sorted_nolp_0.png  used on input line 1571.
+Package pdftex.def Info: ./results/lrg_Nearly_Sorted_nolp_0.png  used on input line 1573.
 (pdftex.def)             Requested size: 195.12767pt x 169.93748pt.
 <./results/sml_Nearly_Sorted_nolp_2.png, id=978, 845.559pt x 736.4313pt>
 File: ./results/sml_Nearly_Sorted_nolp_2.png Graphic file (type png)
 <use ./results/sml_Nearly_Sorted_nolp_2.png>
-Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_2.png  used on input line 1587.
+Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_2.png  used on input line 1589.
 (pdftex.def)             Requested size: 195.12767pt x 169.93748pt.
 <./results/sml_Nearly_Sorted_nolp_3.png, id=979, 845.559pt x 736.4313pt>
 File: ./results/sml_Nearly_Sorted_nolp_3.png Graphic file (type png)
 <use ./results/sml_Nearly_Sorted_nolp_3.png>
-Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_3.png  used on input line 1587.
+Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_3.png  used on input line 1589.
 (pdftex.def)             Requested size: 234.15558pt x 203.92947pt.
  [44 <./results/lrg_Nearly_Sorted_nolp_0.png> <./results/sml_Nearly_Sorted_nolp_2.png> <./results/sml_Nearly_Sorted_nolp_3.png>] [45] [46] [47] (./Implementation.aux)
  ***********
@@ -1019,7 +1019,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  66i,20n,81p,1452b,1528s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Implementation.pdf (48 pages, 3058354 bytes).
+Output written on Implementation.pdf (48 pages, 3058720 bytes).
 PDF statistics:
  1213 PDF objects out of 1440 (max. 8388607)
  1074 compressed objects within 11 object streams

@@ -4,7 +4,7 @@ import re
 import random
 sort_times = "/home/will/dissertation/sort_times"
 # methods = ["fewer_iters"]
-methods = ["fewer_iters", "insertion_evident", "timsort"]
+methods = ["production", "timsort"]
 radixsort_location = "/home/will/dissertation/radixsort_versions"
 pypy_versions = "/home/will/dissertation/pypy_versions" 
 # methods=['insertion_tests_3']
@@ -47,7 +47,7 @@ def n(methodName, output, num=100):
         if name not in ['msd_c_4.py', 'msd_c_2.py']:do=True
         if not os.path.exists(exepath):continue
         if not do and methodName != 'timsort':
-            print(f'skipping: {name}')``
+            print(f'skipping: {name}')
             continue
         if "msd_p_1" in name: continue
         else:
@@ -162,6 +162,6 @@ def ins_ll(methodName, output, num=100):
 def handler(methods):
     output = get_filename("_".join(methods)) if len(methods) > 1 else get_filename(methods[0])
     for i in methods:
-        print(i)
-        n(i, output)
+        print(i, output)
+        # n(i, output)
 handler(methods)
