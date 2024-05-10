@@ -148,7 +148,7 @@ def grafresults(results, showbest=True):
     if showbest:
         results.drop(results.index.difference(results.loc[((results['method'] == 'msd_c') & (results['base'] == '10')) 
                             | ((results['method'] == 'msd_p') & (results['base'] == '6'))
-                            | ((results['method'] == 'lsd_c') & (results['base'] == '10'))
+                            | ((results['method'] == 'lsd_c') & (results['base'] == '8'))
                             | ((results['method'] == 'lsd_p') & (results['base'] == '12'))
                             | (results['method'] == 'timsort_n')].index),inplace=True)
     
@@ -192,18 +192,15 @@ def grafresults(results, showbest=True):
                     r=r.pivot(index=['method','base'], columns=cat, values=['rawtimes']).sort_values(by=['method','base'])
                 # r['ave'] = r.groupby(by='method')['rawtimes'].transform('mean')
                 r = r.droplevel(0,axis=1)
-                r = r.rename_axis(None, axis=0) 
+                if showbest:
+                    r = r.rename_axis(None, axis=0) 
                 r['Average'] = r.apply('mean',axis=1)
+                if not showbest:
+                    r.sort_values(by=['method','Average'],inplace=True)
+                else:
+                    r.sort_values(by=['Average'],inplace=True)
+                    pass
                 r = r.astype(int).astype(str) +'\%'
-                # r = r.sort_index(axis=1)
-                print(r.to_latex(index=True,
-
-                  formatters={"name": str.upper},
-                
-                  float_format="{:.4}".format,).replace('_n','').replace('_',' '))  
-                print('\n')
-                print(r)
-                print('\n')
             else:
                 if not showbest:
                     r.drop(r.loc[r['method']=='timsort_n'].index,axis=0,inplace=True)
@@ -211,24 +208,16 @@ def grafresults(results, showbest=True):
                     r = r[['method','base','rank','rawtimes','times']].pivot(index='rank',columns='method',values=['base','times'])
                     r.columns = r.columns.swaplevel(0,1)
                     r = r.sort_index(axis=1)
-                    print(r.to_latex(index=True,
-
-                  formatters={"name": str.upper},
-                
-                  float_format="{:.4}".format,)) 
-                    print('')
-                    print(r)
-                    # for gr, rg in r:
-                    #     print(rg[['method','base','times']])
-                    #     print('')
                 else:  
-                    print(r[['method','base','times']].sort_values(by='method'))
-                    r
-                    print(r[['method','times']].sort_values(by='method').to_latex(index=False,
+                    # r = (r[['method','base','times']].sort_values(by='method'))
+                    # r
+                    r = r[['method','times']].sort_values(by='method')
+            print(r)
+            print(r.to_latex(index=True,
 
-                  formatters={"name": str.upper},
+                formatters={"name": str.upper},
                 
-                  float_format="{:.4}".format,).replace('_n','').replace('_',' ')) 
+                float_format="{:.4}".format,).replace('_n','').replace('_',' '))
 
                 
         # print(results.groupby(['method']).agg(

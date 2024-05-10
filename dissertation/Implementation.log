@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  10 MAY 2024 13:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  10 MAY 2024 16:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -796,9 +796,13 @@ File: translations-basic-dictionary-english.trsl (english translation file `tran
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 90.
 <./logo/logo.jpeg, id=217, 229.293pt x 52.2315pt>
+File: ./logo/logo.jpeg Graphic file (type jpg)
+<use ./logo/logo.jpeg>
+Package pdftex.def Info: ./logo/logo.jpeg  used on input line 96.
+(pdftex.def)             Requested size: 211.29498pt x 47.98022pt.
  [1
 
-{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./Implementation.toc
+{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logo/logo.jpeg>] (./Implementation.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -922,61 +926,90 @@ Underfull \hbox (badness 10000) in paragraph at lines 1233--1235
  []
 
 [30]
-<./demographs/democut.png, id=844, 794.2473pt x 273.1806pt>
+<./demographs/democut.png, id=843, 794.2473pt x 273.1806pt>
 File: ./demographs/democut.png Graphic file (type png)
 <use ./demographs/democut.png>
 Package pdftex.def Info: ./demographs/democut.png  used on input line 1269.
 (pdftex.def)             Requested size: 520.34267pt x 178.98253pt.
  [31 <./demographs/democut.png>]
-<./insertion/msd_c_10.png, id=856, 825.3234pt x 552.8655pt>
+<./insertion/msd_c_10.png, id=855, 825.3234pt x 552.8655pt>
 File: ./insertion/msd_c_10.png Graphic file (type png)
 <use ./insertion/msd_c_10.png>
 Package pdftex.def Info: ./insertion/msd_c_10.png  used on input line 1289.
 (pdftex.def)             Requested size: 325.215pt x 217.85222pt.
-<./insertion/insertionLegend.png, id=857, 408.77719pt x 267.24844pt>
+<./insertion/insertionLegend.png, id=856, 408.77719pt x 267.24844pt>
 File: ./insertion/insertionLegend.png Graphic file (type png)
 <use ./insertion/insertionLegend.png>
 Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1290.
 (pdftex.def)             Requested size: 65.04034pt x 42.52002pt.
  [32 <./insertion/msd_c_10.png> <./insertion/insertionLegend.png>] [33]
-<./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png, id=876, 1047.915pt x 722.7pt>
-<./sortedgraphs/lrg_Random_sorted_0.png, id=877, 1047.915pt x 722.7pt>
- [34] [35]
-<./lengthgraphs/lsd_c_length.png, id=907, 2388.5235pt x 722.7pt>
+<./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png, id=875, 1047.915pt x 722.7pt>
+File: ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png Graphic file (type png)
+<use ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png>
+Package pdftex.def Info: ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png  used on input line 1373.
+(pdftex.def)             Requested size: 226.91231pt x 156.49014pt.
+<./sortedgraphs/lrg_Random_sorted_0.png, id=876, 1047.915pt x 722.7pt>
+File: ./sortedgraphs/lrg_Random_sorted_0.png Graphic file (type png)
+<use ./sortedgraphs/lrg_Random_sorted_0.png>
+Package pdftex.def Info: ./sortedgraphs/lrg_Random_sorted_0.png  used on input line 1373.
+(pdftex.def)             Requested size: 226.91231pt x 156.49014pt.
+ [34 <./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png> <./sortedgraphs/lrg_Random_sorted_0.png>] [35]
+<./lengthgraphs/lsd_c_length.png, id=908, 2388.5235pt x 722.7pt>
 File: ./lengthgraphs/lsd_c_length.png Graphic file (type png)
 <use ./lengthgraphs/lsd_c_length.png>
-Package pdftex.def Info: ./lengthgraphs/lsd_c_length.png  used on input line 1411.
+Package pdftex.def Info: ./lengthgraphs/lsd_c_length.png  used on input line 1410.
 (pdftex.def)             Requested size: 476.98463pt x 144.31688pt.
  [36 <./lengthgraphs/lsd_c_length.png>]
-<./lengthgraphs/lsd_p_length.png, id=916, 2391.4143pt x 722.7pt>
+<./lengthgraphs/lsd_p_length.png, id=917, 2391.4143pt x 722.7pt>
 File: ./lengthgraphs/lsd_p_length.png Graphic file (type png)
 <use ./lengthgraphs/lsd_p_length.png>
-Package pdftex.def Info: ./lengthgraphs/lsd_p_length.png  used on input line 1427.
+Package pdftex.def Info: ./lengthgraphs/lsd_p_length.png  used on input line 1426.
 (pdftex.def)             Requested size: 476.98463pt x 144.14044pt.
-<./lengthgraphs/msd_c_length.png, id=917, 2408.0364pt x 722.7pt>
+<./lengthgraphs/msd_c_length.png, id=918, 2408.0364pt x 722.7pt>
 File: ./lengthgraphs/msd_c_length.png Graphic file (type png)
 <use ./lengthgraphs/msd_c_length.png>
-Package pdftex.def Info: ./lengthgraphs/msd_c_length.png  used on input line 1437.
+Package pdftex.def Info: ./lengthgraphs/msd_c_length.png  used on input line 1436.
 (pdftex.def)             Requested size: 476.98463pt x 143.14796pt.
  [37 <./lengthgraphs/lsd_p_length.png> <./lengthgraphs/msd_c_length.png>]
-<./lengthgraphs/msd_p_length.png, id=930, 2410.9272pt x 722.7pt>
+<./lengthgraphs/msd_p_length.png, id=931, 2410.9272pt x 722.7pt>
 File: ./lengthgraphs/msd_p_length.png Graphic file (type png)
 <use ./lengthgraphs/msd_p_length.png>
-Package pdftex.def Info: ./lengthgraphs/msd_p_length.png  used on input line 1452.
+Package pdftex.def Info: ./lengthgraphs/msd_p_length.png  used on input line 1451.
 (pdftex.def)             Requested size: 476.98463pt x 142.97153pt.
-<./basegraphs/lsd_c_base.png, id=931, 2043.0729pt x 722.7pt>
+ [38 <./lengthgraphs/msd_p_length.png>]
+<./basegraphs/lsd_c_base.png, id=941, 2043.0729pt x 722.7pt>
 File: ./basegraphs/lsd_c_base.png Graphic file (type png)
 <use ./basegraphs/lsd_c_base.png>
-Package pdftex.def Info: ./basegraphs/lsd_c_base.png  used on input line 1467.
-(pdftex.def)             Requested size: 386.06801pt x 136.5733pt.
-<./basegraphs/lsd_p_base.png, id=932, 2045.241pt x 722.7pt>
- [38 <./lengthgraphs/msd_p_length.png> <./basegraphs/lsd_c_base.png>]
-<./basegraphs/msd_c_base.png, id=944, 2064.0312pt x 722.7pt>
- [39]
-<./basegraphs/msd_p_base.png, id=953, 2066.1993pt x 722.7pt>
-<./results/lrg_Random_0.png, id=954, 845.559pt x 736.4313pt>
-<./results/lrg_Random_1.png, id=955, 845.559pt x 736.4313pt>
- [40]
+Package pdftex.def Info: ./basegraphs/lsd_c_base.png  used on input line 1470.
+(pdftex.def)             Requested size: 390.25534pt x 138.04224pt.
+<./basegraphs/lsd_p_base.png, id=942, 2045.241pt x 722.7pt>
+File: ./basegraphs/lsd_p_base.png Graphic file (type png)
+<use ./basegraphs/lsd_p_base.png>
+Package pdftex.def Info: ./basegraphs/lsd_p_base.png  used on input line 1480.
+(pdftex.def)             Requested size: 386.47769pt x 136.5733pt.
+ [39 <./basegraphs/lsd_c_base.png> <./basegraphs/lsd_p_base.png>]
+<./basegraphs/msd_c_base.png, id=955, 2064.0312pt x 722.7pt>
+File: ./basegraphs/msd_c_base.png Graphic file (type png)
+<use ./basegraphs/msd_c_base.png>
+Package pdftex.def Info: ./basegraphs/msd_c_base.png  used on input line 1491.
+(pdftex.def)             Requested size: 390.02838pt x 136.5733pt.
+<./basegraphs/msd_p_base.png, id=957, 2066.1993pt x 722.7pt>
+File: ./basegraphs/msd_p_base.png Graphic file (type png)
+<use ./basegraphs/msd_p_base.png>
+Package pdftex.def Info: ./basegraphs/msd_p_base.png  used on input line 1503.
+(pdftex.def)             Requested size: 390.43806pt x 136.5733pt.
+ [40 <./basegraphs/msd_c_base.png> <./basegraphs/msd_p_base.png>]
+<./results/lrg_Random_0.png, id=972, 845.559pt x 736.4313pt>
+File: ./results/lrg_Random_0.png Graphic file (type png)
+<use ./results/lrg_Random_0.png>
+Package pdftex.def Info: ./results/lrg_Random_0.png  used on input line 1517.
+(pdftex.def)             Requested size: 196.00984pt x 170.71652pt.
+<./results/lrg_Random_1.png, id=973, 845.559pt x 736.4313pt>
+File: ./results/lrg_Random_1.png Graphic file (type png)
+<use ./results/lrg_Random_1.png>
+Package pdftex.def Info: ./results/lrg_Random_1.png  used on input line 1517.
+(pdftex.def)             Requested size: 196.00984pt x 170.71652pt.
+ [41 <./results/lrg_Random_0.png> <./results/lrg_Random_1.png>]
 
 Package siunitx Info: Option "table-space-text-post" has been deprecated in
 (siunitx)             this release.
@@ -989,1088 +1022,666 @@ Package siunitx Info: Option "table-align-text-post" has been deprecated in
 (siunitx)             
 (siunitx)             Use "table-align-text-after = false" as a replacement.
 
-<./results/med_Few_Unique_1.png, id=968, 845.559pt x 736.4313pt>
+<./results/med_Few_Unique_1.png, id=985, 845.559pt x 736.4313pt>
+File: ./results/med_Few_Unique_1.png Graphic file (type png)
+<use ./results/med_Few_Unique_1.png>
+Package pdftex.def Info: ./results/med_Few_Unique_1.png  used on input line 1575.
+(pdftex.def)             Requested size: 214.64162pt x 186.9391pt.
 
-Overfull \hbox (9.33336pt too wide) detected at line 1567
+Overfull \hbox (9.33336pt too wide) detected at line 1575
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 9$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.33336pt too wide) detected at line 1567
+Overfull \hbox (9.33336pt too wide) detected at line 1575
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 7$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.33336pt too wide) detected at line 1567
+Overfull \hbox (9.33336pt too wide) detected at line 1575
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 3$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.33336pt too wide) detected at line 1567
+Overfull \hbox (9.33336pt too wide) detected at line 1575
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1567
+Overfull \hbox (9.79156pt too wide) detected at line 1575
 \OT1/cmr/m/n/12 % 
  []
 
-[41]
 
 Package siunitx Info: Option "table-space-text-post" has been deprecated in
 (siunitx)             this release.
 (siunitx)             
 (siunitx)             Use "table-format" as a replacement.
 
-<./results/lrg_Nearly_Sorted_nolp_0.png, id=982, 845.559pt x 736.4313pt>
+<./results/lrg_Nearly_Sorted_nolp_0.png, id=990, 845.559pt x 736.4313pt>
+File: ./results/lrg_Nearly_Sorted_nolp_0.png Graphic file (type png)
+<use ./results/lrg_Nearly_Sorted_nolp_0.png>
+Package pdftex.def Info: ./results/lrg_Nearly_Sorted_nolp_0.png  used on input line 1634.
+(pdftex.def)             Requested size: 195.12767pt x 169.93748pt.
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 3$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 3$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 4$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 0$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 3$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 7$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (3.45842pt too wide) detected at line 1627
+Overfull \hbox (3.45842pt too wide) detected at line 1634
 $\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
+Overfull \hbox (9.79156pt too wide) detected at line 1634
 \OT1/cmr/m/n/12 % 
  []
 
 
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1627
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1627
-\OT1/cmr/m/n/12 % 
- []
-
-<./results/sml_Nearly_Sorted_nolp_2.png, id=983, 845.559pt x 736.4313pt>
-File: ./results/sml_Nearly_Sorted_nolp_2.png Graphic file (type png)
-<use ./results/sml_Nearly_Sorted_nolp_2.png>
-Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_2.png  used on input line 1643.
-(pdftex.def)             Requested size: 195.12767pt x 169.93748pt.
-<./results/sml_Nearly_Sorted_nolp_3.png, id=984, 845.559pt x 736.4313pt>
-File: ./results/sml_Nearly_Sorted_nolp_3.png Graphic file (type png)
-<use ./results/sml_Nearly_Sorted_nolp_3.png>
-Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_3.png  used on input line 1643.
-(pdftex.def)             Requested size: 195.12767pt x 169.93748pt.
-[42 <./results/sml_Nearly_Sorted_nolp_2.png> <./results/sml_Nearly_Sorted_nolp_3.png>]
-
-Package siunitx Info: Option "table-space-text-post" has been deprecated in
-(siunitx)             this release.
-(siunitx)             
-(siunitx)             Use "table-format" as a replacement.
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1676
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1676
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1676
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1677
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1677
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1677
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1677
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1678
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1678
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1678
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1678
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1679
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1679
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1679
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1679
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1680
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1680
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1680
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1680
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1681
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1681
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1681
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1681
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1682
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1682
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1682
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1682
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1683
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1683
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1683
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1683
-\OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (0.65277pt too wide) detected at line 1684
-\OT1/cmr/m/n/12 % 
- []
-
-[43]
-
-Package siunitx Info: Option "table-space-text-post" has been deprecated in
-(siunitx)             this release.
-(siunitx)             
-(siunitx)             Use "table-format" as a replacement.
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1708
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 88$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1708
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1708
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1708
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 88$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1708
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1709
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 17$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1709
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1709
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 46$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1709
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1709
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1709
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 42$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1709
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1710
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1710
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 78$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1710
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1710
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1710
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 82$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1710
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1711
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1711
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 55$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1711
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1711
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (3.45842pt too wide) detected at line 1711
-$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 60$
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1711
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1712
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1712
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1712
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1712
- \OT1/cmr/m/n/12 % 
- []
-
-
-Overfull \hbox (9.79156pt too wide) detected at line 1713
- \OT1/cmr/m/n/12 % 
- []
-
-[44] [45] (./Implementation.aux)
- ***********
-LaTeX2e <2023-11-01> patch level 1
-L3 programming layer <2024-01-04>
- ***********
-Package rerunfilecheck Info: File `Implementation.out' has not changed.
-(rerunfilecheck)             Checksum: 322DB9D85AFA9D5F677E20C37FFEFF0A;7685.
-Package logreq Info: Writing requests to 'Implementation.run.xml'.
-\openout1 = `Implementation.run.xml'.
-
- ) 
-Here is how much of TeX's memory you used:
- 26894 strings out of 474166
- 519126 string characters out of 5745489
- 2139539 words of memory out of 5000000
- 48378 multiletter control sequences out of 15000+600000
- 566367 words of font info for 64 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 66i,20n,81p,1172b,1527s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Implementation.pdf (48 pages, 2283544 bytes).
-PDF statistics:
- 1228 PDF objects out of 1440 (max. 8388607)
- 1098 compressed objects within 11 object streams
- 531 named destinations out of 1000 (max. 500000)
- 525 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+Overfull \hbox (9.79156pt too wide) detect
