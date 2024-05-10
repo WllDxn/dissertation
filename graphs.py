@@ -84,7 +84,7 @@ def do_graph(reject_outliers, fname, stats=False, prune=False, sortedComp=False)
                         newmgroup[str(idx)] = 0.25
                         
                     # mgroup['timsort_n'] = 7.5
-                    axes = subfig.subplots(nrows=1, ncols=methodgroups.ngroups*2, sharey=True, width_ratios=newmgroup)
+                    axes = subfig.subplots(nrows=1, ncols=methodgroups.ngroups*2, sharey=True)
                     for i in range(1,len(axes),2):
                         
                         # axes[i].axis('off')
@@ -104,7 +104,8 @@ def do_graph(reject_outliers, fname, stats=False, prune=False, sortedComp=False)
                         # if 'p' in key:continue
                         # print(key)
                         mdf = methodgroups.get_group(key)
-                        # print(mdf)
+                        print(mdf)
+                        exit()
                         mdf.loc[:,['times']] = mdf['times'].apply(reject_outliers, m=3)
                         mdf = mdf.sort_values(by=['base'], key=natsort.natsort_keygen())
                         # if 'timsort' in key:
@@ -121,6 +122,7 @@ def do_graph(reject_outliers, fname, stats=False, prune=False, sortedComp=False)
                         wid=0.8 
                         # cllr = ['C0', 'C1', 'C2', 'C3', 'C4', 'C5'] if not(group[0]=='Random' and subgroup=='tiny' and key=='msd_c') else ['C9' for _ in range(6)]
                         # print(mdf)
+
                         ax.bar(mdf['base'], x, width=wid, yerr=xerrors, color=['C0', 'C1', 'C2', 'C3', 'C4', 'C5'] if 'timsort' not in key else 'C8')
                         if 'timsort' not in key:
                             ax.set_xlabel(key)
