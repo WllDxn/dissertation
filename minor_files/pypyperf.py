@@ -22,17 +22,21 @@ for _ in range(int(len(lis)//(100/max(1, {nearlysorted_percentage})))):
 import sys, itertools,random
 runner = pyperf.Runner()
 nl = r'\n'
+<<<<<<< HEAD
 # variations = list(itertools.product(["Random"],[10000],[63]))
 
 variations = list(itertools.product(["Random", "Few Unique", "Nearly Sorted" ],[100000],[63,32,20,16]))
+=======
+variations = list(itertools.product(["Random","Few Unique"],[10000],[63]))
+>>>>>>> 973111a5adcefb4496f7fe179d919ad63794f34e
 # print(variations)
 for (typ, cols, m) in variations:
     max_value = int(math.pow(2, m))
     s = gen_list(cols, max_value, typ)
     # print(f"import numpy as np;import random;lis = {s};s = [x for x in lis]")
     runner.timeit(name=f"{cols},{m},{typ}",
-                stmt='s[:].sort();',
-                setup=f"import numpy as np;import random;lis = {s};s = [x for x in lis]",
+                stmt=f'lis = {s};s = [x for x in lis];s.sort();',
+                setup=f"import numpy as np;import random;",
                )
     
     """/home/will/dissertation/pypy_versions/lsd_c_10_production/bin/pypy -mpyperf timeit -s 'import numpy as np;import random;lis = np.random.randint(-9223372036854775808, 9223372036854775808-1, 100000, dtype=np.int64).tolist();s = [x for x in lis]' 's.sort()' -o 'pyperf/lsd_c_10_production-mil2.json' --rigorous"""

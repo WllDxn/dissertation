@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  28 APR 2024 11:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.22)  10 MAY 2024 16:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -48,7 +48,18 @@ File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 File: listings.cfg 2023/02/27 1.9 listings configuration
 ))
 Package: listings 2023/02/27 1.9 (Carsten Heinz)
- (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/dcolumn.sty
+Package: dcolumn 2023/07/08 v1.06 decimal alignment package (DPC)
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen145
+\ar@mcellbox=\box53
+\extrarowheight=\dimen146
+\NC@list=\toks19
+\extratabsurround=\skip50
+\backup@length=\skip51
+\ar@cellbox=\box54
+)) (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
  (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
@@ -131,14 +142,14 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \blx@sectionciteorderinternal@0=\count311
 \blx@entrysetcounter=\count312
 \blx@biblioinstance=\count313
-\labelnumberwidth=\skip50
-\labelalphawidth=\skip51
-\biblabelsep=\skip52
-\bibitemsep=\skip53
-\bibnamesep=\skip54
-\bibinitsep=\skip55
-\bibparsep=\skip56
-\bibhang=\skip57
+\labelnumberwidth=\skip52
+\labelalphawidth=\skip53
+\biblabelsep=\skip54
+\bibitemsep=\skip55
+\bibnamesep=\skip56
+\bibinitsep=\skip57
+\bibparsep=\skip58
+\bibhang=\skip59
 \blx@bcfin=\read2
 \blx@bcfout=\write3
 \blx@langwohyphens=\language89
@@ -220,20 +231,20 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \c@savedoriglanguage=\count382
 \c@pageref=\count383
 \c@savedpageref=\count384
-\shorthandwidth=\skip58
-\shortjournalwidth=\skip59
-\shortserieswidth=\skip60
-\shorttitlewidth=\skip61
-\shortauthorwidth=\skip62
-\shorteditorwidth=\skip63
-\locallabelnumberwidth=\skip64
-\locallabelalphawidth=\skip65
-\localshorthandwidth=\skip66
-\localshortjournalwidth=\skip67
-\localshortserieswidth=\skip68
-\localshorttitlewidth=\skip69
-\localshortauthorwidth=\skip70
-\localshorteditorwidth=\skip71
+\shorthandwidth=\skip60
+\shortjournalwidth=\skip61
+\shortserieswidth=\skip62
+\shorttitlewidth=\skip63
+\shortauthorwidth=\skip64
+\shorteditorwidth=\skip65
+\locallabelnumberwidth=\skip66
+\locallabelalphawidth=\skip67
+\localshorthandwidth=\skip68
+\localshortjournalwidth=\skip69
+\localshortserieswidth=\skip70
+\localshorttitlewidth=\skip71
+\localshortauthorwidth=\skip72
+\localshorteditorwidth=\skip73
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/biblatex/blx-compat.def
@@ -296,7 +307,7 @@ Package: expl3 2024-01-04 L3 programming layer (loader)
  (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count396
-\l__pdf_internal_box=\box53
+\l__pdf_internal_box=\box55
 ))
 Package biblatex Info: ... and expl3
 (biblatex)             2024-01-04 L3 programming layer (loader) 
@@ -314,15 +325,15 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@cnth=\count397
 \Gm@cntv=\count398
 \c@Gm@tempcnt=\count399
-\Gm@bindingoffset=\dimen145
-\Gm@wd@mp=\dimen146
-\Gm@odd@mp=\dimen147
-\Gm@even@mp=\dimen148
-\Gm@layoutwidth=\dimen149
-\Gm@layoutheight=\dimen150
-\Gm@layouthoffset=\dimen151
-\Gm@layoutvoffset=\dimen152
-\Gm@dimlist=\toks19
+\Gm@bindingoffset=\dimen147
+\Gm@wd@mp=\dimen148
+\Gm@odd@mp=\dimen149
+\Gm@even@mp=\dimen150
+\Gm@layoutwidth=\dimen151
+\Gm@layoutheight=\dimen152
+\Gm@layouthoffset=\dimen153
+\Gm@layoutvoffset=\dimen154
+\Gm@dimlist=\toks20
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
  (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -346,36 +357,26 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \c@ALC@line=\count401
 \c@ALC@rem=\count402
 \c@ALC@depth=\count403
-\ALC@tlm=\skip72
-\algorithmicindent=\skip73
+\ALC@tlm=\skip74
+\algorithmicindent=\skip75
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
  (/usr/local/texlive/2023/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count404
-\float@exts=\toks20
-\float@box=\box54
-\@float@everytoks=\toks21
-\@floatcapt=\box55
+\float@exts=\toks21
+\float@box=\box56
+\@float@everytoks=\toks22
+\@floatcapt=\box57
 )
-\@float@every@algorithm=\toks22
+\@float@every@algorithm=\toks23
 \c@algorithm=\count405
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/eqparbox/eqparbox.sty
 Package: eqparbox 2017/09/03 v4.1 Create equal-widthed boxes
-\eqp@tempdima=\skip74
-\eqp@tempdimb=\skip75
- (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/array.sty
-Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
-\col@sep=\dimen153
-\ar@mcellbox=\box56
-\extrarowheight=\dimen154
-\NC@list=\toks23
-\extratabsurround=\skip76
-\backup@length=\skip77
-\ar@cellbox=\box57
-)
+\eqp@tempdima=\skip76
+\eqp@tempdimb=\skip77
 \eqp@tabular@box=\box58
 \eqp@list@box=\box59
 \eqp@list@indent=\skip78
@@ -396,6 +397,13 @@ Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \titlewidth=\dimen157
 \titlewidthlast=\dimen158
 \titlewidthfirst=\dimen159
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen160
+\WF@size=\dimen161
+\c@WF@wrappedlines=\count406
+\WF@box=\box61
+\WF@everypar=\toks26
+Package: wrapfig 2003/01/31  v 3.6
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
  (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphics.sty
@@ -407,8 +415,8 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
-\Gin@req@height=\dimen160
-\Gin@req@width=\dimen161
+\Gin@req@height=\dimen162
+\Gin@req@width=\dimen163
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2023-11-26 v7.01g Hypertext links for LaTeX
  (/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
@@ -426,11 +434,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/local/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count406
+\c@section@level=\count407
 )
-\@linkdim=\dimen162
-\Hy@linkcounter=\count407
-\Hy@pagecounter=\count408
+\@linkdim=\dimen164
+\Hy@linkcounter=\count408
+\Hy@pagecounter=\count409
  (/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2023-11-26 v7.01g Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -438,7 +446,7 @@ Now handling font encoding PD1 ...
 ) (/usr/local/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count409
+\Hy@SavedSpaceFactor=\count410
  (/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2023-11-26 v7.01g Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -451,17 +459,17 @@ Package hyperref Info: Plain pages OFF on input line 4196.
 Package hyperref Info: Backreferencing OFF on input line 4201.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4448.
-\c@Hy@tempcnt=\count410
+\c@Hy@tempcnt=\count411
 LaTeX Info: Redefining \url on input line 4786.
-\XeTeXLinkMargin=\dimen163
+\XeTeXLinkMargin=\dimen165
  (/usr/local/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (/usr/local/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count411
-\Field@Width=\dimen164
-\Fld@charsize=\dimen165
+\Fld@menulength=\count412
+\Field@Width=\dimen166
+\Fld@charsize=\dimen167
 Package hyperref Info: Hyper figures OFF on input line 6065.
 Package hyperref Info: Link nesting OFF on input line 6070.
 Package hyperref Info: Hyper index ON on input line 6073.
@@ -473,9 +481,9 @@ Package hyperref Info: PDF/A mode OFF on input line 6095.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count412
-\c@Item=\count413
-\c@Hfootnote=\count414
+\Hy@abspage=\count413
+\c@Item=\count414
+\c@Hfootnote=\count415
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
@@ -484,8 +492,8 @@ File: hpdftex.def 2023-11-26 v7.01g Hyperref driver for pdfTeX
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
-\Fld@listcount=\count415
-\c@bookmark@seq@number=\count416
+\Fld@listcount=\count416
+\c@bookmark@seq@number=\count417
  (/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
  (/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
@@ -494,26 +502,18 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip81
-) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/hhline.sty
-Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
-)
-Package hyperref Info: Option `colorlinks' set `true' on input line 26.
-\commentindent=\skip82
- (/usr/local/texlive/2023/texmf-dist/tex/latex/collcell/collcell.sty
-Package: collcell 2011/02/27 v0.5 Collect the content of a tabular cell
-\collect@cell@count=\count417
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
  (/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen166
-\captionmargin=\dimen167
-\caption@leftmargin=\dimen168
-\caption@rightmargin=\dimen169
-\caption@width=\dimen170
-\caption@indent=\dimen171
-\caption@parindent=\dimen172
-\caption@hangindent=\dimen173
+\caption@tempdima=\dimen168
+\captionmargin=\dimen169
+\caption@leftmargin=\dimen170
+\caption@rightmargin=\dimen171
+\caption@width=\dimen172
+\caption@indent=\dimen173
+\caption@parindent=\dimen174
+\caption@hangindent=\dimen175
 Package caption Info: Standard document class detected.
 )
 \c@caption@flags=\count418
@@ -521,20 +521,29 @@ Package caption Info: Standard document class detected.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
+Package caption Info: wrapfig package is loaded.
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/hhline.sty
+Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 30.
+\commentindent=\skip82
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/collcell/collcell.sty
+Package: collcell 2011/02/27 v0.5 Collect the content of a tabular cell
+\collect@cell@count=\count420
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/subfigure/subfigure.sty
 Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \subfigtopskip=\skip83
 \subfigcapskip=\skip84
-\subfigcaptopadj=\dimen174
+\subfigcaptopadj=\dimen176
 \subfigbottomskip=\skip85
-\subfigcapmargin=\dimen175
+\subfigcapmargin=\dimen177
 \subfiglabelskip=\skip86
-\c@subfigure=\count420
-\c@lofdepth=\count421
-\c@subtable=\count422
-\c@lotdepth=\count423
+\c@subfigure=\count421
+\c@lofdepth=\count422
+\c@subtable=\count423
+\c@lotdepth=\count424
 
 ****************************************
 * Local config file subfigure.cfg used *
@@ -545,102 +554,102 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip89
-\multirow@cntb=\count424
+\multirow@cntb=\count425
 \multirow@dima=\skip90
-\bigstrutjot=\dimen176
+\bigstrutjot=\dimen178
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen177
-\lightrulewidth=\dimen178
-\cmidrulewidth=\dimen179
-\belowrulesep=\dimen180
-\belowbottomsep=\dimen181
-\aboverulesep=\dimen182
-\abovetopsep=\dimen183
-\cmidrulesep=\dimen184
-\cmidrulekern=\dimen185
-\defaultaddspace=\dimen186
-\@cmidla=\count425
-\@cmidlb=\count426
-\@aboverulesep=\dimen187
-\@belowrulesep=\dimen188
-\@thisruleclass=\count427
-\@lastruleclass=\count428
-\@thisrulewidth=\dimen189
+\heavyrulewidth=\dimen179
+\lightrulewidth=\dimen180
+\cmidrulewidth=\dimen181
+\belowrulesep=\dimen182
+\belowbottomsep=\dimen183
+\aboverulesep=\dimen184
+\abovetopsep=\dimen185
+\cmidrulesep=\dimen186
+\cmidrulekern=\dimen187
+\defaultaddspace=\dimen188
+\@cmidla=\count426
+\@cmidlb=\count427
+\@aboverulesep=\dimen189
+\@belowrulesep=\dimen190
+\@thisruleclass=\count428
+\@lastruleclass=\count429
+\@thisrulewidth=\dimen191
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/siunitx/siunitx.sty
 Package: siunitx 2023-11-14 v3.3.9 A comprehensive (SI) units package
-\l__siunitx_number_uncert_offset_int=\count429
-\l__siunitx_number_exponent_fixed_int=\count430
-\l__siunitx_number_min_decimal_int=\count431
-\l__siunitx_number_min_integer_int=\count432
-\l__siunitx_number_round_precision_int=\count433
-\l__siunitx_number_lower_threshold_int=\count434
-\l__siunitx_number_upper_threshold_int=\count435
-\l__siunitx_number_group_first_int=\count436
-\l__siunitx_number_group_size_int=\count437
-\l__siunitx_number_group_minimum_int=\count438
-\l__siunitx_angle_tmp_dim=\dimen190
-\l__siunitx_angle_marker_box=\box61
-\l__siunitx_angle_unit_box=\box62
-\l__siunitx_compound_count_int=\count439
+\l__siunitx_number_uncert_offset_int=\count430
+\l__siunitx_number_exponent_fixed_int=\count431
+\l__siunitx_number_min_decimal_int=\count432
+\l__siunitx_number_min_integer_int=\count433
+\l__siunitx_number_round_precision_int=\count434
+\l__siunitx_number_lower_threshold_int=\count435
+\l__siunitx_number_upper_threshold_int=\count436
+\l__siunitx_number_group_first_int=\count437
+\l__siunitx_number_group_size_int=\count438
+\l__siunitx_number_group_minimum_int=\count439
+\l__siunitx_angle_tmp_dim=\dimen192
+\l__siunitx_angle_marker_box=\box62
+\l__siunitx_angle_unit_box=\box63
+\l__siunitx_compound_count_int=\count440
  (/usr/local/texlive/2023/texmf-dist/tex/latex/translations/translations.sty
 Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages (CN)
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
  (/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks26
-\ex@=\dimen191
+\@emptytoks=\toks27
+\ex@=\dimen193
 ))
-\l__siunitx_table_tmp_box=\box63
-\l__siunitx_table_tmp_dim=\dimen192
-\l__siunitx_table_column_width_dim=\dimen193
-\l__siunitx_table_integer_box=\box64
-\l__siunitx_table_decimal_box=\box65
-\l__siunitx_table_uncert_box=\box66
-\l__siunitx_table_before_box=\box67
-\l__siunitx_table_after_box=\box68
-\l__siunitx_table_before_dim=\dimen194
-\l__siunitx_table_carry_dim=\dimen195
-\l__siunitx_unit_tmp_int=\count440
-\l__siunitx_unit_position_int=\count441
-\l__siunitx_unit_total_int=\count442
+\l__siunitx_table_tmp_box=\box64
+\l__siunitx_table_tmp_dim=\dimen194
+\l__siunitx_table_column_width_dim=\dimen195
+\l__siunitx_table_integer_box=\box65
+\l__siunitx_table_decimal_box=\box66
+\l__siunitx_table_uncert_box=\box67
+\l__siunitx_table_before_box=\box68
+\l__siunitx_table_after_box=\box69
+\l__siunitx_table_before_dim=\dimen196
+\l__siunitx_table_carry_dim=\dimen197
+\l__siunitx_unit_tmp_int=\count441
+\l__siunitx_unit_position_int=\count442
+\l__siunitx_unit_total_int=\count443
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2023-11-01 v4.19 Multi-page Table package (DPC)
 \LTleft=\skip91
 \LTright=\skip92
 \LTpre=\skip93
 \LTpost=\skip94
-\LTchunksize=\count443
-\LTcapwidth=\dimen196
-\LT@head=\box69
-\LT@firsthead=\box70
-\LT@foot=\box71
-\LT@lastfoot=\box72
-\LT@gbox=\box73
-\LT@cols=\count444
-\LT@rows=\count445
-\c@LT@tables=\count446
-\c@LT@chunks=\count447
-\LT@p@ftn=\toks27
+\LTchunksize=\count444
+\LTcapwidth=\dimen198
+\LT@head=\box70
+\LT@firsthead=\box71
+\LT@foot=\box72
+\LT@lastfoot=\box73
+\LT@gbox=\box74
+\LT@cols=\count445
+\LT@rows=\count446
+\c@LT@tables=\count447
+\c@LT@chunks=\count448
+\LT@p@ftn=\toks28
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 2023/07/08 v2.11c `tabularx' package (DPC)
-\TX@col@width=\dimen197
-\TX@old@table=\dimen198
-\TX@old@col=\dimen199
-\TX@target=\dimen256
-\TX@delta=\dimen257
-\TX@cols=\count448
-\TX@ftn=\toks28
+\TX@col@width=\dimen199
+\TX@old@table=\dimen256
+\TX@old@col=\dimen257
+\TX@target=\dimen258
+\TX@delta=\dimen259
+\TX@cols=\count449
+\TX@ftn=\toks29
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/adjustbox/adjustbox.sty
 Package: adjustbox 2022/10/17 v1.3a Adjusting TeX boxes (trim, clip, ...)
  (/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
  (/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks29
-\XKV@tempa@toks=\toks30
+\XKV@toks=\toks30
+\XKV@tempa@toks=\toks31
 )
-\XKV@depth=\count449
+\XKV@depth=\count450
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (/usr/local/texlive/2023/texmf-dist/tex/latex/adjustbox/adjcalc.sty
 Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-ends (calc, etex, pgfmath)
@@ -648,72 +657,72 @@ Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back-
 Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
  (/usr/local/texlive/2023/texmf-dist/tex/latex/collectbox/collectbox.sty
 Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
-\collectedbox=\box74
+\collectedbox=\box75
 )
-\tc@llx=\dimen258
-\tc@lly=\dimen259
-\tc@urx=\dimen260
-\tc@ury=\dimen261
+\tc@llx=\dimen260
+\tc@lly=\dimen261
+\tc@urx=\dimen262
+\tc@ury=\dimen263
 Package trimclip Info: Using driver 'tc-pdftex.def'.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
-\adjbox@Width=\dimen262
-\adjbox@Height=\dimen263
-\adjbox@Depth=\dimen264
-\adjbox@Totalheight=\dimen265
-\adjbox@pwidth=\dimen266
-\adjbox@pheight=\dimen267
-\adjbox@pdepth=\dimen268
-\adjbox@ptotalheight=\dimen269
+\adjbox@Width=\dimen264
+\adjbox@Height=\dimen265
+\adjbox@Depth=\dimen266
+\adjbox@Totalheight=\dimen267
+\adjbox@pwidth=\dimen268
+\adjbox@pheight=\dimen269
+\adjbox@pdepth=\dimen270
+\adjbox@ptotalheight=\dimen271
  (/usr/local/texlive/2023/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
-\c@checkoddpage=\count450
+\c@checkoddpage=\count451
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box75
-\sift@deathcycles=\count451
-\@vwid@loff=\dimen270
-\@vwid@roff=\dimen271
+\@vwid@box=\box76
+\sift@deathcycles=\count452
+\@vwid@loff=\dimen272
+\@vwid@roff=\dimen273
 ))
-\@quotelevel=\count452
-\@quotereset=\count453
-Package translations Info: No language package found. I am going to use `english' as default language. on input line 86.
+\@quotelevel=\count453
+\@quotereset=\count454
+Package translations Info: No language package found. I am going to use `english' as default language. on input line 90.
  (./Implementation.aux)
 \openout1 = `Implementation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 86.
-LaTeX Font Info:    ... okay on input line 86.
-\c@lstlisting=\count454
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 90.
+LaTeX Font Info:    ... okay on input line 90.
+\c@lstlisting=\count455
  (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count455
-\scratchdimen=\dimen272
-\scratchbox=\box76
-\nofMPsegments=\count456
-\nofMParguments=\count457
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count458
-\MPscratchDim=\dimen273
-\MPnumerator=\count459
-\makeMPintoPDFobject=\count460
-\everyMPtoPDFconversion=\toks32
+\scratchcounter=\count456
+\scratchdimen=\dimen274
+\scratchbox=\box77
+\nofMPsegments=\count457
+\nofMParguments=\count458
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count459
+\MPscratchDim=\dimen275
+\MPnumerator=\count460
+\makeMPintoPDFobject=\count461
+\everyMPtoPDFconversion=\toks33
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -733,8 +742,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'Implementation.bbl' found.
  (./Implementation.bbl)
-Package biblatex Info: Reference section=0 on input line 86.
-Package biblatex Info: Reference segment=0 on input line 86.
+Package biblatex Info: Reference section=0 on input line 90.
+Package biblatex Info: Reference segment=0 on input line 90.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -770,7 +779,7 @@ Package biblatex Info: Reference segment=0 on input line 86.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 86.
+Package hyperref Info: Link coloring ON on input line 90.
 (./Implementation.out) (./Implementation.out)
 \@outlinefile=\write4
 \openout4 = `Implementation.out'.
@@ -785,11 +794,11 @@ Package caption Info: End \AtBeginDocument code.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
-Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 86.
+Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 90.
 <./logo/logo.jpeg, id=217, 229.293pt x 52.2315pt>
 File: ./logo/logo.jpeg Graphic file (type jpg)
 <use ./logo/logo.jpeg>
-Package pdftex.def Info: ./logo/logo.jpeg  used on input line 91.
+Package pdftex.def Info: ./logo/logo.jpeg  used on input line 96.
 (pdftex.def)             Requested size: 211.29498pt x 47.98022pt.
  [1
 
@@ -800,206 +809,1288 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 3.
- [1])
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.47 ...on}{\numberline {4}Testing}{30}{section.4}
+                                                  % [2])
 \tf@toc=\write5
 \openout5 = `Implementation.toc'.
 
- [2] [3]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 166.
- [4] [5] [6] [7] [8] [9]
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.149 \section
+              {Abstract} [3] [1]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 171.
+ [2] [3] [4] [5] [6] [7]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 382.
- [10] [11] [12] [13] [14] [15] [16] [17] [18] [19]
-Overfull \hbox (6.49997pt too wide) in paragraph at lines 751--752
+(Font)              <10.95> on input line 397.
+ [8] [9] [10] [11] [12] [13] [14] [15] [16] [17]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 746.
+
+Overfull \hbox (6.49997pt too wide) in paragraph at lines 766--767
 \OT1/cmr/m/n/12 un-sorted due to the non-comparison-based na-ture of the al-go-rithm. Sim-ple comparison-
  []
 
-[20] [21] [22] [23]
-Overfull \hbox (9.37218pt too wide) in paragraph at lines 869--905
+[18] [19] [20] [21]
+Overfull \hbox (9.37218pt too wide) in paragraph at lines 880--916
  [][] 
  []
 
 
-Overfull \hbox (11.87215pt too wide) in paragraph at lines 914--951
+Overfull \hbox (11.87215pt too wide) in paragraph at lines 925--962
  [][] 
  []
 
-[24] [25]
+[22] [23]
 
-Package xcolor Warning: Incompatible color definition on input line 1012.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1012.
+Package xcolor Warning: Incompatible color definition on input line 1022.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1012.
+Package xcolor Warning: Incompatible color definition on input line 1022.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1012.
+Package xcolor Warning: Incompatible color definition on input line 1022.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1012.
+Package xcolor Warning: Incompatible color definition on input line 1022.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1012.
+Package xcolor Warning: Incompatible color definition on input line 1022.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1012.
-
-[26]
-
-Package xcolor Warning: Incompatible color definition on input line 1062.
+Package xcolor Warning: Incompatible color definition on input line 1022.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1062.
+Package xcolor Warning: Incompatible color definition on input line 1022.
+
+[24]
+
+Package xcolor Warning: Incompatible color definition on input line 1071.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1062.
+Package xcolor Warning: Incompatible color definition on input line 1071.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1062.
+Package xcolor Warning: Incompatible color definition on input line 1071.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1062.
-
-[27]
-
-Package xcolor Warning: Incompatible color definition on input line 1114.
+Package xcolor Warning: Incompatible color definition on input line 1071.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1114.
+Package xcolor Warning: Incompatible color definition on input line 1071.
+
+[25]
+
+Package xcolor Warning: Incompatible color definition on input line 1122.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1114.
+Package xcolor Warning: Incompatible color definition on input line 1122.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1114.
+Package xcolor Warning: Incompatible color definition on input line 1122.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1114.
+Package xcolor Warning: Incompatible color definition on input line 1122.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1122.
+
+[26] [27]
+
+Package xcolor Warning: Incompatible color definition on input line 1183.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1183.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1183.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1183.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1183.
 
 [28] [29]
-
-Package xcolor Warning: Incompatible color definition on input line 1176.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1176.
+Underfull \hbox (badness 4699) in paragraph at lines 1233--1235
+\OT1/cmr/m/n/12 us-ing LSD count-ing sort base $2[]$ us-ing both strate-gies was per-formed.
+ []
 
 
-Package xcolor Warning: Incompatible color definition on input line 1176.
+Underfull \hbox (badness 10000) in paragraph at lines 1233--1235
 
+ []
 
-Package xcolor Warning: Incompatible color definition on input line 1176.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1176.
-
-[30] [31] [32]
-<./demographs/demo.png, id=840, 740.0448pt x 273.1806pt>
-File: ./demographs/demo.png Graphic file (type png)
-<use ./demographs/demo.png>
-Package pdftex.def Info: ./demographs/demo.png  used on input line 1240.
-(pdftex.def)             Requested size: 520.34267pt x 192.08795pt.
- [33 <./demographs/demo.png>]
-<./insertion/msd_c_10.png, id=850, 825.3234pt x 552.8655pt>
+[30]
+<./demographs/democut.png, id=843, 794.2473pt x 273.1806pt>
+File: ./demographs/democut.png Graphic file (type png)
+<use ./demographs/democut.png>
+Package pdftex.def Info: ./demographs/democut.png  used on input line 1269.
+(pdftex.def)             Requested size: 520.34267pt x 178.98253pt.
+ [31 <./demographs/democut.png>]
+<./insertion/msd_c_10.png, id=855, 825.3234pt x 552.8655pt>
 File: ./insertion/msd_c_10.png Graphic file (type png)
 <use ./insertion/msd_c_10.png>
-Package pdftex.def Info: ./insertion/msd_c_10.png  used on input line 1259.
+Package pdftex.def Info: ./insertion/msd_c_10.png  used on input line 1289.
 (pdftex.def)             Requested size: 325.215pt x 217.85222pt.
-<./insertion/insertionLegend.png, id=851, 408.77719pt x 267.24844pt>
+<./insertion/insertionLegend.png, id=856, 408.77719pt x 267.24844pt>
 File: ./insertion/insertionLegend.png Graphic file (type png)
 <use ./insertion/insertionLegend.png>
-Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1260.
+Package pdftex.def Info: ./insertion/insertionLegend.png  used on input line 1290.
 (pdftex.def)             Requested size: 65.04034pt x 42.52002pt.
- [34 <./insertion/msd_c_10.png> <./insertion/insertionLegend.png>] [35]
-<./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png, id=869, 1047.915pt x 722.7pt>
+ [32 <./insertion/msd_c_10.png> <./insertion/insertionLegend.png>] [33]
+<./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png, id=875, 1047.915pt x 722.7pt>
 File: ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png Graphic file (type png)
 <use ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png>
-Package pdftex.def Info: ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png  used on input line 1344.
+Package pdftex.def Info: ./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png  used on input line 1373.
 (pdftex.def)             Requested size: 226.91231pt x 156.49014pt.
-<./sortedgraphs/lrg_Random_sorted_0.png, id=870, 1047.915pt x 722.7pt>
+<./sortedgraphs/lrg_Random_sorted_0.png, id=876, 1047.915pt x 722.7pt>
 File: ./sortedgraphs/lrg_Random_sorted_0.png Graphic file (type png)
 <use ./sortedgraphs/lrg_Random_sorted_0.png>
-Package pdftex.def Info: ./sortedgraphs/lrg_Random_sorted_0.png  used on input line 1344.
+Package pdftex.def Info: ./sortedgraphs/lrg_Random_sorted_0.png  used on input line 1373.
 (pdftex.def)             Requested size: 226.91231pt x 156.49014pt.
- [36 <./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png> <./sortedgraphs/lrg_Random_sorted_0.png>] [37]
-<./lengthgraphs/lsd_c_length.png, id=902, 2388.5235pt x 722.7pt>
+ [34 <./sortedgraphs/lrg_Nearly_Sorted_sorted_1.png> <./sortedgraphs/lrg_Random_sorted_0.png>] [35]
+<./lengthgraphs/lsd_c_length.png, id=908, 2388.5235pt x 722.7pt>
 File: ./lengthgraphs/lsd_c_length.png Graphic file (type png)
 <use ./lengthgraphs/lsd_c_length.png>
-Package pdftex.def Info: ./lengthgraphs/lsd_c_length.png  used on input line 1380.
+Package pdftex.def Info: ./lengthgraphs/lsd_c_length.png  used on input line 1410.
 (pdftex.def)             Requested size: 476.98463pt x 144.31688pt.
- [38 <./lengthgraphs/lsd_c_length.png>]
-<./lengthgraphs/lsd_p_length.png, id=910, 2391.4143pt x 722.7pt>
+ [36 <./lengthgraphs/lsd_c_length.png>]
+<./lengthgraphs/lsd_p_length.png, id=917, 2391.4143pt x 722.7pt>
 File: ./lengthgraphs/lsd_p_length.png Graphic file (type png)
 <use ./lengthgraphs/lsd_p_length.png>
-Package pdftex.def Info: ./lengthgraphs/lsd_p_length.png  used on input line 1393.
+Package pdftex.def Info: ./lengthgraphs/lsd_p_length.png  used on input line 1426.
 (pdftex.def)             Requested size: 476.98463pt x 144.14044pt.
-<./lengthgraphs/msd_c_length.png, id=911, 2408.0364pt x 722.7pt>
+<./lengthgraphs/msd_c_length.png, id=918, 2408.0364pt x 722.7pt>
 File: ./lengthgraphs/msd_c_length.png Graphic file (type png)
 <use ./lengthgraphs/msd_c_length.png>
-Package pdftex.def Info: ./lengthgraphs/msd_c_length.png  used on input line 1402.
+Package pdftex.def Info: ./lengthgraphs/msd_c_length.png  used on input line 1436.
 (pdftex.def)             Requested size: 476.98463pt x 143.14796pt.
- [39 <./lengthgraphs/lsd_p_length.png> <./lengthgraphs/msd_c_length.png>]
-<./lengthgraphs/msd_p_length.png, id=922, 2410.9272pt x 722.7pt>
+ [37 <./lengthgraphs/lsd_p_length.png> <./lengthgraphs/msd_c_length.png>]
+<./lengthgraphs/msd_p_length.png, id=931, 2410.9272pt x 722.7pt>
 File: ./lengthgraphs/msd_p_length.png Graphic file (type png)
 <use ./lengthgraphs/msd_p_length.png>
-Package pdftex.def Info: ./lengthgraphs/msd_p_length.png  used on input line 1416.
+Package pdftex.def Info: ./lengthgraphs/msd_p_length.png  used on input line 1451.
 (pdftex.def)             Requested size: 476.98463pt x 142.97153pt.
-<./basegraphs/lsd_c_base.png, id=923, 2043.0729pt x 722.7pt>
+ [38 <./lengthgraphs/msd_p_length.png>]
+<./basegraphs/lsd_c_base.png, id=941, 2043.0729pt x 722.7pt>
 File: ./basegraphs/lsd_c_base.png Graphic file (type png)
 <use ./basegraphs/lsd_c_base.png>
-Package pdftex.def Info: ./basegraphs/lsd_c_base.png  used on input line 1430.
-(pdftex.def)             Requested size: 386.06801pt x 136.5733pt.
-<./basegraphs/lsd_p_base.png, id=924, 2045.241pt x 722.7pt>
+Package pdftex.def Info: ./basegraphs/lsd_c_base.png  used on input line 1470.
+(pdftex.def)             Requested size: 390.25534pt x 138.04224pt.
+<./basegraphs/lsd_p_base.png, id=942, 2045.241pt x 722.7pt>
 File: ./basegraphs/lsd_p_base.png Graphic file (type png)
 <use ./basegraphs/lsd_p_base.png>
-Package pdftex.def Info: ./basegraphs/lsd_p_base.png  used on input line 1440.
+Package pdftex.def Info: ./basegraphs/lsd_p_base.png  used on input line 1480.
 (pdftex.def)             Requested size: 386.47769pt x 136.5733pt.
- [40 <./lengthgraphs/msd_p_length.png> <./basegraphs/lsd_c_base.png>]
-<./basegraphs/msd_c_base.png, id=935, 2064.0312pt x 722.7pt>
+ [39 <./basegraphs/lsd_c_base.png> <./basegraphs/lsd_p_base.png>]
+<./basegraphs/msd_c_base.png, id=955, 2064.0312pt x 722.7pt>
 File: ./basegraphs/msd_c_base.png Graphic file (type png)
 <use ./basegraphs/msd_c_base.png>
-Package pdftex.def Info: ./basegraphs/msd_c_base.png  used on input line 1449.
+Package pdftex.def Info: ./basegraphs/msd_c_base.png  used on input line 1491.
 (pdftex.def)             Requested size: 390.02838pt x 136.5733pt.
- [41 <./basegraphs/lsd_p_base.png> <./basegraphs/msd_c_base.png>]
-<./basegraphs/msd_p_base.png, id=946, 2066.1993pt x 722.7pt>
+<./basegraphs/msd_p_base.png, id=957, 2066.1993pt x 722.7pt>
 File: ./basegraphs/msd_p_base.png Graphic file (type png)
 <use ./basegraphs/msd_p_base.png>
-Package pdftex.def Info: ./basegraphs/msd_p_base.png  used on input line 1459.
+Package pdftex.def Info: ./basegraphs/msd_p_base.png  used on input line 1503.
 (pdftex.def)             Requested size: 390.43806pt x 136.5733pt.
-<./results/lrg_Random_0.png, id=947, 845.559pt x 736.4313pt>
+ [40 <./basegraphs/msd_c_base.png> <./basegraphs/msd_p_base.png>]
+<./results/lrg_Random_0.png, id=972, 845.559pt x 736.4313pt>
 File: ./results/lrg_Random_0.png Graphic file (type png)
 <use ./results/lrg_Random_0.png>
-Package pdftex.def Info: ./results/lrg_Random_0.png  used on input line 1470.
+Package pdftex.def Info: ./results/lrg_Random_0.png  used on input line 1517.
 (pdftex.def)             Requested size: 196.00984pt x 170.71652pt.
-<./results/lrg_Random_1.png, id=948, 845.559pt x 736.4313pt>
+<./results/lrg_Random_1.png, id=973, 845.559pt x 736.4313pt>
 File: ./results/lrg_Random_1.png Graphic file (type png)
 <use ./results/lrg_Random_1.png>
-Package pdftex.def Info: ./results/lrg_Random_1.png  used on input line 1470.
+Package pdftex.def Info: ./results/lrg_Random_1.png  used on input line 1517.
 (pdftex.def)             Requested size: 196.00984pt x 170.71652pt.
- [42 <./basegraphs/msd_p_base.png> <./results/lrg_Random_0.png> <./results/lrg_Random_1.png>]
-<./results/med_Few_Unique_1.png, id=962, 845.559pt x 736.4313pt>
+ [41 <./results/lrg_Random_0.png> <./results/lrg_Random_1.png>]
+
+Package siunitx Info: Option "table-space-text-post" has been deprecated in
+(siunitx)             this release.
+(siunitx)             
+(siunitx)             Use "table-format" as a replacement.
+
+
+Package siunitx Info: Option "table-align-text-post" has been deprecated in
+(siunitx)             this release.
+(siunitx)             
+(siunitx)             Use "table-align-text-after = false" as a replacement.
+
+<./results/med_Few_Unique_1.png, id=985, 845.559pt x 736.4313pt>
 File: ./results/med_Few_Unique_1.png Graphic file (type png)
 <use ./results/med_Few_Unique_1.png>
-Package pdftex.def Info: ./results/med_Few_Unique_1.png  used on input line 1521.
+Package pdftex.def Info: ./results/med_Few_Unique_1.png  used on input line 1575.
 (pdftex.def)             Requested size: 214.64162pt x 186.9391pt.
- [43 <./results/med_Few_Unique_1.png>]
-<./results/lrg_Nearly_Sorted_nolp_0.png, id=977, 845.559pt x 736.4313pt>
+
+Overfull \hbox (9.33336pt too wide) detected at line 1575
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 9$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.33336pt too wide) detected at line 1575
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 7$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.33336pt too wide) detected at line 1575
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 3$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.33336pt too wide) detected at line 1575
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1575
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Package siunitx Info: Option "table-space-text-post" has been deprecated in
+(siunitx)             this release.
+(siunitx)             
+(siunitx)             Use "table-format" as a replacement.
+
+<./results/lrg_Nearly_Sorted_nolp_0.png, id=990, 845.559pt x 736.4313pt>
 File: ./results/lrg_Nearly_Sorted_nolp_0.png Graphic file (type png)
 <use ./results/lrg_Nearly_Sorted_nolp_0.png>
-Package pdftex.def Info: ./results/lrg_Nearly_Sorted_nolp_0.png  used on input line 1573.
+Package pdftex.def Info: ./results/lrg_Nearly_Sorted_nolp_0.png  used on input line 1634.
 (pdftex.def)             Requested size: 195.12767pt x 169.93748pt.
-<./results/sml_Nearly_Sorted_nolp_2.png, id=978, 845.559pt x 736.4313pt>
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 3$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 3$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 4$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 0$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 3$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 7$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1634
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1634
+\OT1/cmr/m/n/12 % 
+ []
+
+<./results/sml_Nearly_Sorted_nolp_2.png, id=991, 845.559pt x 736.4313pt>
 File: ./results/sml_Nearly_Sorted_nolp_2.png Graphic file (type png)
 <use ./results/sml_Nearly_Sorted_nolp_2.png>
-Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_2.png  used on input line 1589.
+Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_2.png  used on input line 1650.
 (pdftex.def)             Requested size: 195.12767pt x 169.93748pt.
-<./results/sml_Nearly_Sorted_nolp_3.png, id=979, 845.559pt x 736.4313pt>
+<./results/sml_Nearly_Sorted_nolp_3.png, id=992, 845.559pt x 736.4313pt>
 File: ./results/sml_Nearly_Sorted_nolp_3.png Graphic file (type png)
 <use ./results/sml_Nearly_Sorted_nolp_3.png>
-Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_3.png  used on input line 1589.
-(pdftex.def)             Requested size: 234.15558pt x 203.92947pt.
- [44 <./results/lrg_Nearly_Sorted_nolp_0.png> <./results/sml_Nearly_Sorted_nolp_2.png> <./results/sml_Nearly_Sorted_nolp_3.png>] [45] [46] [47] (./Implementation.aux)
+Package pdftex.def Info: ./results/sml_Nearly_Sorted_nolp_3.png  used on input line 1650.
+(pdftex.def)             Requested size: 195.12767pt x 169.93748pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[42 <./results/med_Few_Unique_1.png>] [43 <./results/lrg_Nearly_Sorted_nolp_0.png> <./results/sml_Nearly_Sorted_nolp_2.png> <./results/sml_Nearly_Sorted_nolp_3.png>]
+
+Package siunitx Info: Option "table-space-text-post" has been deprecated in
+(siunitx)             this release.
+(siunitx)             
+(siunitx)             Use "table-format" as a replacement.
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1685
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1685
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1685
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1686
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1686
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1686
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1686
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1687
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1687
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1687
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1687
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1688
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1688
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1688
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1688
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1689
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1689
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1689
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1689
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1690
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1690
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1690
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1690
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1691
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1691
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1691
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1691
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1692
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1692
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1692
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1692
+\OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (0.65277pt too wide) detected at line 1693
+\OT1/cmr/m/n/12 % 
+ []
+
+[44]
+
+Package siunitx Info: Option "table-space-text-post" has been deprecated in
+(siunitx)             this release.
+(siunitx)             
+(siunitx)             Use "table-format" as a replacement.
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1720
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 88$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1720
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1720
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1720
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 89$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1720
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1721
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 25$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1721
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1721
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 78$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1721
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1721
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1721
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 82$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1721
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1722
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1722
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 55$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1722
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1722
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1722
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 60$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1722
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1723
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1723
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 46$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1723
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1723
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (3.45842pt too wide) detected at line 1723
+$\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 42$
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1723
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1724
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1724
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1724
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1724
+ \OT1/cmr/m/n/12 % 
+ []
+
+
+Overfull \hbox (9.79156pt too wide) detected at line 1725
+ \OT1/cmr/m/n/12 % 
+ []
+
+[45] [46] (./Implementation.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
@@ -1011,18 +2102,18 @@ Package logreq Info: Writing requests to 'Implementation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26784 strings out of 474166
- 517600 string characters out of 5745489
+ 26914 strings out of 474166
+ 519626 string characters out of 5745489
  2139539 words of memory out of 5000000
- 48288 multiletter control sequences out of 15000+600000
+ 48392 multiletter control sequences out of 15000+600000
  566367 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,20n,81p,1452b,1528s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 66i,20n,81p,1172b,1527s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on Implementation.pdf (48 pages, 3058720 bytes).
+Output written on Implementation.pdf (49 pages, 3065086 bytes).
 PDF statistics:
- 1213 PDF objects out of 1440 (max. 8388607)
- 1074 compressed objects within 11 object streams
- 518 named destinations out of 1000 (max. 500000)
+ 1252 PDF objects out of 1440 (max. 8388607)
+ 1111 compressed objects within 12 object streams
+ 537 named destinations out of 1000 (max. 500000)
  525 words of extra memory for PDF output out of 10000 (max. 10000000)
 

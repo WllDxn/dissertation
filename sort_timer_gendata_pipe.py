@@ -26,7 +26,7 @@ def gen_list(cols, data_size, type="Random", threshold=None, insert=False, basem
     max_value = int(pow(2,data_size) if basemax else get_max_value(data_size))
     lis = []
     if type == "Random" and not insert:
-        lis = np.random.randint(-max_value, max_value-1, cols, dtype=np.int64).tolist()
+        lis = np.random.randint(-max_value-1, max_value, cols, dtype=np.int64).tolist()
     elif insert:
         lis = [int(x) for x in range(-cols//2, cols//2+1)][:cols]
         if insert:

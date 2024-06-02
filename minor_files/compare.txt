@@ -1,0 +1,7 @@
+| Benchmark           | lsd_c_10_production-k | lsd_c_12_production-k | lsd_p_10_production-k | lsd_p_12_production-k | msd_c_10_production-k | msd_c_12_production-k | msd_p_10_production-k | msd_p_12_production-k |
+|---------------------|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|
+| 10000,63,Few Unique | 410 us                | 625 us: 1.53x slower  | 1.34 ms: 3.28x slower | 1.62 ms: 3.94x slower | 240 us: 1.71x faster  | 625 us: 1.53x slower  | 510 us: 1.24x slower  | 1.04 ms: 2.55x slower |
+| 10000,48,Few Unique | 256 us                | 505 us: 1.97x slower  | 1.01 ms: 3.96x slower | 1.32 ms: 5.17x slower | 197 us: 1.30x faster  | 354 us: 1.38x slower  | 325 us: 1.27x slower  | 679 us: 2.65x slower  |
+| 10000,63,Random     | 369 us                | 451 us: 1.22x slower  | 1.58 ms: 4.27x slower | 2.58 ms: 7.00x slower | 171 us: 2.16x faster  | 579 us: 1.57x slower  | 1.14 ms: 3.09x slower | 2.23 ms: 6.04x slower |
+| 10000,48,Random     | 283 us                | 529 us: 1.87x slower  | 1.10 ms: 3.88x slower | 2.20 ms: 7.79x slower | 185 us: 1.53x faster  | 429 us: 1.52x slower  | 335 us: 1.18x slower  | 1.42 ms: 5.02x slower |
+| Geometric mean      | (ref)                 | 1.62x slower          | 3.83x slower          | 5.77x slower          | 1.65x faster          | 1.50x slower          | 1.55x slower          | 3.78x slower          |

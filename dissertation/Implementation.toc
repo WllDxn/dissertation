@@ -1,71 +1,73 @@
-\contentsline {section}{\numberline {1}Abstract}{3}{section.1}%
-\contentsline {section}{\numberline {2}Design}{4}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Pseudocode}{4}{subsection.2.1}%
-\contentsline {subsubsection}{\numberline {2.1.1}Integer Sorting}{4}{subsubsection.2.1.1}%
-\contentsline {paragraph}{\numberline {2.1.1.1}Pigeonhole Sort}{4}{paragraph.2.1.1.1}%
-\contentsline {paragraph}{\numberline {2.1.1.2}Counting Sort}{5}{paragraph.2.1.1.2}%
-\contentsline {subsubsection}{\numberline {2.1.2}Radix Sort}{6}{subsubsection.2.1.2}%
-\contentsline {paragraph}{\numberline {2.1.2.1}Least Significant Digit}{6}{paragraph.2.1.2.1}%
-\contentsline {paragraph}{\numberline {2.1.2.2}Most Significant Digit}{7}{paragraph.2.1.2.2}%
-\contentsline {subsection}{\numberline {2.2}Time complexity}{8}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Integer Sorting}{8}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Radix Sort}{8}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}Radix Selection}{9}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Explanation}{9}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2}Implementation}{10}{subsubsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.4}Negative Integers}{10}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}Two's Complement}{10}{subsubsection.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.4.2}Negatives in RPython}{10}{subsubsection.2.4.2}%
-\contentsline {subsubsection}{\numberline {2.4.3}Solution}{11}{subsubsection.2.4.3}%
-\contentsline {section}{\numberline {3}Implementation}{12}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Extra Methods and Classes}{12}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Function absolute}{12}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Function make\textunderscore radixsort\textunderscore class}{12}{subsubsection.3.1.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}Functions setitem and setslice}{12}{subsubsection.3.1.3}%
-\contentsline {subsubsection}{\numberline {3.1.4}Function int\textunderscore digits}{13}{subsubsection.3.1.4}%
-\contentsline {subsubsection}{\numberline {3.1.5}Class Radixsort}{14}{subsubsection.3.1.5}%
-\contentsline {subsubsection}{\numberline {3.1.6}Function list\textunderscore abs\textunderscore max}{14}{subsubsection.3.1.6}%
-\contentsline {subsubsection}{\numberline {3.1.7}Function insertion\textunderscore sort}{15}{subsubsection.3.1.7}%
-\contentsline {subsubsection}{\numberline {3.1.8}Function reverse\textunderscore slice}{15}{subsubsection.3.1.8}%
-\contentsline {subsection}{\numberline {3.2}Bitwise operations}{16}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Left shift}{16}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Right shift}{17}{subsubsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.3}And}{18}{subsubsection.3.2.3}%
-\contentsline {subsubsection}{\numberline {3.2.4}Not}{18}{subsubsection.3.2.4}%
-\contentsline {subsubsection}{\numberline {3.2.5}Exclusive Or}{19}{subsubsection.3.2.5}%
-\contentsline {subsection}{\numberline {3.3}Optimizations}{20}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Streamlining count lists}{20}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Order checking}{21}{subsubsection.3.3.2}%
-\contentsline {subsubsection}{\numberline {3.3.3}Skipping iterations}{22}{subsubsection.3.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.4}Insertion sort}{23}{subsubsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.4}Algorithms}{24}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Shared Variables}{24}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}LSD Counting sort}{25}{subsubsection.3.4.2}%
-\contentsline {subsubsection}{\numberline {3.4.3}LSD Pigeonhole sort}{27}{subsubsection.3.4.3}%
-\contentsline {subsubsection}{\numberline {3.4.4}MSD Counting sort}{28}{subsubsection.3.4.4}%
-\contentsline {subsubsection}{\numberline {3.4.5}MSD Pigeonhole sort}{30}{subsubsection.3.4.5}%
-\contentsline {section}{\numberline {4}Testing}{32}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Test Criteria}{32}{subsection.4.1}%
-\contentsline {subsubsection}{\numberline {4.1.1}Using PyPy for testing}{32}{subsubsection.4.1.1}%
-\contentsline {subsubsection}{\numberline {4.1.2}Methodology}{33}{subsubsection.4.1.2}%
-\contentsline {subsubsection}{\numberline {4.1.3}Preliminary testing}{34}{subsubsection.4.1.3}%
-\contentsline {paragraph}{\numberline {4.1.3.1}Insertion sort threshold}{34}{paragraph.4.1.3.1}%
-\contentsline {paragraph}{\numberline {4.1.3.2}Profiling}{35}{paragraph.4.1.3.2}%
-\contentsline {paragraph}{\numberline {4.1.3.3}Order checking}{36}{paragraph.4.1.3.3}%
-\contentsline {subsubsection}{\numberline {4.1.4}Test criteria}{37}{subsubsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.2}Test results and analysis}{38}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Varying list length}{38}{subsubsection.4.2.1}%
-\contentsline {paragraph}{\numberline {4.2.1.1}LSD Counting sort}{38}{paragraph.4.2.1.1}%
-\contentsline {paragraph}{\numberline {4.2.1.2}LSD Pigeonhole sort}{39}{paragraph.4.2.1.2}%
-\contentsline {paragraph}{\numberline {4.2.1.3}MSD Counting sort}{39}{paragraph.4.2.1.3}%
-\contentsline {paragraph}{\numberline {4.2.1.4}MSD Pigeonhole sort}{40}{paragraph.4.2.1.4}%
-\contentsline {subsubsection}{\numberline {4.2.2}Varying base}{40}{subsubsection.4.2.2}%
-\contentsline {paragraph}{\numberline {4.2.2.1}LSD Counting}{40}{paragraph.4.2.2.1}%
-\contentsline {paragraph}{\numberline {4.2.2.2}LSD Pigeonhole}{41}{paragraph.4.2.2.2}%
-\contentsline {paragraph}{\numberline {4.2.2.3}MSD Counting}{41}{paragraph.4.2.2.3}%
-\contentsline {paragraph}{\numberline {4.2.2.4}MSD Pigeonhole}{42}{paragraph.4.2.2.4}%
-\contentsline {subsubsection}{\numberline {4.2.3}Categorical tests}{42}{subsubsection.4.2.3}%
-\contentsline {paragraph}{\numberline {4.2.3.1}Random}{43}{paragraph.4.2.3.1}%
-\contentsline {paragraph}{\numberline {4.2.3.2}Few Unique}{43}{paragraph.4.2.3.2}%
-\contentsline {paragraph}{\numberline {4.2.3.3}Nearly sorted}{43}{paragraph.4.2.3.3}%
-\contentsline {subsubsection}{\numberline {4.2.4}Testing evaluation}{45}{subsubsection.4.2.4}%
+\contentsline {section}{\numberline {1}Abstract}{1}{section.1}%
+\contentsline {section}{\numberline {2}Design}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Pseudocode}{2}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Integer Sorting}{2}{subsubsection.2.1.1}%
+\contentsline {paragraph}{\numberline {2.1.1.1}Pigeonhole Sort}{2}{paragraph.2.1.1.1}%
+\contentsline {paragraph}{\numberline {2.1.1.2}Counting Sort}{3}{paragraph.2.1.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2}Radix Sort}{4}{subsubsection.2.1.2}%
+\contentsline {paragraph}{\numberline {2.1.2.1}Least Significant Digit}{4}{paragraph.2.1.2.1}%
+\contentsline {paragraph}{\numberline {2.1.2.2}Most Significant Digit}{5}{paragraph.2.1.2.2}%
+\contentsline {subsection}{\numberline {2.2}Time complexity}{6}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Integer Sorting}{6}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Radix Sort}{6}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Radix Selection}{7}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Explanation}{7}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Implementation}{8}{subsubsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.4}Negative Integers}{8}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Two's Complement}{8}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Negatives in RPython}{8}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}Solution}{9}{subsubsection.2.4.3}%
+\contentsline {section}{\numberline {3}Implementation}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Extra Methods and Classes}{10}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Function absolute}{10}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Function make\textunderscore radixsort\textunderscore class}{10}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Functions setitem and setslice}{10}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}Function int\textunderscore digits}{11}{subsubsection.3.1.4}%
+\contentsline {subsubsection}{\numberline {3.1.5}Class Radixsort}{12}{subsubsection.3.1.5}%
+\contentsline {subsubsection}{\numberline {3.1.6}Function list\textunderscore abs\textunderscore max}{12}{subsubsection.3.1.6}%
+\contentsline {subsubsection}{\numberline {3.1.7}Function insertion\textunderscore sort}{13}{subsubsection.3.1.7}%
+\contentsline {subsubsection}{\numberline {3.1.8}Function reverse\textunderscore slice}{13}{subsubsection.3.1.8}%
+\contentsline {subsection}{\numberline {3.2}Bitwise operations}{14}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Left shift}{14}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Right shift}{15}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}And}{16}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Not}{16}{subsubsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.5}Exclusive Or}{17}{subsubsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.3}Optimizations}{18}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Streamlining count lists}{18}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Order checking}{19}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Skipping iterations}{20}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Insertion sort}{21}{subsubsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.4}Algorithms}{22}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Shared Variables}{22}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}LSD Counting sort}{23}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}LSD Pigeonhole sort}{25}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.4}MSD Counting sort}{26}{subsubsection.3.4.4}%
+\contentsline {subsubsection}{\numberline {3.4.5}MSD Pigeonhole sort}{28}{subsubsection.3.4.5}%
+\contentsline {section}{\numberline {4}Testing}{30}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Test Criteria}{30}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Using PyPy for testing}{30}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Methodology}{31}{subsubsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.3}Preliminary testing}{32}{subsubsection.4.1.3}%
+\contentsline {paragraph}{\numberline {4.1.3.1}Insertion sort threshold}{32}{paragraph.4.1.3.1}%
+\contentsline {paragraph}{\numberline {4.1.3.2}Profiling}{33}{paragraph.4.1.3.2}%
+\contentsline {paragraph}{\numberline {4.1.3.3}Order checking}{34}{paragraph.4.1.3.3}%
+\contentsline {subsubsection}{\numberline {4.1.4}Test criteria}{35}{subsubsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.2}Test results and analysis}{36}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Varying list length}{36}{subsubsection.4.2.1}%
+\contentsline {paragraph}{\numberline {4.2.1.1}LSD Counting sort}{36}{paragraph.4.2.1.1}%
+\contentsline {paragraph}{\numberline {4.2.1.2}LSD Pigeonhole sort}{37}{paragraph.4.2.1.2}%
+\contentsline {paragraph}{\numberline {4.2.1.3}MSD Counting sort}{37}{paragraph.4.2.1.3}%
+\contentsline {paragraph}{\numberline {4.2.1.4}MSD Pigeonhole sort}{38}{paragraph.4.2.1.4}%
+\contentsline {subsubsection}{\numberline {4.2.2}Varying base}{38}{subsubsection.4.2.2}%
+\contentsline {paragraph}{\numberline {4.2.2.1}LSD Counting}{39}{paragraph.4.2.2.1}%
+\contentsline {paragraph}{\numberline {4.2.2.2}LSD Pigeonhole}{39}{paragraph.4.2.2.2}%
+\contentsline {paragraph}{\numberline {4.2.2.3}MSD Counting}{40}{paragraph.4.2.2.3}%
+\contentsline {paragraph}{\numberline {4.2.2.4}MSD Pigeonhole}{40}{paragraph.4.2.2.4}%
+\contentsline {subsubsection}{\numberline {4.2.3}Categorical tests}{41}{subsubsection.4.2.3}%
+\contentsline {paragraph}{\numberline {4.2.3.1}Random}{41}{paragraph.4.2.3.1}%
+\contentsline {paragraph}{\numberline {4.2.3.2}Few Unique}{42}{paragraph.4.2.3.2}%
+\contentsline {paragraph}{\numberline {4.2.3.3}Nearly sorted}{42}{paragraph.4.2.3.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}Testing evaluation}{43}{subsubsection.4.2.4}%
+\contentsline {paragraph}{\numberline {4.2.4.1}Selecting numerical base}{44}{paragraph.4.2.4.1}%
+\contentsline {paragraph}{\numberline {4.2.4.2}Selecting an implementation}{45}{paragraph.4.2.4.2}%

@@ -175,6 +175,49 @@
       \verb https://doc.pypy.org/en/latest/cpython_differences.html
       \endverb
     \endentry
+    \entry{PEP418}{misc}{}
+      \name{author}{4}{}{%
+        {{hash=324b2dc5ead86276b90902ea4379bbae}{%
+           family={Simpson},
+           familyi={S\bibinitperiod},
+           given={Cameron},
+           giveni={C\bibinitperiod}}}%
+        {{hash=6dd6832ed8c462f056b2a07546a0fe38}{%
+           family={Jewett},
+           familyi={J\bibinitperiod},
+           given={Jim\bibnamedelima J.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=9dcb574bb5d51fb16b8b40318b0575fc}{%
+           family={Turnbull},
+           familyi={T\bibinitperiod},
+           given={Stephen\bibnamedelima J.},
+           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=5e8d56032f42dc6ccff637c52d465cbd}{%
+           family={Stinner},
+           familyi={S\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{3a37d0baff9ef2b1149a76a4e197bcd4}
+      \strng{fullhash}{63b2992a683cd889e79f7cb80ee95dde}
+      \strng{bibnamehash}{3a37d0baff9ef2b1149a76a4e197bcd4}
+      \strng{authorbibnamehash}{3a37d0baff9ef2b1149a76a4e197bcd4}
+      \strng{authornamehash}{3a37d0baff9ef2b1149a76a4e197bcd4}
+      \strng{authorfullhash}{63b2992a683cd889e79f7cb80ee95dde}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Python Enhancement Proposals (PEPs)}
+      \field{title}{PEP 418 – add monotonic time, performance counter, and process time functions}
+      \field{year}{2012}
+      \verb{urlraw}
+      \verb https://peps.python.org/pep-0418/
+      \endverb
+      \verb{url}
+      \verb https://peps.python.org/pep-0418/
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

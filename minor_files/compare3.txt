@@ -1,0 +1,3 @@
+| Benchmark       | lsd_c_10_production | msd_c_10_production     | msd_p_10_production   |
+|-----------------|:-------------------:|:-----------------------:|:---------------------:|
+| 10000,63,Random | 2.51 ms             | 7.93 us: 316.07x faster | 2.67 ms: 1.07x slower |

@@ -35,7 +35,11 @@ def analysis():
         print(len(j['noncompiled']))
         d = pd.json_normalize(j)
         df = d.explode(d.columns.to_list())
-        print(df.agg(['mean','std']))     
+        print(df.agg(['mean','std'])[['compiled','noncompiled']].to_latex(index=True,
+
+                  formatters={"name": str.upper},
+                
+                  float_format="{:.4}".format,))
 import json
 def caller():
     import subprocess

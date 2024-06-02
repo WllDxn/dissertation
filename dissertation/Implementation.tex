@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{listings}
+\usepackage{dcolumn}
 \usepackage{color}
 \usepackage{biblatex}
 \bibliography{Implementation.bib}
@@ -12,9 +13,12 @@
 \usepackage[]{algorithmic, algorithm, letltxmacro}
 \usepackage{eqparbox}
 \usepackage{titlesec}
+\usepackage{wrapfig}
 \usepackage[]{graphicx}
 \usepackage{array}
 \usepackage{hyperref}
+\usepackage{caption}
+% \usepackage[hypcap=false,justification=centering]{caption}
 \usepackage{xcolor}
 \usepackage{hhline}
 \usepackage{geometry}
@@ -67,7 +71,7 @@
   stringstyle=\color{mauve},
   breaklines=true,
   breakatwhitespace=true,
-  tabsize=3
+  tabsize=3,
   }
 \hfuzz=5.002pt 
 \usepackage{url}
@@ -84,6 +88,7 @@
 \usepackage{adjustbox}
 % \usepackage{}
 \begin{document}
+
 \pagenumbering{gobble}
     \begin{center}
       
@@ -135,15 +140,15 @@
       
   \end{center}
   \pagebreak
-
-\pagenumbering{arabic}
-{
-  \hypersetup{linkcolor=black}
-  \tableofcontents
-}
-\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
-\pagebreak
+  {
+	  \hypersetup{linkcolor=black}
+	  \tableofcontents
+	  }
+	  \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+	  \pagebreak
 \section{Abstract}
+\renewcommand{\lstlistingname}{Snippet}
+\pagenumbering{arabic}
 PyPy is a replacement for CPython that is built using RPython, the main reason to use it instead of CPython is that it generally runs faster. The goal of this project is to improve the speed PyPy by replacing the the sorting algorithm implemented by PyPy for lists of integers with Radix sort.
 \par
 PyPy currently uses Timsort, which is a comparison-based, stable sorting algorithm that takes $n\log{n}$ comparison to sort an array of $n$ elements in the worst case, it uses this algorithm for all lists regardless of the type of their elements but PyPy includes the functionality to apply different sort methods to lists containing different types. This project is centered around utilising an alternative sorting algorithm used by PyPy for lists of integers, which is based on the principle that a non-comparison-based, non-stable sorting algorithm is not necessary for sorting integers and that by exploiting this, a faster solution can be cfound. 
@@ -281,14 +286,14 @@ This project breaks down all operations of radix sort into their foundational co
 			\end{center}
 		\end{table}
 	\subsubsection{Radix Sort}
-	Radix sort repeatedly applies integer sorting to each successive digit of the input array, it differs from counting sort in that it does not sort into \textit{k} buckets but a constant base \textit{b} is chosen. It repeats the integer sorting method \textit{d} times where \textit{d} is the number of passes necessary to sort each digit of the maximum value in the input with respect to the base \textit{b} and can be expressed as \textit{d = $log_b$k}, giving a time complexity of:
+	Radix sort interprets each item of the input list as a series of digits with numerical base \textit{b}. An integer sorting method is applied to each digit of the input list, meaning the maximum range for a given digit is \textit{b}. It repeats the integer sorting method \textit{d} times where \textit{d} is the number of passes necessary to sort each digit of the maximum value in the input with respect to the base \textit{b} and can be expressed as \textit{d = $log_b$k} (rounded upwards) where \textit{k} is the largest input value , giving a time complexity of:
 	\begin{table}[!h]
 		\begin{center}
 			\begin{tabular}{c}
 
 	 $\mathcal{O}$\textit{((n + b) $\cdot$ d)}
  \\ \\
-	or if \textit{b} is a constant:
+	given \textit{b} is a constant, this can be simplified to:
 \\	\\
 	$\mathcal{O}$\textit{(n $\cdot$ d)} 
 			\end{tabular}
@@ -298,7 +303,16 @@ This project breaks down all operations of radix sort into their foundational co
 			
 	However, in the application of this project, radix sort will only be applied to integers represented in 64-bits, meaning there is a defined upper bound to the max value \textit{k}. This is important because it means that that \textit{k} is polynomial in \textit{b} or that \textit{k} is always able to be represented by \textit{b} raised to some exponent \textit{c} where \textit{c} is some constant value. This can be expressed in the form \textit{k $=$ b$^{\mathcal{O}(1)}$} or \textit{$\mathcal{O}(1) = log_b$k}
 	\par
-	$\mathcal{O}(1)$ can be substituted in for \textit{d} in the time complexity analysis meaning Radix sort will run in $\mathcal{O}(n)$ or linear time in the context of this project.
+	As \textit{d = $log_b$k}, it is possible to substitute $\mathcal{O}(1)$ in for \textit{d} in the time complexity analysis meaning in the context of this project, Radix sort will run in linear time giving a time complexity of:
+	\begin{table}[!h]
+		\begin{center}
+			\begin{tabular}{c}
+
+				$\mathcal{O}(n)$
+			\end{tabular}
+				
+			\end{center}
+		\end{table}
 	\pagebreak
 	\subsection{Radix Selection}
 	
@@ -308,7 +322,7 @@ This project breaks down all operations of radix sort into their foundational co
 	Though numbers in typical day to day use by humans are typically thought of as Arabic numerals in the decimal system, this is a social convention which this algorithm is not beholden to, and as Radix sort fundamentally relies on the processing of the component digits of an integer it is of great importance to select an appropriate base as well as identify an efficient method for processing each digit.
 	\subsubsection{Explanation}
 	\label{ssec:radixexplanation}
-	Python stores integers in the format "two’s complement”, which is a type of binary and therefore uses a base of 2. This means that bases that are of the order $2^b$ where $b$ is some integer are the most suitable for this project as each single $2^b$ digit utilizes a maximum of $b$ bits and each subsequent digit utilizes the next $b$ bits.
+	Python stores integers in the format ``two's complement”, which is a type of binary and therefore uses a base of 2. This means that bases that are of the order $2^b$ where $b$ is some integer are the most suitable for this project as each single $2^b$ digit utilizes a maximum of $b$ bits and each subsequent digit utilizes the next $b$ bits.
 	\par
 	The main consideration when selecting a numerical base for Radix sort is the trade off between iterations of the integer sorting method, minimized by selecting a higher base, and speed of each iteration of integer sorting, minimized by selecting a lower base. There is technically no upper bound for $b$ when taking a theoretical approach, however in practice the constraints of a physical memory limit and larger overhead costs limit radix sort algorithm to reasonably small values of $b$. This project includes values in the range $[2..16]$ as a value of $18$ (and presumably anything above) performed so poorly the charts generated were unreadable for any other base.
 	\par 
@@ -379,7 +393,8 @@ This project breaks down all operations of radix sort into their foundational co
 			
         \end{tabular}%
 		\vspace{0.1cm}
-		\caption*{The 4 digits in base $2^4$ of a 16 bit integer: $60000$}
+		\captionsetup{type=figure}
+		\caption{The 4 digits in base $2^4$ of a 16 bit integer: $60000$}
 
 	\end{table}
 	\subsection{Negative Integers}
@@ -388,7 +403,7 @@ This project breaks down all operations of radix sort into their foundational co
 	\label{ssec:negativestwos}
 	When handling integers in two’s complement, positives are represented in binary, but with a leading 0 in the leftmost position to indicate the positive sign of the integer. Negative integers are represented with a leading 1 which represents that the binary value of this digit is to be subtracted i.e. negative and all other binary digits are positive such that the sum of all the digits equals the integer being represented. table reference has been included to illustrate this, as you can see the value $+3$ has a leading $0$ at index $2$, representing $2^{2}$ is not subtracted, this is followed by 1 in all remaining digits representing the addition of $2^{1}$ and $2^{0}$ or $2+1=3$. $\minus3$ is represented by a leading 1 to represent $\minus2^{2}$ followed by 0 1 to represent no addition of $2^{1}$ and the addition of $2^{0}$ or $\minus4 + 1 = \minus3$.
 	\par
-	The effect of performing Radix sort using bitwise methods without any accommodation for negativity is that due to their leading 1, negative values will be incorrectly sorted as though they are larger than positive values. They will also be sorted into the correct order relative to other negative values (increasing from most negative to least negative), as can be seen in \hyperref[table:twoscomplement]{Table 1}, which is sorted. 	
+	The effect of performing Radix sort using bitwise methods without any accommodation for negativity is that due to their leading 1, negative values will be incorrectly sorted as though they are larger than positive values. They will also be sorted into the correct order relative to other negative values (increasing from most negative to least negative), as can be seen in \autoref{table:twoscomplement}, which is sorted. 	
 	\par
 	\subsubsection{Negatives in RPython}
   	\label{ssec:pypynegatives}
@@ -398,7 +413,7 @@ This project breaks down all operations of radix sort into their foundational co
 	This project handles digits with a radix of $2^{b}$ with $b$ being some integer, and in binary representation this means each digit requires $b$ bits. This causes challenges when handling negatives as the most significant digit of integers that are made up of a number of bits not divisible by $b$ includes sign bits and integers that are made up of a number of digits divisible by $b$ do not include a sign bit.
 
 	\subsubsection{Solution}
-	The approach used in this project was to identify the number of digits needed to express the largest absolute value of the input in the chosen base and then use a bitwise exclusive or (\ref{sssec:xor}) to flip all bits to the left of it. The effect of this is that when performing a radix sort across all 64 bits of the integer list is that the order is now corrected as negative values closer to 0 retain their higher position relative to more negative values but are now always sorted below positive values.
+	The approach used in this project was to identify the number of digits needed to express the largest absolute value of the input in the chosen radixs and then use a bitwise exclusive or (\ref{sssec:xor}) to flip all bits to the left of it. The effect of this is that when performing a radix sort across all 64 bits of the integer list is that the order is now corrected as negative values closer to 0 retain their higher position relative to more negative values but are now always sorted below positive values.
 	\par
 	In order to reduce unnecessary iterations, radix sort only iterates a number of times such that the number of bits sorted across is at minimum the number of bits needed to express the absolute maximum value of the list including 1 sign bit, rounded up of course to the nearest multiple of $b$. In cases where the number of bits needed is divisible by $b$, it means the algorithm performs an addition iteration exclusively on sign bits whereas in the inverse case there is no increase in iteration count. 
 
@@ -619,8 +634,9 @@ Right shifting is used in this project to manipulate integers from the input lis
 			 $13 \ensuremath{>}\ensuremath{>} 2$ &   0 &   0 &   0 &   0 &   0 &   0 &   1 &   1 \\
 			 \hline
 		\end{tabular}
-
-	\caption{Shift 13 right 2 bits. Only rightmost 8 bits are shown}
+		\vspace{0.25cm}
+	
+	\caption{Shift 13 right 2 bits.\quad \quad \quad Only rightmost 8 bits are shown}
 	
 \end{minipage}\hfill%
 	\begin{minipage}{.55\textwidth}
@@ -636,8 +652,8 @@ Right shifting is used in this project to manipulate integers from the input lis
 		\end{tabular}
 
 
-
-		\caption{Shift $-2^{61}$ right 2 places. Only leftmost 8 bits are shown.}
+		\vspace{0.25cm}
+		\caption{Shift $-2^{61}$ right 2 places. \quad \quad \quad \quad \quad Only leftmost 8 bits are shown.}
 		\label{table2}
 	\end{minipage}\hfill%
 
@@ -727,7 +743,7 @@ The effect this has is that it reduces the number of iterations needed to comple
 In terms of implementation, an initial pass over the data counts the occurrence of each integer key at the least significant digit, then the algorithms begins a loop over the remaining digits. The first task is the accumulation of the count list, then the input list is iterated over, where the key value at the current digit is used to identify the position of each item in the output list and the next digit it used to create a second count list. Before the next digit is examined, the count list must be overwritten with the second count list, all items of which can be set to 0 during the accumulation stage.
 \begin{table}[H]
 	\centering
-\begin{lstlisting}
+\begin{lstlisting}[caption={Count list accumulation using two count lists \\ This code is simplified, see \ref{sssec:lsdcounting}},captionpos=b]
 	count = [0 for _ in xrange(self.radix)]; nextcount = count[:]
 	for j in xrange(self.list_length):
 		masked_input = self.list[j] ^ bit_mask
@@ -742,8 +758,7 @@ In terms of implementation, an initial pass over the data counts the occurrence 
 		count[curr_digit] -= 1
 		if i < list_max_digits-1:
 			nextcount[next_curr_digit] += 1
-\end{lstlisting}
-\caption*{Count list accumulation using two count lists \\ This code is simplified, see \ref{sssec:lsdcounting}}
+		\end{lstlisting}
 \end{table}
 
 	\subsubsection{Order checking}
@@ -753,7 +768,7 @@ Radix sort has no inherent advantage when called on already sorted lists compare
 Identifying sorted lists is not computationally expensive, it involves iterating over and comparing the list items in order and ensuring that each value is larger or equal to the previous value, essentially only involving $n\minus1$ comparisons where $n$ is the input list length giving a time complexity of $\mathcal{O}(n)$. As this algorithm already involves iterating over the data, the run time cost of adding a comparison function to check for sortedness is extremely low, thus a check to identify whether a list is sorted as well as whether a list is reverse sorted is included in the first iteration over the data, which is the point at which the absolute maximum value of the list is identified (a necessary step for this algorithm).
 \begin{table}[H]
 	\centering
-	\begin{lstlisting}
+	\begin{lstlisting}[caption={Checking whether the list is ordered or reverse ordered whilst\\ iterating over the list to identify the absolute maximum value},captionpos=b]
 		def list_abs_max(self, checkorder=False):
 	
 		m = self.list[0]
@@ -768,7 +783,6 @@ Identifying sorted lists is not computationally expensive, it involves iterating
 			self.ordered = ordered
 			self.reverseOrdered = reverseordered
 	\end{lstlisting}
-	\caption*{Checking whether the list is ordered or reverse ordered whilst\\ iterating over the list to identify the absolute maximum value}
 \end{table}
 \par
 An extension of this idea is to perform this order checking every time the input list is rearranged (once for each digit). Unlike the initial order checking which has a minor footprint on the run time of the algorithm, checking order on each digit has a moderately significant impact, therefore it should only be implemented on the conditions that it reasonably likely that sorted lists will occur and that when the test does identify a sorted list the time saved from early termination of the algorithm is greater than the time added by performing the test. This type of optimization is not suitable for use in LSD sorts as the chance of the entire list being sorted by a single digit is extremely low.
@@ -784,7 +798,7 @@ Skipping iterations over the data can be made by identifying digits on which no 
 For counting sort, if every single list item contain an identical value for a digit there will be no change in the order of the list when sorting across that digit. This circumstance is identified by a single count list item being equal to the list length and can be identified by iterating over the count list, a positive result means the process of moving the list items can be skipped. As the count list is already iterated over to accumulate the values, this test is computationally inexpensive.
 \begin{table}[H]
 	\centering
-	\begin{lstlisting}
+	\begin{lstlisting}[caption={Identifying if all items have an identical value for each digit in LSD counting sort. The same process is used for MSD counting sort with sub list length used instead of total list length},captionpos=b]
 		skip = []
 		for i in xrange(min_bytes):
 			for j in xrange(self.radix):
@@ -794,14 +808,13 @@ For counting sort, if every single list item contain an identical value for a di
 				if j==1: continue
 				counts[i][j] += counts[i][j - 1]
 	\end{lstlisting}
-	\caption*{Identifying if all items have an identical value for each digit in LSD counting sort. \\ The same process is used for MSD counting sort but the sub list length is used instead of total list length}
 \end{table}
 \par
 In pigeonhole sort a similar opportunity arises in the form of identifying whether all items have been placed into any of the buckets which would mean overwriting the input list with the bucket wouldn't change the order. Testing for this condition involves iterating over the buckets list and counting the number of non-empty buckets, if the count increases past 1 bucket it signals the condition has not been met and the test iteration can be terminated. This test takes up no space and at worst $\mathcal{O}${($k$)} time to iterate over the bucket list but negative resulting tests take far less time typically.
 
 \begin{table}[H]
 	\centering
-	\begin{lstlisting}
+	\begin{lstlisting}[caption={Identifying if more than 1 bucket has been used},captionpos=b]
 		count = 0
 		for b in bucket:
 			if b!=[]:
@@ -810,7 +823,6 @@ In pigeonhole sort a similar opportunity arises in the form of identifying wheth
 					break
 		if count==1:continue
 	\end{lstlisting}
-	\caption*{Identifying if more than 1 bucket has been used}
 \end{table}
 
 
@@ -823,7 +835,7 @@ This issue becomes exponentially worse when radix sort is implemented in MSD fas
 Using insertion sort in situations where the input list is reasonably small can be much more efficient than performing continuous rounds of radix sort, this effect is compounded on small lists of large items. Identifying the exact point at which it becomes more efficient to use insertion sort was done by testing the time taken to sort lists containing an increasing number of items by the MSD radix sort methods compared to insertion sort. Starting at 2 items where insertion sort universally out-performs each sorting method, an increase in the initial list length by 1 item is tested repeatedly and eventually all radix sort methods perform better than insertion sort above a certain list length with is different for pigeonhole sort and counting sort and different for each numerical base used. The value of list length at which each sorting method out-performs insertion sort is taken as the critical value. 
 \begin{table}[H]
 	\centering
-	\begin{lstlisting}
+	\begin{lstlisting}[caption={Insertion sort algorithm used in this project},captionpos=b]
         def insertion_sort(self, start, end):
             for step in xrange(start, end):
                 key = self.list[step]
@@ -833,7 +845,6 @@ Using insertion sort in situations where the input list is reasonably small can 
                     j = j - 1
                 self.setitem(j + 1, key)
 	\end{lstlisting}
-	\caption*{Insertion sort algorithm used in this project}
 \end{table}
 
 \pagebreak
@@ -950,7 +961,6 @@ At the start of each algorithm the following variables are instantiated, they ar
 				\vspace{0.1cm}
 				\caption*{This integer occupies 5 bits or 2 digits in base $2^4$, and as there is at least 1 sign bit in the most significant digit only \textbf{2} iterations are needed}
 			\end{minipage}\hfill%
-		
 		\end{table}
 
 		\item[bit\textunderscore mask] A bit mask used to invert the sign of the inputs. In binary this value is represented by 0 in all digits needed to express \textbf{list\textunderscore max} in two's complement excluding the sign bit and a 1 in all other digits. This is calculated using an integer, $1$, left shifted a by a value equal to the quantity of digits in binary of \textbf{list\textunderscore max} minus 1 (to account for 1 already containing a digit). Subtracting 1 from this value produces an integer that, represented in binary, contains a 1 in all digits needed to express \textbf{list\textunderscore max} and 0 in every digit to the left. Thus the inverse of this value, calculated by bitwise not (\ref{sssec:not}), can be used in conjunction with a bitwise exclusive or operation (\ref{sssec:xor}) to invert the sign bit and all digits to the left without altering the magnitude of the input value.
@@ -966,7 +976,7 @@ At the start of each algorithm the following variables are instantiated, they ar
 		breakatwhitespace=false,
 		}
 		\centering
-		\begin{lstlisting}[escapeinside={(*}{*)}]
+		\begin{lstlisting}[escapeinside={(*}{*)},caption={Shared variables},captionpos=b]
 		def sort(self):
 			if self.list_length < 2:
 				return
@@ -984,8 +994,8 @@ At the start of each algorithm the following variables are instantiated, they ar
 			):
 				list_max_digits += 1
 		\end{lstlisting}
-		\caption*{Shared variables}
 		\end{table}
+		\vspace{-1cm}
 
 	\subsubsection{LSD Counting sort}
 	\label{sssec:lsdcounting}
@@ -1007,7 +1017,7 @@ At the start of each algorithm the following variables are instantiated, they ar
     breaklines=true,
     breakatwhitespace=false,}
 	\centering
-	\begin{lstlisting}[escapeinside={(*}{*)}]
+	\begin{lstlisting}[escapeinside={(*}{*)},caption={LSD counting sort},captionpos=b]
 	def sort(self):
 		#Shared variables		
 		counts = [[0 for _ in xrange(self.radix)] for _ in xrange(list_max_digits)]
@@ -1037,7 +1047,6 @@ At the start of each algorithm the following variables are instantiated, they ar
 				counts[i][curr_digit] -= 1
 			self.setslice(temp_list)
 	\end{lstlisting}
-	\caption*{LSD counting sort}
 \end{table}
 \pagebreak
 \subsubsection{LSD Pigeonhole sort}
@@ -1057,7 +1066,7 @@ At the start of each algorithm the following variables are instantiated, they ar
     breaklines=true,
     breakatwhitespace=false,}
 	\centering
-	\begin{lstlisting}[escapeinside={(*}{*)}]
+	\begin{lstlisting}[escapeinside={(*}{*)},caption={LSD pigeonhole sort},captionpos=b]
 	def sort(self):
 		#Shared variables
 		bucket_list = [[] for _ in xrange(self.radix)]
@@ -1083,7 +1092,6 @@ At the start of each algorithm the following variables are instantiated, they ar
 				index += len(bucket)
 				bucket_list[bdx] = []
 \end{lstlisting}
-\caption*{LSD pigeonhole sort}
 \end{table}
 \pagebreak
 \subsubsection{MSD Counting sort}
@@ -1109,7 +1117,7 @@ MSD Radix sort, as outlined in \ref{sssec:msdradix}, sort operates by using inte
     breaklines=true,
     breakatwhitespace=false,}
 	\centering
-	\begin{lstlisting}[escapeinside={(*}{*)}]
+	\begin{lstlisting}[escapeinside={(*}{*)},caption={MSD Counting sort},captionpos=b]
         def sort(self):
 			#Shared variables
 			count = [0 for _ in xrange(self.radix)]
@@ -1149,7 +1157,6 @@ MSD Radix sort, as outlined in \ref{sssec:msdradix}, sort operates by using inte
 				sublist_indexes = list(temp_sublist_indexes)
 				if not sublist_indexes: return
 \end{lstlisting}
-\caption*{MSD Counting sort}
 \end{table}
 
 \pagebreak
@@ -1171,7 +1178,7 @@ Once again, the method of storing indexes of sub lists and sorting within the in
     breaklines=true,
     breakatwhitespace=false,}
 	\centering
-	\begin{lstlisting}[escapeinside={(*}{*)}]
+	\begin{lstlisting}[escapeinside={(*}{*)},caption={MSD Pigeonhole sort},captionpos=b]
 	def sort(self):
 		#Shared variables
 		sub list_indexes = [(0, self.list_length)]
@@ -1209,25 +1216,46 @@ Once again, the method of storing indexes of sub lists and sorting within the in
 			sub list_indexes = temp_indexes
 			if not sub list_indexes: return
 \end{lstlisting}
-\caption*{MSD Pigeonhole sort}
 \end{table}
 \pagebreak
 \section{Testing}
 \subsection{Test Criteria}
 \subsubsection{Using PyPy for testing}
 When testing the algorithms designed for this project, it was necessary to design tests with the core project goal in mind, to design a more efficient integer sorting method for use within PyPy. It is therefore a criteria of primary importance that tests be performed on a version of PyPy that has been compiled with a custom sorting method that implements the algorithms designed as part of this project. 
+\par
+
 \par 
-Testing with this criteria in mind, and testing continuously throughout the development process, ensured that any solutions produced were applicable to the goals of the project and ventures into solutions that may work on other platforms such as Python 3 or even Python 2 but not on RPython were short lived. For example an early solution of this project Utilized the inbuilt methods \textit{max()} and \textit{min()}, which are not available in RPython at a later stage the stark difference in RPython handling right shifting by values greater than the machine word size as the value modulo the machine word size whereas in all other versions of Python the full right shift is performed, giving very different results to the helper method outlined in \ref{ssec:intdigits}.
+Testing with this criteria in mind, and testing continuously throughout the development process, ensured that any solutions produced were applicable to the goals of the project and ventures into solutions that may work on other platforms such as Python 3 but not on RPython were short lived. For example an early solution of this project Utilized the inbuilt methods \textit{max()} and \textit{min()}, which are not available in RPython. At a later stage in development, the way RPython handles right shifting when called on an integer with a shift value greater than the machine word size by performing the shift with the called value modulo the machine word size caused an error because in all other versions of Python the right shift is performed with the called shift value, giving very different results to the helper method outlined in \ref{ssec:intdigits}.
+
 \par 
-PyPy source code includes the file \textit{RPython} used to compile and package PyPy, this file has the useful feature of allowing the compilation of a single file into an executable, which is helpful as compiling a single file takes less than 30 seconds whereas compiling a fully functioning version of PyPy can take up to 20 minutes. This feature was regularly Utilized during the development process to test the correctness of solutions but is not particularly useful when testing performance for a number of reasons. Firstly it would compromise the applicability of test data to the goals of the project, it is not a version of PyPy after all, merely an executable file compiled using the same tools. Beyond this another problem exists though, it is not possible to design the executable in such a way that it can either generate new data for sorting or read generated data from files in dynamic way. Whilst it is possible to use a library such as random to generate a random list, or to read from files to assemble a list, this must be performed outside of the code block run by RPython, it is instead run by the version of PyPy that is called to run the file \textit{rpython} and the variables it generates are stored within the executable, meaning the first random list generated is always stored and the values read from a file remain the same even if the file is edited.
+PyPy source code includes the file \textit{RPython} used to compile and package PyPy, this file has the useful feature of allowing the compilation of a single file into an executable, which is helpful as compiling a single file takes less than 30 seconds whereas compiling a fully functioning version of PyPy can take up to 20 minutes. This feature was regularly Utilized during the development process to test the correctness of solutions but is not particularly useful when testing performance. Testing this way instead of using a fully compiled PyPy would reduce the applicability of test data to the goals of the project, and would make it much harder to draw a valid comparison to Timsort. 
+\par
+To validate the decision to use a fully compiled PyPy instead of an executable of each algorithm compiled by RPython, a test of sorting 10,000 lists of 1,000,000 integers using LSD counting sort base $2^{16}$ using both strategies was performed.
+\linebreak
+
+\begin{table}[h]
+\centering
+	\begin{tabular}{lrr}
+		\toprule
+		 & Compiled & RPython \\
+		\midrule
+		mean time & 0.02842 & 0.03116 \\
+		std & 0.002866 & 0.001636 \\
+		\bottomrule
+		
+		
+	\end{tabular}
+	\caption{Compile comparison}
+	\label{table:compiletest}
+\end{table}
+The results, seen here in \autoref{table:compiletest}, show a difference of greater than 1 standard deviation between the sort times, meaning results made by the RPython compilation are not adequately reflective of the performance of the algorithm. 
+
 \pagebreak
 \subsubsection{Methodology}
 \label{sssec:methodology}
 Testing was performed via a script executed by each version of PyPy that uses an implementation of Radix sort as the default sort method for lists of integers. The testing process in the script is  to generate a list within the specified parameters, begin a timer, perform the sort function then stop the timer and record the time taken. The timer used was the \textit{time} library function \textit{perf\textunderscore counter}, which uses a system performance counter to deliver accurate results.
 \par  
-The decision to use \textit{time.perf\textunderscore counter} over other timing resources such as \textit{time.time} was made based on {\color{red}THIS}, which states that \textit{perf\textunderscore counter} always uses the most precise clock/performance counter available and is the reccomendation for benchmarking purposes. Ultimately, this decision was probably inconsequential as a test performed on 10,000 lists of 1,000,000 random integers sorted by lsd counting sort (using a radix of $2^{10}$) showed a time difference of 0.000185 or $0.6\%$, but a decision had to be made and sticking with the library developers' reccomendation is the more prudent action.
-\par
-
+The decision to use \textit{time.perf\textunderscore counter} over other timing resources such as \textit{time.time} was made based on the proposal notes for the former's inclusion in Python \cite{PEP418}, which states that \textit{perf\textunderscore counter} always uses the most precise clock/performance counter available and is the reccomendation for benchmarking purposes. Ultimately, this decision was probably inconsequential as a test performed on 10,000 lists of 1,000,000 random integers sorted by lsd counting sort (using a radix of $2^{10}$) showed a time difference of 0.000185 or $0.6\%$, but a decision had to be made and sticking with the library developers' reccomendation is the more prudent action.
 \par
 The lists to be sorted are generated using various functions in the \textit{numpy} and \textit{random} libraries in the formats listed below and are generated to contain a specified quantity of items and contain values within a specified range.
 \par
@@ -1237,8 +1265,9 @@ The lists to be sorted are generated using various functions in the \textit{nump
 	\item[Random - ] Generate list of random integers of the target length
 \end{description} 
 \begin{table}[h]
-	\makebox[\textwidth]{\includegraphics[width=1.2\textwidth]{demo}}
-	\caption*{A demonstration of a list generated in each format.\par Each bar represents an integer, the order of the bars left to right represents the order of the items in indexes $[0..49]$}
+	\captionsetup{type=figure}
+	\makebox[\linewidth]{\includegraphics[width=1.2\linewidth]{democut}}
+	\caption{A demonstration of a list generated in each format.\newline Each bar represents an integer, the order of the bars left to right represents the order of the items in indexes $[0..49]$}
 \end{table}
 \pagebreak
 \subsubsection{Preliminary testing}
@@ -1252,15 +1281,15 @@ The goal of this test was to identify a critical list length for which insertion
 \par
 Two versions of PyPy were created for each base and integer sorting method, one of which used a threshold of $0$ to ensure insertion sort was never used. The other version replaced the threshold check with a test of whether the length was greater than 0 which always returns true and triggers insertion sort, this was done instead of replacing the entire radix sort method with insertion sort as all the code executed prior to sorting (whether that be insertion or radix) is identical and therefore the results can be used to make a valid comparison of the two sorting methods being applied to a sub list.
 \par
-A sample of testing results are shown in \autoref{fig:msdinsert}. Each point represents the average of 100 sample of the time to sort a list of a given length, also shown are the polynomial regression lines modeled using the method of least squares with the intersect labeled in red which is then taken as a generally acceptable threshold to use.
+A sample of testing results are shown in \autoref{fig:msdinsert}. Each point represents the average of 100 sample of the time to sort a list of a given length, also shown are the polynomial regression lines modeled using the method of least squares with the intersect labeled in red which is then taken as a generally acceptable threshold to use. Note that the regression lines were calculated using methods that have been chosen for maximum readability of the graph and not because they have been deemed mathematically significant to the data.
 \begin{table}[h]
 	\begin{minipage}{\textwidth}
+		\captionsetup{type=figure}
 		\centering
 		\raisebox{-0.5\height}{\includegraphics[width=.75\textwidth]{msd_c_10.png}}
 		\raisebox{-0.5\height}{\includegraphics[width=.15\textwidth]{insertionLegend.png}}
+		\caption{\label{fig:msdinsert}Time comparison for insertion sort and radix sort using counting sort, base $2^{10}$}
 		
-		\captionof{figure}{Time comparison for insertion sort and radix sort using counting sort, base $2^{10}$}
-		\label{fig:msdinsert}
 	\end{minipage}
 	
 \end{table}
@@ -1308,7 +1337,7 @@ Initially one of the aims of testing was to complete a profile of the memory usa
 	 \hline
 		\end{tabular}
 		}}
-		\caption*{excerpt from line\textunderscore profiler output of LSD Counting sort}
+		\caption{excerpt from line\textunderscore profiler output of LSD Counting sort}
 	\end{table}
 \pagebreak
 \myparagraph{Order checking}
@@ -1342,7 +1371,7 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\hspace{0.25cm}
 	\includegraphics[ draft=false, height=5.5cm]{lrg_Random_sorted_0.png}
 	}
-	\captionof{figure}{The effects of completing order checking across sub lists. Listed below are the number of bases for which sort checking and not checking are the fastest option}
+	\caption{The effects of completing order checking across sub lists. Listed below are the number of bases for which sort checking and not checking are the fastest option}
 	
 \end{table}
 
@@ -1363,113 +1392,132 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	\pagebreak
 	\subsection{Test results and analysis} 
 	\subsubsection{Varying list length}
+	\label{sssec:varyinglength}
 	This test shows the effect of list size on the performance of radix sort and very clearly highlights the difference between the bases used. Some bases produce results that stretch the size of the graph so much that it prevents meaningful information from being shown, hence some graphs have non-competitive bases omitted for readability.
 	\par To prevent the focus of this analysis being unfairly weighted towards lists of lengths closer to $1$,$000$,$000$ where the difference between run times is larger and therefore more visible on graphs, where the results may be different to lower list length, and which may not represent the most common use case for this algorithm, these tests were also performed with lists of length $100$,$000$. 
 	\myparagraph{LSD Counting sort}
-	The results show that at all small list lengths, sort times are comparable but above lengths of $65$,$536$ bases $8$ ad $16$, which were slightly faster, become slower and do not recover at any point up to $1$,$000$,$000$. This critical value likely exists at this point as it is $2^{16}$ and as 16 is divisible by both values and therefore is the point where another digit is needed for sorting, but all other bases also take slight jumps at this stage and this is the most pronounced increase on either graph which indicates there may be some sort of cache limitation at this value (similar to what is discussed in \ref{ssec:radixexplanation}), alternatively, PyPy may be optimizing the storage of lists into chunks of this size.
+	The results show that at all small list lengths, sort times are roughly equivalent but above lengths of $65$,$536$; the fastest bases, $8$ ad $16$, start performing worse than the others, though not by a large margin. This critical value likely exists at this point as it is $2^{16}$, making it impossible to sort the list without increasing the number of digits sorted (for bases 8 and 16). However as all other bases also take slight jumps at this stage and this is the most pronounced increase on either graph, this could be an indication of an external factor such as a cache limit (similar to what is discussed in \ref{ssec:radixexplanation}).
 
 	\par
-	Base $6$ is the slowest shown, performing similarly to 8 and 16 around 100,000 items but falls off as more items are added. This bases seem to be too small to be suitable for this type of radix sort and this result is compounded in the omitted bases 4 and 2 which was the worse performer.
+	Base $6$ is the slowest shown, performing similarly to 8 and 16 around 100,000 items but loses speed as more items are added. This base seem to be too small to be suitable for this type of radix sort and this result is even more visible in the omitted bases 4 and 2 which peformed significantly worse than any shown.
 	\par
-	Overall, the results show $10$ is the best performing base here, but it is only narrowly better than the $12$ and $14$ which are slightly faster than bases $8$ and $16$ with 6 showing a clear deficit particularly at greater list lengths.
-
+	Overall, the results show bases $8$ to $14$ are suitable for use, as all show relatively similar performance. Base $16$ is too unstable, performing poorly at the lowest list lengths and base $6$ suffers from worse performance the more the list length is increased.
 	\begin{table}[h]
 		\centering
+		\captionsetup{type=figure}
 		\makebox[\linewidth]{
-			\includegraphics[ draft=false,width=1.1\linewidth]{lsd_c_length}
+			\includegraphics[draft=false,width=1.1\linewidth]{lsd_c_length}
 			}
-			\caption*{LSD Counting sort length test for 100,000 and 1,000,000 items \par bases 2, 4, 6 and 8 omitted}
+			\caption{LSD Counting sort length test for 100,000 and 1,000,000 items \newline bases 2 and 4 omitted\label{fig:lsdclength}}
+			
+			
 	\end{table}
 	\pagebreak
 
 	\myparagraph{LSD Pigeonhole sort}
 	The fastest base for LSD Pigeonhole varies a lot among the best performers as list length increases. Bases 16, 14, 12 and 10 appear intertwined from 200,000 to 1,000,000 items with 16 ahead at the 1,000,000 point but not by a large margin. Bases 8 and below are omitted from the 1,000,000 graph as they are notably slower in this range.
 	\par
-	Though base 16 becomes the most effective at higher list lengths, it is not truthful to call it the best as it is nearly 10 times slower than base $10$ for list lengths below $100$,$000$. For this reason bases 10 and 12 would be the most suitable, as base 14 is also noticeably slower for lower lengths, albeit less pronounced than 16.
+	Though base 16 becomes the most effective at higher list lengths, it is held back from being the best as it significantly slower than base $10$ for list lengths below $100$,$000$. For this reason bases 10 and 12 would be the most suitable, as base 14 is also noticeably slower for lower lengths, albeit to a less pronounced degree than 16.
 	\begin{table}[h]
 		\centering
+		\captionsetup{type=figure}
 		\makebox[\linewidth]{
 			\includegraphics[ draft=false,width=1.1\linewidth]{lsd_p_length}
 			}
-			\caption*{LSD Pigeonhole sort length test for 100,000 and 1,000,000 items \par bases 2 and 4 omitted}
-	\end{table}
+			\caption{LSD Pigeonhole sort length test for 100,000 and 1,000,000 items \newline bases 2, 4, 6 and 8 omitted\label{fig:lsdplength}}
+		\end{table}
 	\myparagraph{MSD Counting sort}
-	The results visible here are highly similar to those of LSD counting sort, base 6 becomes more performant than 8 and 16 in the lower range, but again lags behind in the higher range. Once again, base 10 performs best with similar grouping of the other bases.
-	\begin{table}[h]
-		\centering
-		\makebox[\linewidth]{
-			\includegraphics[ draft=false,width=1.1\linewidth]{msd_c_length}
-			}
-			\caption*{MSD Counting sort length test for 100,000 and 1,000,000 items \par base 2 omitted}
-	\end{table}
-	\pagebreak
-	\myparagraph{MSD Pigeonhole sort}
-	This set of results deviates significantly from the rest of this set, it shows that the larger bases are unsuitable for this implementation, with base 16 being the worst. This is the only iteration of this test in which base 2 wasn't the worst performer.
-	\par
-	The ideal range appears to be around base 6, with 4 and 8 roughly equivalent in performance, as are 2 and 10, above which a base increase is detrimental.
-	\vspace{-0.5cm}
-	\begin{table}[h]
-		\centering
+		The results visible here are highly similar to those of LSD counting sort, but base 16 is not as unstable at lower list lengths and therefore can be considered suitable. Of the two unsuitable bases, 6 loses too much speed at high list lengths and 4 is almost universally the slowest shown.
+		\begin{table}[h]
+			\centering
+			\captionsetup{type=figure}
+			\makebox[\linewidth]{
+				\includegraphics[ draft=false,width=1.1\linewidth]{msd_c_length}
+				}
+				\caption{MSD Counting sort length test for 100,000 and 1,000,000 items \newline base 2 omitted\label{fig:msdclength}}
+			\end{table}
+			\pagebreak
+			\myparagraph{MSD Pigeonhole sort}
+			This set of results deviates significantly from the rest of this set, it shows that the larger bases are unsuitable for this implementation, with base 16 being the worst. This is the only iteration of this test in which base 2 wasn't the worst performer.
+			\par
+			The ideal range appears to be around base 6, with 4 and 8 roughly equivalent in performance, as are 2 and 10, above which a base increase is detrimental.
+			\vspace{-0.5cm}
+			\begin{table}[h]
+				\captionsetup{type=figure}
+				\centering
 		\makebox[\linewidth]{
 			\setlength{\floatsep}{0pt}
 			\includegraphics[ draft=false,width=1.1\linewidth]{msd_p_length}
 			}
-			\caption*{MSD pigeonhole sort length test}	
+			\caption{MSD pigeonhole sort length test\label{fig:msdplength}}	
 	\end{table}
 	\vspace{-1cm}
 	\subsubsection{Varying base}
+	\label{sssec:varyingbase}
 	This test examines lists of 1,000,000 items generated randomly within the range $[\minus2^r..2^r\minus1]$ where r is the $data$\textunderscore $size$ referenced on the x axis. It is designed to test the algorithm's response to an increasing number of digits.
 	\par
-	This test is limited when applied to MSD radix sorts due to the algorithms ability to terminate sorting on smaller lists via insertion sort or sorting a list into a sub list of length 1, this means that typically a list of 1,000,000 items is sorted when $20/{base}$ digits have been sorted as $2^{20}$ is the smallest power of 2 greater than the list length. This is visible in the results as the sort times level out after $data$\textunderscore $size$ and does restrict the usefulness of the results but does present an interesting benefit of MSD sorting.
+	This test has a limitation with regards to it's use on MSD Radix sorts which is due to the feature of these algorithms that terminates the algorithm before all digits have been examined, which is triggered when the algorithm separates the input into sub-lists below a certain size. The test uses lists of length 1,000,000 and the next highest power of 2 is $2^{20}$, meaning that only 20 bits are needed to represent 1,000,000. Given that the input data is random and therefore evenly distributed, once 20 bits have been examined by the algorithm (which occurs after $20/{base}$ iterations of integer sorting) each sub-list is likely to contain only a single item meaning early termination has been triggered.
+	\par
+	The effect of this is seen in the results for MSD sorting as the sort times begin to level out after integer size reaches 20 and does restrict the usefulness of the results but can be used to highlight that the optimizations for MSD sorting are working as intended.
+	\pagebreak
 	\myparagraph{LSD Counting}
-	The results shown on this graph are so similar that any difference between them was completely unreadable if any of the other bases were not omitted, showing that any of the bases 8,10,12,16 are suitable. As is typical for this type of testing, the jump in run time as $data$\textunderscore $size$ reaches values divisible by each base is easily identifiable, showing the effect of each additional digit.
+	The results for each base shown in \autoref{fig:lsdcintsize} are so similar that any difference between them was completely unreadable if any of the other bases were not omitted, showing that any of the bases 8,10,12,16 are suitable. As is typical for this type of testing, the jump in run time as integer size reaches values divisible by each base is easily identifiable, showing the effect of each additional digit.
 	\begin{table}[h]
 		\centering
+		\captionsetup{type=figure}
 		\makebox[\linewidth]{
-			\includegraphics[ draft=false,height=4.8cm]{lsd_c_base}
+			\includegraphics[ draft=false,width=.9\linewidth]{lsd_c_base}
 		}
-			\caption*{LSD counting sort input limit test}
+			\caption{LSD counting sort input limit test\label{fig:lsdcintsize}}
 	\end{table}
-	\vspace{-1cm}
 	\myparagraph{LSD Pigeonhole}
 	The results for LSD Pigeonhole sort show higher bases performing better than lower bases, with 16 and 14 performing the best and almost identically which indicates that the results for the list length results for base 14 (in which it was slower than base 12 and 10 at 1,000,000 items) may be anomalous.
 	\begin{table}[h]
 		\centering
+		\captionsetup{type=figure}
 		\makebox[\linewidth]{
 			\includegraphics[ draft=false,height=4.8cm]{lsd_p_base}
 		}
-			\caption*{LSD pigeonhole sort input limit test}
+			\caption{LSD pigeonhole sort input limit test\label{fig:lsdpintsize}}
 	\end{table}
+	\pagebreak
 	\myparagraph{MSD Counting}
-	As already stated, the usefulness of results of this type of test for this algorithm is limited, but of the most performant algorithms, 10 and 12 , the results for base 10 show a smaller delta between the maximum and minimum times with very similar times overall
+	As already stated, the usefulness of results of this type of test for this algorithm is limited, but of the most performant algorithms, 8, 10 and 12, the results for base 10 show a smaller delta between the maximum and minimum times with very similar times overall.
 	\begin{table}[h]
 		\centering
+		\captionsetup{type=figure}
 		\makebox[\linewidth]{
 			\includegraphics[ draft=false,height=4.8cm]{msd_c_base}
 		}
-			\caption*{MSD counting sort input limit test}
+			\caption{MSD counting sort input limit test\label{fig:msdcintsize}}
 	\end{table}
-	\pagebreak
 	\myparagraph{MSD Pigeonhole}
-	MSD pigeonhole again has results quite dissimilar from the other algorithms, the increase $data$\textunderscore $size$ has the smallest effect on the growth of run time and as the increases causes an additional digit's worth of sorting, the jump in run time is followed by a huge spike before falling again all in the range of values fitting onto the same digit. Drawing conclusions about any of these algorithms based on this data is almost impossible, but there isn't anything immediately wrong with bases 8 or 10, where base 8 is slightly slower but has smaller spikes in run time.
+	Unfortunately the results from testing MSD pigeonhole show too much variance sorting across lists with integer limit $>2^{20}$ to be useful for selecting the ideal base.
+	\par
+	In the integer limit range $[20..63]$ \ref{fig:msdpintsize} shows a series of valleys and troughs aligning with a peak at the values where the integer limit is divisible by the current base. This cycle starts (at the trough) at the lowest value for integer size above 20 divisible by the current base where the number of iterations of integer sorting is at the minimum needed to sort every item. As the integer limit increases, another digit is necessary to express the maximum integer, and so an additional iteration of integer sorting is performed, but the number of items needing this additional round is relatively small and as the remaining rounds of integer sorting are still necessary, this additional round is quick. As the integer limit increases the number of items moved in this preliminary round of integer sorting increases so and so it's duration continues to increase up to the peak before the the integer limit is divisible by the base again and so no additional round needs to be performed.
 	\begin{table}[h]
 		\centering
+		\captionsetup{type=figure}
 		\makebox[\linewidth]{
 			\includegraphics[ draft=false,height=4.8cm]{msd_p_base}
 		}
-			\caption*{MSD pigeonhole sort input limit test}
+			\caption{MSD pigeonhole sort input limit test\label{fig:msdpintsize}}
 	\end{table}
+	\pagebreak
 	\subsubsection{Categorical tests}
+	\label{sssec:cattests}
 	These tests were completed to provide an opportunity to make comparisons between the 4 algorithms, the 8 bases used and give insight into their effectiveness relative to Timsort. Each image shows the results for a list length and data type identified in the title, a set of axes for each data size listed as a subtitle and on each axis is the 4 algorithms developed for this project split into a bar for each base alongside timsort farthest on the right which has a line stretching across the axis to aid comparison to each implementation.
 	\begin{table}[b]
 		\centering
+		\captionsetup{type=figure}
 		\makebox[\linewidth]{
 			\includegraphics[ draft=false,height=6cm]{lrg_Random_0.png}
 			\hspace{0.5cm}
 			\includegraphics[ draft=false,height=6cm]{lrg_Random_1.png}
 			}
-			\captionof{figure}{Sort times for categorical tests, List length, data type and maximum integer identified above, Sort method and base (2-16) listed below}
-			\label{fig:lrg_Random_0}
+			\vspace{-0.5cm}
+			\caption{Sort times for categorical tests, List length, data type and maximum integer identified above, Sort method and base (2-16) listed below\label{fig:lrg_Random_0}}
+			
 
 			
 	\end{table}
@@ -1477,86 +1525,98 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 	Random data also was used for the continuous tests and as expected, the results show similar results to the previous continuous tests for comparisons between the bases of each algorithm. 
 	\par
 	When comparing the algorithms against one another and timsort, the random data shows that all implementations of counting sort perform faster than timsort, as well as at least one base of each iteration of pigeonhole sort. The difference between the comparison-based nature of timsort and non-comparison-based radix sort is highlighted by observing LSD\textunderscore C for list length 1,000,000 (shown in \autoref{fig:lrg_Random_0}); Timsort completes sorting in roughly $0.17s$ regardless of integer limit whereas LSD\textunderscore C sees smaller run times for smaller integer limits, showing the benefits of the fewer digits requiring counting sort in contrast with the lack of any reduction in the number of comparisons timsort must make.
+	\pagebreak
 	\myparagraph{Few Unique}
-	Data containing few unique values was intended to simulate sorting a series of discrete values, a potential real world usage of the algorithm. \autoref{fig:rnd-fu-diff} shows the percentage difference in sort time between sorting random and few unique data where each item is the average difference of all bases and a positive value indicates Few unique was faster. It shows there is typically a negligible difference between the two with the exception of certain higher data limits in longer lists for MSD sorts, particular counting sort. This may be due to the large number of identical items preventing insertion sort and only causes 10\% difference from random data.
-
+	Data containing few unique values was intended to simulate sorting a series of discrete values, a potential real world usage of the algorithm. \autoref{table:rnd-fu-diff} shows the percentage difference in sort time between sorting random and few unique data where each item is the average difference of all bases and a positive value indicates Few unique was faster. It shows there is typically a negligible difference between the two with the exception of certain higher data limits in longer lists for MSD sorts, particular counting sort. 
 	\begin{table}[h]
-		\centering
-		\makebox[\linewidth]{
+		\sisetup{
+			table-space-text-post=\%,    % leave space for a ‘%’
+			table-align-text-post=false, % push ‘%’ next to the number
+			}
 			\centering
-			\begin{minipage}[h]{.55\linewidth}
-				\hspace{.05\linewidth}
+			\makebox[\linewidth]{
+				\centering
+				\begin{minipage}[h]{.55\linewidth}
+					\captionsetup{type=figure}
+					\hspace{.05\linewidth}
 				\includegraphics[ draft=false, width=.9\linewidth]{med_Few_Unique_1.png}
-				\captionof{figure}{categorical tests for few unique data}
+				\caption{categorical tests for few unique data}
 			\end{minipage}%
-			\hspace{0.5cm}
+			\hspace{0.25cm}
 			\begin{minipage}[h]{.55\linewidth}
 				\resizebox{\columnwidth}{!}{%
-					\begin{tabular}{llrrrrr}
-						\toprule
-						items & int size & lsd c & lsd p & msd c & msd p & timsort \\
-						\midrule
-						\multirow[t]{4}{*}{10000} & large & -9.5\% & 0.3\% & 2.3\% & 3.3\% & 6.9\% \\
-						& med & -7.2\% & 6.1\% & 3.0\% & 3.6\% & 5.3\% \\
-						& small & -3.4\% & 7.6\% & 6.3\% & 1.8\% & 1.1\% \\
-						& tiny & -1.8\% & -0.3\% & 0.8\% & 6.5\% & 1.8\% \\
-						\cline{1-7}
-						\multirow[t]{4}{*}{100000} & large & 4.7\% & -23.1\% & 18.2\% & 7.1\% & 5.2\% \\
-						& med & 7.2\% & -10.4\% & 10.1\% & 9.0\% & 5.1\% \\
-						& small & 1.7\% & 2.1\% & 2.0\% & 16.4\% & 3.1\% \\
-						& tiny & 0.9\% & -5.6\% & 11.8\% & 1.0\% & 4.8\% \\
-						\cline{1-7}
-						\multirow[t]{4}{*}{1000000} & large & 8.8\% & -1.0\% & -124.9\% & 10.4\% & 7.0\% \\
-						& med & 8.5\% & -6.3\% & -20.1\% & -48.6\% & 3.9\% \\
-						& small & 0.9\% & 7.5\% & 0.0\% & 51.2\% & 2.5\% \\
-						& tiny & 2.9\% & 23.9\% & -33.7\% & 20.2\% & 4.6\% \\
-						\cline{1-7}
-						\multirow[t]{1}{*}{} & mean & 1.1\% & 0.1\% & -10.4\% & 6.8\% & 4.3\% \\
-						\bottomrule
-					\end{tabular}
+				\begin{tabular}{llS[table-format=1.1]S[table-format=4.1]S[table-format=5.1]S[table-format=4.1]S[table-format=1.1]}
+					
+					\toprule
+					items & int size & \multicolumn{1}{c}{lsd c} & \multicolumn{1}{c}{lsd p} & \multicolumn{1}{c}{msd c} & \multicolumn{1}{c}{msd p} & \multicolumn{1}{c}{timsort}\\
+					\midrule
+					\multirow[h]{4}{*}{$10^4$} & large & -9.5\% & 0.3\% & 2.3\% & 3.3\% & 6.9\% \\
+					& med & -7.2\% & 6.1\% & 3.0\% & 3.6\% & 5.3\% \\
+					& small & -3.4\% & 7.6\% & 6.3\% & 1.8\% & 1.1\% \\
+					& tiny & -1.8\% & -0.3\% & 0.8\% & 6.5\% & 1.8\% \\
+					\cline{1-7}
+					\multirow[h]{4}{*}{$10^5$} & large & 4.7\% & -23.1\% & 18.2\% & 7.1\% & 5.2\% \\
+					& med & 7.2\% & -10.4\% & 10.1\% & 9.0\% & 5.1\% \\
+					& small & 1.7\% & 2.1\% & 2.0\% & 16.4\% & 3.1\% \\
+					& tiny & 0.9\% & -5.6\% & 11.8\% & 1.0\% & 4.8\% \\
+					\cline{1-7}
+					\multirow[h]{4}{*}{$10^6$} & large & 8.8\% & -1.0\% & -124.9\% & 10.4\% & 7.0\% \\
+					& med & 8.5\% & -6.3\% & -20.1\% & -48.6\% & 3.9\% \\
+					& small & 0.9\% & 7.5\% & 0.0\% & 51.2\% & 2.5\% \\
+					& tiny & 2.9\% & 23.9\% & -33.7\% & 20.2\% & 4.6\% \\
+					\cline{1-7}
+					\multirow[t]{1}{*}{} & mean & 1.1\% & 0.1\% & -10.4\% & 6.8\% & 4.3\% \\
+					\bottomrule
+				\end{tabular}
 				}
-				\captionof{figure}{Comparison of few unique and random data, using average between equivalent bases}
-				\label{fig:rnd-fu-diff}
+				\caption{Comparison of few unique and random data, using average between equivalent bases}
+				\label{table:rnd-fu-diff}
 			\end{minipage}
-		}
-	\end{table}
-	
+			}
+		\end{table}
+
 	\myparagraph{Nearly sorted}
 	This data type was selected to make a comparison between algorithms in a situation where timsort is at an advantage. As stated in the source code for timsort \cite{listsort}, the algorithm iterates over the input, continuously identifying sorted sequences and merging them with the already sorted items and as such it is highly efficient at sorting this data which is essentially a series of sorted sequences within a larger list.
 	\par
-	\pagebreak
 	The graphs shown in \autoref{fig:lrg_Nearly_Sorted_nolp_0} and \autoref{fig:sml_Nearly_Sorted_nolp_1} have been pruned to omit all of LSD\textunderscore P as well as bases 2, 14 and 16 as the results for these algorithms are much slower than timsort and stretch the axis, making the graph unreadable. The remaining data is representative of all tests of this data type, with timsort performing exceptionally well compared to radix sort and being faster in every situation except on lists of 10,000 items where certain bases of MSD\textunderscore P and LSD\textunderscore C are a fraction faster.  	
-	\autoref{fig:rnd-ns-diff} Contains the difference in run time between Random and nearly sorted lists, it shows Whilst timsort benefits from a 94\% decrease in run time when performed on nearly sorted lists compared to random, radix sort does not see the same benefit, though there is variation base on the implementation used. MSD sorts benefit from nearly sorted lists due to their use of insertion sort which completes in $\mathcal{O}\textit{(n)}$ time on sorted lists. LSD sorts don't us this method and so don't see much benefit. The discrepancy between pigeonhole and counting sort may be due to optimizations in PyPy involving moving items from one list into another in the same order, and there is some evidence for this such as LSD\textunderscore P having larger speed gains at smaller integer limits.
-
+	\autoref{table:rnd-ns-diff} Contains the difference in run time between Random and nearly sorted lists, it shows Whilst timsort benefits from a 94\% decrease in run time when performed on nearly sorted lists compared to random, radix sort does not see the same benefit, though there is variation base on the implementation used. MSD sorts benefit from nearly sorted lists due to their use of insertion sort which completes in $\mathcal{O}\textit{(n)}$ time on sorted lists. LSD sorts don't us this method and so don't see much benefit. The discrepancy between pigeonhole and counting sort may be due to optimizations in PyPy involving moving items from one list into another in the same order, and there is some evidence for this such as LSD\textunderscore P having larger speed gains at smaller integer limits.
+	
 	\begin{table}[h]
-		\centering
-		\makebox[\linewidth]{
-			\begin{minipage}[h]{.5\linewidth}
+		\sisetup{
+			table-space-text-post=\%,    % leave space for a ‘%’
+			table-align-text-post=false, % push ‘%’ next to the number
+			}
+			\centering
+			\makebox[\linewidth]{
+				\begin{minipage}[h]{.5\linewidth}
+				\captionsetup{type=figure}
 				\hspace{.05\linewidth}
 				\includegraphics[draft=false, width=.9\linewidth]{lrg_Nearly_Sorted_nolp_0.png}
-				\captionof{figure}{Nearly sorted data test with LSD\textunderscore P, bases 2, 14, 16 pruned}
-				\label{fig:lrg_Nearly_Sorted_nolp_0}				
+				\caption{Nearly sorted data test with LSD\textunderscore P, bases 2, 14, 16 pruned\label{fig:lrg_Nearly_Sorted_nolp_0}}
+								
 
 				
 			\end{minipage}
 			\hspace{0.25cm}
-			\begin{minipage}[h]{.6\linewidth}
+			\begin{minipage}[h]{.55\linewidth}
 				\resizebox{\columnwidth}{!}{%
-					\begin{tabular}{llrrrrr}
+
+					\begin{tabular}{llS[table-format=2.1]S[table-format=3.1]S[table-format=3.1]S[table-format=2.1]S[table-format=3.1]}
+						
 						\toprule
-						items & int size & lsd c & lsd p & msd c & msd p & timsort \\
+						items & int size & {lsd c} & \multicolumn{1}{r}{lsd p} & \multicolumn{1}{r}{msd c} & \multicolumn{1}{r}{msd p} & \multicolumn{1}{r}{timsort}\\
 						\midrule
-						\multirow[t]{4}{*}{10000} & large & -3.1\% & -8.4\% & -1.3\% & 32.3\% & 91.9\% \\
+						\multirow[h]{4}{*}{$10^4$} & large & -3.1\% & -8.4\% & -1.3\% & 32.3\% & 91.9\% \\
 						& med & -3.6\% & -9.7\% & 17.5\% & 52.0\% & 92.0\% \\
 						& small & -4.5\% & -5.1\% & 0.9\% & 43.5\% & 92.2\% \\
 						& tiny & -1.8\% & -3.9\% & 15.1\% & 39.6\% & 92.0\% \\
 					   \cline{1-7}
-					   \multirow[t]{4}{*}{100000} & large & -0.2\% & 6.7\% & 8.6\% & 27.5\% & 94.4\% \\
+					   \multirow[h]{4}{*}{$10^5$} & large & -0.2\% & 6.7\% & 8.6\% & 27.5\% & 94.4\% \\
 						& med & -1.6\% & 10.8\% & 19.6\% & 43.1\% & 94.3\% \\
 						& small & -3.7\% & 20.0\% & 16.4\% & 39.0\% & 94.3\% \\
 						& tiny & -7.2\% & 32.4\% & 14.0\% & 31.1\% & 95.0\% \\
 					   \cline{1-7}
-					   \multirow[t]{4}{*}{1000000} & large & 0.3\% & 6.1\% & 35.4\% & 54.7\% & 95.3\% \\
+					   \multirow[h]{4}{*}{$10^6$}& large & 0.3\% & 6.1\% & 35.4\% & 54.7\% & 95.3\% \\
 						& med & 1.4\% & 0.4\% & 23.0\% & 47.0\% & 95.1\% \\
 						& small & -1.4\% & 22.6\% & 14.7\% & 40.5\% & 95.2\% \\
 						& tiny & 11.9\% & 32.9\% & 28.7\% & 41.8\% & 98.6\% \\
@@ -1565,30 +1625,32 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 						\bottomrule
 					\end{tabular}
 				}
-				\captionof{figure}{Comparison of Nearly sorted and random data, using average between equivalent bases. Positives indicate nearly sorted is faster}
-				\label{fig:rnd-ns-diff}
+				
+				\caption{Comparison of Nearly sorted and random data, using average between equivalent bases. Positives indicate nearly sorted is faster \label{table:rnd-ns-diff}}
+				
 
 			\end{minipage}
 
 		}
 		\\	
-		\vspace{1cm}
-
+		\vspace{0.5cm}
+		\captionsetup{type=figure}
 		\makebox[\linewidth]{
-		\begin{minipage}[h]{.5\linewidth}				
-			\hspace{.05\linewidth}
-			\includegraphics[draft=false, width=.9\linewidth]{sml_Nearly_Sorted_nolp_2.png}
-		\end{minipage}
-		\hspace{0.25cm}
-		\begin{minipage}[h]{.6\linewidth}	
-			\centering			
-			\resizebox{.8\columnwidth}{!}{%
-			\includegraphics[draft=false, width=.9\linewidth]{sml_Nearly_Sorted_nolp_3.png}
-			}
-		\end{minipage}
+			\centering
+			\begin{minipage}[h]{.5\linewidth}				
+				\hspace{.05\linewidth}
+				\includegraphics[draft=false, width=.9\linewidth]{sml_Nearly_Sorted_nolp_2.png}
+			\end{minipage}
+			\hspace{0.25cm}
+			\begin{minipage}[h]{.5\linewidth}	
+				\centering			
+					\includegraphics[draft=false, width=.9\linewidth]{sml_Nearly_Sorted_nolp_3.png}
+				
+			\end{minipage}
 		}
-		\captionof{figure}{Nearly sorted data test showing list length 10,000}
-		\label{fig:sml_Nearly_Sorted_nolp_1}
+		\caption{Nearly sorted data test showing list length 10,000\label{fig:sml_Nearly_Sorted_nolp_1}}
+		
+		
 
 	\end{table}
 	% \begin{table}[h]
@@ -1598,67 +1660,75 @@ To evaluate the effectiveness of order checking, two versions of PyPy were compi
 
 
 	\subsubsection{Testing evaluation}
-	The goal of testing was to produce data suitable for analysis to decide which base is the best for each implementation and then to decide which of the implementations,if any, is best for replacing timsort. The main limitations of the tests are that it is not possible to test every permutation of all the factors affecting performance of the algorithms, such as integer digits and list length, and that the testing was all completed on one machine and therefore may not necessarily be applicable to other machines. 
-	\par For these reasons, and to attempt to fairly evaluate the lists in the widest range of circumstances, the analysis to identify the best base relies upon data that has been normalized within each group containing a list length, maximum integer size, data type, and radix sort implementation. This normalized data allows the comparison of input types that vary wildly in terms of sorting time such as lists containing 10,000 and 1,000,000 items.
+	The goal of testing was to produce data suitable for analysis to determine which radix, or numerical base, is the most optimal for each implementation of radix sort and then to decide which of the implementations, if any, can replace timsort.	
 	\par
-	\autoref{fig:averageresults} contains the normalized data, representative of each base's performance compared to peers of the same radix sort implementation and ranked from fastest to slowest with a negative result for time indicating the base was faster than average.
+	The main limitation of the tests is that it is not possible to test every permutation of all the factors affecting performance of the algorithms, namely integer digits and list length, due to the massive (or arguably, infinite) number of possible combinations. Therefore, decisions have been made based on the results of the categorical tests, shown in \ref{sssec:cattests} and summarised in \autoref{table:averageresults} alongside the results of the continuous tests, shown in sections \ref{sssec:varyinglength} and \ref{sssec:varyingbase}.
+	\par 
+	The results of different categorical tests are not suitable for direct comparison due to the difference in input values, for example a test on lists with 10,000 items is going to be significantly faster than one with 1,000,000. To allow valid comparison between test results, in the following data representations, the sort time of an implementation is expressed as the percentage difference between itself and timsort within each testing category (made up of a data type, list length and integer limit).
+	\myparagraph{Selecting numerical base}
+	Only a single base can be used for each implementation of radix sort, therefore to narrow the scope of the final comparison to Timsort it is necessary to determine the most suitable base. 
+	\par
+	\autoref{table:averageresults} contains the average results of each base across all categorical tests relative to Timsort.
 
 	\begin{table}[h]
+		\sisetup{
+  table-space-text-post=\%,    % leave space for a ‘%’
+  table-align-text-post=false, % push ‘%’ next to the number
+}
 		\centering
-		\begin{tabular}{c|cl|cl|cl|cl}
+		\begin{tabular}{c|cS[table-format=4.1]|cS[table-format=4.1]|cS[table-format=4.1]|cS[table-format=4.1]}
 			\toprule
 			\multicolumn{1}{c}{}& \multicolumn{2}{c}{lsd c} & \multicolumn{2}{c}{lsd p} & \multicolumn{2}{c}{msd c} & \multicolumn{2}{c}{msd p} \\
 			 \midrule
 			 \multicolumn{1}{c}{rank} & base & \multicolumn{1}{c}{time} & base & \multicolumn{1}{c}{time} & base & \multicolumn{1}{c}{time} & base & \multicolumn{1}{c}{time} \\
 			\midrule
-			1 & 8 & -0.721 & 12 & -0.728 & 8 & -0.611 & 6 & -0.637 \\
-			2 & 6 & -0.689 & 10 & -0.678 & 10 & -0.554 & 8 & -0.372 \\
-			3 & 12 & -0.653 & 14 & -0.523 & 12 & -0.325 & 4 & -0.327 \\
-			4 & 10 & -0.623 & 8 & -0.319 & 4 & -0.312 & 10 & -0.319 \\
-			5 & 14 & -0.139 & 6 & -0.048 & 6 & -0.022 & 12 & -0.232 \\
-			6 & 4 & \,\,0.008 & 4 & \,\,0.116 & 16 & \,\,0.332 & 2 & \,\,0.171 \\
-			7 & 16 & \,\,0.998 & 16 & \,\,0.843 & 14 & \,\,0.409 & 14 & \,\,0.327 \\
-			8 & 2 & \,\,1.819 & 2 & \,\,1.338 & 2 & \,\,1.082 & 16 & \,\,1.389 \\
+			1 & 8 & -25\% & 12 & 272\% & 8 & 4\% & 6 & 67\% \\
+			2 & 6 & -20\% & 10 & 275\% & 10 & 6\% & 4 & 95\% \\
+			3 & 12 & -18\% & 8 & 334\% & 12 & 34\% & 8 & 108\% \\
+			4 & 10 & -17\% & 14 & 347\% & 4 & 35\% & 10 & 146\% \\
+			5 & 14 & 13\% & 6 & 382\% & 6 & 40\% & 2 & 148\% \\
+			6 & 4 & 21\% & 4 & 496\% & 16 & 81\% & 12 & 175\% \\
+			7 & 16 & 94\% & 16 & 800\% & 14 & 109\% & 14 & 328\% \\
+			8 & 2 & 132\% & 2 & 814\% & 2 & 152\% & 16 & 661\% \\
 			\bottomrule
 			\end{tabular}
-			\captionof{table}{Comparison of the performance of the numerical bases for each sort method\newline Shows average normalized sort times in each list length, maximum integer and data type}
-			\label{fig:averageresults}
+ 			\caption{Average sort time in all categories of each numerical base of each method\newline represented as a perrcentage of the performance of Timsort}
+			\label{table:averageresults}
 		\end{table}
-
-	Selection of the most suitable base for each method was made by combining the information in \autoref{fig:averageresults} and the results of the continuous tests, the choices and the justification for each are detailed below. 
 		
 	\begin{description}
-		\item[LSD Counting - 10] Whilst \autoref{fig:averageresults} shows bases 8 and 6 perform better on average than 10 and 12, the results from the continous tests show that as the input list length increases the lower 2 bases decrease in performance and as the input limit increases base 6 slows relative to 8, 10 and 12. Base 10 was selected over 12 based on the continous test results for input list length which shows 10 as being marginally faster. This test was used because the categorial results are so similar, with a difference of only $0.03$ in 12's favour not providing enough justification for it's selection.
-		\item[LSD Pigeonhole - 12] Base 12 has the lowest average sort time in \autoref{fig:averageresults} and performs at least as well as or better than 10 in the continuous tests.
-		\item[MSD Counting - 10] Base 8 performs the best based on the results in \autoref{fig:averageresults}, but performs poorly in the continous test for list length.
-		\item[MSD Pigeonhole - 6] No other base seems viable based on \autoref{fig:averageresults}, and base 6 is among the best performers in the continous test for list length.
+		\item[LSD Counting - 8] Despite base 8 seeming to perform worse on the continuous tests for higher list lengths in \autoref{fig:lsdclength}, it performed extremely well in the categorical tests shown in \autoref{table:averageresults} and was the only implementation faster than timsort at every integer limit.
+		\item[LSD Pigeonhole - 12] Base 12 has the lowest average sort time in \autoref{table:averageresults} and performs at least as well as or better than 10 in the continuous tests, as seen in \autoref{fig:lsdplength}.
+		\item[MSD Counting - 10] Base 8 performs the best based on th e results in \autoref{table:averageresults}, but performs poorly relative to base 10 in the continous test for list length, as seen in \autoref{fig:msdclength}.
+		\item[MSD Pigeonhole - 6] Due to the large difference between the best and second best performing base in \autoref{table:averageresults}, no other option seems viable. Furthermore, base 6 is among the best performers in the continous test for list length, as seen in \autoref{fig:msdplength}.
 	\end{description}
-	\par
+	\pagebreak
+	\myparagraph{Selecting an implementation}
 	Using the data produced during the categorical testing process, the 4 selected bases can be isolated and compared with timsort, the tables below show the average normalized time for each alongside the average rank 1-5.
 	\par
-	\autoref{fig:datatype} compares the algorithms with a separation between data type (Few Unique data was omitted as it shows similar results to Random), it highlights that for nearly sorted data timsort significantly out-performs radix sort, however it is actually the worst performer when sorting random data. The table also shows an order amongst the radix sort implementations, from best to worst this is: LSD Counting, MSD counting, MSD Pigeonhole, LSD Pigeonhole. In general, the data for the performance across all categories follows this trend, though it is not universally true.
+	\autoref{table:datatype} compares the four methods, showing a separation between data type as well as the overall average performance, it highlights that for nearly sorted data, Timsort significantly out-performs radix sort, however it is actually the worst performer when sorting random or Few Unique data. The table also shows an order amongst the radix sort implementations, from best to worst: LSD Counting, MSD counting, MSD Pigeonhole, LSD Pigeonhole.
+	\par
+	Based on this, LSD Counting sort with a numerical base of 8 has been selected as the chosen implementation, and would be able to perform better than timsort on random data, but not on nearly sorted data.
 	\begin{table}[h]
+		\sisetup{
+  table-space-text-post=\%}
 		\centering
-		\begin{tabular}{c|cl|cl|cl}
+		\begin{tabular}{cS[table-format=3.0]S[table-format=3.0]S[table-format=3.0]S[table-format=3.0]}
 			\toprule
-			\multicolumn{1}{c}{data type} & \multicolumn{2}{c}{Few Unique} & \multicolumn{2}{c}{Nearly Sorted} & \multicolumn{2}{c}{Random} \\
+			Method & \multicolumn{1}{c}{Few Unique} & \multicolumn{1}{c}{Nearly Sorted} & \multicolumn{1}{c}{Random} & \multicolumn{1}{c}{Average} \\
 			\midrule
-			\multicolumn{1}{c}{} & rank & times & rank & times & rank & times \\
-			\midrule
-			lsd c  & \,\,1.25  & -1.02  & \,\,2.42  & -0.61  & \,\,1.25  & -0.99 \\
-			lsd p  & \,\,3.5  & \,\,0.17  & \,\,4.83  & \,\,1.68  & \,\,3.75  & \,\,0.35 \\
-			msd c  & \,\,2.08  & -0.7  & \,\,3.08  & -0.22  & \,\,1.75  & -0.81 \\
-			msd p  & \,\,3.25  & -0.03  & \,\,3.58  & \,\,0.12  & \,\,3.33  & -0.18 \\
-			timsort  & \,\,4.92  & \,\,1.58  & \,\,1.08  & -0.97  & \,\,4.92  & \,\,1.62 \\
+			lsd c & -88\% & 103\% & -89\% & -25\% \\
+			msd c & -78\% & 181\% & -82\% & 6\% \\
+			msd p & -55\% & 318\% & -60\% & 67\% \\
+			lsd p & -46\% & 906\% & -42\% & 272\% \\
+			timsort & 0\% & 0\% & 0\% & 0\% \\
 			\bottomrule
 			\end{tabular}
 		
-			\captionof{table}{Average rank 1-5 and normalized time with separation between data type}
-			\label{fig:datatype}
+			\caption{Average sort time relative to timsort, separated by data type}
+			\label{table:datatype}
 	\end{table}
 
-	
-	
 	
 \pagebreak
 \printbibliography
