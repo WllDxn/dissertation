@@ -3,7 +3,7 @@ import math
 import sys
 def gen_list(cols, max_value, type="Random", insert=False, nearlysorted_percentage=10):
     lis = []
-    s = ''
+    s=''
     if type == "Random" and not insert:
         s= f'np.random.randint(-{max_value}, {max_value}-1, {cols}, dtype=np.int64).tolist()'
     elif type == "Few Unique":
@@ -24,7 +24,7 @@ runner = pyperf.Runner()
 nl = r'\n'
 # variations = list(itertools.product(["Random"],[10000],[63]))
 
-variations = list(itertools.product(["Random", "Few Unique", "Nearly Sorted" ],[100000],[63,32,20,16]))
+variations = list(itertools.product(["Random", "Few Unique", "Nearly Sorted" ],[1000000],[63,32,20,16]))
 # print(variations)
 for (typ, cols, m) in variations:
     max_value = int(math.pow(2, m))
